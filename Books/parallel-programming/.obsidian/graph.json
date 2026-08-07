@@ -1,0 +1,73 @@
+{
+  "collapse-filter": true,
+  "search": "",
+  "showTags": true,
+  "showAttachments": false,
+  "hideUnresolved": false,
+  "showOrphans": false,
+  "collapse-color-groups": true,
+  "colorGroups": [
+    {
+      "query": "tag:#concurrency OR tag:#parallelism",
+      "color": {
+        "a": 1,
+        "rgb": 14120087
+      }
+    },
+    {
+      "query": "tag:#synchronization OR tag:#locks",
+      "color": {
+        "a": 1,
+        "rgb": 14745599
+      }
+    },
+    {
+      "query": "tag:#actor-model OR tag:#message-passing",
+      "color": {
+        "a": 1,
+        "rgb": 11141290
+      }
+    },
+    {
+      "query": "tag:#performance OR tag:#optimization",
+      "color": {
+        "a": 1,
+        "rgb": 5603527
+      }
+    },
+    {
+      "query": "tag:#distributed-systems",
+      "color": {
+        "a": 1,
+        "rgb": 8970029
+      }
+    },
+    {
+      "query": "tag:#immutability",
+      "color": {
+        "a": 1,
+        "rgb": 15844367
+      }
+    }
+  ],
+  "collapse-display": true,
+  "showMultilinks": true,
+  "linkSizeMultiplier": 1,
+  "nodeSizeMultiplier": 1,
+  "linePillText": false,
+  "textFadeMultiplier": 0,
+  "nodePadding": 75,
+  "textFadeOutMultiplier": 0,
+  "defaultNodeSize": 6,
+  "defaultLinkLength": 250,
+  "isPhysicsEnabled": true,
+  "physics": {
+    "enabled": true,
+    "repulsion": -300,
+    "linkStrength": 1,
+    "linkDistance": 250,
+    "gravityStrength": 0
+  },
+  "zoom": 1,
+  "everythingShown": false
+}

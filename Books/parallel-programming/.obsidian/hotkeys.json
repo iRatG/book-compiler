@@ -1,0 +1,19 @@
+{
+  "editor:toggle-fold": [
+    {
+      "modifiers": [
+        "ctrl"
+      ],
+      "key": "ArrowUp"
+    }
+  ],
+  "editor:unfold": [
+    {
+      "modifiers": [
+        "ctrl",
+        "shift"
+      ],
+      "key": "ArrowUp"
+    }
+  ]
+}
