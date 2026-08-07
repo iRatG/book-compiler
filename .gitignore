@@ -1,0 +1,17 @@
+# Source books and personal reading material
+docs/
+*.fb2
+*.fb2.zip
+gogolx_n_w-text_0040.fb2/
+
+# System files
+.DS_Store
+*.swp
+*.swo
+*~
+.env
+
+# IDE
+.vscode/
+.idea/
+*.code-workspace
