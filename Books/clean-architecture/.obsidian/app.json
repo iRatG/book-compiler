@@ -1,0 +1,14 @@
+{
+  "basePath": "",
+  "defaultViewMode": "preview",
+  "ribbonMinWidth": 50,
+  "alwaysUpdateLinks": true,
+  "showLineNumber": false,
+  "showFrontmatter": false,
+  "insertLinkStyle": "autolink",
+  "pairedMarkdownBrackets": true,
+  "showUnsupportedFiles": true,
+  "spellcheck": false,
+  "autoPairBrackets": true,
+  "autoPairMarkdown": true
+}
