@@ -63,61 +63,30 @@ description: Deep reading skill. Reconstructs books (not summarizes). Use when a
 
 ## Hard Rules (Non-Negotiable)
 
-1. **Do NOT optimize for compression.** Preserve the book's texture.
-2. **Do NOT treat chapter summaries as canonical.** Reconstruct from the actual text.
-3. **Do NOT equate frequency with importance.** Function in the argument matters.
-4. **Do NOT present inferred statements as explicit author claims.** Tag status correctly.
-5. **Do NOT treat examples as ideas.** Examples illustrate ideas; they are separate nodes.
-6. **Do NOT use quotations as knowledge nodes.** Quotations are evidence supporting claims.
+1. **Preserve the book's texture and intellectual architecture.** Do not optimize for compression.
+2. **Reconstruct from the actual text, not chapter summaries.** Author fidelity is non-negotiable.
+3. **Prioritize structural function in the argument, not frequency of mention.** Importance depends on role.
+4. **Tag every statement with epistemic status** (explicit/inferred/interpretation/evaluation). Never present inference as fact.
+5. **Separate examples from concepts with ILLUSTRATES relations.** Examples clarify ideas but are not ideas.
+6. **Use quotations as Evidence supporting claims, not as knowledge nodes.** Distinguish sources from concepts.
 
 ---
 
 ## Five-Layer Model (Quick Reference)
 
-| Layer | Node Types | Question |
-|-------|-----------|----------|
-| **PURPOSE** | Problem, Intent | Why does this book exist? |
-| **QUESTIONS** | Question | What does the author ask? |
-| **IDEAS** | Concept, Claim, Principle | What ideas does the author introduce? |
-| **REASONING** | Argument, Evidence, Example, Assumption | How are ideas supported? |
-| **CONSEQUENCES** | Implication, Application, Limitation | What follows? |
+See **reference/ontology.md** for the complete Five-Layer Model diagram and detailed specifications for all node types.
 
 ---
 
 ## Node Metadata
 
-Each node:
-```yaml
-id: [unique id]
-type: [one of 13 types]
-title: [short label]
-statement: [1-2 sentence core claim]
-status: explicit | inferred | interpretation | evaluation
-importance: core | important | supporting | detail
-confidence: high | medium | low
-source:
-  chapter: [chapter or section]
-  location: [page/passage]
-relations:
-  - type: [relation type]
-    target: [id of related node]
-    note: [optional explanation]
-```
+Each node includes: id, type, title, statement, status, importance, confidence, source, and relations. See **reference/ontology.md** for the complete node template and metadata definitions.
 
 ---
 
 ## Output Structure
 
-```
-Books/<slug>/
-├── 00_purpose.md
-├── 01_questions.md
-├── 02_ideas.md
-├── 03_reasoning.md
-└── 04_consequences.md
-```
-
-Each file is hierarchically organized, human-readable markdown with full node metadata and relations.
+Output is five markdown files: `00_purpose.md`, `01_questions.md`, `02_ideas.md`, `03_reasoning.md`, `04_consequences.md` in `Books/<slug>/`. See **reference/process.md** for detailed structure and examples.
 
 ---
 
@@ -131,7 +100,8 @@ Each file is hierarchically organized, human-readable markdown with full node me
 
 ## References
 
-- **reference/philosophy.md** — The three authors and six foundational principles
-- **reference/ontology.md** — Complete specification of node types, relations, and templates
-- **reference/process.md** — Detailed step-by-step instructions and examples
-- **reference/design-log.md** — Full design conversation and rationale
+- **reference/philosophy.md** — The three authors (Povarnin, Adler, Foster) and six foundational principles that guide all work
+- **reference/ontology.md** — Complete specification of node types, relations, templates, and metadata definitions
+- **reference/process.md** — Detailed step-by-step instructions, examples, and verification checklists
+- **reference/specification.md** — Formal specification with implementation decisions and testing criteria
+- **reference/design-log.md** — Full design conversation and rationale (historical record)

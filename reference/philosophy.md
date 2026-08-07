@@ -67,14 +67,14 @@ Save conditions, exceptions, scope, qualifications, and uncertainty. A claim los
 
 ---
 
-## What This Skill Does NOT Do
+## What This Skill Does
 
-- Does NOT summarize (compress information for speed)
-- Does NOT prioritize frequency of mention over structural importance
-- Does NOT treat chapter summaries as the canonical form
-- Does NOT present examples as ideas
-- Does NOT use quotations as knowledge nodes (they are evidence, not concepts)
-- Does NOT critique before reconstruction is complete
+- **Reconstructs** the intellectual structure (does not compress information for speed)
+- **Prioritizes structural function** in the argument (not frequency of mention)
+- **Reconstructs from the actual text**, not chapter summaries
+- **Separates examples from concepts** with ILLUSTRATES relations
+- **Uses quotations as Evidence** supporting claims (not as concepts)
+- **Completes reconstruction before critique** (author fidelity first, evaluation second)
 
 ## What This Skill DOES Do
 

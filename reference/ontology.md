@@ -20,6 +20,18 @@ Each layer contains specific types of nodes. Relationships (edges) connect nodes
 
 ---
 
+## Key Invariants (All Models Must Satisfy)
+
+These five invariants are non-negotiable constraints on all models:
+
+- **No node without source.** Every claim has provenance (chapter/section/location).
+- **Status is always declared.** No ambiguity between explicit and inferred; every node is tagged.
+- **Relationships are explicit.** Connections are named with typed edges, not left implicit.
+- **Qualifications are preserved.** Scope, exceptions, conditions are part of the node, not discarded for brevity.
+- **Examples are not ideas.** If something is purely illustrative, it's an Example node with an ILLUSTRATES relation, not a Concept or Claim.
+
+---
+
 ## Five Layers and Their Node Types
 
 ### Layer 1: PURPOSE
@@ -69,6 +81,8 @@ Each layer contains specific types of nodes. Relationships (edges) connect nodes
 
 ## Node Template
 
+**CANONICAL: This template is the authoritative specification for all nodes across all documents.**
+
 Every node in the book model uses this structure:
 
 ```yaml
@@ -89,6 +103,8 @@ relations:
 ```
 
 ### Status Definitions
+
+**CANONICAL: These definitions are the authoritative source for epistemic tagging. Other documents reference this section.**
 
 - **explicit** — The author states this directly in the text.
 - **inferred** — Clearly implied but not stated verbatim; a straightforward inference from what is said.
@@ -112,6 +128,8 @@ relations:
 
 ## Relations (Edges)
 
+**CANONICAL: This is the authoritative specification of all relation types. Other documents reference this section.**
+
 Relationships show how nodes connect and depend on each other:
 
 | Relation | Meaning |
@@ -129,6 +147,8 @@ Relationships show how nodes connect and depend on each other:
 ---
 
 ## Node Admission Rule
+
+**CANONICAL: This is the authoritative admission rule. Other documents reference this section.**
 
 **A node earns a place in the model if it:**
 1. Is necessary for understanding the book's central ideas
@@ -183,12 +203,3 @@ The skill renders each book as 5 markdown files in `Books/<slug>/`:
 
 Each file groups its nodes hierarchically (by layer and sub-topic), preserves the node template fields as readable metadata, and includes a "Relations" section linking to other files where relevant.
 
----
-
-## Key Invariants
-
-- **No node without source.** Every claim has provenance.
-- **Status is always declared.** No ambiguity between explicit and inferred.
-- **Relationships are explicit.** Connections are named, not implicit.
-- **Qualifications are preserved.** Scope, exceptions, conditions are part of the node, not dropped.
-- **Examples are not ideas.** If something is purely illustrative, it's an Example node with an ILLUSTRATES relation, not a Concept or Claim.
