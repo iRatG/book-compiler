@@ -1,80 +1,137 @@
 ---
 name: book-compiler
-description: Use when asked to deeply read, analyze, or reconstruct a book, article, or paper. Triggers on "read this deeply", "build a book model", "reconstruct the ideas", "what is this really saying", "deep reading". Does NOT summarize—reconstructs intellectual structure.
+description: Deep reading skill. Reconstructs books (not summarizes). Use when asked to "read this deeply", "build a book model", "what is this really saying", "reconstruct the ideas". Output is 5 structured markdown files modeling the book's intellectual architecture.
 ---
 
-# Book Compiler Skill
+# BOOK COMPILER — Deep Reading Skill (v0)
 
-This skill does not summarize books. **It reads them.**
+## Manifesto
 
-When you ask it to read a text deeply, the skill:
-1. Identifies why the text exists and what problem it addresses
-2. Reconstructs the author's intellectual structure—the questions, ideas, reasoning, and conclusions
-3. Preserves the distinction between what is explicitly stated, what is inferred, and what is interpretation
-4. Traces important conclusions back to their source
-5. Transforms the reconstruction into a knowledge model optimized for understanding, memory, and application
+> This skill does not summarize books. It reads them. It determines why a book exists, identifies the questions it addresses, reconstructs its concepts, claims, principles and reasoning, preserves the distinction between the author's statements and the model's interpretations, traces important conclusions back to the source, and builds a compact but deep model of how the book works as an intellectual system. Only after this reconstruction is complete does the skill transform the model into a human-readable representation optimized for understanding, retention and application.
 
-## The Three-Pass Process
+---
+
+## Core Principles (Three Authors)
+
+- **Povarnin**: Reading is purposeful. Know *why* and *how deep* before you start.
+- **Adler**: Reading is active reconstruction of the author's intellectual structure.
+- **Foster**: Meaning lives in layers. Attend to what is shown as well as what is said.
+
+---
+
+## The Three Passes
 
 ### Pass 1: Survey
-Before detailed reading:
-- Identify the text type (non-fiction, narrative, argument, exploration)
-- Identify the central problem the author addresses and the author's intent
-- Skim structure: table of contents, introduction, conclusion, chapter openings
-- Identify the central question(s) that organize the text
-- Determine your reading goal—what depth is needed?
+- Identify text type (non-fiction, narrative, argument)
+- Skim structure: TOC, intro, conclusion, chapter openings
+- Identify the problem the book addresses
+- Identify the author's intent and central question(s)
+- Establish your reading goal and approach
 
-Do not read linearly yet. Build an orientation.
+**Output**: One-paragraph orientation + central problem, intent, and questions identified.
 
 ### Pass 2: Reconstruct
-Read the text (or the section you're asked to analyze) and populate the Five-Layer Model:
+- Read the text (linear or requested excerpt)
+- Extract nodes using the Five-Layer Model:
+  1. **PURPOSE** — Problem, Intent
+  2. **QUESTIONS** — Questions organizing the inquiry
+  3. **IDEAS** — Concepts, Claims, Principles
+  4. **REASONING** — Arguments, Evidence, Examples, Assumptions
+  5. **CONSEQUENCES** — Implications, Applications, Limitations
 
-1. **PURPOSE** — Problem and Intent. Why was this written?
-2. **QUESTIONS** — Central and subsidiary questions organizing the inquiry
-3. **IDEAS** — Concepts, claims, principles the author introduces
-4. **REASONING** — How ideas are supported: arguments, evidence, examples, assumptions
-5. **CONSEQUENCES** — Implications, applications, limitations
+- Tag every node with: status (explicit/inferred/interpretation/evaluation), importance (core/important/supporting/detail), confidence (high/medium/low), source (chapter/section/location)
+- Identify relations between nodes (ANSWERS, SUPPORTS, DEPENDS_ON, EXPLAINS, ILLUSTRATES, QUALIFIES, CONTRADICTS, LEADS_TO, PART_OF)
+- **Critical rule**: Never critique before reconstruction is complete.
 
-For each node:
-- Write a clear, concise statement
-- Tag its status: explicit (directly stated), inferred (clearly implied), interpretation (requires judgment), or evaluation (your assessment)
-- Record its importance: core (essential), important (significant), supporting (reinforces), or detail (illustrative)
-- Note the source: chapter, section, passage, page
-- Identify relations to other nodes (supports, answers, depends_on, leads_to, contradicts, etc.)
-
-**Critical rule:** Never critique before reconstruction is complete. Do not evaluate the author's argument until you understand it fully.
+**Output**: ~30-100 nodes organized by layer with full metadata.
 
 ### Pass 3: Write
-Render the reconstructed model as five markdown files:
-- `00_purpose.md` — Problem and Intent
-- `01_questions.md` — Questions
-- `02_ideas.md` — Concepts, Claims, Principles
-- `03_reasoning.md` — Arguments, Evidence, Examples, Assumptions
-- `04_consequences.md` — Implications, Applications, Limitations
+- Organize nodes by layer into five markdown files:
+  - `00_purpose.md` — Problem and Intent
+  - `01_questions.md` — Questions
+  - `02_ideas.md` — Concepts, Claims, Principles
+  - `03_reasoning.md` — Arguments, Evidence, Examples, Assumptions
+  - `04_consequences.md` — Implications, Applications, Limitations
 
-Organize each file hierarchically. Include node metadata (status, importance, confidence, source). Preserve qualifications, exceptions, and scope. Follow the templates in `reference/ontology.md`.
+- Use the node template (see `reference/ontology.md`)
+- Include relations with explanatory notes
+- Preserve qualifications, scope, exceptions
+
+**Output**: Five markdown files in `Books/<slug>/`
+
+---
 
 ## Hard Rules (Non-Negotiable)
 
-- **Do NOT optimize primarily for compression.** Preserve the full structure.
-- **Do NOT treat chapter summaries as the canonical representation.** Go deeper.
-- **Do NOT equate frequency of mention with importance.** Some ideas are structurally central even if mentioned once.
-- **Do NOT present inferred statements as explicit author claims.** Tag status correctly.
-- **Do NOT treat examples as ideas.** Examples illustrate; they do not constitute knowledge nodes.
-- **Do NOT use quotations as knowledge nodes.** Quotations are evidence that support claims, not claims themselves.
+1. **Do NOT optimize for compression.** Preserve the book's texture.
+2. **Do NOT treat chapter summaries as canonical.** Reconstruct from the actual text.
+3. **Do NOT equate frequency with importance.** Function in the argument matters.
+4. **Do NOT present inferred statements as explicit author claims.** Tag status correctly.
+5. **Do NOT treat examples as ideas.** Examples illustrate ideas; they are separate nodes.
+6. **Do NOT use quotations as knowledge nodes.** Quotations are evidence supporting claims.
+
+---
+
+## Five-Layer Model (Quick Reference)
+
+| Layer | Node Types | Question |
+|-------|-----------|----------|
+| **PURPOSE** | Problem, Intent | Why does this book exist? |
+| **QUESTIONS** | Question | What does the author ask? |
+| **IDEAS** | Concept, Claim, Principle | What ideas does the author introduce? |
+| **REASONING** | Argument, Evidence, Example, Assumption | How are ideas supported? |
+| **CONSEQUENCES** | Implication, Application, Limitation | What follows? |
+
+---
+
+## Node Metadata
+
+Each node:
+```yaml
+id: [unique id]
+type: [one of 13 types]
+title: [short label]
+statement: [1-2 sentence core claim]
+status: explicit | inferred | interpretation | evaluation
+importance: core | important | supporting | detail
+confidence: high | medium | low
+source:
+  chapter: [chapter or section]
+  location: [page/passage]
+relations:
+  - type: [relation type]
+    target: [id of related node]
+    note: [optional explanation]
+```
+
+---
 
 ## Output Structure
 
-Create a folder `Books/<slug>/` where `<slug>` is a short identifier (e.g., `gogol-dead-souls`, `adler-how-to-read`).
+```
+Books/<slug>/
+├── 00_purpose.md
+├── 01_questions.md
+├── 02_ideas.md
+├── 03_reasoning.md
+└── 04_consequences.md
+```
 
-Inside, place the five files as described above. Each file contains nodes with their metadata and relationships.
+Each file is hierarchically organized, human-readable markdown with full node metadata and relations.
 
-The output is a *machine-readable, human-interpretable knowledge structure* of the book. It is not a summary. It is not an outline. It is a reconstruction of the author's intellectual system.
+---
 
-## Philosophy
+## Scope (v0)
 
-See `reference/philosophy.md` for the three-author foundation (Povarnin, Adler, Foster) and the six core principles.
+**In scope**: Non-fiction (methodology, argument, exposition), narrative non-fiction, philosophy, social science.
 
-See `reference/ontology.md` for the complete node types, relation definitions, and metadata contract.
+**Out of scope**: Deep literary analysis (v1+), poetry, technical proofs, syntopical reading.
 
-See `reference/design-log.md` for the full design process and rationale.
+---
+
+## References
+
+- **reference/philosophy.md** — The three authors and six foundational principles
+- **reference/ontology.md** — Complete specification of node types, relations, and templates
+- **reference/process.md** — Detailed step-by-step instructions and examples
+- **reference/design-log.md** — Full design conversation and rationale
