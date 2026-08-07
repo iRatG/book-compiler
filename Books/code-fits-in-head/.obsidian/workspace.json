@@ -1,0 +1,90 @@
+{
+  "main": {
+    "id": "main",
+    "type": "split",
+    "children": [
+      {
+        "id": "file-explorer-container",
+        "type": "leaf",
+        "state": {
+          "type": "file-explorer",
+          "state": {}
+        },
+        "tab": {
+          "label": "File explorer",
+          "type": "file-explorer"
+        }
+      },
+      {
+        "id": "markdown-editor",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "README.md",
+            "mode": "preview"
+          }
+        },
+        "tab": {
+          "label": "README",
+          "type": "markdown"
+        }
+      }
+    ]
+  },
+  "right": {
+    "id": "right-sidebar",
+    "type": "split",
+    "children": [
+      {
+        "id": "tag-pane-container",
+        "type": "leaf",
+        "state": {
+          "type": "tag",
+          "state": {}
+        },
+        "tab": {
+          "label": "Tags",
+          "type": "tag"
+        }
+      },
+      {
+        "id": "backlink-container",
+        "type": "leaf",
+        "state": {
+          "type": "backlink",
+          "state": {
+            "file": "README.md"
+          }
+        },
+        "tab": {
+          "label": "Backlinks",
+          "type": "backlink"
+        }
+      },
+      {
+        "id": "outline-container",
+        "type": "leaf",
+        "state": {
+          "type": "outline",
+          "state": {
+            "file": "README.md"
+          }
+        },
+        "tab": {
+          "label": "Outline",
+          "type": "outline"
+        }
+      }
+    ]
+  },
+  "active": "markdown-editor",
+  "lastOpenFiles": [
+    "README.md",
+    "04_consequences.md",
+    "03_reasoning.md",
+    "02_ideas.md",
+    "01_questions.md",
+    "00_purpose.md"
+  ]
+}

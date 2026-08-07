@@ -1,0 +1,40 @@
+{
+  "plugins": {
+    "file-explorer": {
+      "id": "file-explorer",
+      "desc": "File explorer"
+    },
+    "global-search": {
+      "id": "global-search",
+      "desc": "Search"
+    },
+    "switcher": {
+      "id": "switcher",
+      "desc": "Quick switcher"
+    },
+    "graph": {
+      "id": "graph",
+      "desc": "Graph view"
+    },
+    "backlink": {
+      "id": "backlink",
+      "desc": "Backlinks"
+    },
+    "tag-pane": {
+      "id": "tag-pane",
+      "desc": "Tags"
+    },
+    "page-preview": {
+      "id": "page-preview",
+      "desc": "Page preview"
+    },
+    "outline": {
+      "id": "outline",
+      "desc": "Outline"
+    },
+    "word-count": {
+      "id": "word-count",
+      "desc": "Word count"
+    }
+  }
+}

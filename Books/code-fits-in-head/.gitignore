@@ -1,0 +1,32 @@
+# Obsidian specific files
+.obsidian/*.cache
+.obsidian/daily-notes.json
+.obsidian/plugins/*/data.json
+.obsidian/plugins/*/main.js
+
+# System files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.log
+
+# Attachments (if managing separately)
+# attachments/
+
+# Build files (if any)
+*.pdf
+*.epub
+
+# IDE
+.vscode/
+*.code-workspace
+
+# Python
+__pycache__/
+*.pyc
+.python-version
