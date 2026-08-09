@@ -4,12 +4,13 @@
     "author": "Robert C. Martin (\"Uncle Bob\")",
     "publication": "2018 (Russian translation by A. Makarova)",
     "book_name": "clean-architecture",
-    "format_version": "3.0",
-    "generated_at": "2026-08-09T08:10:54.643420",
+    "format_version": "4.0",
+    "generated_at": "2026-08-09T10:38:20.903110",
     "language": "English",
-    "generation_pass": "Pass 6: JSON Generation for LLM"
+    "source_language": "English",
+    "generation_pass": "Pass 4: Generate LLM Instructions (LLM-driven)"
   },
-  "system_instruction": "You are applying Clean Architecture. The Art of Software Development's principles to real work.\n\n**How to use this JSON:**\n1. Identify which principle applies\n2. Review supporting_arguments for evidence\n3. Check related_implications for practical application\n4. Use code_review_checklist items\n5. Apply practical_metrics to measure\n\n**RULES:**\n- Only cite what's in this JSON\n- Quote supporting_arguments\n- Use checklist items verbatim\n- If principle doesn't apply, say so\n\nEverything here is sourced from the book. Nothing is invented.",
+  "system_instruction": "You are applying Clean Architecture. The Art of Software Development's principles to real work.\n\n**How to use this JSON:**\n1. Identify which principle applies to your situation\n2. Read the principle's statement and tags\n3. Review supporting_arguments for evidence and reasoning\n4. Check related_implications for practical application\n5. Consult related_questions to probe deeper\n\n**RULES:**\n- Only cite what's in this JSON\n- Quote supporting_arguments when making claims\n- Use source references to trace arguments back to the book\n- If a principle doesn't apply, say so clearly\n- If you need anti-patterns or checklists, acknowledge they're not in this data\n\nEverything here is sourced directly from the book. Nothing is invented.",
   "quick_reference": {
     "book": "clean-architecture",
     "principles_count": 15,
@@ -25,9 +26,9 @@
   "principles": [
     {
       "id": "principle_1",
-      "number": 1,
+      "number": "1",
       "principle": "Architecture is NOT Separate from Code",
-      "statement": "**Claim:** Architects cannot avoid implementation details. Architecture and design are a continuous spectrum, not two separate concerns.",
+      "statement": "**Claim:** Architects cannot avoid implementation details. Architecture and design are a continuous spectrum, not two separate concerns.\n**Implication:** You cannot hand off \"architecture\" to senior people and \"coding\" to juniors. Both happen at all levels.\n**Tags:** #architecture-definition, #responsibility-distribution, #unity-of-design",
       "tags": [
         "architecture-definition",
         "responsibility-distribution",
@@ -41,13 +42,13 @@
     },
     {
       "id": "principle_2",
-      "number": 2,
+      "number": "2",
       "principle": "The Goal of Architecture is Minimizing Human Effort",
-      "statement": "",
+      "statement": "**Statement:** \n> The goal of software architecture is to minimize the human effort required to satisfy the needs of the customer.\n**Measurement:**\n- Track this through the cost of change over time\n- Good architecture: cost stays low as system grows\n- Bad architecture: cost increases exponentially as system grows\n**Why?** Because software's value is NOT that it works once — it's that it remains changeable forever.\n**Tags:** #architectural-goal, #cost-of-change, #long-term-value",
       "tags": [
-        "long-term-value",
+        "architectural-goal",
         "cost-of-change",
-        "architectural-goal"
+        "long-term-value"
       ],
       "source": "02_ideas.md: PRINCIPLE 2",
       "source_line": 12,
@@ -56,26 +57,26 @@
       "related_questions": [
         {
           "id": "question_02",
-          "text": "What is the Goal of Software Architecture?",
+          "text": "What is the Goal of Software Architecture? **Answer:** Minimize human effort to create and maintain the system. But this raises sub-questions: - Effort for whom? (Users, developers, managers, stakeholders) - Over what timeframe? (Initial build vs. 5-year maintenance) - What counts as \"effort\"? (Time, cost, risk, cognitive load) **The Eisenhower Matrix Question:** Is functionality more important than architecture? **Tags:** #architectural-goal, #effort-minimization, #stakeholder-value",
           "source": "01_questions.md: Question 2"
         }
       ]
     },
     {
       "id": "principle_3",
-      "number": 3,
+      "number": "3",
       "principle": "Two Distinct Values Exist in Every System",
-      "statement": "",
+      "statement": "All software has two types of value that must be balanced:\n### Value 1: BEHAVIOR\n- The system does what it's supposed to do *right now*\n- Managers care about this (ROI, features, market)\n- Programmers often focus exclusively here\n- **Problem:** Making behavior work is easy; maintaining it is hard\n**Tags:** #behavior-value, #feature-development, #requirements\n### Value 2: ARCHITECTURE\n- The system can be easily CHANGED when requirements shift\n- Without this value, behavior eventually becomes impossible to change\n- **The hard truth:** A system that works but cannot be modified is useless when the world changes\n**Tags:** #architecture-value, #flexibility, #changeability\n### The Eisenhower Matrix Insight:\n- **BEHAVIOR** = Urgent but not always Important\n- **ARCHITECTURE** = Important but not always Urgent\n**The false choice:** \"Let's make it work now; we'll fix the architecture later.\"\n**The reality:** Later never comes. The mess keeps growing.\n**Tags:** #urgency-vs-importance, #prioritization, #strategic-thinking",
       "tags": [
-        "prioritization",
         "behavior-value",
+        "feature-development",
+        "requirements",
+        "architecture-value",
         "flexibility",
         "changeability",
         "urgency-vs-importance",
-        "feature-development",
-        "architecture-value",
-        "strategic-thinking",
-        "requirements"
+        "prioritization",
+        "strategic-thinking"
       ],
       "source": "02_ideas.md: PRINCIPLE 3",
       "source_line": 28,
@@ -83,21 +84,15 @@
         {
           "id": "arg_008",
           "name": "The Eisenhower Matrix Applied to Software",
-          "claim": "",
-          "source": "03_reasoning.md: Argument 8"
-        },
-        {
-          "id": "arg_010",
-          "name": "Cost of Change Over Time (Mathematical Model)",
-          "claim": "",
-          "source": "03_reasoning.md: Argument 10"
+          "claim": "**Framework:** President Eisenhower's prioritization matrix\n| | Important | Not Important |\n|----------|-----------|---|\n| **Urgent** | (1) Crisis/Emergency | (3) Distraction |\n| **Not Urgent** | (2) Strategy | (4) Waste |\n**Typical categorization:**\n- **Urgent + Important:** Critical bugs, major outages\n- **Not Urgent + Important:** Architecture, refactoring, testing, training\n- **Urgent + Not Important:** Most feature requests, many meetings\n- **Not Urgent + Not Important:** Busywork, meetings without purpose\n**The Software Problem:**\n**BEHAVIOR** (Feature requests):\n- Perceived as Urgent + Not Important (Q3)\n- Feel immediate pressure (\"Ship now!\")\n- But often are just routine or cosmetic\n**ARCHITECTURE** (Design decisions):\n- Is Not Urgent + Important (Q2)\n- Easy to defer (\"We'll do it next sprint\")\n- Becomes critical only when system breaks\n**The Mistake:** Elevating Q3 tasks to Q1 priority, while deferring Q2 tasks.\n**Result:** Crisis management (always on fire) instead of strategic thinking.\n**Resolution:** Developers must categorize correctly and advocate for Q2 work.\n**Tags:** #prioritization, #strategic-thinking, #urgency-bias, #deferred-maintenance",
+          "source": "03_reasoning.md: Argument 008"
         }
       ],
       "related_implications": [
         {
           "id": "impl_009",
           "name": "Expect Change; Design for It",
-          "what_means": "this means:**\n- Architecture must not assume requirements are fixed\n- Build in flexibility for commo",
+          "what_means": "**What this means:**\n- Architecture must not assume requirements are fixed\n- Build in flexibility for common changes (technology, scale, users)\n- Treat architecture as hypothesis, not dogma\n**Example: Traffic scaling**\n**Bad (overcommitted):**\n- \"We'll deploy on a single server with PostgreSQL.\"\n- When traffic grows 100x, rewrite required.\n**Good (flexible):**\n- \"We'll deploy on stateless app servers behind load balancer, with PostgreSQL. If we outgrow DB, we can shard. If we need NoSQL for certain data, we can add it.\"\n- As traffic grows, add servers (no code changes) or shard DB (limited changes).\n**Architectural application:**\n- Design for horizontal scalability (add servers, not bigger servers)\n- Decouple components so they can scale independently\n- Use caching and queues to reduce direct dependencies\n- Assume you'll need to support multiple databases/storage systems\n**Practical adoption:**\n- Architect for 10x traffic, not current traffic\n- Use message queues for async communication\n- Don't assume in-process communication is sufficient\n- Build feature flags for gradual rollout\n- Monitor cost-of-change as system grows; refactor when needed\n**Why it matters:**\n- System remains responsive as it grows\n- Adding capacity doesn't require rewrite\n- New requirements (e.g., \"support China market\") don't necessitate architecture redesign\n**Tags:** #scalability, #flexibility, #change-readiness, #future-proofing",
           "source": "04_consequences.md: Implication 9"
         }
       ],
@@ -105,13 +100,13 @@
     },
     {
       "id": "principle_4",
-      "number": 4,
+      "number": "4",
       "principle": "The Hare and Tortoise Parable Applies to Code",
-      "statement": "",
+      "statement": "**Metaphor:** Developers are like the Hare—overconfident in their ability to \"make it quick and fix it later.\"\n**The lie developers believe:**\n> \"Dirty code will get us to market faster, and we'll clean it up later.\"\n**The truth:**\n> Dirty code always makes future development slower, regardless of time horizon.\n**Proof:** TDD studies show that test-driven development is ~10% faster *even on the first iteration*.\n**Implication:** Slowing down to maintain cleanliness is the fastest path.\n**Tags:** #arrogance, #long-term-thinking, #false-economy, #craftsmanship",
       "tags": [
-        "false-economy",
-        "long-term-thinking",
         "arrogance",
+        "long-term-thinking",
+        "false-economy",
         "craftsmanship"
       ],
       "source": "02_ideas.md: PRINCIPLE 4",
@@ -120,51 +115,39 @@
         {
           "id": "arg_003",
           "name": "The False Economy of \"Shipping Faster\"",
-          "claim": "",
-          "source": "03_reasoning.md: Argument 3"
+          "claim": "**Assumption:** Cutting corners on architecture saves time.\n**Disproof: Jason Gorman's Experiment (6-day study)**\n**Experimental setup:**\n- Simple task: Convert decimal integers to Roman numerals\n- Daily repetition with stopwatch measurement (~30 min per iteration)\n- Days 1-3: Test-Driven Development (TDD) approach\n- Days 4-6: No test-driven approach (ad-hoc coding)\n**Results:**\n| Metric | TDD | Ad-Hoc |\n|--------|-----|--------|\n| Avg time (first 3 days) | ~27 min | N/A |\n| Avg time (last 3 days) | ~24 min | ~29 min |\n| Best TDD result | 22 min | 30 min (worst ad-hoc) |\n| Learning curve | Steep decline | Plateau or increase |\n**Findings:**\n1. TDD is ~10% faster even on the first iteration\n2. Even the worst TDD result beats the best ad-hoc result\n3. TDD velocity improves; ad-hoc plateaus or worsens\n**Interpretation:**\n- Clean approach (TDD) gets faster with practice\n- Messy approach compounds difficulty over time\n- Claim: \"We'll move fast now, clean up later\" is backwards\n**Generalization:** Any systematic, disciplined approach outperforms ad-hoc shortcuts, even in the short term.\n**Tags:** #empirical-experiment, #test-driven-development, #false-economy, #evidence-based",
+          "source": "03_reasoning.md: Argument 003"
         },
         {
           "id": "arg_007",
           "name": "The Hare's Arrogance (Fable Application)",
-          "claim": "",
-          "source": "03_reasoning.md: Argument 7"
-        },
-        {
-          "id": "arg_010",
-          "name": "Cost of Change Over Time (Mathematical Model)",
-          "claim": "",
-          "source": "03_reasoning.md: Argument 10"
+          "claim": "**Aesop's Fable: The Tortoise and the Hare**\n**Lesson traditionally taught:** Consistency beats raw talent.\n**Martin's application to software:**\n### The Hare's Flaws:\n1. Overconfident in raw speed\n2. Believes they can sleep now and win later\n3. Ignores the tortoise's consistent, methodical approach\n4. Loses not because they're slow but because they stopped paying attention\n### The Programmer's Parallel:\n1. Overconfident in ability to \"fix it later\"\n2. Believe dirty code is faster *now*\n3. Ignores the cost-of-change curve\n4. Projects fail not because of lack of talent but because of code mess\n### The Mistake:\n**\"We'll ship fast now, clean up architecturally later.\"**\n**Why this fails:**\n- No \"later\" ever arrives (always new features to build)\n- Mess makes future changes slower\n- Sleeping during the code race = losing\n### The Tortoise's Secret:\nMaintaining discipline constantly is faster in long run than rushing + cleanup cycles.\n**Proof:** TDD experiment shows even short-term discipline wins.\n**Tags:** #arrogance, #hare-and-tortoise, #sustainable-pace, #false-promises",
+          "source": "03_reasoning.md: Argument 007"
         }
       ],
       "related_implications": [],
-      "related_questions": [
-        {
-          "id": "question_10",
-          "text": "When Does Architecture \"Cry Out\" its Structure?",
-          "source": "01_questions.md: Question 10"
-        }
-      ]
+      "related_questions": []
     },
     {
       "id": "principle_5",
-      "number": 5,
+      "number": "5",
       "principle": "Three Paradigms Control All Programming",
-      "statement": "",
+      "statement": "Since 1958, only THREE programming paradigms have been discovered. No new ones are likely.\n### PARADIGM 1: Structured Programming (1968, Dijkstra)\n- **What it removes:** Eliminates unstructured goto statements\n- **What remains:** Sequences, if/then/else, loops (Böhm-Jacopini theorem)\n- **Architectural role:** Enables functional decomposition into testable units\n- **Benefit:** Allows recursive breakdown of complex systems\n**Tags:** #structured-programming, #decomposition, #testability\n### PARADIGM 2: Object-Oriented Programming (1966, Dahl & Nygaard)\n- **What it removes:** Eliminates uncontrolled function pointers\n- **How:** Moves stack frames to heap → enables constructors, methods, polymorphism\n- **Architectural role:** Allows crossing architectural boundaries (dependency inversion)\n- **Key mechanism:** Polymorphism lets high-level modules depend on abstractions, not low-level modules\n**Tags:** #oop, #polymorphism, #dependency-inversion, #abstraction\n### PARADIGM 3: Functional Programming (1936 Lambda Calculus, Alonzo Church)\n- **What it removes:** Eliminates or restricts assignment/mutable state\n- **Core idea:** Immutability—once a variable is assigned, it cannot change\n- **Architectural role:** Makes concurrent access predictable; eliminates race conditions\n- **Benefit:** Reasoning about code becomes easier when state doesn't change\n**Tags:** #functional-programming, #immutability, #concurrency, #state-management\n### The Deeper Insight:\nEach paradigm is **restrictive**—it removes a capability, not adds one.\n- All programming power comes from sequences, conditionals, and loops (Turing complete)\n- Paradigms don't give us new capabilities; they constrain us to prevent mistakes\n- **Wisdom:** Losing harmful capabilities makes systems more maintainable\n**Tags:** #paradigm-wisdom, #constraints, #methodology",
       "tags": [
-        "functional-programming",
-        "testability",
-        "concurrency",
-        "dependency-inversion",
-        "paradigm-wisdom",
-        "methodology",
         "structured-programming",
-        "abstraction",
-        "oop",
-        "immutability",
-        "constraints",
         "decomposition",
+        "testability",
+        "oop",
+        "polymorphism",
+        "dependency-inversion",
+        "abstraction",
+        "functional-programming",
+        "immutability",
+        "concurrency",
         "state-management",
-        "polymorphism"
+        "paradigm-wisdom",
+        "constraints",
+        "methodology"
       ],
       "source": "02_ideas.md: PRINCIPLE 5",
       "source_line": 76,
@@ -173,46 +156,46 @@
         {
           "id": "impl_001",
           "name": "Adopt Structured Programming Practices",
-          "what_means": "this means:**\n- Write small, decomposable functions\n- Each function should be testable in isolation\n",
+          "what_means": "**What this means:**\n- Write small, decomposable functions\n- Each function should be testable in isolation\n- Use only sequences, conditionals, loops (no wild goto or break-heavy code)\n- Aim for recursive decomposition (big function → smaller functions → smallest units)\n**Architectural application:**\n- Organize code in layers where each layer can be unit-tested\n- Break large modules into smaller ones that are easier to reason about\n- Use integration tests to verify inter-module behavior\n**Practical adoption:**\n- Enforce code review for functions over ~50 lines\n- Use linters to prevent complex nesting (cyclomatic complexity)\n- Test at unit level; each piece should fail/pass independently\n**Why it matters:**\n- Enables the scientific method (test for falsification)\n- Small units = small blast radius for bugs\n- Easier to change one small piece without breaking others\n**Tags:** #structured-programming, #testability, #modularity, #code-review",
           "source": "04_consequences.md: Implication 1"
         },
         {
           "id": "impl_002",
           "name": "Use Polymorphism to Cross Architectural Boundaries",
-          "what_means": "this means:**\n- Instead of high-level code knowing about low-level implementations, reverse it\n- Hig",
+          "what_means": "**What this means:**\n- Instead of high-level code knowing about low-level implementations, reverse it\n- High-level code should depend on abstractions (interfaces)\n- Low-level code (database, UI, APIs) implements those abstractions\n**Example: Database independence**\n**Before (bad):**\n```\nBusiness Logic code\n    ↓ (imports/depends on)\nPostgreSQL driver\n```\nResult: Changing from PostgreSQL to MySQL requires changing business logic.\n**After (good):**\n```\nBusiness Logic code\n    ↓ (depends on)\nIUserRepository interface\n    ↑ (implements)\nPostgreSQL adapter\n    ↑ (implements)\nMySQL adapter\n```\nResult: Changing databases is just swapping the adapter; business logic unchanged.\n**Architectural application:**\n- Define clear interfaces between systems\n- Place interfaces with high-level concepts (business rules)\n- Place implementations with low-level details (frameworks, databases)\n- Dependency points toward abstraction (the \"inversion\" in Dependency Inversion Principle)\n**Practical adoption:**\n- Extract interfaces before implementing\n- Never import framework code into business logic\n- Organize folders by domain (OrderService, UserService) not by layer (Repository, Controller)\n**Why it matters:**\n- Makes replacing infrastructure easy (database, web framework, API)\n- Business logic remains testable independently of infrastructure\n- Enables parallel development (team A builds interface, team B builds implementation)\n**Tags:** #polymorphism, #dependency-inversion, #architecture-boundary, #decoupling",
           "source": "04_consequences.md: Implication 2"
         },
         {
           "id": "impl_003",
           "name": "Manage State and Concurrency with Functional Principles",
-          "what_means": "this means:**\n- Prefer immutability where possible\n- Minimize shared mutable state\n- Use functional ",
+          "what_means": "**What this means:**\n- Prefer immutability where possible\n- Minimize shared mutable state\n- Use functional patterns for data transformation\n**Example: Thread-safe data processing**\n**Before (error-prone):**\n```java\nUser user = getUserFromDatabase(); // mutable\nuser.setLastLoginTime(now());       // modifies user\nuser.setLoginCount(user.getLoginCount() + 1); // race condition risk\nsaveUser(user);\n```\nWith multiple threads, race conditions easily occur.\n**After (safe):**\n```java\nUser updatedUser = user\n    .withLastLoginTime(now())\n    .withLoginCount(user.getLoginCount() + 1);\n```\nCreates new user object; original is unchanged. Concurrent reads safe.\n**Architectural application:**\n- Identify state that must be mutable (usually data storage)\n- Make everything else immutable or functional\n- Use message queues for inter-component communication (avoid shared state)\n**Practical adoption:**\n- Use `final` keyword liberally in Java/C#\n- Prefer creating new objects to modifying existing ones\n- Use functional libraries (Lodash, Guava, etc.)\n- Avoid global/static mutable state\n**Why it matters:**\n- Eliminates entire categories of bugs (race conditions, side effects)\n- Code becomes easier to reason about (no surprise state changes)\n- Enables safe concurrent processing\n**Tags:** #functional-programming, #immutability, #concurrency, #state-management",
           "source": "04_consequences.md: Implication 3"
         },
         {
           "id": "impl_008",
           "name": "Build Systems That Are Testable",
-          "what_means": "this means:**\n- Architecture should enable unit testing of business logic\n- Don't couple business lo",
+          "what_means": "**What this means:**\n- Architecture should enable unit testing of business logic\n- Don't couple business logic to infrastructure (databases, frameworks)\n- Use dependency injection to provide mocks\n**Example: Testable order processing**\n**Bad (hard to test):**\n```java\nclass OrderService {\n  Database db = new PostgresConnection();\n  PaymentAPI payment = new StripeAPI();\n  void processOrder(Order order) {\n    db.save(order);\n    payment.charge(order.getTotal()); // Connects to Stripe live\n  }\n}\n```\n**Problem:** Running tests requires real database + live payment processor. Slow, expensive, risky.\n**Good (testable):**\n```java\nclass OrderService {\n  OrderRepository repo;\n  PaymentProcessor payment;\n  OrderService(OrderRepository repo, PaymentProcessor payment) {\n    this.repo = repo;\n    this.payment = payment;\n  }\n  void processOrder(Order order) {\n    repo.save(order);\n    payment.charge(order.getTotal());\n  }\n}\n// In tests:\nOrderService service = new OrderService(\n  new FakeOrderRepository(),  // In-memory\n  new FakePaymentProcessor()  // Mock\n);\nservice.processOrder(order);\n```\n**Problem:** Solved. Tests run in milliseconds, don't hit real systems.\n**Architectural application:**\n- Use dependency injection throughout\n- Program to interfaces, not implementations\n- Keep business logic free of framework annotations\n**Practical adoption:**\n- Inject dependencies via constructor\n- Create \"Fake\" implementations for testing (not mocks; real but in-memory)\n- Unit test business logic with fakes; integration test with real implementations\n- Use test containers (Docker) for integration tests\n**Why it matters:**\n- Fast feedback loop (unit tests run in seconds)\n- Developers confident in changes (good tests = safe refactoring)\n- Production bugs caught early\n- Cost-of-change stays low because changes are validated quickly\n**Tags:** #testability, #unit-testing, #dependency-injection, #test-driven-development",
           "source": "04_consequences.md: Implication 8"
         }
       ],
       "related_questions": [
         {
           "id": "question_05",
-          "text": "How Do You Decompose a Complex System?",
+          "text": "How Do You Decompose a Complex System? **The function decomposition question:** - Break the system into functions → break those into smaller functions → recursively **The module question:** - What is a module? How do you draw boundaries? **The layering question:** - Should architecture be layered? Hexagonal? Microservices? Event-driven? **Tags:** #decomposition, #modularity, #system-organization",
           "source": "01_questions.md: Question 5"
         },
         {
           "id": "question_07",
-          "text": "Which Paradigm Should Dominate: Structural, OO, or Functional?",
+          "text": "Which Paradigm Should Dominate: Structural, OO, or Functional? All three are valid. But do they solve the same problems or different problems? - **Structural:** Recursively decomposable, testable units - **OO:** Crossing architectural boundaries, controlled dependencies - **Functional:** Data immutability, predictable state changes **The real question:** How do you combine all three for optimal architecture? **Tags:** #programming-paradigms, #paradigm-choice, #architectural-patterns",
           "source": "01_questions.md: Question 7"
         }
       ]
     },
     {
       "id": "principle_6",
-      "number": 6,
+      "number": "6",
       "principle": "Architecture Uses All Three Paradigms at Different Levels",
-      "statement": "",
+      "statement": "**Not either/or; all three together:**\n1. **Structured Programming:** Provides the algorithmic foundation for testable functions and modules\n2. **OOP Polymorphism:** Enables architectural boundaries and dependency control\n3. **Functional Programming:** Manages data flow and state in predictable ways\n**Example architecture:**\n- Use functional style for pure, stateless business logic\n- Use OOP for component boundaries and interfaces\n- Use structured programming within each module for clarity\n**Tags:** #multi-paradigm, #integrated-approach, #architectural-layering",
       "tags": [
         "multi-paradigm",
         "integrated-approach",
@@ -225,21 +208,21 @@
       "related_questions": [
         {
           "id": "question_07",
-          "text": "Which Paradigm Should Dominate: Structural, OO, or Functional?",
+          "text": "Which Paradigm Should Dominate: Structural, OO, or Functional? All three are valid. But do they solve the same problems or different problems? - **Structural:** Recursively decomposable, testable units - **OO:** Crossing architectural boundaries, controlled dependencies - **Functional:** Data immutability, predictable state changes **The real question:** How do you combine all three for optimal architecture? **Tags:** #programming-paradigms, #paradigm-choice, #architectural-patterns",
           "source": "01_questions.md: Question 7"
         }
       ]
     },
     {
       "id": "principle_7",
-      "number": 7,
+      "number": "7",
       "principle": "A Test Can Only Prove Wrongness, Not Rightness",
-      "statement": "",
+      "statement": "**Dijkstra's insight:** \"Testing shows the presence of errors, not their absence.\"\n**Scientific vs. Mathematical thinking:**\n- **Math:** Proves truth (e.g., Pythagorean theorem is proven true)\n- **Science:** Tests falsifiability (e.g., Newton's laws can be disproven but never proven)\n**In software:**\n- You CANNOT prove code is correct (mathematically)\n- You CAN gain confidence by failing to prove it wrong\n- A program with zero test failures is \"probably\" correct, but you can't be certain\n**Implication for architecture:** \n- Design systems such that wrongness is easy to detect\n- Structured decomposition enables small, testable units\n- Good architecture makes tests meaningful\n**Tags:** #testing-philosophy, #falsifiability, #verification-limits, #design-for-testability",
       "tags": [
-        "verification-limits",
         "testing-philosophy",
-        "design-for-testability",
-        "falsifiability"
+        "falsifiability",
+        "verification-limits",
+        "design-for-testability"
       ],
       "source": "02_ideas.md: PRINCIPLE 7",
       "source_line": 132,
@@ -247,35 +230,23 @@
         {
           "id": "arg_006",
           "name": "The Test That Cannot Prove Truth",
-          "claim": "",
-          "source": "03_reasoning.md: Argument 6"
-        },
-        {
-          "id": "arg_010",
-          "name": "Cost of Change Over Time (Mathematical Model)",
-          "claim": "",
-          "source": "03_reasoning.md: Argument 10"
+          "claim": "**Philosophical argument:**\n**Claim:** No test can prove code is correct; tests can only show incorrectness.\n**Reasoning:**\n### Mathematical Proof vs. Scientific Test\n**Math:** \"Prove X is true\"\n- Euclidean geometry: given axioms, derive theorem\n- Pythagorean: a² + b² = c² is *proven* true in Euclidean space\n- Certainty: Absolute\n**Science:** \"Prove X is false\"\n- Newton's laws: F = ma and F = Gm₁m₂/r²\n- Cannot prove these are universally true\n- Can test them exhaustively and fail to disprove them\n- Certainty: Probabilistic (confidence increases with tests)\n**Application to Software:**\nYou cannot write enough tests to prove code is correct (infinite test cases possible).\nYou CAN write tests to try to disprove correctness, and if tests pass, you gain confidence.\n**Example:**\n- Suppose login function works on all 1 million test cases\n- You still don't know it works for the 1,000,001st case\n- But if tests fail, you've proven it's broken\n**Implication for architecture:**\n- Design systems with clear boundaries so each unit is easy to test\n- Small, testable units = more meaningful tests\n- Architectural clarity enables effective testing\n**Tags:** #verification-limits, #falsifiability, #testing-philosophy, #scientific-method",
+          "source": "03_reasoning.md: Argument 006"
         }
       ],
       "related_implications": [],
-      "related_questions": [
-        {
-          "id": "question_10",
-          "text": "When Does Architecture \"Cry Out\" its Structure?",
-          "source": "01_questions.md: Question 10"
-        }
-      ]
+      "related_questions": []
     },
     {
       "id": "principle_8",
-      "number": 8,
+      "number": "8",
       "principle": "Technical Debt is a Lie About Timing",
-      "statement": "",
+      "statement": "**The claim:** \"We have technical debt; we need to pay it down.\"\n**The reality:** You never had time to do it right, so you can't have time to fix it.\n**Why the mess grows:**\n1. Developers cut corners to meet a deadline\n2. The \"cleanup deadline\" never arrives (new features always come)\n3. Mess accumulates, making all future work slower\n4. Eventually, adding one line takes weeks\n**The path forward:**\n- Don't create the mess in the first place\n- Maintain discipline continuously\n- Push back on unrealistic deadlines\n- Show (with data) how cleanliness enables faster delivery\n**Tags:** #technical-debt, #velocity, #deadline-pressure, #sustainable-pace",
       "tags": [
-        "deadline-pressure",
-        "sustainable-pace",
         "technical-debt",
-        "velocity"
+        "velocity",
+        "deadline-pressure",
+        "sustainable-pace"
       ],
       "source": "02_ideas.md: PRINCIPLE 8",
       "source_line": 154,
@@ -283,28 +254,28 @@
         {
           "id": "arg_007",
           "name": "The Hare's Arrogance (Fable Application)",
-          "claim": "",
-          "source": "03_reasoning.md: Argument 7"
+          "claim": "**Aesop's Fable: The Tortoise and the Hare**\n**Lesson traditionally taught:** Consistency beats raw talent.\n**Martin's application to software:**\n### The Hare's Flaws:\n1. Overconfident in raw speed\n2. Believes they can sleep now and win later\n3. Ignores the tortoise's consistent, methodical approach\n4. Loses not because they're slow but because they stopped paying attention\n### The Programmer's Parallel:\n1. Overconfident in ability to \"fix it later\"\n2. Believe dirty code is faster *now*\n3. Ignores the cost-of-change curve\n4. Projects fail not because of lack of talent but because of code mess\n### The Mistake:\n**\"We'll ship fast now, clean up architecturally later.\"**\n**Why this fails:**\n- No \"later\" ever arrives (always new features to build)\n- Mess makes future changes slower\n- Sleeping during the code race = losing\n### The Tortoise's Secret:\nMaintaining discipline constantly is faster in long run than rushing + cleanup cycles.\n**Proof:** TDD experiment shows even short-term discipline wins.\n**Tags:** #arrogance, #hare-and-tortoise, #sustainable-pace, #false-promises",
+          "source": "03_reasoning.md: Argument 007"
         }
       ],
       "related_implications": [],
       "related_questions": [
         {
           "id": "question_03",
-          "text": "Why Do Development Teams Slow Down Over Time?",
+          "text": "Why Do Development Teams Slow Down Over Time? Empirical observation: As codebases grow and teams expand, velocity decreases despite larger team size. **Root questions:** - Is it inherent to software? Or a sign of architectural failure? - Can a team maintain constant velocity while adding features indefinitely? - What causes \"the mess\" that everyone blames? **The Real Question:** Is there a path to sustainable productivity, or does every system inevitably decay? **Tags:** #productivity-decay, #technical-debt, #system-aging, #velocity",
           "source": "01_questions.md: Question 3"
         }
       ]
     },
     {
       "id": "principle_9",
-      "number": 9,
+      "number": "9",
       "principle": "All Good Architecture Enables Fast, Safe Change",
-      "statement": "",
+      "statement": "**Definition of good design:** The cost of adding a new feature is proportional only to the feature's scope, not its form.\n**Bad architecture example:**\n- Adding a password field to a login form takes one person-day\n- Later, adding a password reset feature (same complexity) takes two weeks\n- **Why?** The form is tightly coupled to the authentication logic\n**Good architecture example:**\n- Feature complexity = effort, always\n- The shape of the feature doesn't matter; only size matters\n**How to achieve this:**\n- Clear separation of concerns\n- Loose coupling between modules\n- Dependencies point toward stable abstractions\n**Tags:** #change-management, #modularity, #decoupling, #scope-vs-form",
       "tags": [
+        "change-management",
         "modularity",
         "decoupling",
-        "change-management",
         "scope-vs-form"
       ],
       "source": "02_ideas.md: PRINCIPLE 9",
@@ -314,29 +285,29 @@
         {
           "id": "impl_001",
           "name": "Adopt Structured Programming Practices",
-          "what_means": "this means:**\n- Write small, decomposable functions\n- Each function should be testable in isolation\n",
+          "what_means": "**What this means:**\n- Write small, decomposable functions\n- Each function should be testable in isolation\n- Use only sequences, conditionals, loops (no wild goto or break-heavy code)\n- Aim for recursive decomposition (big function → smaller functions → smallest units)\n**Architectural application:**\n- Organize code in layers where each layer can be unit-tested\n- Break large modules into smaller ones that are easier to reason about\n- Use integration tests to verify inter-module behavior\n**Practical adoption:**\n- Enforce code review for functions over ~50 lines\n- Use linters to prevent complex nesting (cyclomatic complexity)\n- Test at unit level; each piece should fail/pass independently\n**Why it matters:**\n- Enables the scientific method (test for falsification)\n- Small units = small blast radius for bugs\n- Easier to change one small piece without breaking others\n**Tags:** #structured-programming, #testability, #modularity, #code-review",
           "source": "04_consequences.md: Implication 1"
         },
         {
           "id": "impl_002",
           "name": "Use Polymorphism to Cross Architectural Boundaries",
-          "what_means": "this means:**\n- Instead of high-level code knowing about low-level implementations, reverse it\n- Hig",
+          "what_means": "**What this means:**\n- Instead of high-level code knowing about low-level implementations, reverse it\n- High-level code should depend on abstractions (interfaces)\n- Low-level code (database, UI, APIs) implements those abstractions\n**Example: Database independence**\n**Before (bad):**\n```\nBusiness Logic code\n    ↓ (imports/depends on)\nPostgreSQL driver\n```\nResult: Changing from PostgreSQL to MySQL requires changing business logic.\n**After (good):**\n```\nBusiness Logic code\n    ↓ (depends on)\nIUserRepository interface\n    ↑ (implements)\nPostgreSQL adapter\n    ↑ (implements)\nMySQL adapter\n```\nResult: Changing databases is just swapping the adapter; business logic unchanged.\n**Architectural application:**\n- Define clear interfaces between systems\n- Place interfaces with high-level concepts (business rules)\n- Place implementations with low-level details (frameworks, databases)\n- Dependency points toward abstraction (the \"inversion\" in Dependency Inversion Principle)\n**Practical adoption:**\n- Extract interfaces before implementing\n- Never import framework code into business logic\n- Organize folders by domain (OrderService, UserService) not by layer (Repository, Controller)\n**Why it matters:**\n- Makes replacing infrastructure easy (database, web framework, API)\n- Business logic remains testable independently of infrastructure\n- Enables parallel development (team A builds interface, team B builds implementation)\n**Tags:** #polymorphism, #dependency-inversion, #architecture-boundary, #decoupling",
           "source": "04_consequences.md: Implication 2"
         }
       ],
       "related_questions": [
         {
           "id": "question_05",
-          "text": "How Do You Decompose a Complex System?",
+          "text": "How Do You Decompose a Complex System? **The function decomposition question:** - Break the system into functions → break those into smaller functions → recursively **The module question:** - What is a module? How do you draw boundaries? **The layering question:** - Should architecture be layered? Hexagonal? Microservices? Event-driven? **Tags:** #decomposition, #modularity, #system-organization",
           "source": "01_questions.md: Question 5"
         }
       ]
     },
     {
       "id": "principle_10",
-      "number": 10,
+      "number": "10",
       "principle": "The Architecture Should Cry Out Its Intent",
-      "statement": "",
+      "statement": "**Strawman:** A well-architected system's folder structure should immediately tell you what domain it solves.\n**Example contrasts:**\n- **Bad:** MVC-organized codebase → you see `/controllers`, `/models`, `/views`, but not: \"is this for healthcare or finance?\"\n- **Good:** Domain-organized codebase → `/patients`, `/diagnoses`, `/treatments` → immediately obvious it's medical software\n**Why this matters:**\n- Architecture should emphasize business domain, not framework choice\n- Frameworks are implementation details\n- A new developer should understand the system's *purpose* from its structure\n**Related principle:** Architecture should make the \"screaming\" abstraction obvious (i.e., domain logic should dominate the structure, not infrastructure)\n**Tags:** #screaming-architecture, #domain-driven-design, #intent-revelation, #code-organization",
       "tags": [
         "screaming-architecture",
         "domain-driven-design",
@@ -350,27 +321,27 @@
         {
           "id": "impl_005",
           "name": "Organize Code to Reveal Intent",
-          "what_means": "this means:**\n- Folder structure should show *what* the system does, not *how* it's built\n- Visitors",
+          "what_means": "**What this means:**\n- Folder structure should show *what* the system does, not *how* it's built\n- Visitors should immediately understand the domain\n**Example: E-commerce system**\n**Bad (framework-first) organization:**\n```\n/controllers\n  /UserController\n  /ProductController\n/models\n  /User\n  /Product\n/views\n  /users\n  /products\n/utils\n```\nVisitors don't immediately know this is e-commerce until they dig.\n**Good (domain-first) organization:**\n```\n/orders\n  OrderService (business logic)\n  OrderRepository (data access)\n  OrderController (HTTP endpoint)\n  Order (domain model)\n/catalog\n  ProductService\n  ProductRepository\n  ProductController\n  Product\n/users\n  UserService\n  UserRepository\n  UserController\n  User\n```\nVisitors immediately see: Orders, Catalog, Users → E-commerce system.\n**Architectural application:**\n- Organize by business domain/feature, not technical layer\n- Related code lives together\n- Infrastructure (database driver, HTTP framework) is separated from business logic\n**Practical adoption:**\n- Refactor existing codebases by moving code into domain-organized packages\n- New projects should start domain-organized\n- Move (not copy) code; update imports\n- Use feature flags to manage refactoring risk\n**Why it matters:**\n- Onboarding is faster (new devs understand system in hours, not weeks)\n- Architecture decisions are visible in code structure\n- Makes it clear what's business logic vs. framework scaffolding\n**Tags:** #screaming-architecture, #domain-driven-design, #code-organization, #intent-revelation",
           "source": "04_consequences.md: Implication 5"
         }
       ],
       "related_questions": [
         {
           "id": "question_10",
-          "text": "When Does Architecture \"Cry Out\" its Structure?",
+          "text": "When Does Architecture \"Cry Out\" its Structure? Should looking at your codebase organization tell you what the system *does*? **Example:** A web framework-driven structure hides the business domain under MVC folders. **Clean architecture question:** Can you look at the directory structure and know whether you're building an e-commerce system vs. a hospital system vs. a gaming platform? **Tags:** #screaming-architecture, #domain-driven-design, #code-organization",
           "source": "01_questions.md: Question 10"
         }
       ]
     },
     {
       "id": "principle_11",
-      "number": 11,
+      "number": "11",
       "principle": "Rules Transcend Languages, Frameworks, and Technology",
-      "statement": "",
+      "statement": "**Martin's core claim:** The fundamental rules of architecture don't depend on:\n- Programming language (Python, Java, C#, Go)\n- Framework choice (Rails, Spring, Django)\n- Deployment model (server, cloud, edge)\n- Hardware (desktop, mobile, embedded, mainframe)\n**Why?** Because all programming is built from the same primitives (sequences, conditionals, loops) and all systems must support change.\n**Implication:** A programmer from 1966 could learn modern Java/IntelliJ in a day and write correct code. The fundamentals haven't changed.\n**Tags:** #timeless-principles, #technology-independence, #universal-rules",
       "tags": [
         "timeless-principles",
-        "universal-rules",
-        "technology-independence"
+        "technology-independence",
+        "universal-rules"
       ],
       "source": "02_ideas.md: PRINCIPLE 11",
       "source_line": 217,
@@ -380,14 +351,14 @@
     },
     {
       "id": "principle_12",
-      "number": 12,
+      "number": "12",
       "principle": "Flexibility Must Be Built In, Not Bolted On",
-      "statement": "",
+      "statement": "**Mistake:** Waiting until you know what to optimize, then optimizing.\n**Reality:** By then, the system is so rigid that optimization requires rewriting.\n**Better approach:** Build flexibility *from the start* by:\n- Keeping architectural options open\n- Making decisions late, not early\n- Organizing code so change is easy\n**Example:** Don't hard-code the database choice. Separate business logic from data access so you can switch databases without rewriting business rules.\n**Tags:** #flexibility, #architectural-options, #deferred-decisions, #options-value",
       "tags": [
-        "options-value",
-        "deferred-decisions",
+        "flexibility",
         "architectural-options",
-        "flexibility"
+        "deferred-decisions",
+        "options-value"
       ],
       "source": "02_ideas.md: PRINCIPLE 12",
       "source_line": 233,
@@ -396,34 +367,34 @@
         {
           "id": "impl_007",
           "name": "Design for Late Decision-Making",
-          "what_means": "this means:**\n- Don't commit to technological choices until you must\n- Keep options open as long as ",
+          "what_means": "**What this means:**\n- Don't commit to technological choices until you must\n- Keep options open as long as possible\n- Make fundamental architectural decisions early; technology decisions late\n**Example: Database choice**\n**Bad (early commitment):**\n- Day 1: \"We'll use MongoDB!\" [Makes business logic aware of NoSQL schema]\n- Day 100: \"Actually, we need ACID transactions.\" [Rewrite required]\n**Good (deferred choice):**\n- Day 1: \"We need persistent storage. Define IUserRepository interface.\"\n- Day 50: \"Implement IUserRepository with MongoDB adapter, see how it works.\"\n- Day 100: \"Tests show MongoDB schema doesn't scale. Implement IUserRepository with PostgreSQL instead. No business logic changes.\"\n**Architectural application:**\n- Separate high-level policy (business rules) from low-level details (technology)\n- Use interfaces/adapters to isolate policy from implementation\n- Write business logic in domain language, not database language\n**Practical adoption:**\n- Define repository/service interfaces before picking database\n- Write business logic independently of web framework choice\n- Use adapter/factory patterns for technology choices\n- Don't let framework dictate business logic structure\n**Why it matters:**\n- Technology choices are reversible if architecture is clean\n- You can make choices based on actual production data, not guesses\n- Hedges risk of wrong technology choices\n- Enables gradual adoption of new tools\n**Tags:** #design-for-change, #deferred-decisions, #options-value, #reversibility",
           "source": "04_consequences.md: Implication 7"
         },
         {
           "id": "impl_009",
           "name": "Expect Change; Design for It",
-          "what_means": "this means:**\n- Architecture must not assume requirements are fixed\n- Build in flexibility for commo",
+          "what_means": "**What this means:**\n- Architecture must not assume requirements are fixed\n- Build in flexibility for common changes (technology, scale, users)\n- Treat architecture as hypothesis, not dogma\n**Example: Traffic scaling**\n**Bad (overcommitted):**\n- \"We'll deploy on a single server with PostgreSQL.\"\n- When traffic grows 100x, rewrite required.\n**Good (flexible):**\n- \"We'll deploy on stateless app servers behind load balancer, with PostgreSQL. If we outgrow DB, we can shard. If we need NoSQL for certain data, we can add it.\"\n- As traffic grows, add servers (no code changes) or shard DB (limited changes).\n**Architectural application:**\n- Design for horizontal scalability (add servers, not bigger servers)\n- Decouple components so they can scale independently\n- Use caching and queues to reduce direct dependencies\n- Assume you'll need to support multiple databases/storage systems\n**Practical adoption:**\n- Architect for 10x traffic, not current traffic\n- Use message queues for async communication\n- Don't assume in-process communication is sufficient\n- Build feature flags for gradual rollout\n- Monitor cost-of-change as system grows; refactor when needed\n**Why it matters:**\n- System remains responsive as it grows\n- Adding capacity doesn't require rewrite\n- New requirements (e.g., \"support China market\") don't necessitate architecture redesign\n**Tags:** #scalability, #flexibility, #change-readiness, #future-proofing",
           "source": "04_consequences.md: Implication 9"
         }
       ],
       "related_questions": [
         {
           "id": "question_02",
-          "text": "What is the Goal of Software Architecture?",
+          "text": "What is the Goal of Software Architecture? **Answer:** Minimize human effort to create and maintain the system. But this raises sub-questions: - Effort for whom? (Users, developers, managers, stakeholders) - Over what timeframe? (Initial build vs. 5-year maintenance) - What counts as \"effort\"? (Time, cost, risk, cognitive load) **The Eisenhower Matrix Question:** Is functionality more important than architecture? **Tags:** #architectural-goal, #effort-minimization, #stakeholder-value",
           "source": "01_questions.md: Question 2"
         }
       ]
     },
     {
       "id": "principle_13",
-      "number": 13,
+      "number": "13",
       "principle": "Development Teams Should Defend Architecture",
-      "statement": "",
+      "statement": "**Key responsibility:** Developers are hired to optimize for *both* behavior AND architecture.\n**Why managers/stakeholders won't do this:**\n- Managers see business value in features (behavior)\n- Managers don't directly feel pain from poor architecture (developers do)\n- Managers measure success by velocity, which is short-term\n**The developer's duty:**\n- Push back on architectural shortcuts\n- Show the cost-of-change data\n- Take ownership of the codebase quality\n- Refuse to accept deadlines that require cutting corners\n**Warning:** This requires courage and professionalism, not compliance.\n**Tags:** #professional-responsibility, #advocacy, #leadership, #team-agency",
       "tags": [
-        "advocacy",
-        "team-agency",
         "professional-responsibility",
-        "leadership"
+        "advocacy",
+        "leadership",
+        "team-agency"
       ],
       "source": "02_ideas.md: PRINCIPLE 13",
       "source_line": 250,
@@ -431,51 +402,51 @@
         {
           "id": "arg_002",
           "name": "The Sisyphus Cycle (Developer Experience)",
-          "claim": "",
-          "source": "03_reasoning.md: Argument 2"
+          "claim": "**Claim:** Developers caught in messy codebases are not lazy; they're blocked.\n**Observation from the field:**\n- Developers work \"full capacity\" (long hours, overtime)\n- Yet features ship slowly\n- Developers blame themselves or external factors\n**Truth:** The codebase itself is the bottleneck\n### The Feedback Loop:\n```\nMess Created\n    ↓\nPressure to ship more features\n    ↓\nNo time to clean up\n    ↓\nMore mess accumulates\n    ↓\nEach change gets harder\n    ↓\nDevelopers spend more time fighting the mess\n    ↓\nLess time for new features\n    ↓\nPressure increases (to compensate for low velocity)\n    ↓ [Loop repeats]\n```\n**Why developers don't rebel:**\n1. They don't realize it's systemic (blame themselves)\n2. No data showing the cost\n3. Culture that values \"hustle\" over sustainability\n**Resolution:** Show the cost-of-change data; advocate for architectural discipline.\n**Tags:** #developer-experience, #systemic-problems, #advocacy, #organizational-dynamics",
+          "source": "03_reasoning.md: Argument 002"
         }
       ],
       "related_implications": [
         {
           "id": "impl_004",
           "name": "Advocate for Architecture Against Business Pressure",
-          "what_means": "this means:**\n- Developers are hired to balance two values: behavior + architecture\n- When managers ",
+          "what_means": "**What this means:**\n- Developers are hired to balance two values: behavior + architecture\n- When managers push for \"just make it work,\" developers must push back\n- Show cost-of-change data; make the business case\n**Example: The negotiation**\n**Manager:** \"We need this feature in 2 weeks. Skip the tests.\"\n**Developer (wrong response):** \"OK, I'll skip testing.\" [System becomes unmaintainable]\n**Developer (right response):** \"I can deliver in 2 weeks with tests, or in 1 week dirty. But dirty code will cost us 3 weeks on the next feature. Here's the data from our last messy project. Let's do it right.\"\n**Architectural application:**\n- Collect metrics (velocity, defect rate, time-per-feature)\n- Show trend lines (how cost is increasing/decreasing)\n- Propose discipline as faster path, not slower one\n**Practical adoption:**\n- Track story points/features vs. time\n- Measure defect escape rate\n- Calculate \"cost of bugs found in production\" vs. \"cost of tests preventing them\"\n- Present findings to management quarterly\n- Frame architecture work as investment, not cost\n**Why it matters:**\n- Developers are stakeholders in the software (they maintain it)\n- Their input is essential to long-term profitability\n- Business leadership must understand the cost-of-change curve\n**Tags:** #professional-responsibility, #advocacy, #stakeholder-alignment, #data-driven-decisions",
           "source": "04_consequences.md: Implication 4"
         },
         {
           "id": "impl_010",
           "name": "Cultivate a Culture of Discipline",
-          "what_means": "this means:**\n- Teams must agree that quality is non-negotiable\n- Discipline must be enforced social",
+          "what_means": "**What this means:**\n- Teams must agree that quality is non-negotiable\n- Discipline must be enforced socially, not just technically\n- New team members must be trained in the discipline\n**Example: Code review culture**\n**Bad culture:**\n- \"Just ship it. We'll fix it later.\"\n- Code review is rubber-stamping\n- Deadline pressure overrides quality standards\n**Good culture:**\n- \"We review code for correctness, clarity, and consistency.\"\n- No review = no merge, period\n- When deadline pressure arrives, team negotiates scope, not quality\n- New hires learn standards by observing and feedback\n**Architectural application:**\n- Establish code standards (naming, structure, test coverage)\n- Make code review a valued part of development (not a chore)\n- Celebrate clean code and good architecture\n- Address violations immediately (peer feedback, not management edict)\n**Practical adoption:**\n- Establish team \"Definition of Done\"\n- Use pair programming for complex changes\n- Rotate code reviewers to share knowledge\n- Monthly retros focused on what's working/not working in our process\n- Reward architectural improvements, not just feature velocity\n**Why it matters:**\n- New developers learn what excellence looks like\n- Quality remains consistent as team grows\n- Developers take pride in their work\n- Turnover decreases (people like working on clean code)\n**Tags:** #team-culture, #discipline, #professional-standards, #continuous-learning",
           "source": "04_consequences.md: Implication 10"
         }
       ],
       "related_questions": [
         {
           "id": "question_08",
-          "text": "Who Decides Architecture Priorities?",
+          "text": "Who Decides Architecture Priorities? Two competing values: - **Behavior:** The software must work correctly *now* - **Architecture:** The software must be changeable *forever* **The conflict:** Urgent (behavior) vs. Important (architecture) **Who should win?** Developers must advocate for architecture against business pressure, but how? **Tags:** #value-conflict, #stakeholder-alignment, #advocacy",
           "source": "01_questions.md: Question 8"
         }
       ]
     },
     {
       "id": "principle_14",
-      "number": 14,
+      "number": "14",
       "principle": "There are Three Ways to Fail at Architecture",
-      "statement": "",
+      "statement": "### Path 1: Authoritarian Rigidity\n- Architect decides everything upfront\n- No flexibility; no changes allowed\n- Results in frustrated developers, massive change resistance\n**Problem:** Nobody can predict the future accurately enough.\n**Tags:** #rigid-authority, #prediction-failure, #burnout\n### Path 2: Speculative Over-Engineering\n- Architect tries to anticipate all future possibilities\n- Loads code with abstractions that never get used\n- Results in impossible complexity, technical bloat, massive codebase\n**Problem:** YAGNI (You Aren't Gonna Need It)—guess wrong and you've wasted everyone's time.\n**Tags:** #over-engineering, #speculation, #unnecessary-complexity\n### Path 3: No Architecture (Chaos)\n- Just code; no planning, no boundaries\n- Results in tightly coupled, untestable mess\n- Eventually impossible to change anything\n**Problem:** Impossible to maintain or modify.\n**Tags:** #cowboy-coding, #chaos, #entropy\n### The Right Path: Humble, Adaptive Architecture\n- Design for flexibility\n- Keep options open\n- Make architectural decisions late, based on information\n- Treat architecture as hypothesis, not dogma\n- Change it when reality contradicts assumptions\n**Tags:** #adaptive-architecture, #humility, #hypothesis-driven, #learning-culture",
       "tags": [
-        "humility",
-        "hypothesis-driven",
-        "chaos",
-        "cowboy-coding",
-        "speculation",
         "rigid-authority",
+        "prediction-failure",
+        "burnout",
         "over-engineering",
+        "speculation",
+        "unnecessary-complexity",
+        "cowboy-coding",
+        "chaos",
         "entropy",
         "adaptive-architecture",
-        "prediction-failure",
-        "learning-culture",
-        "unnecessary-complexity",
-        "burnout"
+        "humility",
+        "hypothesis-driven",
+        "learning-culture"
       ],
       "source": "02_ideas.md: PRINCIPLE 14",
       "source_line": 271,
@@ -484,7 +455,7 @@
         {
           "id": "impl_012",
           "name": "Remain Humble About Predictions",
-          "what_means": "this means:**\n- Don't over-engineer for anticipated features\n- Don't assume you know the future\n- Ma",
+          "what_means": "**What this means:**\n- Don't over-engineer for anticipated features\n- Don't assume you know the future\n- Make decisions reversible\n- Accept that you'll need to adapt\n**Example: Feature flags**\n**Bad (overcommitted):**\n- \"In the future, we might support multi-tenancy.\"\n- Implement abstract architecture to support it now\n- 6 months later: never needed, wasted effort\n**Good (humble):**\n- \"If we need multi-tenancy, can we add it?\"\n- Use simple architecture now\n- When needed, refactor while adding feature\n- Effort: 2 weeks vs. 2 months if over-engineered\n**Architectural application:**\n- Build for current requirements, not predicted ones\n- Use feature flags to enable gradual rollout\n- Refactor code as you learn about the domain\n- Accept that some architectural decisions will need revision\n**Practical adoption:**\n- YAGNI principle: \"You Aren't Gonna Need It\"\n- Reverse architectural decisions if data shows they're wrong\n- Use branch-by-abstraction for gradual rewrites\n- Invest in making refactoring safe (tests), not predicting future\n**Why it matters:**\n- Avoids wasted effort on features never built\n- Keeps codebase simple and understandable\n- Developers maintain focus on current problems\n- Enables pivoting if requirements change\n**Tags:** #humility, #yagni, #adaptation, #reversibility",
           "source": "04_consequences.md: Implication 12"
         }
       ],
@@ -492,18 +463,14 @@
     },
     {
       "id": "principle_15",
-      "number": 15,
+      "number": "15",
       "principle": "Architecture is a Set of Decisions You Wish You'd Made Earlier",
-      "statement": "",
+      "statement": "**Raph Johnson quote:**\n> \"Architecture is a set of decisions that you would like to have made earlier, but which are no more probable than any other.\"\n**Meaning:**\n- You can't predict the future perfectly\n- You make choices (e.g., database tech) based on incomplete information\n- Some choices turn out perfectly; others need revision\n- Good architecture admits this and makes revision easy\n**Implication:** Architecture is humble—it acknowledges uncertainty while still providing structure.\n**Tags:** #architectural-decisions, #humility, #reversibility, #learning",
       "tags": [
-        "software-architecture",
+        "architectural-decisions",
         "humility",
         "reversibility",
-        "architectural-decisions",
-        "learning",
-        "professional-practice",
-        "technical-leadership",
-        "design-principles"
+        "learning"
       ],
       "source": "02_ideas.md: PRINCIPLE 15",
       "source_line": 311,
@@ -511,45 +478,25 @@
         {
           "id": "arg_009",
           "name": "Why Rewrites Always Fail",
-          "claim": "",
-          "source": "03_reasoning.md: Argument 9"
+          "claim": "**Claim:** When developers propose \"rewrite from scratch,\" they're repeating the Hare's mistake.\n**Reasoning:**\n### The Rewrite Logic:\n1. Current system is messy → rewrite will be clean\n2. We now know what we're building → v2 will be better\n3. This time we'll \"do it right\"\n### Why it fails:\n1. **Same arrogance:** Same team that created the mess will create a new mess\n2. **Different context:** New system faces different pressures, will face same corner-cutting\n3. **Lost knowledge:** Attempting to preserve edge cases and workarounds from v1 during v2\n4. **Competitive pressure:** While rewriting, competitors still shipping features, v1 becomes obsolete\n5. **Organizational fatigue:** Team burned out from \"big rewrite,\" quality suffers\n### Historical examples (implicit in text):\n- Windows Vista (rewrite → disaster)\n- Multiple database rewrites in enterprises\n- Language rewrites that introduced new bugs\n### The Real Solution:\n- Don't create the mess in the first place (discipline now)\n- Incrementally improve architecture as you go\n- Refactor ruthlessly within each change\n- Maintain velocity through architectural adaptation, not revolution\n**Tags:** #rewrite-fallacy, #architectural-humility, #incremental-improvement",
+          "source": "03_reasoning.md: Argument 009"
         }
       ],
       "related_implications": [
         {
           "id": "impl_007",
           "name": "Design for Late Decision-Making",
-          "what_means": "this means:**\n- Don't commit to technological choices until you must\n- Keep options open as long as ",
+          "what_means": "**What this means:**\n- Don't commit to technological choices until you must\n- Keep options open as long as possible\n- Make fundamental architectural decisions early; technology decisions late\n**Example: Database choice**\n**Bad (early commitment):**\n- Day 1: \"We'll use MongoDB!\" [Makes business logic aware of NoSQL schema]\n- Day 100: \"Actually, we need ACID transactions.\" [Rewrite required]\n**Good (deferred choice):**\n- Day 1: \"We need persistent storage. Define IUserRepository interface.\"\n- Day 50: \"Implement IUserRepository with MongoDB adapter, see how it works.\"\n- Day 100: \"Tests show MongoDB schema doesn't scale. Implement IUserRepository with PostgreSQL instead. No business logic changes.\"\n**Architectural application:**\n- Separate high-level policy (business rules) from low-level details (technology)\n- Use interfaces/adapters to isolate policy from implementation\n- Write business logic in domain language, not database language\n**Practical adoption:**\n- Define repository/service interfaces before picking database\n- Write business logic independently of web framework choice\n- Use adapter/factory patterns for technology choices\n- Don't let framework dictate business logic structure\n**Why it matters:**\n- Technology choices are reversible if architecture is clean\n- You can make choices based on actual production data, not guesses\n- Hedges risk of wrong technology choices\n- Enables gradual adoption of new tools\n**Tags:** #design-for-change, #deferred-decisions, #options-value, #reversibility",
           "source": "04_consequences.md: Implication 7"
         },
         {
           "id": "impl_012",
           "name": "Remain Humble About Predictions",
-          "what_means": "this means:**\n- Don't over-engineer for anticipated features\n- Don't assume you know the future\n- Ma",
+          "what_means": "**What this means:**\n- Don't over-engineer for anticipated features\n- Don't assume you know the future\n- Make decisions reversible\n- Accept that you'll need to adapt\n**Example: Feature flags**\n**Bad (overcommitted):**\n- \"In the future, we might support multi-tenancy.\"\n- Implement abstract architecture to support it now\n- 6 months later: never needed, wasted effort\n**Good (humble):**\n- \"If we need multi-tenancy, can we add it?\"\n- Use simple architecture now\n- When needed, refactor while adding feature\n- Effort: 2 weeks vs. 2 months if over-engineered\n**Architectural application:**\n- Build for current requirements, not predicted ones\n- Use feature flags to enable gradual rollout\n- Refactor code as you learn about the domain\n- Accept that some architectural decisions will need revision\n**Practical adoption:**\n- YAGNI principle: \"You Aren't Gonna Need It\"\n- Reverse architectural decisions if data shows they're wrong\n- Use branch-by-abstraction for gradual rewrites\n- Invest in making refactoring safe (tests), not predicting future\n**Why it matters:**\n- Avoids wasted effort on features never built\n- Keeps codebase simple and understandable\n- Developers maintain focus on current problems\n- Enables pivoting if requirements change\n**Tags:** #humility, #yagni, #adaptation, #reversibility",
           "source": "04_consequences.md: Implication 12"
         }
       ],
       "related_questions": []
-    }
-  ],
-  "decision_guide": {
-    "when_uncertain_ask": [
-      "What is the actual difference between Design and Architecture?",
-      "What is the Goal of Software Architecture?",
-      "Why Do Development Teams Slow Down Over Time?",
-      "When Should You Stop and \"Rewrite From Scratch\"?",
-      "How Do You Decompose a Complex System?"
-    ],
-    "framework": "Reference supporting_arguments and related_implications"
-  },
-  "faq": [
-    {
-      "question": "How do I know this principle applies?",
-      "answer": "Check if your situation matches when_to_use context. Review related_questions.",
-      "principle_refs": [
-        "principle_1",
-        "principle_2"
-      ]
     }
   ],
   "tags": [
@@ -740,17 +687,5 @@
     "velocity",
     "verification-limits",
     "yagni"
-  ],
-  "version_info": {
-    "json_version": "3.0",
-    "pass": "Pass 6: JSON Generation for LLM",
-    "generation_date": "2026-08-09T08:10:54.643420",
-    "book": "clean-architecture",
-    "principles": 15,
-    "arguments": 10,
-    "implications": 12,
-    "questions": 10,
-    "tags": 187,
-    "data_quality": "No invented data. All sourced from markdown."
-  }
+  ]
 }

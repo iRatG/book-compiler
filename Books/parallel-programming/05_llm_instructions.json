@@ -4,12 +4,13 @@
     "author": "Multiple contributors (Collective knowledge on concurrent computing)",
     "publication": "Unknown",
     "book_name": "parallel-programming",
-    "format_version": "3.0",
-    "generated_at": "2026-08-09T08:10:54.699270",
+    "format_version": "4.0",
+    "generated_at": "2026-08-09T10:38:21.023365",
     "language": "English",
-    "generation_pass": "Pass 6: JSON Generation for LLM"
+    "source_language": "English",
+    "generation_pass": "Pass 4: Generate LLM Instructions (LLM-driven)"
   },
-  "system_instruction": "You are applying Модели параллельного программирования's principles to real work.\n\n**How to use this JSON:**\n1. Identify which principle applies\n2. Review supporting_arguments for evidence\n3. Check related_implications for practical application\n4. Use code_review_checklist items\n5. Apply practical_metrics to measure\n\n**RULES:**\n- Only cite what's in this JSON\n- Quote supporting_arguments\n- Use checklist items verbatim\n- If principle doesn't apply, say so\n\nEverything here is sourced from the book. Nothing is invented.",
+  "system_instruction": "You are applying Модели параллельного программирования's principles to real work.\n\n**How to use this JSON:**\n1. Identify which principle applies to your situation\n2. Read the principle's statement and tags\n3. Review supporting_arguments for evidence and reasoning\n4. Check related_implications for practical application\n5. Consult related_questions to probe deeper\n\n**RULES:**\n- Only cite what's in this JSON\n- Quote supporting_arguments when making claims\n- Use source references to trace arguments back to the book\n- If a principle doesn't apply, say so clearly\n- If you need anti-patterns or checklists, acknowledge they're not in this data\n\nEverything here is sourced directly from the book. Nothing is invented.",
   "quick_reference": {
     "book": "parallel-programming",
     "principles_count": 15,
@@ -25,38 +26,31 @@
   "principles": [
     {
       "id": "principle_1",
-      "number": 1,
+      "number": "1",
       "principle": "Concurrency Requires a Mental Model",
-      "statement": "",
+      "statement": "**Claim:** You cannot write correct concurrent code without a clear, formal model of how execution works.\nSequential code: \"This line executes, then that line, then that line.\"\nConcurrent code: \"These lines execute in some order, subject to synchronization constraints.\"\n**The principle:** Different mental models lead to fundamentally different code:\n- Shared memory model: Think about variables and who touches them\n- Actor model: Think about messages and isolated state\n- Dataflow model: Think about streams and transformations\n- Functional model: Think about immutable values and pure functions\n**Why it matters:** Mixing models without realizing it is a common source of bugs.\n**Tags:** #mental-models, #concurrency-abstraction, #formal-reasoning",
       "tags": [
-        "formal-reasoning",
+        "mental-models",
         "concurrency-abstraction",
-        "mental-models"
+        "formal-reasoning"
       ],
       "source": "02_ideas.md: PRINCIPLE 1",
       "source_line": 3,
-      "supporting_arguments": [
-        {
-          "id": "arg_008",
-          "name": "Testing Can't Guarantee Concurrent Correctness",
-          "claim": "",
-          "source": "03_reasoning.md: Argument 8"
-        }
-      ],
+      "supporting_arguments": [],
       "related_implications": [],
       "related_questions": [
         {
           "id": "question_04",
-          "text": "What is the Difference Between Concurrency and Parallelism?",
+          "text": "What is the Difference Between Concurrency and Parallelism? These terms are often confused. But they're fundamentally different: - **Concurrency:** Multiple tasks *appear* to run simultaneously (switching between them) - **Parallelism:** Multiple tasks *actually* run simultaneously (on different cores) **Question:** Can you have concurrency without parallelism? Yes. Parallelism without concurrency? No. **Tags:** #concurrency-vs-parallelism, #definitions, #execution-models",
           "source": "01_questions.md: Question 4"
         }
       ]
     },
     {
       "id": "principle_2",
-      "number": 2,
+      "number": "2",
       "principle": "Thread Safety is Not Binary",
-      "statement": "",
+      "statement": "**Common fallacy:** \"Code is either thread-safe or it isn't.\"\n**Reality:** Thread safety depends on:\n- Which threads are allowed (same thread? any thread?)\n- What operations are concurrent (reads? writes? both?)\n- What consistency is required (strict? eventual? causal?)\n**Example:** A list might be safe for concurrent reads but not concurrent writes. Or it might be safe if all modifications happen on one thread.\n**The subtlety:** A class can be \"thread-safe for reading\" and \"thread-safe for single-writer\" simultaneously, but not thread-safe for concurrent writes.\n**Tags:** #thread-safety-nuance, #consistency-models, #specification",
       "tags": [
         "thread-safety-nuance",
         "consistency-models",
@@ -64,50 +58,43 @@
       ],
       "source": "02_ideas.md: PRINCIPLE 2",
       "source_line": 23,
-      "supporting_arguments": [
-        {
-          "id": "arg_004",
-          "name": "Distributed Concurrency Requires Different Algorithms",
-          "claim": "",
-          "source": "03_reasoning.md: Argument 4"
-        }
-      ],
+      "supporting_arguments": [],
       "related_implications": [
         {
           "id": "impl_001",
           "name": "API Design Must Be Thread-Safe by Default",
-          "what_means": "NOT to do:**\n```java\n// Common pattern that leads to user bugs\nclass Container {\n    public int size",
+          "what_means": "**Principle:** Never build concurrency as an afterthought; design it in from the start.\n### Practical Impact\n**What NOT to do:**\n```java\n// Common pattern that leads to user bugs\nclass Container {\n    public int size() { return list.size(); }\n    public Object get(int i) { return list.get(i); }\n}\n// User code (BUGGY):\nint size = container.size();\nfor (int i = 0; i < size; i++) {\n    Object item = container.get(i);  // Might throw IndexOutOfBoundsException!\n}\n// Reason: List was modified between size() and get()!\n```\n**What TO do: Atomic operations**\n```java\nclass Container {\n    public synchronized List<Object> snapshot() {\n        return new ArrayList<>(list);  // Atomic snapshot\n    }\n}\n// User code (SAFE):\nfor (Object item : container.snapshot()) {\n    process(item);\n}\n```\nOr use concurrent collections:\n```java\nConcurrentHashMap<String, Integer> map = new ConcurrentHashMap<>();\n// Thread-safe by design, documented guarantees\n```\n### When to Apply\n- Shared data structures (maps, lists, queues)\n- Resource pools (thread pools, connection pools)\n- Configuration objects (if multiple threads read)\n- Any object accessible from multiple threads\n**Tags:** #API-design, #thread-safety-by-design, #defensive-programming",
           "source": "04_consequences.md: Implication 1"
         },
         {
           "id": "impl_012",
           "name": "Consistency Models Define Acceptable Behavior",
-          "what_means": "is the contention level?**\n   - Low → Simple locks\n   - Medium → Lock striping or lock-free\n   - Hig",
+          "what_means": "**Principle:** Relaxing consistency from \"strict\" enables availability and performance.\n### Practical Impact\n**Strict Consistency (Linearizability):**\n```\nUser A writes user.age = 30\nUser B reads user.age\nGuarantee: B sees 30 (not any previous value)\nCost: Must synchronize globally, high latency\n```\n**Causal Consistency:**\n```\nOperations that are causally related appear ordered.\nConcurrent operations can be in any order.\nExample:\n- A sends message \"I'm 30\" to B\n- B reads age\nGuarantee: If A updated age before message, B sees new age\nBut: Concurrent unrelated updates might reorder\n```\n**Eventual Consistency:**\n```\nAll nodes eventually have same data, but temporarily inconsistent.\nExample: Distributed cache\n- Node A has version 1\n- Node B has version 1\n- Update arrives, Node A gets version 2\n- Node B still sees version 1 (temporarily)\n- Eventually B also gets version 2\nGuarantee: Convergence, not ordering\nCost: Application must tolerate temporary inconsistency\n```\n### When to Choose\n- **Strict:** Financial systems, medical records (correctness critical)\n- **Causal:** Social networks, email (causality matters, not ordering)\n- **Eventual:** Caches, analytics (accuracy not critical)\n**Tags:** #consistency-models, #CAP-theorem, #availability-tradeoff",
           "source": "04_consequences.md: Implication 12"
         }
       ],
       "related_questions": [
         {
           "id": "question_01",
-          "text": "What Makes Code \"Thread-Safe\"?",
+          "text": "What Makes Code \"Thread-Safe\"? Many developers think thread safety means \"I added a lock.\" This is dangerously incomplete. **The deeper layers:** - Mutual exclusion (only one thread in critical section) - Memory visibility (changes made by one thread are seen by others) - Ordering guarantees (operations happen in expected sequence) - Progress guarantees (threads don't starve or deadlock) **Sub-question:** Can you have mutual exclusion without visibility guarantees? (Yes—and this is a common bug.) **Tags:** #thread-safety, #mutual-exclusion, #memory-visibility",
           "source": "01_questions.md: Question 1"
         },
         {
           "id": "question_11",
-          "text": "What Changes When Concurrency Spans Multiple Machines?",
+          "text": "What Changes When Concurrency Spans Multiple Machines? - Network failures are not rare edge cases—they are normal - Latency increases by 7+ orders of magnitude - Synchronous communication becomes impractical **The cascade:** - Consensus becomes genuinely hard (Byzantine Generals) - Consistency models must be relaxed (eventual consistency) - Causality becomes more important than atomic ordering **Tags:** #distributed-systems, #network-failures, #consistency-models",
           "source": "01_questions.md: Question 11"
         }
       ]
     },
     {
       "id": "principle_3",
-      "number": 3,
+      "number": "3",
       "principle": "Locks Provide Two Distinct Guarantees",
-      "statement": "",
+      "statement": "**Guarantee 1: Mutual Exclusion**\n- Only one thread in the critical section at a time\n- Prevents \"interleaved instructions\" corrupting shared data\n**Guarantee 2: Memory Synchronization**\n- Changes made by a thread holding the lock are visible to other threads that acquire it later\n- This is orthogonal to mutual exclusion\n**The crucial insight:** You can have mutual exclusion without visibility, and this is a bug:\n```\n// Thread A\nlock.acquire()\nx = 1\nlock.release()\n// Thread B\nlock.acquire()\nprint x  // Might print 0, not 1, if lock doesn't sync memory!\nlock.release()\n```\n**Tags:** #locks-semantics, #mutual-exclusion, #memory-visibility",
       "tags": [
         "locks-semantics",
-        "memory-visibility",
-        "mutual-exclusion"
+        "mutual-exclusion",
+        "memory-visibility"
       ],
       "source": "02_ideas.md: PRINCIPLE 3",
       "source_line": 40,
@@ -115,45 +102,39 @@
         {
           "id": "arg_001",
           "name": "Shared Memory Without Synchronization Fails Catastrophically",
-          "claim": "",
+          "claim": "**Claim:** Any concurrent access to shared mutable state without synchronization will eventually corrupt data or cause inconsistent behavior.\n### Evidence\n**Example: The Visibility Problem (Java)**\n```java\n// Thread A:\nboolean done = false;\nwhile (!done) {\n    doWork();\n}\n// Thread B:\ndone = true;  // Signal that we're done\n```\n**What can happen:**\n- Thread A might never see `done = true` because the value is cached in its CPU register\n- Even though Thread B wrote to memory, Thread A never reads from memory\n- This is NOT a compiler bug—it's allowed by the Java Memory Model\n**Why:** Processors optimize by caching frequently-read values. Without synchronization barriers, the CPU has no reason to fetch from memory.\n**Fix:** Make `done` volatile:\n```java\nvolatile boolean done = false;\n```\nThis forces memory synchronization on every read.\n**Tags:** #visibility-problem, #memory-ordering, #memory-barriers",
           "source": "03_reasoning.md: Argument 1"
         },
         {
           "id": "arg_002",
           "name": "Locks Are Not Just About Preventing Races—They Synchronize Memory",
-          "claim": "",
+          "claim": "**Claim:** A critical insight that separates cargo-cult concurrent programming from understanding.\n### Evidence\n**Example: Lock as Memory Barrier (Java)**\n```java\n// Thread A:\nsynchronized(lock) {\n    x = 1;\n}\n// Thread B:\nsynchronized(lock) {\n    int value = x;  // Guaranteed to be 1\n}\n```\n**What the lock does:**\n1. Mutual exclusion: Only one thread in the `synchronized` block\n2. Memory barrier: Lock release is a *memory write*, establishing happens-before\n**The memory guarantee:**\n- All writes before lock release are flushed to memory\n- All reads after lock acquire fetch from memory (not cache)\n- This is separate from mutual exclusion but inseparable from locks\n**Without this:** A lock provides only mutual exclusion, not visibility. The language/platform provides both together.\n**Tags:** #lock-semantics, #memory-synchronization, #happens-before",
           "source": "03_reasoning.md: Argument 2"
-        },
-        {
-          "id": "arg_003",
-          "name": "Lock-Free Programming Requires Expert-Level Reasoning About Memory Ordering",
-          "claim": "",
-          "source": "03_reasoning.md: Argument 3"
         }
       ],
       "related_implications": [],
       "related_questions": [
         {
           "id": "question_01",
-          "text": "What Makes Code \"Thread-Safe\"?",
+          "text": "What Makes Code \"Thread-Safe\"? Many developers think thread safety means \"I added a lock.\" This is dangerously incomplete. **The deeper layers:** - Mutual exclusion (only one thread in critical section) - Memory visibility (changes made by one thread are seen by others) - Ordering guarantees (operations happen in expected sequence) - Progress guarantees (threads don't starve or deadlock) **Sub-question:** Can you have mutual exclusion without visibility guarantees? (Yes—and this is a common bug.) **Tags:** #thread-safety, #mutual-exclusion, #memory-visibility",
           "source": "01_questions.md: Question 1"
         },
         {
           "id": "question_02",
-          "text": "What is the Relationship Between Locks and Memory?",
+          "text": "What is the Relationship Between Locks and Memory? Developers think locks are just about preventing concurrent access. But locks also establish synchronization barriers. **Critical distinction:** - A lock protects a *variable* (prevents races) - A lock also synchronizes *memory* (ensures visibility) **The question:** Why must Java's volatile keyword exist if synchronization exists? **Tags:** #locks-memory-relationship, #synchronization-barriers, #volatile-semantics",
           "source": "01_questions.md: Question 2"
         }
       ]
     },
     {
       "id": "principle_4",
-      "number": 4,
+      "number": "4",
       "principle": "Memory Ordering is a Fundamental Property",
-      "statement": "",
+      "statement": "**Execution isn't sequential.** Modern CPUs reorder instructions for performance:\n- Loads can move before previous stores\n- Stores can be delayed and batched\n- Each core has its own cache view of memory\n**Memory barriers enforce ordering:**\n- **Acquire barrier:** Prevents later operations from moving before it\n- **Release barrier:** Prevents earlier operations from moving after it\n- **Full barrier:** Prevents all reordering\n**Why it matters:** Without understanding barriers, you can't reason about what \"volatile\" or \"synchronized\" actually guarantees.\n**Tags:** #memory-ordering, #memory-barriers, #CPU-architecture",
       "tags": [
         "memory-ordering",
-        "CPU-architecture",
-        "memory-barriers"
+        "memory-barriers",
+        "CPU-architecture"
       ],
       "source": "02_ideas.md: PRINCIPLE 4",
       "source_line": 67,
@@ -161,7 +142,7 @@
         {
           "id": "arg_001",
           "name": "Shared Memory Without Synchronization Fails Catastrophically",
-          "claim": "",
+          "claim": "**Claim:** Any concurrent access to shared mutable state without synchronization will eventually corrupt data or cause inconsistent behavior.\n### Evidence\n**Example: The Visibility Problem (Java)**\n```java\n// Thread A:\nboolean done = false;\nwhile (!done) {\n    doWork();\n}\n// Thread B:\ndone = true;  // Signal that we're done\n```\n**What can happen:**\n- Thread A might never see `done = true` because the value is cached in its CPU register\n- Even though Thread B wrote to memory, Thread A never reads from memory\n- This is NOT a compiler bug—it's allowed by the Java Memory Model\n**Why:** Processors optimize by caching frequently-read values. Without synchronization barriers, the CPU has no reason to fetch from memory.\n**Fix:** Make `done` volatile:\n```java\nvolatile boolean done = false;\n```\nThis forces memory synchronization on every read.\n**Tags:** #visibility-problem, #memory-ordering, #memory-barriers",
           "source": "03_reasoning.md: Argument 1"
         }
       ],
@@ -169,25 +150,25 @@
       "related_questions": [
         {
           "id": "question_02",
-          "text": "What is the Relationship Between Locks and Memory?",
+          "text": "What is the Relationship Between Locks and Memory? Developers think locks are just about preventing concurrent access. But locks also establish synchronization barriers. **Critical distinction:** - A lock protects a *variable* (prevents races) - A lock also synchronizes *memory* (ensures visibility) **The question:** Why must Java's volatile keyword exist if synchronization exists? **Tags:** #locks-memory-relationship, #synchronization-barriers, #volatile-semantics",
           "source": "01_questions.md: Question 2"
         },
         {
           "id": "question_07",
-          "text": "How Do Memory Barriers and Happens-Before Relations Work?",
+          "text": "How Do Memory Barriers and Happens-Before Relations Work? On modern multi-core systems, operations can execute out of order unless prevented. **The fundamental question:** - How does a CPU ensure that store operations are actually visible to other cores? - Why can't reads move past writes? - What does \"volatile\" actually guarantee vs. what does it not? **Tags:** #memory-barriers, #happens-before, #memory-ordering",
           "source": "01_questions.md: Question 7"
         }
       ]
     },
     {
       "id": "principle_5",
-      "number": 5,
+      "number": "5",
       "principle": "Different Synchronization Primitives Have Different Guarantees",
-      "statement": "",
+      "statement": "**Mutex/Lock:**\n- Mutual exclusion: ✓\n- Memory sync: ✓\n- Fairness: ✗ (no guarantee who gets in next)\n- Progress: Blocking (threads wait, wasting CPU)\n**Atomic Operations:**\n- Mutual exclusion: ✗ (no critical sections)\n- Memory sync: ✓ (with barriers)\n- Fairness: ✗\n- Progress: Lock-free (no waiting)\n**Semaphore:**\n- Counting: ✓ (multiple resources)\n- Mutual exclusion: ✓ (if count=1)\n- Fairness: Sometimes (depends on queue)\n- Memory sync: ✗ (depends on implementation)\n**Monitor (Lock + Condition Variable):**\n- Mutual exclusion: ✓\n- Conditional waiting: ✓ (wait for signals)\n- Fairness: ✗\n- Progress: ✓ (coordinated wake-up)\n**The principle:** Choosing the wrong primitive for your problem is a common mistake.\n**Tags:** #synchronization-primitives, #formal-properties, #tool-selection",
       "tags": [
-        "tool-selection",
+        "synchronization-primitives",
         "formal-properties",
-        "synchronization-primitives"
+        "tool-selection"
       ],
       "source": "02_ideas.md: PRINCIPLE 5",
       "source_line": 85,
@@ -196,20 +177,20 @@
       "related_questions": [
         {
           "id": "question_06",
-          "text": "What Guarantees Does Each Synchronization Primitive Actually Provide?",
+          "text": "What Guarantees Does Each Synchronization Primitive Actually Provide? - **Mutex/Lock:** Mutual exclusion + memory synchronization - **Semaphore:** Counting resource availability - **Monitor:** Lock + built-in condition variable - **Atomic:** Lock-free visibility without locks - **Barrier:** Synchronization point for all threads **Sub-question:** Why is a semaphore not a lock? (Different progress guarantees.) **Tags:** #synchronization-primitives, #formal-guarantees, #correctness-properties",
           "source": "01_questions.md: Question 6"
         }
       ]
     },
     {
       "id": "principle_6",
-      "number": 6,
+      "number": "6",
       "principle": "Shared State Scaling is Non-Linear",
-      "statement": "",
+      "statement": "**Amdahl's Law:** If S% of your code must be sequential (holds a lock):\n```\nSpeedup with N cores = 1 / (S + (1-S)/N)\n```\n**Example:** If 10% of work is sequential:\n- 2 cores: ~1.8x speedup\n- 4 cores: ~3.1x speedup\n- 10 cores: ~5.3x speedup\n- 100 cores: ~9.1x speedup\n**The practical insight:** Contention on shared state is not linear. As you add cores, the cost of synchronization grows superlinearly because:\n- More threads competing for the same lock\n- Cache line bouncing between cores\n- Memory bandwidth becoming saturated\n**Tags:** #amdahl-law, #scalability-limits, #contention-analysis",
       "tags": [
         "amdahl-law",
-        "contention-analysis",
-        "scalability-limits"
+        "scalability-limits",
+        "contention-analysis"
       ],
       "source": "02_ideas.md: PRINCIPLE 6",
       "source_line": 117,
@@ -217,7 +198,7 @@
         {
           "id": "arg_005",
           "name": "Performance Gains from Parallelism Are Limited by Amdahl's Law",
-          "claim": "",
+          "claim": "**Claim:** No matter how many cores you have, if any part of your code is sequential, you'll hit a hard ceiling on speedup.\n### Evidence\n**Example: Real-World Speedup Measurement**\n```\nCode breakdown:\n- 90% parallelizable (can use all N cores)\n-  10% must be sequential (locking, critical sections)\nSpeedup formula: 1 / (0.10 + 0.90/N)\nActual speedups:\n- 2 cores:   1 / (0.10 + 0.45)  = 1.67x   (not 2x)\n- 4 cores:   1 / (0.10 + 0.225) = 3.08x   (not 4x)\n- 8 cores:   1 / (0.10 + 0.1125) = 4.7x   (not 8x)\n- 16 cores:  1 / (0.10 + 0.05625) = 6.1x  (not 16x)\n- 100 cores: 1 / (0.10 + 0.009) = 9.1x    (not 100x)\n```\n**The hard limit:** With 10% sequential, you'll never exceed 10x speedup, no matter how many cores.\n**What actually happens:** Most code has more than 10% sequential:\n```\n- Logging: Might serialize all threads to a lock\n- Shared memory allocation: Global heap lock\n- I/O: System calls are inherently synchronized\n- Coordination: Barriers, condition variables\n```\n**Realistic example:** 50% parallelizable\n```\nSpeedup = 1 / (0.50 + 0.50/N)\n- 2 cores: 1.33x\n- 10 cores: 1.82x\n- 100 cores: 1.96x\n```\n**The lesson:** Parallelism rarely gives 10x speedup on 10 cores. Hidden sequential sections dominate.\n**Tags:** #amdahl-law, #scalability-limits, #performance-reality",
           "source": "03_reasoning.md: Argument 5"
         }
       ],
@@ -225,7 +206,7 @@
         {
           "id": "impl_005",
           "name": "Synchronization Strategies Scale with Contention Level",
-          "what_means": "",
+          "what_means": "**Principle:** Different strategies work at different scales.\n### Practical Impact\n**Low contention (few threads competing):**\n- Simple lock is fine\n- Low overhead, clear semantics\n```java\nsynchronized(object) {\n    criticalSection();\n}\n```\n**Medium contention (several threads):**\n- Lock striping (partition data, use multiple locks)\n```java\n// Instead of one lock for entire map\nMap<String, Integer> map = new ConcurrentHashMap<>();\n// Internally uses 16 locks (default), one per bucket\n```\n**High contention (many threads on same resource):**\n- Lock-free data structures\n- Or copy-on-write (read heavy)\n```java\n// Lock-free queue\nConcurrentLinkedQueue<Item> queue = new ConcurrentLinkedQueue<>();\n// Copy-on-write list (optimized for read-heavy)\nCopyOnWriteArrayList<String> list = new CopyOnWriteArrayList<>();\n```\n**Extreme contention (thousands of threads):**\n- Message passing (actor model)\n- Or eliminate sharing entirely\n```java\n// Instead of shared object, each thread has own copy\nthreadLocal.set(new LocalCopy());\n```\n### Real-World Example\n**Configuration server:**\n```\n// Read-heavy: 1000s of threads reading config\n// Write-heavy: 1 thread updating every minute\n// WRONG: synchronized on every read (high contention)\npublic synchronized Config getConfig() { ... }\n// CORRECT: Immutable + atomic swap\nprivate AtomicReference<Config> config = new AtomicReference<>();\npublic Config getConfig() { return config.get(); }\npublic void updateConfig(Config newConfig) { config.set(newConfig); }\n```\n**Tags:** #scalability-strategy, #contention-analysis, #adaptive-design",
           "source": "04_consequences.md: Implication 5"
         }
       ],
@@ -233,13 +214,13 @@
     },
     {
       "id": "principle_7",
-      "number": 7,
+      "number": "7",
       "principle": "Lock-Free Programming is Not \"Faster Programming\"",
-      "statement": "",
+      "statement": "**Misconception:** \"Use atomics instead of locks for better performance.\"\n**Reality check:**\n- Atomics can be faster if contention is high and critical section is tiny\n- But atomics are *harder* to use correctly (retry loops, ABA problems)\n- Locks have predictable latency; atomics have variable latency (retries)\n**The truth:** Lock-free is for experts optimizing genuine bottlenecks, not a general recommendation.\n**Common pitfalls:**\n- ABA problem: Value changes A→B→A, CAS thinks it's unchanged\n- Memory ordering bugs: Atomics alone don't guarantee visibility\n- Retry storms: Busy-waiting on failed CAS operations wastes CPU\n**Tags:** #lock-free, #performance-myths, #expert-techniques",
       "tags": [
         "lock-free",
-        "expert-techniques",
-        "performance-myths"
+        "performance-myths",
+        "expert-techniques"
       ],
       "source": "02_ideas.md: PRINCIPLE 7",
       "source_line": 139,
@@ -247,7 +228,7 @@
         {
           "id": "arg_003",
           "name": "Lock-Free Programming Requires Expert-Level Reasoning About Memory Ordering",
-          "claim": "",
+          "claim": "**Claim:** Atomic operations are not \"fast locks.\" They're a fundamentally different tool that requires deep understanding.\n### Evidence\n**Example: The ABA Problem**\n```java\n// Shared\nAtomicReference<Node> head = new AtomicReference<>(nodeA);\n// Thread A:\nNode value = head.get();  // Get nodeA\n// ... some work ...\nhead.compareAndSet(value, nodeB);  // Atomic: if head is still nodeA, set to nodeB\n// Thread B (meanwhile):\n// Removes nodeA, re-adds it (or similar)\n// head is now nodeA again, but it's a *different* nodeA object\n```\n**What happens:**\n- Thread A checks `head == nodeA` ✓ (true, because B re-added it)\n- Thread A's CAS succeeds ✓\n- But the nodeA is now different (with different data)\n- Corruption!\n**Why it matters:** CAS only checks *value*, not *identity* or *version*.\n**Fix:** Add versioning:\n```java\nclass Versioned<T> {\n    final long version;\n    final T value;\n}\nAtomicReference<Versioned<Node>> head = new AtomicReference<>();\n```\nNow CAS includes both version and value, preventing ABA.\n**Tags:** #lock-free, #ABA-problem, #atomic-semantics",
           "source": "03_reasoning.md: Argument 3"
         }
       ],
@@ -256,13 +237,13 @@
     },
     {
       "id": "principle_8",
-      "number": 8,
+      "number": "8",
       "principle": "The Actor Model Eliminates Shared Memory Races",
-      "statement": "",
+      "statement": "**How actors avoid concurrency bugs:**\n1. Each actor has private state (no sharing)\n2. Communication only through asynchronous messages\n3. No locks needed (no shared data to protect)\n**The trade-off:**\n- ✓ No data races, no memory visibility issues, simpler reasoning\n- ✗ No determinism (message order is not guaranteed)\n- ✗ Ordering guarantees are weaker\n- ✗ Testing and debugging become harder\n**Why it works:** If data isn't shared, it can't be raced on.\n**Tags:** #actor-model, #isolation, #message-passing",
       "tags": [
-        "message-passing",
         "actor-model",
-        "isolation"
+        "isolation",
+        "message-passing"
       ],
       "source": "02_ideas.md: PRINCIPLE 8",
       "source_line": 159,
@@ -270,7 +251,7 @@
         {
           "id": "arg_006",
           "name": "The Actor Model Eliminates a Whole Class of Bugs",
-          "claim": "",
+          "claim": "**Claim:** By eliminating shared mutable state, actors prevent data races entirely.\n### Evidence\n**Example: Traditional Concurrent Code (Full of Pitfalls)**\n```java\nclass BankAccount {\n    private int balance = 100;\n    public synchronized void transfer(int amount, BankAccount dest) {\n        if (balance >= amount) {\n            balance -= amount;\n            dest.deposit(amount);  // Calls another method!\n        }\n    }\n    public synchronized void deposit(int amount) {\n        balance += amount;\n    }\n}\n```\n**Potential bugs:**\n1. Nested lock acquisition (if not reentrant): deadlock\n2. Missing synchronization on some path: race condition\n3. Developer forgot to sync a method: data race\n4. Transaction across two objects isn't atomic: inconsistency\n**Actor-based equivalent:**\n```java\nclass BankAccountActor {\n    private int balance = 100;  // No synchronization needed!\n    void handle(TransferMessage msg) {\n        if (balance >= msg.amount) {\n            balance -= msg.amount;\n            // Send message to destination (async)\n            destActor.send(new DepositMessage(msg.amount));\n        }\n    }\n    void handle(DepositMessage msg) {\n        balance += msg.amount;  // No locks!\n    }\n}\n```\n**Why it's safer:**\n- Each actor's state is strictly private\n- No other actor can access `balance` directly\n- The only way to modify state is via message handling\n- Message handling is sequential (one at a time per actor)\n- No locks needed (no sharing)\n**The trade-off:**\n- ✓ No data races, no deadlocks, no synchronization bugs\n- ✗ Fewer ordering guarantees (messages can arrive out of order)\n- ✗ Harder to reason about (distributed systems problems)\n**Tags:** #actor-model, #isolation, #safety-by-design",
           "source": "03_reasoning.md: Argument 6"
         }
       ],
@@ -278,20 +259,20 @@
       "related_questions": [
         {
           "id": "question_10",
-          "text": "What is an Actor Model, and Why is It Fundamentally Different?",
+          "text": "What is an Actor Model, and Why is It Fundamentally Different? Actors eliminate shared memory entirely: - Each actor has private state - Communication via asynchronous message passing - No locks needed, because there is nothing to lock **Question:** Does this actually solve concurrency, or just move the problem? (It solves *coordination*.) **Tags:** #actor-model, #message-passing, #isolation",
           "source": "01_questions.md: Question 10"
         }
       ]
     },
     {
       "id": "principle_9",
-      "number": 9,
+      "number": "9",
       "principle": "Immutability is Concurrency-Free Lunch (Almost)",
-      "statement": "",
+      "statement": "**Key insight:** Immutable data cannot be corrupted by concurrent access.\n**Guarantee:** If data never changes:\n- No thread sees inconsistent state (it's always the same)\n- No cache coherency issues (no writes to invalidate)\n- No synchronization needed (just read the constant)\n**The catch:** Immutability helps with data safety but doesn't solve coordination:\n- You still need to coordinate when to switch from version A to version B\n- Atomic references solve this, but you're back to synchronization\n**Practical use:** Immutable data + atomic reference to it = safe updates without locks on the data.\n**Tags:** #immutability, #functional-concurrency, #state-management",
       "tags": [
+        "immutability",
         "functional-concurrency",
-        "state-management",
-        "immutability"
+        "state-management"
       ],
       "source": "02_ideas.md: PRINCIPLE 9",
       "source_line": 178,
@@ -299,7 +280,7 @@
         {
           "id": "arg_007",
           "name": "Immutability Scales to Arbitrary Numbers of Readers",
-          "claim": "",
+          "claim": "**Claim:** Immutable data requires no synchronization, even with thousands of concurrent readers.\n### Evidence\n**Example: Mutable Shared Object Performance**\n```java\nclass Config {\n    private String value = \"default\";\n    public synchronized String get() {\n        return value;\n    }\n    public synchronized void set(String newValue) {\n        value = newValue;\n    }\n}\n// Thousands of reader threads\n// Result: All contention on the lock!\n```\n**Performance profile:**\n- Even though most operations are reads (which don't conflict)\n- Lock serializes all access\n- Throughput decreases as you add reader threads\n**Example: Immutable Shared Object Performance**\n```java\nclass Config {\n    private final String value;  // Immutable!\n    public Config(String value) {\n        this.value = value;\n    }\n    public String get() {  // No synchronization needed!\n        return value;\n    }\n}\n// Thousands of reader threads\n// Result: All threads read in parallel!\n```\n**Performance profile:**\n- Thousands of readers, zero contention\n- CPU caches naturally share immutable data (read-only)\n- Perfect scalability\n**How to update?** Atomic reference:\n```java\nAtomicReference<Config> config = new AtomicReference<>(new Config(\"default\"));\npublic String get() {\n    return config.get().get();  // Immutable read + atomic ref\n}\npublic void update(String newValue) {\n    config.set(new Config(newValue));  // Atomic swap of references\n}\n```\n**The lesson:** Immutable data + atomic reference = safe, scalable updates without synchronizing the data itself.\n**Tags:** #immutability, #scalability, #read-heavy-patterns",
           "source": "03_reasoning.md: Argument 7"
         }
       ],
@@ -307,27 +288,27 @@
         {
           "id": "impl_008",
           "name": "Immutability Reduces Cognitive Load",
-          "what_means": "",
+          "what_means": "**Principle:** Developers can reason about immutable data without thinking about thread safety.\n### Practical Impact\n**Before (mutable, requires reasoning):**\n```java\nclass User {\n    private String name;\n    private int age;\n    public void update(String newName, int newAge) {\n        synchronized(this) {\n            this.name = newName;\n            this.age = newAge;\n        }\n    }\n    // Developer must remember: always check if user is being modified\n    public String getName() {\n        synchronized(this) {\n            return name;\n        }\n    }\n}\n```\n**After (immutable, just use it):**\n```java\nclass User {\n    private final String name;\n    private final int age;\n    public User(String name, int age) {\n        this.name = name;\n        this.age = age;\n    }\n    // No synchronization needed!\n    public String getName() { return name; }\n    public int getAge() { return age; }\n    // To update: create new User\n    public User withAge(int newAge) {\n        return new User(this.name, newAge);\n    }\n}\n```\n**Benefit:** Entire class of bugs (mutations under lock, visibility) is gone.\n**Tags:** #immutability, #simplicity, #correctness-by-design",
           "source": "04_consequences.md: Implication 8"
         }
       ],
       "related_questions": [
         {
           "id": "question_13",
-          "text": "How Do Immutability and Functional Programming Eliminate Concurrency Bugs?",
+          "text": "How Do Immutability and Functional Programming Eliminate Concurrency Bugs? If data never changes: - No race conditions (nothing to race on) - No memory visibility issues (reading old data is still correct) - No need for locks **Question:** Is immutability the answer to all concurrency problems? (No—coordination still matters.) **Tags:** #immutability, #functional-concurrency, #state-management",
           "source": "01_questions.md: Question 13"
         }
       ]
     },
     {
       "id": "principle_10",
-      "number": 10,
+      "number": "10",
       "principle": "Progress Guarantees Come in Levels",
-      "statement": "",
+      "statement": "Different synchronization approaches provide different progress guarantees:\n**Blocking:**\n- Mutex: If a thread is slow, others must wait (worst progress)\n**Obstruction-free:**\n- If only one thread is running, it makes progress\n- But if multiple threads contend, no guarantee (live-lock possible)\n**Lock-free:**\n- At least one thread makes progress in any execution\n- But not every thread (starvation possible)\n**Wait-free:**\n- Every thread makes progress in finite steps\n- Strongest guarantee, hardest to implement\n**The principle:** Stronger guarantees cost more (complexity, synchronization overhead).\n**Tags:** #progress-guarantees, #formal-properties, #correctness-levels",
       "tags": [
-        "correctness-levels",
+        "progress-guarantees",
         "formal-properties",
-        "progress-guarantees"
+        "correctness-levels"
       ],
       "source": "02_ideas.md: PRINCIPLE 10",
       "source_line": 197,
@@ -336,56 +317,49 @@
       "related_questions": [
         {
           "id": "question_06",
-          "text": "What Guarantees Does Each Synchronization Primitive Actually Provide?",
+          "text": "What Guarantees Does Each Synchronization Primitive Actually Provide? - **Mutex/Lock:** Mutual exclusion + memory synchronization - **Semaphore:** Counting resource availability - **Monitor:** Lock + built-in condition variable - **Atomic:** Lock-free visibility without locks - **Barrier:** Synchronization point for all threads **Sub-question:** Why is a semaphore not a lock? (Different progress guarantees.) **Tags:** #synchronization-primitives, #formal-guarantees, #correctness-properties",
           "source": "01_questions.md: Question 6"
         }
       ]
     },
     {
       "id": "principle_11",
-      "number": 11,
+      "number": "11",
       "principle": "False Sharing Destroys Scalability",
-      "statement": "",
+      "statement": "**Hidden problem:** Two threads, different variables, same cache line.\n**What happens:**\n```\nThread A: x = 1    (on core 0)\nThread B: y = 2    (on core 1)\n```\nEven though they're modifying different variables, if `x` and `y` are in the same 64-byte cache line:\n- Thread A's write invalidates Thread B's cache line\n- Thread B's write invalidates Thread A's cache line\n- Constant cache-line bouncing (invalidation traffic)\n- Severe performance degradation\n**The solution:** Padding or array positioning to ensure different threads' data live in different cache lines.\n**Tags:** #false-sharing, #cache-effects, #performance-optimization",
       "tags": [
-        "performance-optimization",
+        "false-sharing",
         "cache-effects",
-        "false-sharing"
+        "performance-optimization"
       ],
       "source": "02_ideas.md: PRINCIPLE 11",
       "source_line": 222,
-      "supporting_arguments": [
-        {
-          "id": "arg_005",
-          "name": "Performance Gains from Parallelism Are Limited by Amdahl's Law",
-          "claim": "",
-          "source": "03_reasoning.md: Argument 5"
-        }
-      ],
+      "supporting_arguments": [],
       "related_implications": [
         {
           "id": "impl_002",
           "name": "Performance Optimization Becomes Counterintuitive",
-          "what_means": "",
+          "what_means": "**Principle:** Faster sequential operations don't mean faster concurrent ones.\n### Practical Impact\n**Wrong optimization (Cache-invalidating):**\n```cpp\n// Trying to \"optimize\" reads\nstruct Shared {\n    int counterA;           // Thread A increments\n    int counterB;           // Thread B increments\n    int padding[14];        // \"Just in case\"\n};\n// Result: Cache line bouncing on every increment!\n// Throughput: 2M ops/sec (slower than sequential)\n```\n**Correct optimization (Cache-friendly):**\n```cpp\n// Separate into different cache lines\nstruct Shared {\n    int counterA;\n    char padding1[64 - sizeof(int)];  // Force 64-byte separation\n    int counterB;\n    char padding2[64 - sizeof(int)];\n};\n// Result: No cache invalidation\n// Throughput: 200M ops/sec (linear scaling)\n```\n**Lesson:** Profile on real hardware with realistic workloads. Intuition fails.\n### When to Apply\n- Load testing under realistic thread counts\n- Cache profiling (cache misses, line bouncing)\n- Contention analysis (which locks are hot?)\n- Scaling tests (does it scale linearly?)\n**Tags:** #performance-optimization, #cache-effects, #profiling",
           "source": "04_consequences.md: Implication 2"
         }
       ],
       "related_questions": [
         {
           "id": "question_09",
-          "text": "How Do You Recognize When Shared State is the Problem?",
+          "text": "How Do You Recognize When Shared State is the Problem? Many performance issues aren't about \"not enough parallelism\" but about \"too much contention.\" **The diagnosis question:** - False sharing (threads on different cores invalidating each other's cache lines) - Lock contention (many threads waiting for the same lock) - Atomic contention (CAS operations serializing on one memory location) **Tags:** #contention, #false-sharing, #performance-diagnosis",
           "source": "01_questions.md: Question 9"
         }
       ]
     },
     {
       "id": "principle_12",
-      "number": 12,
+      "number": "12",
       "principle": "Distributed Concurrency Changes Everything",
-      "statement": "",
+      "statement": "When concurrency spans multiple machines:\n**New realities:**\n- Network failures are common (not rare exceptions)\n- Latency goes from nanoseconds to milliseconds (6+ orders of magnitude)\n- Synchronous coordination becomes impractical\n- Consistency must be eventual (not immediate)\n**Consequence:** Algorithms that work on a single machine (strict consensus) become impossible across unreliable networks.\n**Solution:** Asynchronous, message-based protocols with weaker guarantees (Byzantine-tolerant consensus, causal ordering).\n**Tags:** #distributed-systems, #network-failures, #asynchronous-protocols",
       "tags": [
-        "asynchronous-protocols",
+        "distributed-systems",
         "network-failures",
-        "distributed-systems"
+        "asynchronous-protocols"
       ],
       "source": "02_ideas.md: PRINCIPLE 12",
       "source_line": 244,
@@ -393,7 +367,7 @@
         {
           "id": "arg_004",
           "name": "Distributed Concurrency Requires Different Algorithms",
-          "claim": "",
+          "claim": "**Claim:** Algorithms that work on a single machine fail in distributed systems because assumptions about synchrony don't hold.\n### Evidence\n**Example: Single-Machine Consensus vs. Network**\n```\n// Single machine: Easy!\nif (count > n/2) decision = true;\n```\n**Why it works:**\n- All threads see memory in consistent order\n- Synchronization is fast (nanoseconds)\n- Failures are hardware (rare and complete)\n**What changes over network:**\n- Network may lose messages (messages must be retried)\n- Latency is high (100ms for geographically distant)\n- Partial failures (some nodes up, others down)\n**Byzantine Generals Problem:**\n- What if a general is a traitor?\n- With network delays, you can't distinguish slow honest generals from traitors\n- Requires 3f+1 generals to tolerate f traitors\n**On single machine:** This problem doesn't exist (you control the hardware).\n**Tags:** #distributed-systems, #network-failures, #consensus-algorithms",
           "source": "03_reasoning.md: Argument 4"
         }
       ],
@@ -401,19 +375,19 @@
       "related_questions": [
         {
           "id": "question_11",
-          "text": "What Changes When Concurrency Spans Multiple Machines?",
+          "text": "What Changes When Concurrency Spans Multiple Machines? - Network failures are not rare edge cases—they are normal - Latency increases by 7+ orders of magnitude - Synchronous communication becomes impractical **The cascade:** - Consensus becomes genuinely hard (Byzantine Generals) - Consistency models must be relaxed (eventual consistency) - Causality becomes more important than atomic ordering **Tags:** #distributed-systems, #network-failures, #consistency-models",
           "source": "01_questions.md: Question 11"
         }
       ]
     },
     {
       "id": "principle_13",
-      "number": 13,
+      "number": "13",
       "principle": "Consistency Models Define the Rules of the Game",
-      "statement": "",
+      "statement": "**Strict Consistency (Linearizability):**\n- All operations appear in a total order\n- Every read sees the latest write\n- Hardest to achieve, most intuitive\n**Causal Consistency:**\n- Operations causally related must appear ordered\n- Concurrent operations can be reordered\n- Sweet spot for many distributed systems\n**Eventual Consistency:**\n- All replicas converge to the same state, eventually\n- Allows maximum availability and partition tolerance\n- Weak guarantee, but practical\n**The principle:** Pick the consistency model that matches your constraints, not the strongest one.\n**Tags:** #consistency-models, #distributed-systems, #trade-offs",
       "tags": [
-        "distributed-systems",
         "consistency-models",
+        "distributed-systems",
         "trade-offs"
       ],
       "source": "02_ideas.md: PRINCIPLE 13",
@@ -422,7 +396,7 @@
         {
           "id": "arg_004",
           "name": "Distributed Concurrency Requires Different Algorithms",
-          "claim": "",
+          "claim": "**Claim:** Algorithms that work on a single machine fail in distributed systems because assumptions about synchrony don't hold.\n### Evidence\n**Example: Single-Machine Consensus vs. Network**\n```\n// Single machine: Easy!\nif (count > n/2) decision = true;\n```\n**Why it works:**\n- All threads see memory in consistent order\n- Synchronization is fast (nanoseconds)\n- Failures are hardware (rare and complete)\n**What changes over network:**\n- Network may lose messages (messages must be retried)\n- Latency is high (100ms for geographically distant)\n- Partial failures (some nodes up, others down)\n**Byzantine Generals Problem:**\n- What if a general is a traitor?\n- With network delays, you can't distinguish slow honest generals from traitors\n- Requires 3f+1 generals to tolerate f traitors\n**On single machine:** This problem doesn't exist (you control the hardware).\n**Tags:** #distributed-systems, #network-failures, #consensus-algorithms",
           "source": "03_reasoning.md: Argument 4"
         }
       ],
@@ -430,26 +404,26 @@
         {
           "id": "impl_012",
           "name": "Consistency Models Define Acceptable Behavior",
-          "what_means": "is the contention level?**\n   - Low → Simple locks\n   - Medium → Lock striping or lock-free\n   - Hig",
+          "what_means": "**Principle:** Relaxing consistency from \"strict\" enables availability and performance.\n### Practical Impact\n**Strict Consistency (Linearizability):**\n```\nUser A writes user.age = 30\nUser B reads user.age\nGuarantee: B sees 30 (not any previous value)\nCost: Must synchronize globally, high latency\n```\n**Causal Consistency:**\n```\nOperations that are causally related appear ordered.\nConcurrent operations can be in any order.\nExample:\n- A sends message \"I'm 30\" to B\n- B reads age\nGuarantee: If A updated age before message, B sees new age\nBut: Concurrent unrelated updates might reorder\n```\n**Eventual Consistency:**\n```\nAll nodes eventually have same data, but temporarily inconsistent.\nExample: Distributed cache\n- Node A has version 1\n- Node B has version 1\n- Update arrives, Node A gets version 2\n- Node B still sees version 1 (temporarily)\n- Eventually B also gets version 2\nGuarantee: Convergence, not ordering\nCost: Application must tolerate temporary inconsistency\n```\n### When to Choose\n- **Strict:** Financial systems, medical records (correctness critical)\n- **Causal:** Social networks, email (causality matters, not ordering)\n- **Eventual:** Caches, analytics (accuracy not critical)\n**Tags:** #consistency-models, #CAP-theorem, #availability-tradeoff",
           "source": "04_consequences.md: Implication 12"
         }
       ],
       "related_questions": [
         {
           "id": "question_11",
-          "text": "What Changes When Concurrency Spans Multiple Machines?",
+          "text": "What Changes When Concurrency Spans Multiple Machines? - Network failures are not rare edge cases—they are normal - Latency increases by 7+ orders of magnitude - Synchronous communication becomes impractical **The cascade:** - Consensus becomes genuinely hard (Byzantine Generals) - Consistency models must be relaxed (eventual consistency) - Causality becomes more important than atomic ordering **Tags:** #distributed-systems, #network-failures, #consistency-models",
           "source": "01_questions.md: Question 11"
         }
       ]
     },
     {
       "id": "principle_14",
-      "number": 14,
+      "number": "14",
       "principle": "Concurrency Testing Requires New Strategies",
-      "statement": "",
+      "statement": "**Traditional testing fails:** Unit tests run sequentially; they can't trigger most race conditions.\n**Why:** Race conditions depend on precise timing, hardware scheduling, and cache behavior.\n**Better strategies:**\n- **Stress testing:** Run the code for hours under load, count failures\n- **Model checking:** Explore all possible interleavings (tools: ThreadSanitizer, Java PathFinder)\n- **Formal verification:** Mathematically prove correctness (tools: TLA+, Alloy)\n- **Property-based testing:** Generate random concurrent scenarios, check invariants\n**The insight:** You can't test your way to concurrent correctness; you must reason about it.\n**Tags:** #testing-concurrency, #verification, #reliability",
       "tags": [
-        "verification",
         "testing-concurrency",
+        "verification",
         "reliability"
       ],
       "source": "02_ideas.md: PRINCIPLE 14",
@@ -458,7 +432,7 @@
         {
           "id": "arg_008",
           "name": "Testing Can't Guarantee Concurrent Correctness",
-          "claim": "",
+          "claim": "**Claim:** Unit tests, integration tests, and even stress tests cannot guarantee that concurrent code is free of race conditions.\n### Evidence\n**Example: The Heisenbug**\n```java\nclass RaceCondition {\n    private int counter = 0;\n    void increment() {\n        counter++;  // Race condition!\n    }\n}\n// Run with 10 threads, increment 1,000,000 times\n// Expected: counter = 10,000,000\n// Actual: varies (sometimes 9.8 million, sometimes 10.1 million)\n```\n**Why testing fails:**\n- The bug only triggers under specific timing (threads interleave just right)\n- Might fail 1 in 10,000 runs\n- Different CPU, different timing (bug disappears)\n- Add debug prints → timing changes → bug disappears (Heisenbug)\n**Why it's hard to test:**\n```\nNumber of possible interleavings ≈ (instructions)! / (per-thread order)\nFor N threads and 1000 instructions each: astronomically large\n```\nYou can't test all interleavings.\n**Better approach: Formal reasoning**\n```java\ncounter++;  // Three operations:\n// LOAD counter\n// ADD 1\n// STORE counter\n// Possible interleaving:\nT1: LOAD (value = 0)\nT2: LOAD (value = 0)\nT1: ADD (value = 1)\nT2: ADD (value = 1)\nT1: STORE (counter = 1)\nT2: STORE (counter = 1)  // T2's write overwrites T1's!\n// Result: counter = 1 (should be 2)\n```\n**Fix strategy:**\n1. Reason formally about which operations must be atomic\n2. Use synchronization to enforce atomicity\n3. Verify that the synchronization is correct\n4. Test for sanity, but don't expect testing to catch all races\n**Tags:** #testing-limits, #heisenbugs, #formal-verification",
           "source": "03_reasoning.md: Argument 8"
         }
       ],
@@ -466,30 +440,27 @@
         {
           "id": "impl_009",
           "name": "Testing Strategy Must Match Concurrency Model",
-          "what_means": "tests missed)\n```",
+          "what_means": "**Principle:** Different models need different verification approaches.\n### Practical Impact\n**Shared memory (locks):**\n- Stress test under realistic load\n- Use ThreadSanitizer or similar to detect races\n- Reason formally about ordering (happens-before)\n**Actor model:**\n- Test message sequences and edge cases\n- Verify ordering guarantees (or lack thereof)\n- Test partition/failure scenarios\n**Lock-free:**\n- Use model checking (exhaustive state exploration)\n- Formal verification (TLA+, Alloy) for correctness\n- Extensive stress testing\n**Immutable:**\n- Can use regular unit tests (no concurrency edge cases)\n- Focus on testing object creation/composition\n### Real Strategy\n```\n1. Reason formally (mental model or tool)\n2. Write comprehensive tests (for whatever reasoning missed)\n3. Stress test (find edge cases and race conditions)\n4. Monitor production (catch what tests missed)\n```\n**Tags:** #testing-strategy, #verification, #multi-layer-testing",
           "source": "04_consequences.md: Implication 9"
         }
       ],
       "related_questions": [
         {
           "id": "question_14",
-          "text": "How Do You Test Concurrent Code?",
+          "text": "How Do You Test Concurrent Code? Traditional unit tests can't catch most concurrency bugs because: - Race conditions depend on timing - Hardware behavior varies - Bugs may occur 1 in millions of runs **Practical questions:** - Stress testing (run for hours, count failures) - Model checking (exhaustive state exploration) - Formal verification (mathematical proofs) **Tags:** #testing-concurrency, #verification, #reliability",
           "source": "01_questions.md: Question 14"
         }
       ]
     },
     {
       "id": "principle_15",
-      "number": 15,
+      "number": "15",
       "principle": "Parallelism is Not Always Worth It",
-      "statement": "",
+      "statement": "**Amdahl's Law again:** If only 5% of your work parallelizes, speedup with 10 cores is ~2x.\n**Before parallelizing, ask:**\n1. Is the problem actually parallel? (Different data streams, not just multiple tasks)\n2. Is the speedup worth the complexity? (Concurrent code is 5-10x harder to understand and debug)\n3. Have you optimized the sequential version first? (Usually the first speedup comes from sequential optimization)\n**The radical idea:** Most code should be sequential. Only parallelize when:\n- Profiling shows a real bottleneck\n- The speedup is worth the additional complexity\n- The problem has genuine data parallelism\n**Tags:** #pragmatism, #premature-optimization, #complexity-cost",
       "tags": [
-        "progressive-understanding",
-        "complexity-cost",
         "pragmatism",
-        "principle-hierarchy",
-        "knowledge-integration",
-        "premature-optimization"
+        "premature-optimization",
+        "complexity-cost"
       ],
       "source": "02_ideas.md: PRINCIPLE 15",
       "source_line": 303,
@@ -498,29 +469,9 @@
       "related_questions": [
         {
           "id": "question_15",
-          "text": "When Should You Avoid Concurrency Entirely?",
+          "text": "When Should You Avoid Concurrency Entirely? Not every problem requires parallel code: - Sequential code is much simpler - Overhead of coordination has real costs - Amdahl's Law limits speedup (serial sections dominate) **The decision:** - Is the problem actually parallel? (Different data flow, not just multiple threads) - Is the speedup worth the complexity? (Usually no, until performance demands it) **Tags:** #complexity-cost, #premature-parallelization, #pragmatism",
           "source": "01_questions.md: Question 15"
         }
-      ]
-    }
-  ],
-  "decision_guide": {
-    "when_uncertain_ask": [
-      "What Makes Code \"Thread-Safe\"?",
-      "What is the Relationship Between Locks and Memory?",
-      "Why Are Some Concurrency Bugs Nearly Impossible to Reproduce?",
-      "What is the Difference Between Concurrency and Parallelism?",
-      "When Should You Use Locks vs. Lock-Free Structures vs. Message Passing?"
-    ],
-    "framework": "Reference supporting_arguments and related_implications"
-  },
-  "faq": [
-    {
-      "question": "How do I know this principle applies?",
-      "answer": "Check if your situation matches when_to_use context. Review related_questions.",
-      "principle_refs": [
-        "principle_1",
-        "principle_2"
       ]
     }
   ],
@@ -666,17 +617,5 @@
     "visibility-guarantees",
     "visibility-problem",
     "volatile-semantics"
-  ],
-  "version_info": {
-    "json_version": "3.0",
-    "pass": "Pass 6: JSON Generation for LLM",
-    "generation_date": "2026-08-09T08:10:54.699270",
-    "book": "parallel-programming",
-    "principles": 15,
-    "arguments": 8,
-    "implications": 12,
-    "questions": 15,
-    "tags": 141,
-    "data_quality": "No invented data. All sourced from markdown."
-  }
+  ]
 }
