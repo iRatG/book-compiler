@@ -1,1 +1,33 @@
-.obsidian/
+# Build and runtime
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment
+.env
+.env.local
+.DS_Store
+Thumbs.db
+
+# Temporary files
+temp/
+tmp/
+*.tmp
+*.bak
+
+# Project-specific: source materials and processing logs
+source/
+reports/
+
+# Git
+.git/

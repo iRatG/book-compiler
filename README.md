@@ -1,6 +1,6 @@
 # 📚 Deep Reading System v4.0
 
-Complete analysis of 6 technical books with **6 layers per book**:
+Complete analysis of **11 technical and philosophy books** with **6+ layers per book**:
 
 ## Layers
 
@@ -15,63 +15,82 @@ Complete analysis of 6 technical books with **6 layers per book**:
 
 ---
 
-## Books
+## Books (11 Total)
 
-### 1. Clean Architecture ← [Learn More](Books/clean-architecture/)
-**Robert C. Martin** — How to structure systems that minimize change cost
+### Core Technical Books
 
-- 15 principles extracted
-- Tags: #architecture, #cost-of-change, #paradigms
-- JSON: [05_llm_instructions.json](Books/clean-architecture/05_llm_instructions.json)
+1. **Clean Architecture** — Robert C. Martin  
+   How to structure systems that minimize change cost  
+   JSON: [05_llm_instructions.json](Books/clean-architecture/05_llm_instructions.json)
 
-### 2. Ideal Work / The Clean Coder ← [Learn More](Books/ideal-work/)
-**Robert C. Martin** — Professionalism as ethical commitment and long-term thinking
+2. **Ideal Work / The Clean Coder** — Robert C. Martin  
+   Professionalism as ethical commitment and long-term thinking  
+   JSON: [05_llm_instructions.json](Books/ideal-work/05_llm_instructions.json)
 
-- 15 principles extracted
-- Tags: #craftsmanship, #tdd, #professionalism, #ethics
-- JSON: [05_llm_instructions.json](Books/ideal-work/05_llm_instructions.json)
+3. **The Pragmatic Programmer** — Thomas & Hunt  
+   Sustainable pace and managing technical risk  
+   JSON: [05_llm_instructions.json](Books/pragmatic-programmer/05_llm_instructions.json)
 
-### 3. The Pragmatic Programmer ← [Learn More](Books/pragmatic-programmer/)
-**Thomas & Hunt** — Sustainable pace and managing technical risk
+4. **Parallel Programming Models** — R.E. Fedotov  
+   Choosing the right concurrency model  
+   JSON: [05_llm_instructions.json](Books/parallel-programming/05_llm_instructions.json)
 
-- 5 principles extracted
-- Tags: #dry, #automation, #risk-management
-- JSON: [05_llm_instructions.json](Books/pragmatic-programmer/05_llm_instructions.json)
+5. **Code That Fits in Your Head** — Mark Seeman  
+   Cognitive load as an architectural constraint  
+   JSON: [05_llm_instructions.json](Books/code-fits-in-head/05_llm_instructions.json)
 
-### 4. Parallel Programming Models ← [Learn More](Books/parallel-programming/)
-**R.E. Fedotov** — Choosing the right concurrency model
+6. **Clean Code** — Robert C. Martin  
+   Writing code that reads as prose  
+   JSON: [05_llm_instructions.json](Books/martin-clean-code/05_llm_instructions.json)
 
-- 15 principles extracted
-- Tags: #concurrency, #synchronization, #performance
-- JSON: [05_llm_instructions.json](Books/parallel-programming/05_llm_instructions.json)
+7. **A Philosophy of Software Design** — John Ousterhout  
+   Design thinking applied to systems and code  
+   JSON: [05_llm_instructions.json](Books/philosophy-software-design/05_llm_instructions.json)
 
-### 5. Code That Fits in Your Head ← [Learn More](Books/code-fits-in-head/)
-**Mark Seeman** — Cognitive load as an architectural constraint
+8. **Domain-Driven Design Patterns** — Various Authors  
+   Modeling complex business domains  
+   JSON: [05_llm_instructions.json](Books/domain-modeling-functional/05_llm_instructions.json)
 
-- 8 principles extracted
-- Tags: #readability, #cognitive-load, #simplicity
-- JSON: [05_llm_instructions.json](Books/code-fits-in-head/05_llm_instructions.json)
+9. **Concepts of Programming Languages** — Various  
+   Language design principles and paradigms  
+   JSON: [05_llm_instructions.json](Books/concepts-programming-languages/05_llm_instructions.json)
 
-### 6. Clean Code ← [Learn More](Books/martin-clean-code/)
-**Robert C. Martin** — Writing code that reads as prose
+10. **The Architect Elevator** — Gregor Hohpe  
+    Bridging technical and business architecture  
+    JSON: [05_llm_instructions.json](Books/architect-elevator/05_llm_instructions.json)
 
-- 15 principles extracted
-- Tags: #craftsmanship, #readability, #naming, #testing
-- JSON: [05_llm_instructions.json](Books/martin-clean-code/05_llm_instructions.json)
+11. **Other Technical Books** — Emerging analysis  
+    Additional domain-specific guidance  
+    JSON: [05_llm_instructions.json](Books/)
 
 ---
 
-## What's New (v2.0)
+## What's New (v4.0)
 
-### Layer 5: LLM Instructions
+### Layer 5: LLM Instructions (JSON)
 
-Every book now outputs a **machine-readable JSON file** with:
-- ✅ Structured principles (title, reasoning, tags, severity)
-- ✅ System instructions for Claude/GPT/other LLMs
-- ✅ FAQ for common questions
-- ✅ Cross-references between principles
+Every book outputs a **machine-readable JSON file** with:
+- ✅ Structured principles (statement, tags, source citations)
+- ✅ Supporting arguments and evidence
+- ✅ Related principles and questions
+- ✅ Full traceability back to source material
 
-**Use case:** Load JSON into your LLM conversations to apply book principles automatically.
+**Use case:** Parse JSON programmatically or paste into LLM conversations.
+
+### Layer 6: Agent Rules (NEW — Pass 5)
+
+Each book can generate **agent-ready rules** with:
+- **When to use** — Situations where this book's guidance applies
+- **Primary bias to correct** — The misconception the book fixes
+- **Decision rules** — General operating principles (7-10)
+- **Trigger rules** — Conditional heuristics: "When X, then Y" (3-5)
+- **Final checklist** — Verification questions (4-6)
+
+**Example:** [Books/martin-clean-code/06_agent_rules.md](Books/martin-clean-code/06_agent_rules.md)
+
+**Use case:** Paste into Claude/GPT instructions, or use in agent frameworks (MCP, Cursor rules, etc.).
+
+**Traceability:** Every rule includes a companion [06_agent_rules.traceability.md](Books/martin-clean-code/06_agent_rules.traceability.md) proving each rule traces back to exact source material. No fabricated data.
 
 ### Example
 
@@ -191,9 +210,17 @@ README.md                           ← This file
 
 ---
 
-**Status:** ✅ v4.0 Complete (Pass 4 LLM-driven; 6 books; lean schema)  
+**Status:** ✅ v4.0 Complete (Pass 4 LLM-driven; 11 books; lean schema; Pass 5 partial)  
 **Last Updated:** 2026-08-09  
 **License:** Personal knowledge base
+
+---
+
+## How This Compares to Similar Projects
+
+See [QUICKSTART_AUDIT_SUMMARY.md](QUICKSTART_AUDIT_SUMMARY.md) for a quick comparison with mattpocock/agent-rules-books.
+
+Full audit available in [AUDIT_REPORT_2026-08-09.md](AUDIT_REPORT_2026-08-09.md).
 
 ## Versioning
 
