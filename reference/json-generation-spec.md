@@ -1,4 +1,10 @@
-# JSON Generation Specification (v3.0)
+# JSON Generation Specification (v3.0) — SUPERSEDED
+
+> **⚠️ Superseded.** This specification describes the unimplemented "v3.0 rich schema" (practical_metrics with formulas, quantified scenarios, anti-patterns, code review checklists, etc.), which risks inventing data not present in source books.
+> 
+> **Current procedure:** See `reference/pass-4-json-generation.md` for the authoritative, implemented Pass 4 specification (LLM-driven, lean schema, no invented data).
+> 
+> This file is kept for historical reference and inspiration for future, well-sourced schema extensions.
 
 **Status:** In Development  
 **Purpose:** Transform 5-layer markdown model into actionable LLM instructions JSON  

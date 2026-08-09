@@ -17,13 +17,11 @@ PASS 1: SURVEY (understand structure)
   ↓
 PASS 2: RECONSTRUCT (extract 5-layer model)
   ↓
-PASS 3: WRITE (markdown: 00-04)
+PASS 3: WRITE (markdown: 00-04, in book's native language)
   ↓
-PASS 4: GENERATE JSON (05_llm_instructions.json v3.0)
+PASS 4: GENERATE LLM INSTRUCTIONS (05_llm_instructions.json, always English)
   ↓
-PASS 5: VALIDATE (quality gates)
-  ↓
-OUTPUT (ready for LLM consumption)
+OUTPUT (6-layer model ready for LLM consumption)
 ```
 
 ---
@@ -244,143 +242,136 @@ Each file organizes nodes by layer:
 
 ---
 
-## Pass 4: Generate JSON (v3.0)
+## Pass 4: Generate LLM Instructions JSON (LLM-Driven)
 
-**Goal:** Transform markdown into actionable LLM instructions JSON.
+**Goal:** Transform the book's 5-layer markdown model into actionable JSON for LLM consumption, always in English.
 
-**Input:** Five markdown files (00-04)
+**Input:** Five markdown files (00-04) in the book's native language (English, Russian, or other); any header convention.
 
-**Output:** `05_llm_instructions.json` (v3.0 format)
+**Output:** `05_llm_instructions.json` (v4.0 lean schema)
 
-**Time:** Automated (< 1 minute)
+**Time:** Typically 30-60 minutes per book for an LLM to read, extract, and translate faithfully.
 
 ### What Pass 4 Does
 
-**Extracts:**
-- Principles from `02_ideas.md`
-- Reasoning from `03_reasoning.md`
-- Applications from `04_consequences.md`
+An LLM executes this procedure:
 
-**Transforms Into:**
-- Practical metrics (with formulas, not guesses)
-- Code review checklists
-- Real scenarios with quantified costs
-- Anti-patterns (what looks right but is wrong)
-- Context qualifiers (when to apply, when NOT)
+1. **Reads** the book's own 00-04 markdown completely
+2. **Identifies** every principle, argument, implication, and question by understanding the content (not regex-matching)
+3. **Links** supporting content within the same book by meaning (content-matching, not tag-overlap heuristics)
+4. **Translates** everything into faithful, complete English (if source is Russian or another language)
+5. **Writes** JSON in the lean schema: metadata, system_instruction, quick_reference, principles[], decision_guide, faq, tags, version_info
+
+**Lean schema fields:**
+- `principle`: short statement
+- `statement`: full explanation (untruncated)
+- `supporting_arguments[]`: {id, name, claim, source}
+- `related_implications[]`: {id, name, what_means, source}
+- `related_questions[]`: {id, text, source}
+- `tags`: book-specific tags
+- `source` and `source_line`: every element is traceable
+
+**Out of scope** (never invented, even if tempting):
+- Practical metrics with formulas
+- Quantified-cost scenarios
+- Anti-patterns derived by inverting principles
+- Context qualifiers not in the source
 - Implementation roadmaps
-- Decision criteria
+- Checklists or step-by-step guidance not present in the source
 
 **Validates:**
-- No invented metrics
-- Every scenario has quantified cost
-- Every anti-pattern is grounded in reality
-- All code examples are real language (not pseudo-code)
-- Context boundaries filled in
-- Quality gates passed
+- No invented data (every field traces to source)
+- No truncation of text
+- All principles/arguments/implications/questions are real (count matches source)
+- Source references are accurate and verifiable
 
-### JSON v3.0 Structure
+### JSON v4.0 Structure (Lean Schema)
 
 ```json
 {
-  "metadata": { ... },
-  "system_instruction": "Copy-paste prompt for LLM",
-  "quick_reference": { ... },
-  
+  "metadata": {
+    "title": "Book Title",
+    "author": "Author Name",
+    "publication": "Publication info",
+    "book_name": "slug",
+    "format_version": "4.0",
+    "generated_at": "ISO 8601",
+    "language": "English",
+    "source_language": "English|Russian|...",
+    "generation_pass": "Pass 4: Generate LLM Instructions (LLM-driven)"
+  },
+
+  "system_instruction": "Paste-in prompt for LLM",
+
+  "quick_reference": {
+    "book": "slug",
+    "principles_count": N,
+    "top_3_principles": ["Principle 1", "Principle 2", "Principle 3"],
+    "questions_count": N,
+    "arguments_count": N,
+    "implications_count": N
+  },
+
   "principles": [
     {
       "id": "principle_1",
+      "number": 1,
       "principle": "Short statement",
-      "scope": "system/module/function",
-      "severity": "CRITICAL/HIGH/MEDIUM",
-      
-      "statement": "Expanded statement",
-      "reasoning": "Why this matters",
-      
-      "when_to_use": ["Specific situation 1", ...],
-      "when_NOT_to_use": ["Honest boundary 1", ...],
-      
-      "key_rules": ["Actionable rule 1", ...],
-      
-      "practical_metrics": [
-        {
-          "name": "Metric name",
-          "formula": "how to calculate",
-          "how_to_measure": "where to get data",
-          "good_value": "target",
-          "bad_value": "warning sign",
-          "example": { "scenario": "...", "calculation": "...", "interpretation": "..." }
-        }
-      ],
-      
-      "code_review_checklist": ["☐ Concrete check 1", ...],
-      "code_review_warnings": ["⚠️ Red flag 1", ...],
-      
-      "scenarios": [
-        {
-          "scenario": "Real situation",
-          "bad_approach": { "description": "...", "code": "...", "cost": "...", "problem": "..." },
-          "good_approach": { "description": "...", "code": "...", "cost": "...", "why_works": "..." }
-        }
-      ],
-      
-      "anti_patterns": [
-        {
-          "name": "Anti-pattern name",
-          "looks_right": "Why developers think it's correct",
-          "actually_wrong": "The hidden problem",
-          "cost": "Real impact",
-          "solution": "How to avoid"
-        }
-      ],
-      
-      "context_qualifiers": {
-        "for_monolith": "...",
-        "for_microservices": "...",
-        "for_ui_only": "...",
-        "for_startup": "...",
-        "for_embedded": "..."
-      },
-      
-      "implementation_steps": [
-        { "step": 1, "name": "...", "action": "...", "time": "..." }
-      ],
-      
-      "decision_criteria": { "question": "...", "factors": [...], "if_yes_to_any": "..." },
-      
-      "common_misconceptions": [
-        { "myth": "...", "truth": "...", "why_myth_exists": "...", "consequence": "..." }
-      ],
-      
-      "how_to_verify": { "criterion_1": "...", "tool_suggestion": "..." },
-      
-      "related_principles": [
-        { "id": "principle_X", "relationship": "Conflict/Support/Dependency", "explanation": "..." }
-      ],
-      
+      "statement": "Full explanation (untruncated)",
       "tags": ["#tag1", "#tag2"],
-      "source_sections": ["02_ideas.md: ...", ...]
+      "source": "02_ideas.md: PRINCIPLE 1",
+      "source_line": 3,
+      
+      "supporting_arguments": [
+        {
+          "id": "arg_001",
+          "name": "Argument Name",
+          "claim": "Full claim (untruncated)",
+          "source": "03_reasoning.md: Argument 1"
+        }
+      ],
+      
+      "related_implications": [
+        {
+          "id": "impl_001",
+          "name": "Implication Name",
+          "what_means": "Full explanation (untruncated)",
+          "source": "04_consequences.md: Implication 1"
+        }
+      ],
+      
+      "related_questions": [
+        {
+          "id": "question_01",
+          "text": "Full question text",
+          "source": "01_questions.md: Question 1"
+        }
+      ]
     }
   ],
-  
-  "decision_guide": { "when_uncertain_ask": [...] },
-  
-  "faq": [
-    { "scenario": "Real situation", "question": "What's right?", "answer": "...", "principle_refs": [...] }
-  ],
-  
-  "implementation_roadmap": {
-    "phase_1": "Start with this",
-    "phase_2": "Then this",
-    "rationale": "Why this order"
-  },
-  
+
+  "decision_guide": { "when_uncertain_ask": [...], "framework": "..." },
+
+  "faq": [{ "question": "...", "answer": "...", "principle_refs": [...] }],
+
   "tags": ["#tag1", "#tag2"],
-  
-  "version_info": { ... }
+
+  "version_info": {
+    "json_version": "4.0",
+    "pass": "Pass 4: Generate LLM Instructions (LLM-driven)",
+    "generation_date": "ISO 8601",
+    "book": "slug",
+    "principles": N,
+    "arguments": N,
+    "implications": N,
+    "questions": N,
+    "tags": N,
+    "data_quality": "No invented data. All sourced from markdown."
+  }
 }
 ```
 
-**See:** `reference/json-generation-spec.md` for full specification
+**See:** `reference/pass-4-json-generation.md` for detailed schema and procedure. ~~`reference/json-generation-spec.md` is superseded (documented the unimplemented rich v3.0 schema).~~
 
 ### Quality Gates (Must Pass)
 
@@ -492,40 +483,26 @@ Each file organizes nodes by layer:
 
 ## Running the Pipeline
 
-### Automated (Recommended)
+### Pass 1-3: Deep Reading (Manual + LLM-Guided)
 
-```bash
-# Generate JSON for all books
-python scripts/build_all_llm_instructions.py Books/
+Use the `book-compiler` skill in Claude:
+1. Ask Claude to "read this book deeply" using SKILL.md as the procedure guide
+2. Claude executes Pass 1 (survey), Pass 2 (reconstruct), Pass 3 (write) 
+3. Output: five markdown files in `Books/<slug>/`
 
-# Generate JSON for single book
-python scripts/build_all_llm_instructions.py Books/ --book clean-architecture
+### Pass 4: Generate LLM Instructions JSON (LLM-Driven)
 
-# Verbose output
-python scripts/build_all_llm_instructions.py Books/ --verbose
-```
+For each book, have an LLM follow `reference/pass-4-json-generation.md`:
+1. Read `00_purpose.md` through `04_consequences.md` from the book
+2. Identify principles, arguments, implications, questions by understanding (not regex)
+3. Translate everything into complete, faithful English
+4. Write `05_llm_instructions.json` matching the lean schema
 
-### Manual (Educational)
+**Output:** Each book now has a 6th file: `05_llm_instructions.json`
 
-```bash
-# Step by step
-cd Books/clean-architecture/
+### Legacy (Deprecated)
 
-# Pass 1: Survey (manual, look at structure)
-head -50 00_purpose.md
-
-# Pass 2: Reconstruct (manual, understand text)
-# (Read the book and create 02_ideas.md, etc)
-
-# Pass 3: Write (manual or guided)
-# (Organize nodes into markdown)
-
-# Pass 4: Generate JSON (automated)
-python ../../scripts/generate_llm_instructions.py .
-
-# Pass 5: Validate (automated, included in Pass 4)
-# (Validation report printed to stdout)
-```
+> The previous approach used `scripts/universal_pass6_generator.py` (an English-only regex script). That script is superseded by the LLM-driven Pass 4 procedure above. Scripts are kept for historical reference only — do not use to regenerate 05_llm_instructions.json going forward. See `scripts/README.md` for why.
 
 ---
 
@@ -599,7 +576,8 @@ book-compiler/
 
 **v1.0:** Markdown layers (00-04) only, Russian language  
 **v2.0:** Added JSON layer (05) with basic structure, English  
-**v3.0:** JSON redesigned for actionability (no fake metrics, anti-patterns, metrics as formulas)
+**v3.0 (Abandoned):** JSON designed for actionability (practical_metrics with formulas, quantified scenarios, anti-patterns, checklists, etc.). This rich schema was never implemented, as it risked inventing data not present in the source books, violating the project's "no invented data" principle.  
+**v4.0 (Current):** Pass 4 becomes LLM-driven (replacing the English-only regex script). Layers 00-04 keep whatever language they are already in per book (no back-translation). Layer 05 is always English using the lean schema (principle/statement/reasoning/arguments/implications/questions) — genuinely populated via translation, not regex-extracted or fabricated.
 
 ---
 

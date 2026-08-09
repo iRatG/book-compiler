@@ -1,6 +1,6 @@
 ---
 name: book-compiler
-description: Deep reading skill. Reconstructs books (not summarizes). Use when asked to "read this deeply", "build a book model", "what is this really saying", "reconstruct the ideas". Output is 5 structured markdown files modeling the book's intellectual architecture.
+description: Deep reading skill. Reconstructs books (not summarizes). Use when asked to "read this deeply", "build a book model", "what is this really saying", "reconstruct the ideas". Output is 6 files: 5 structured markdown files modeling the book's intellectual architecture (in the book's native language), plus 1 English JSON file for LLM consumption.
 ---
 
 # BOOK COMPILER — Deep Reading Skill (v0)
@@ -19,7 +19,7 @@ description: Deep reading skill. Reconstructs books (not summarizes). Use when a
 
 ---
 
-## The Three Passes
+## The Four Passes
 
 ### Pass 1: Survey
 - Identify text type (non-fiction, narrative, argument)
@@ -59,6 +59,30 @@ description: Deep reading skill. Reconstructs books (not summarizes). Use when a
 
 **Output**: Five markdown files in `Books/<slug>/`
 
+### Pass 4: Generate LLM Instructions (05_llm_instructions.json)
+
+**Goal:** Transform the reconstructed 5-layer model into actionable JSON for LLM consumption, always in English.
+
+**Input:** The book's own `00_purpose.md` through `04_consequences.md` (in whatever language they are written; do not assume or require any specific header convention).
+
+**Output:** One `05_llm_instructions.json` file in `Books/<slug>/`, always in English, regardless of the source language of layers 00-04.
+
+**How it works:**
+1. Read `00_purpose.md` through `04_consequences.md` completely.
+2. Identify every principle, argument, implication, and question by *reading and understanding* the content — not by regex-matching a specific keyword or heading level.
+   - For chapter-organized sources (principles embedded as list items inside chapter sections, like `martin-clean-code`), extract by semantic meaning: each `**C-NNN:**` item is one principle.
+   - For header-per-principle sources, extract each principle heading the same way.
+3. For each principle, locate its supporting arguments (in `03_reasoning.md`), related implications (in `04_consequences.md`), and related questions (in `01_questions.md`) by **content matching**, not by tag-overlap heuristics.
+4. **Translate everything into faithful, complete English.** Translation is not invention: every field in the JSON must trace to a specific passage in the source text. Do not add metrics, scenarios, checklists, anti-patterns, or examples that are not present in the source.
+5. Write `05_llm_instructions.json` matching the lean schema in `reference/pass-4-json-generation.md`.
+
+**Rules:**
+- No truncation of text (unlike the legacy regex generator, which limited claims to 150 chars and implications to 100 chars).
+- Every element must include `source` and `source_line` so the LLM can verify against the original book.
+- No invented data. If a field cannot be populated from the source, leave it empty rather than fabricate.
+
+**See:** `reference/pass-4-json-generation.md` for the complete schema and detailed specification.
+
 ---
 
 ## Hard Rules (Non-Negotiable)
@@ -86,7 +110,11 @@ Each node includes: id, type, title, statement, status, importance, confidence, 
 
 ## Output Structure
 
-Output is five markdown files: `00_purpose.md`, `01_questions.md`, `02_ideas.md`, `03_reasoning.md`, `04_consequences.md` in `Books/<slug>/`. See **reference/process.md** for detailed structure and examples.
+Output is six files in `Books/<slug>/`:
+
+**Layers 00-04 (markdown):** `00_purpose.md`, `01_questions.md`, `02_ideas.md`, `03_reasoning.md`, `04_consequences.md` — always in the original language of the book (Russian, English, or other). See **reference/process.md** for detailed structure and examples.
+
+**Layer 05 (JSON):** `05_llm_instructions.json` — always in English, regardless of the language of layers 00-04. See **reference/pass-4-json-generation.md** for schema and specification. This file is ready to paste into an LLM conversation for expert guidance on applying the book's principles to real work.
 
 ---
 
@@ -102,6 +130,8 @@ Output is five markdown files: `00_purpose.md`, `01_questions.md`, `02_ideas.md`
 
 - **reference/philosophy.md** — The three authors (Povarnin, Adler, Foster) and six foundational principles that guide all work
 - **reference/ontology.md** — Complete specification of node types, relations, templates, and metadata definitions
-- **reference/process.md** — Detailed step-by-step instructions, examples, and verification checklists
+- **reference/process.md** — Detailed step-by-step instructions, examples, and verification checklists (Pass 1-3)
+- **reference/pass-4-json-generation.md** — Specification for Pass 4 (LLM-driven JSON generation, lean schema)
 - **reference/specification.md** — Formal specification with implementation decisions and testing criteria
 - **reference/design-log.md** — Full design conversation and rationale (historical record)
+- **reference/pipeline-complete.md** — Complete pipeline documentation (Pass 1-4) and versioning history

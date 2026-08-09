@@ -78,13 +78,16 @@ Review this code through all three lenses:
 
 ## Books Available
 
-| Book | Principles | Tags |
-|------|-----------|------|
-| Clean Architecture | 15 | #architecture, #cost-of-change, #paradigms |
-| Ideal Work (Clean Coder) | 15 | #craftsmanship, #tdd, #professionalism |
-| Pragmatic Programmer | 5 | #dry, #automation, #risk-management |
-| Parallel Programming | 15 | #concurrency, #synchronization, #performance |
-| Code That Fits in Head | 12 | #readability, #cognitive-load, #simplicity |
+| Book | Principles | Source Language | Tags |
+|------|-----------|---|------|
+| Clean Architecture | 15 | English | #architecture, #cost-of-change, #paradigms |
+| Ideal Work (Clean Coder) | 15 | English | #craftsmanship, #tdd, #professionalism |
+| Pragmatic Programmer | 7 | Russian | #dry, #automation, #risk-management |
+| Parallel Programming | 15 | English | #concurrency, #synchronization, #performance |
+| Code That Fits in Head | 8 | Russian | #readability, #cognitive-load, #simplicity |
+| Clean Code | 15 | Russian | #craftsmanship, #readability, #naming |
+
+**Note:** All 05_llm_instructions.json files are always in English, regardless of whether layers 00-04 are in Russian or English.
 
 ---
 

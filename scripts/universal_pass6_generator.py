@@ -1,16 +1,27 @@
 #!/usr/bin/env python3
 """
-Pass 6: Universal JSON Generator for LLM
+DEPRECATED: Pass 4 JSON Generation (Legacy Regex-Based)
 
-Generates 05_llm_instructions.json for EACH book independently.
-One JSON per book. Same universal algorithm, unique output per book.
+⚠️ SUPERSEDED by the LLM-driven procedure in reference/pass-4-json-generation.md
 
-Usage:
+This script uses regex pattern-matching to extract principles and arguments from markdown.
+It was designed for English-only headers (## PRINCIPLE N:) and cannot handle:
+  - Russian-language headers (### Идея N:, ## ИДЕЯ N:, ## ПРИНЦИП N:)
+  - Chapter-organized structures (martin-clean-code: ## Глава N: with inline **C-NNN:** items)
+  - Non-header-based principle organization
+
+MOREOVER, it does NOT translate — it just copies matched text and hardcodes "language": "English"
+regardless of actual content language, so the output is misleading for Russian-source books.
+
+**Kept for historical reference / emergency fallback only.**
+**Do NOT use to regenerate 05_llm_instructions.json going forward.**
+
+Instead: Follow the LLM-driven procedure in reference/pass-4-json-generation.md
+(read 00-04, understand principles by reading not regex, translate into English, write JSON).
+
+Legacy usage (not recommended):
     python universal_pass6_generator.py Books/
-    → Generates 05_llm_instructions.json for each book
-
     python universal_pass6_generator.py Books/clean-architecture/
-    → Generates JSON for single book only
 """
 
 import json

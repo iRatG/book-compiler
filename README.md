@@ -1,6 +1,6 @@
-# 📚 Deep Reading System v2.0
+# 📚 Deep Reading System v4.0
 
-Complete analysis of 5 technical books with **6 layers per book**:
+Complete analysis of 6 technical books with **6 layers per book**:
 
 ## Layers
 
@@ -48,9 +48,16 @@ Complete analysis of 5 technical books with **6 layers per book**:
 ### 5. Code That Fits in Your Head ← [Learn More](Books/code-fits-in-head/)
 **Mark Seeman** — Cognitive load as an architectural constraint
 
-- 12 principles extracted
+- 8 principles extracted
 - Tags: #readability, #cognitive-load, #simplicity
 - JSON: [05_llm_instructions.json](Books/code-fits-in-head/05_llm_instructions.json)
+
+### 6. Clean Code ← [Learn More](Books/martin-clean-code/)
+**Robert C. Martin** — Writing code that reads as prose
+
+- 15 principles extracted
+- Tags: #craftsmanship, #readability, #naming, #testing
+- JSON: [05_llm_instructions.json](Books/martin-clean-code/05_llm_instructions.json)
 
 ---
 
@@ -107,10 +114,16 @@ See [LLM_USAGE_GUIDE.md → Advanced section](LLM_USAGE_GUIDE.md#advanced-combin
 ### I want to regenerate the JSON files
 
 ```bash
-# Regenerate all llm_instructions.json files
-python generate-llm-instructions.py Books/clean-architecture
-python generate-llm-instructions.py Books/ideal-work
-# ... etc
+# Follow the LLM-driven Pass 4 procedure in reference/pass-4-json-generation.md
+# For each book, an LLM reads 00_purpose.md through 04_consequences.md,
+# identifies principles/arguments/implications/questions by understanding (not regex),
+# translates everything to complete, faithful English,
+# and writes 05_llm_instructions.json in the lean schema.
+
+# Legacy (deprecated) script (English-only, cannot handle Russian headers):
+# python scripts/universal_pass6_generator.py Books/
+#
+# ⚠️ Do NOT use the legacy script. Use the LLM-driven procedure instead.
 ```
 
 ---
@@ -126,9 +139,9 @@ Layers 0-4 serve **humans** reading books:
 
 Layer 5 serves **LLMs**:
 - Structured, parseable format (JSON)
-- No prose ambiguity
-- Ready for system prompts
-- Optimized for Claude/GPT comprehension
+- Always in English (regardless of the language of layers 0-4)
+- Ready to paste into Claude/GPT conversations as system prompts
+- No invented data — every principle/argument/implication traces to the source book
 
 ### Why Not Library/ Yet?
 
@@ -143,21 +156,27 @@ v2.0 (future): Optional cross-book network at `Library/` level (if you choose to
 ```
 Books/
 ├─ clean-architecture/
-│  ├─ 00_purpose.md
-│  ├─ 01_questions.md
-│  ├─ 02_ideas.md
-│  ├─ 03_reasoning.md
-│  ├─ 04_consequences.md
-│  ├─ 05_llm_instructions.json  ← NEW
+│  ├─ 00_purpose.md              (English)
+│  ├─ 01_questions.md            (English)
+│  ├─ 02_ideas.md                (English)
+│  ├─ 03_reasoning.md            (English)
+│  ├─ 04_consequences.md         (English)
+│  ├─ 05_llm_instructions.json   (English, generated from 00-04)
 │  └─ README.md
-├─ ideal-work/ (same structure)
-├─ pragmatic-programmer/ (same structure)
-├─ parallel-programming/ (same structure)
-└─ code-fits-in-head/ (same structure)
+├─ ideal-work/ (00-04 English; 05 English)
+├─ pragmatic-programmer/ (00-04 Russian; 05 English)
+├─ parallel-programming/ (00-04 English; 05 English)
+├─ code-fits-in-head/ (00-04 Russian; 05 English)
+└─ martin-clean-code/ (00-04 Russian; 05 English)
 
-generate-llm-instructions.py    ← Script to generate JSON layer
-LLM_USAGE_GUIDE.md              ← How to use the JSON files
-README.md                        ← This file
+reference/
+├─ pass-4-json-generation.md     ← Authoritative spec for generating JSON layer
+├─ pipeline-complete.md           ← Full pipeline documentation (Pass 1-4)
+└─ ...
+
+SKILL.md                           ← Deep reading skill (Pass 1-4)
+LLM_USAGE_GUIDE.md                 ← How to use the JSON files
+README.md                           ← This file
 ```
 
 ---
@@ -172,6 +191,13 @@ README.md                        ← This file
 
 ---
 
-**Status:** ✅ v2.0 Complete  
+**Status:** ✅ v4.0 Complete (Pass 4 LLM-driven; 6 books; lean schema)  
 **Last Updated:** 2026-08-09  
 **License:** Personal knowledge base
+
+## Versioning
+
+- **v1.0:** Markdown layers (00-04) only, Russian language
+- **v2.0:** Added JSON layer (05) with basic structure, English
+- **v3.0 (Abandoned):** Designed rich JSON schema (metrics, scenarios, anti-patterns) — never implemented, risked inventing data
+- **v4.0 (Current):** Pass 4 is LLM-driven; layers 00-04 stay in their original language (2 English, 4 Russian); layer 05 always English with lean schema (no fabricated data). Includes all 6 books (added martin-clean-code).

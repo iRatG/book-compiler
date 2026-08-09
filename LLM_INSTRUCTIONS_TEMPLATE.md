@@ -1,6 +1,14 @@
-# LLM Instructions JSON Template (v2.0)
+# LLM Instructions JSON Template (v2.0) — SUPERSEDED
 
-This template shows how to structure `05_llm_instructions.json` for **maximum LLM effectiveness**.
+> **Note:** This template describes a richer schema (with `bad_example`/`good_example`, `when_not_to_use`, `key_rules`, `real_world_story`, `how_to_measure`, `trade_offs`) that is no longer the implemented standard.
+>
+> **Current schema:** See `reference/pass-4-json-generation.md` for the authoritative, implemented specification (v4.0 lean schema). This template is kept for historical reference and inspiration for future, well-sourced schema extensions.
+
+---
+
+## Historical Reference (Kept for Documentation)
+
+This template shows one approach to structuring `05_llm_instructions.json` for richer LLM guidance. The fields below are not currently implemented in the auto-generated JSONs, but could be valuable if sourced explicitly from each book's content (rather than generated formulaically).
 
 Use Clean Architecture's JSON as the reference implementation:
 - [Books/clean-architecture/05_llm_instructions.json](Books/clean-architecture/05_llm_instructions.json)

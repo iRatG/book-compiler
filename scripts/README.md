@@ -1,32 +1,40 @@
-# LLM Instructions JSON Generator (v3.0)
+# LLM Instructions JSON Generator — DEPRECATED
 
-**Purpose:** Transform 5-layer markdown book model into actionable LLM instructions JSON.
-
-**Status:** Ready for testing  
-**Version:** 3.0  
-**Python:** 3.8+
+> **⚠️ DEPRECATED:** These scripts use English-only regex pattern-matching to extract principles from markdown.
+> They cannot handle Russian-language headers, chapter-organized structures, or any non-standard header convention.
+> Moreover, they do NOT translate content — they just hardcode `"language": "English"` regardless of actual content language.
+>
+> **Current procedure:** See `reference/pass-4-json-generation.md` for the authoritative, LLM-driven Pass 4 procedure.
+>
+> These scripts are kept for historical reference / emergency fallback only.
+> **Do NOT use them to regenerate 05_llm_instructions.json going forward.**
 
 ---
 
-## Quick Start
+**Purpose (Historical):** Transform 5-layer markdown book model into JSON instructions using regex extraction.
+
+**Status:** Deprecated  
+**Version:** 3.0 (legacy)  
+**Python:** 3.8+  
+**Limitation:** English-only, regex-based, does not translate, cannot handle Russian headers or chapter-based structures
+
+---
+
+## Legacy Usage (Not Recommended)
 
 ### Generate JSON for All Books
 
 ```bash
 cd scripts/
 python build_all_llm_instructions.py ../Books/
+# ⚠️ Will fail on Russian-language books and non-standard structures
 ```
 
 ### Generate for Single Book
 
 ```bash
 python build_all_llm_instructions.py ../Books/ --book clean-architecture
-```
-
-### Verbose Output
-
-```bash
-python build_all_llm_instructions.py ../Books/ --verbose
+# ⚠️ Only works for English headers: ## PRINCIPLE N:, ## IDEA N:, etc.
 ```
 
 ---
@@ -522,12 +530,13 @@ Books/
 
 ---
 
-## References
+## References (For Historical Context)
 
-- `reference/pipeline-complete.md` — Full pipeline documentation (Pass 1-5)
-- `reference/json-generation-spec.md` — JSON v3.0 specification
+- `reference/pipeline-complete.md` — Full pipeline documentation (Pass 1-4); see "Running the Pipeline" for current LLM-driven procedure
+- ~~`reference/json-generation-spec.md` — Superseded; see `reference/pass-4-json-generation.md` instead~~
+- `reference/pass-4-json-generation.md` — **Authoritative current specification for Pass 4 (LLM-driven, lean schema)**
 - `reference/process.md` — How to create markdown (Pass 1-3)
-- `SKILL.md` — Book Compiler skill
+- `SKILL.md` — Book Compiler skill (updated to include Pass 4)
 - `LLM_USAGE_GUIDE.md` — How to use JSON with LLMs
 
 ---
