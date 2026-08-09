@@ -1,0 +1,142 @@
+{
+  "metadata": {
+    "title": "Domain Modeling Made Functional",
+    "author": "Scott Wlaschin",
+    "publication": "2018",
+    "format_version": "4.0",
+    "language": "English",
+    "principles_count": 15
+  },
+  "system_instruction": "You are applying Domain Modeling Made Functional principles to software design. Use these principles to evaluate domain models, ensure ubiquitous language, design workflows, and verify that code matches business reality.",
+  "quick_reference": {
+    "core_insight": "Code must match how the business actually works. Shared mental model between experts and developers is foundational.",
+    "top_3_principles": [
+      "Shared Mental Model",
+      "Focus on Business Events",
+      "Ubiquitous Language"
+    ]
+  },
+  "principles": [
+    {
+      "id": "principle_1",
+      "principle": "Shared Mental Model",
+      "statement": "Code, domain experts, and team must share same mental model. Eliminates translation distortion.",
+      "reasoning": "When developers translate requirements into code, distortion occurs. Shared model prevents misunderstanding.",
+      "when_to_use": "From project start; continuously maintained.",
+      "tags": ["shared-understanding", "ubiquitous-language", "communication"]
+    },
+    {
+      "id": "principle_2",
+      "principle": "Problem Space vs Solution Space Distinction",
+      "statement": "Understand business domain first (problem space) before designing software (solution space).",
+      "reasoning": "Unclear requirements make coding irrelevant.",
+      "when_to_use": "Before architecture, before implementation.",
+      "tags": ["problem-space", "solution-space", "domain-understanding"]
+    },
+    {
+      "id": "principle_3",
+      "principle": "Focus on Business Events, Not Data",
+      "statement": "Model domains through events and transformations, not static data structures.",
+      "reasoning": "Business value created through transformations, not data storage. Events reveal what happens and when.",
+      "when_to_use": "During event storming and domain discovery.",
+      "tags": ["events", "workflows", "business-processes"]
+    },
+    {
+      "id": "principle_4",
+      "principle": "Ubiquitous Language",
+      "statement": "Use domain expert terminology everywhere: requirements, design, code.",
+      "reasoning": "Code becomes documentation. Prevents knowledge loss. Enables non-developers to understand code.",
+      "when_to_use": "From first interview onward.",
+      "tags": ["ubiquitous-language", "domain-terminology", "code-as-documentation"]
+    },
+    {
+      "id": "principle_5",
+      "principle": "Bounded Contexts with Clear Boundaries",
+      "statement": "Partition domain into autonomous subsystems with explicit boundaries.",
+      "reasoning": "Reduces complexity; enables independent evolution; minimizes coupling.",
+      "when_to_use": "After event storming; during architecture design.",
+      "tags": ["bounded-contexts", "domain-boundaries", "modularity"]
+    },
+    {
+      "id": "principle_6",
+      "principle": "Domain Events Trigger Workflows",
+      "statement": "Business processes: command → event → new event. Mirrors business reality.",
+      "reasoning": "Creates decoupling between contexts; makes dependencies explicit.",
+      "when_to_use": "In workflow design.",
+      "tags": ["domain-events", "commands", "workflows"]
+    },
+    {
+      "id": "principle_7",
+      "principle": "Persistence Ignorance",
+      "statement": "Domain model based only on business concepts; no database awareness.",
+      "reasoning": "Prevents database constraints from distorting domain logic.",
+      "when_to_use": "During domain modeling.",
+      "tags": ["persistence-ignorance", "domain-purity", "architecture"]
+    },
+    {
+      "id": "principle_8",
+      "principle": "Listen, Don't Assume",
+      "statement": "Gather requirements through deep listening; resist imposing technical solutions.",
+      "reasoning": "Domain experts understand nuances; assumptions lead to wrong designs.",
+      "when_to_use": "During all requirements gathering.",
+      "tags": ["discovery", "requirements-gathering", "communication"]
+    },
+    {
+      "id": "principle_9",
+      "principle": "Types Express Business Rules",
+      "statement": "Use type system to encode constraints and business logic.",
+      "reasoning": "Compiler-enforced rules prevent entire categories of bugs.",
+      "when_to_use": "During domain modeling in typed languages.",
+      "tags": ["type-systems", "invalid-states", "safety"]
+    },
+    {
+      "id": "principle_10",
+      "principle": "State Machines Model Lifecycle",
+      "statement": "Workflows with multiple stages explicitly model state transitions.",
+      "reasoning": "Prevents invalid operations; catches errors at compile-time.",
+      "when_to_use": "When modeling entities with lifecycle.",
+      "tags": ["state-machines", "workflow-states", "type-safety"]
+    },
+    {
+      "id": "principle_11",
+      "principle": "Avoid Database-Driven Design",
+      "statement": "Design domain first; persist second. Don't let database schema drive model.",
+      "reasoning": "Database constraints distort domain concepts.",
+      "when_to_use": "During design phase.",
+      "tags": ["architecture-priority", "domain-first", "flexibility"]
+    },
+    {
+      "id": "principle_12",
+      "principle": "Avoid Class-Driven Design",
+      "statement": "Don't impose OOP hierarchies onto domain.",
+      "reasoning": "Creates artificial abstractions that don't exist in business.",
+      "when_to_use": "During design.",
+      "tags": ["paradigm-mismatch", "domain-purity", "design-patterns"]
+    },
+    {
+      "id": "principle_13",
+      "principle": "Follow the Money",
+      "statement": "Prioritize business value over technical purity.",
+      "reasoning": "Resources finite; focus on money-making workflows.",
+      "when_to_use": "When prioritizing contexts and features.",
+      "tags": ["business-value", "prioritization", "pragmatism"]
+    },
+    {
+      "id": "principle_14",
+      "principle": "Dependencies Point Inward (Onion Architecture)",
+      "statement": "Domain depends on nothing; outer layers depend on domain.",
+      "reasoning": "Keeps domain pure, testable, independent of infrastructure.",
+      "when_to_use": "During architecture and implementation.",
+      "tags": ["architecture", "dependency-inversion", "layering"]
+    },
+    {
+      "id": "principle_15",
+      "principle": "Push I/O to Edges, Keep Core Pure",
+      "statement": "Side effects at boundaries; core domain logic pure functions.",
+      "reasoning": "Pure functions predictable, testable, composable.",
+      "when_to_use": "During implementation of workflows.",
+      "tags": ["pure-functions", "side-effects", "testability"]
+    }
+  ],
+  "tags": ["domain-driven-design", "domain-modeling", "architecture", "functional-programming"]
+}

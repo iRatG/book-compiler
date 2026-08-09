@@ -1,0 +1,171 @@
+{
+  "metadata": {
+    "title": "A Philosophy of Software Design",
+    "author": "John K. Ousterhout",
+    "publication": "2018",
+    "format_version": "4.0",
+    "language": "English",
+    "source_language": "English",
+    "principles_count": 15
+  },
+  "system_instruction": "You are applying A Philosophy of Software Design principles to software architecture decisions. Use these 15 principles to evaluate designs, identify complexity, and recommend refactoring strategies.",
+  "quick_reference": {
+    "core_insight": "Complexity is the enemy. Strategic design investments (10-20% time) pay for themselves in 6-18 months through faster development.",
+    "top_3_principles": [
+      "Complexity is the Enemy",
+      "Modules Should Be Deep",
+      "Information Hiding"
+    ]
+  },
+  "principles": [
+    {
+      "id": "principle_1",
+      "principle": "Complexity is the Enemy",
+      "statement": "Complexity is anything that makes software hard to understand and modify. It increases development time exponentially.",
+      "reasoning": "Developers spend time understanding code. Complex code requires understanding more. Complexity multiplies across team.",
+      "when_to_use": "Every design decision. Measure: Do small changes require modifications in many places? If yes: complexity problem.",
+      "key_rules": ["Minimize cognitive load", "Reduce change amplification", "Eliminate unknown unknowns"],
+      "bad_example": "Website with banner color hardcoded on 100 pages. Change color = 100 changes.",
+      "good_example": "Color defined in one place. Change color = 1 change.",
+      "related_principles": ["principle_2", "principle_4", "principle_5"],
+      "tags": ["complexity", "design-metric", "software-quality"]
+    },
+    {
+      "id": "principle_2",
+      "principle": "Dependencies and Obscurity are Complexity's Causes",
+      "statement": "Complexity caused by: dependencies (change amplification) and obscurity (unknown unknowns).",
+      "reasoning": "Dependencies require coordinated changes. Obscurity hides what needs changing.",
+      "when_to_use": "When refactoring or reviewing designs.",
+      "key_rules": ["Make dependencies explicit", "Hide internal details", "Minimize coupling"],
+      "tags": ["dependencies", "obscurity", "change-amplification"]
+    },
+    {
+      "id": "principle_3",
+      "principle": "Strategic Programming vs Tactical Programming",
+      "statement": "Tactical: hack out features fast, defer design. Strategic: invest 10-20% in design upfront.",
+      "reasoning": "Tactical creates compounding technical debt. Strategic pays for itself in 6-18 months.",
+      "when_to_use": "Every sprint. Allocate 10-20% time for design/refactoring.",
+      "key_rules": ["Invest in design", "Don't accumulate debt", "Long-term thinking wins"],
+      "tags": ["strategic-programming", "technical-debt"]
+    },
+    {
+      "id": "principle_4",
+      "principle": "Modules Should Be Deep",
+      "statement": "Module depth = (functionality provided) / (interface complexity). Deep modules provide maximum value.",
+      "reasoning": "Deep modules reusable; shallow modules copied or wrapped, adding complexity.",
+      "when_to_use": "When designing classes, methods, subsystems.",
+      "key_rules": ["Maximize functionality hidden", "Minimize interface complexity", "Favor general-purpose over special-purpose"],
+      "bad_example": "Java I/O: FileInputStream + BufferedInputStream + ObjectInputStream = 3 objects for reading file",
+      "good_example": "Unix I/O: 5 functions (open, read, write, seek, close) hiding 100k+ lines",
+      "tags": ["modules", "deep-modules", "information-hiding"]
+    },
+    {
+      "id": "principle_5",
+      "principle": "Information Hiding",
+      "statement": "Each module encapsulates design decisions. Knowledge embedded in implementation, not exposed in interface.",
+      "reasoning": "Simplifies interfaces; makes systems easier to evolve.",
+      "when_to_use": "When designing modules.",
+      "key_rules": ["Hide complexity", "Expose only what's necessary", "Design decisions stay internal"],
+      "tags": ["information-hiding", "encapsulation", "module-design"]
+    },
+    {
+      "id": "principle_6",
+      "principle": "Information Leakage is a Red Flag",
+      "statement": "Information leakage: same knowledge used in multiple places. Back-door leakage (hidden) worse than interface leakage.",
+      "reasoning": "Creates dependencies between modules. Change one = break others.",
+      "when_to_use": "During code review.",
+      "key_rules": ["Detect repeated knowledge", "Extract to shared module", "Make dependencies visible"],
+      "tags": ["information-leakage", "module-coupling"]
+    },
+    {
+      "id": "principle_7",
+      "principle": "Avoid Temporal Decomposition",
+      "statement": "Organize code by knowledge, not by execution order.",
+      "reasoning": "Temporal decomposition encourages information leakage.",
+      "when_to_use": "When deciding module boundaries.",
+      "tags": ["temporal-decomposition", "modularity"]
+    },
+    {
+      "id": "principle_8",
+      "principle": "General-Purpose Modules are Deeper",
+      "statement": "General-purpose interfaces tend to be deeper than special-purpose interfaces.",
+      "reasoning": "Generality enables reuse; specialization requires workarounds.",
+      "when_to_use": "When designing APIs.",
+      "tags": ["general-purpose-modules", "abstraction"]
+    },
+    {
+      "id": "principle_9",
+      "principle": "Define Errors Out of Existence",
+      "statement": "Best way to eliminate exception handling complexity: redefine APIs so errors don't exist.",
+      "reasoning": "Exception handling code is complex and buggy.",
+      "when_to_use": "When designing APIs.",
+      "tags": ["error-handling", "exception-handling", "api-design"]
+    },
+    {
+      "id": "principle_10",
+      "principle": "Code Should be Obvious",
+      "statement": "Obvious code: readers understand it quickly without deep analysis.",
+      "reasoning": "Nonobvious code increases bugs and development time.",
+      "when_to_use": "In implementation; during code review.",
+      "key_rules": ["Use clear names", "Adequate whitespace", "Strategic comments"],
+      "tags": ["code-clarity", "readability", "maintainability"]
+    },
+    {
+      "id": "principle_11",
+      "principle": "Use Strong Names and Consistency",
+      "statement": "Precise names clarify behavior. Consistent patterns enable recognition.",
+      "reasoning": "Good names reduce cognitive load. Consistency eliminates learning curves.",
+      "when_to_use": "For every variable, method, class name.",
+      "tags": ["naming-conventions", "code-consistency", "patterns"]
+    },
+    {
+      "id": "principle_12",
+      "principle": "Comments Are Essential for Deeper Modules",
+      "statement": "Comments explain what code cannot: why, intent, non-obvious behavior.",
+      "reasoning": "Good comments save 10x time in understanding.",
+      "when_to_use": "For classes, complex methods, design decisions.",
+      "tags": ["comments", "documentation", "code-explanation"]
+    },
+    {
+      "id": "principle_13",
+      "principle": "Design It Twice",
+      "statement": "Consider multiple alternatives before implementing. Second design reveals trade-offs.",
+      "reasoning": "Multiple designs force consideration of trade-offs.",
+      "when_to_use": "Before implementing big features or new modules.",
+      "tags": ["design-process", "multiple-designs", "trade-offs"]
+    },
+    {
+      "id": "principle_14",
+      "principle": "Pull Complexity Downward",
+      "statement": "If something complicated, module should do work, not callers.",
+      "reasoning": "Pushing complexity to callers multiplies it.",
+      "when_to_use": "When designing APIs.",
+      "key_rules": ["Hide complexity in modules", "Don't make callers handle edge cases"],
+      "tags": ["api-design", "module-responsibility"]
+    },
+    {
+      "id": "principle_15",
+      "principle": "Invest 10-20% Time in Design, Not Features",
+      "statement": "Spend 10-20% development time on design/refactoring.",
+      "reasoning": "Investment pays for itself in 6-18 months through faster development.",
+      "when_to_use": "Every sprint, every week.",
+      "key_rules": ["10-20% for design", "20% for refactoring", "Track actual vs. target"],
+      "tags": ["technical-investment", "refactoring", "sustainable-pace"]
+    }
+  ],
+  "faq": [
+    {
+      "question": "How do I know if my code is too complex?",
+      "answer": "Red flags: (1) Small changes require modifications in many places, (2) Developers must understand large portions to make changes, (3) Hidden knowledge you don't know exists"
+    },
+    {
+      "question": "Is it worth spending 10-20% time on design?",
+      "answer": "Yes. Investment pays for itself in 6-18 months through faster future development. Long-term productivity >> short-term velocity."
+    },
+    {
+      "question": "When should I refactor?",
+      "answer": "When complexity is slowing down development. Priority: by frequency of changes to that module."
+    }
+  ],
+  "tags": ["complexity", "software-design", "modularity", "refactoring", "architecture"]
+}

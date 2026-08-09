@@ -1,0 +1,518 @@
+{
+  "metadata": {
+    "title": "Concepts of Programming Languages - Language Design Principles",
+    "author": "Robert W. Sebesta",
+    "publication": "2019 (12th Edition)",
+    "book_name": "concepts-programming-languages",
+    "format_version": "4.0",
+    "generated_at": "2026-08-09T12:00:00Z",
+    "language": "English",
+    "source_language": "English",
+    "generation_pass": "Pass 5: Generate LLM Instructions"
+  },
+  "system_instruction": "You are applying language design principles from 'Concepts of Programming Languages' to real software engineering decisions. Use these principles to help evaluate programming language choices, understand trade-offs, and design better systems.\n\n**How to use this JSON:**\n1. When facing a language choice question, search for relevant principle by keyword\n2. Read the principle statement and reasoning\n3. Review decision criteria and examples\n4. Consider related principles that might apply\n5. Make informed decision based on trade-offs\n\n**RULES:**\n- Only cite what's in this JSON\n- Use examples from this data when explaining\n- Acknowledge trade-offs; no language is perfect for all uses\n- If a principle conflicts with another, explain both perspectives\n- If you don't have information, say so clearly",
+  "quick_reference": {
+    "book": "concepts-programming-languages",
+    "principles_count": 15,
+    "top_3_principles": [
+      "Language Design Must Match the Problem Domain",
+      "Type System Determines What Errors Are Caught When",
+      "Memory Management Strategy Trades Safety Against Performance"
+    ],
+    "core_insight": "Programming languages are not interchangeable. Each language design reflects specific priorities. Understanding language design principles helps you choose the right tool and use it effectively."
+  },
+  "principles": [
+    {
+      "id": "principle_1",
+      "number": "1",
+      "principle": "Language Design Must Match the Problem Domain",
+      "statement": "Programming languages evolve to solve specific problems. A language excels when its features directly express the domain it targets. Forcing the wrong language onto a domain requires workarounds that obscure intent.",
+      "reasoning": "Languages that try to be 'universal' often serve none optimally. Lisp/Scheme excel at symbol manipulation; Prolog at logic queries; Python at rapid development; Rust at systems programming with memory safety.",
+      "when_to_use": "When choosing a language for a project or evaluating adoption of new languages. When explaining why one language dominates certain domains.",
+      "when_not_to_use": "Don't ignore existing team expertise just because another language might be slightly better-suited. Expertise reduces development time by 2-4x.",
+      "key_rules": [
+        "Identify primary constraint first (performance, speed-to-code, safety, learning curve, deployment)",
+        "Evaluate ecosystem (does domain library exist)",
+        "Factor in team expertise (don't override without strong reason)"
+      ],
+      "decision_criteria": {
+        "domain_fit": "High value if current language creates friction or workarounds",
+        "team_expertise": "High value; overrides minor language advantages",
+        "ecosystem": "High value; missing libraries require building everything from scratch"
+      },
+      "bad_example": {
+        "situation": "Team wants to build IoT device firmware. They choose Python because it's what they know.",
+        "why_bad": "Python has high memory overhead and GC pauses; IoT devices have 16MB memory. Requires constant workarounds to fit code in memory.",
+        "cost": "Ship date delayed 3 months; product can't run required features"
+      },
+      "good_example": {
+        "situation": "Same team evaluates Rust for IoT firmware. Acknowledges steep learning curve but recognizes memory safety solves their main bug category.",
+        "why_works": "Rust forces correct handling of finite memory. No GC pauses. Binary fits in available space.",
+        "benefit": "Ship on time; memory bugs prevented by compiler"
+      },
+      "tags": ["domain-matching", "language-fit", "tool-selection", "pragmatism", "architecture"],
+      "source": "Principles 1, demonstrated through language evolution history",
+      "related_principles": ["principle_6", "principle_12", "principle_15"],
+      "trade_offs": "Domain-specific languages are best-in-domain but worse for adjacent domains. General-purpose languages acceptable for many domains but optimal for none."
+    },
+    {
+      "id": "principle_2",
+      "number": "2",
+      "principle": "Syntax Shapes Errors You Can Make and How Easily You Make Them",
+      "statement": "Syntax is not neutral. Language syntax either prevents entire categories of errors or enables them. Bad syntax doesn't just look ugly—it changes what errors are possible.",
+      "reasoning": "Python's significant whitespace prevents brace-matching errors. Typed languages prevent type coercion bugs. Memory-safe languages prevent buffer overflows. Languages with explicit null handling prevent null-pointer exceptions.",
+      "when_to_use": "When evaluating safety-critical systems. When comparing languages for error-proneness.",
+      "key_rules": [
+        "Consider what bugs the syntax makes impossible",
+        "Consider what bugs the syntax makes easy",
+        "For critical systems, choose syntax that prevents high-cost bugs"
+      ],
+      "bad_example": {
+        "situation": "Financial calculation system using JavaScript for business logic.",
+        "why_bad": "JavaScript type coercion: `[] + {} = '[object Object]'`. Silent type errors. Client sends wrong data type; calculation produces nonsense; money transferred incorrectly.",
+        "cost": "Regulatory fines; reputation damage; customer data breach"
+      },
+      "good_example": {
+        "situation": "Same system using TypeScript.",
+        "why_works": "Type errors caught at compile time. Wrong data type caught before deploy. Tests can't accidentally pass with coerced types.",
+        "benefit": "Zero type-coercion bugs by design"
+      },
+      "tags": ["syntax-semantics", "error-prevention", "language-design", "safety", "type-safety"],
+      "source": "Language design principles; bug analysis in dynamically vs. statically typed languages",
+      "related_principles": ["principle_3", "principle_8"],
+      "trade_offs": "Languages with error-preventing syntax often require more verbose code. Python explicit vs. implicit trade-off."
+    },
+    {
+      "id": "principle_3",
+      "number": "3",
+      "principle": "Type System Determines What Errors Are Caught When",
+      "statement": "Languages exist on a spectrum from no type checking to strict static typing. The position determines when errors surface: compile-time, runtime, or never.",
+      "reasoning": "Static typing catches errors early (cost: 0). Dynamic typing enables rapid development but moves errors to production (cost: days, users affected). The cost of finding bugs escalates: compile-time < test < staging < production.",
+      "when_to_use": "When choosing between static and dynamic languages. When deciding type system strictness for a codebase.",
+      "when_not_to_use": "Don't use static typing for one-off scripts or prototypes. Development velocity matters more than error prevention.",
+      "key_rules": [
+        "Error cost in compile-time: 0",
+        "Error cost at test: minutes",
+        "Error cost at staging: hours",
+        "Error cost in production: days or more",
+        "Align type system to error cost tolerance"
+      ],
+      "decision_criteria": {
+        "error_cost": "If error reaching production costs thousands: static types essential",
+        "development_speed": "If rapid iteration critical: dynamic types acceptable",
+        "team_size": "Larger teams benefit from static types (shared knowledge)"
+      },
+      "bad_example": {
+        "situation": "Startup building payment processor using Python (dynamic types).",
+        "why_bad": "Type error (amount as string instead of float) slips through testing. Reaches production. Calculates wrong prices for 1000 orders before caught.",
+        "cost": "Refunds to customers; reputation damage; regulatory investigation"
+      },
+      "good_example": {
+        "situation": "Same startup using TypeScript for payment processing.",
+        "why_works": "Type error caught at compile time. Code won't build until amount is correct type. Tests can't accidentally pass.",
+        "benefit": "Type errors prevented entirely from production"
+      },
+      "tags": ["type-systems", "error-detection", "safety-vs-speed", "static-vs-dynamic", "reliability"],
+      "source": "Defect cost studies; type system research",
+      "related_principles": ["principle_2", "principle_8", "principle_14"],
+      "trade_offs": "Static types increase development time by 10-20% but prevent bugs that would cost 10-100x more in production. ROI positive for most systems."
+    },
+    {
+      "id": "principle_4",
+      "number": "4",
+      "principle": "Binding Time Determines When Behavior is Fixed",
+      "statement": "Binding time is when a name is associated with its meaning. Earlier binding = more optimization; later binding = more flexibility.",
+      "reasoning": "Compile-time binding: Compiler optimizes aggressively; zero runtime overhead. Runtime binding: Can swap implementations; enables testing with mocks; enables plugins; performance suffers.",
+      "when_to_use": "When optimizing performance-critical code. When designing extensible systems.",
+      "key_rules": [
+        "Static dispatch (compile-time): Inline, specialize, optimize; zero overhead",
+        "Dynamic dispatch (runtime): Lookup table; 1-10% overhead typical",
+        "Use static by default; switch to dynamic only when needed"
+      ],
+      "bad_example": {
+        "situation": "Python data processing in hot loop using dynamic dispatch. Loop processes 1 million items.",
+        "why_bad": "Each function call goes through runtime lookup. Cannot inline. Takes 10 seconds.",
+        "cost": "Throughput 10x slower than necessary"
+      },
+      "good_example": {
+        "situation": "Same code rewritten in Rust with compile-time binding. Loop processes 1 million items.",
+        "why_works": "Function calls bound at compile-time. Compiler inlines aggressively. Takes 1 second.",
+        "benefit": "10x performance improvement without algorithmic change"
+      },
+      "tags": ["binding-time", "performance", "flexibility", "dispatch-mechanism", "optimization"],
+      "source": "Compiler optimization research; dynamic dispatch benchmarks",
+      "related_principles": ["principle_6", "principle_14"],
+      "trade_offs": "Static dispatch faster but inflexible. Dynamic dispatch slower but enables plugins, mocks, and loose coupling. Choose based on performance requirements."
+    },
+    {
+      "id": "principle_5",
+      "number": "5",
+      "principle": "Scope Rules Control State Visibility and Prevent Accidental Coupling",
+      "statement": "Scope determines what names are visible where. Tight scope (local variables) prevents accidental coupling; loose scope (global variables) enables it.",
+      "reasoning": "Global variables couple distant parts of the code. Changes to one function affect others without obvious connection. Tight scope forces explicit parameter passing, making dependencies visible.",
+      "when_to_use": "When designing module boundaries. When understanding why globals are harmful.",
+      "key_rules": [
+        "Global scope: Only read-only constants, configuration",
+        "Package scope: Shared utilities",
+        "Class scope: Minimize; only truly shared state",
+        "Method scope: Temporary variables during computation",
+        "Block scope: Loop counters, temporary calculations"
+      ],
+      "bad_example": {
+        "situation": "Order processing system with global counters for statistics. Three modules all modify same global 'order_count'.",
+        "why_bad": "Module A increments; Module B reads; Module C decrements. Changing any module breaks others silently. Impossible to reason about final value.",
+        "cost": "Bugs take days to diagnose; statistics corrupted; incorrect business metrics"
+      },
+      "good_example": {
+        "situation": "Same system with encapsulated counter object. Each module calls counter.increment(). Dependencies explicit.",
+        "why_works": "Single module manages counter state. Can trace all modifications to one place. Adding logging/monitoring simple.",
+        "benefit": "Clear dependency graph; easy to reason about; easy to test"
+      },
+      "tags": ["scope-rules", "state-management", "coupling", "variable-lifetime", "encapsulation"],
+      "source": "Software engineering studies on code comprehension",
+      "related_principles": ["principle_8"],
+      "trade_offs": "Tight scope requires more parameter passing (slightly more code). But prevents entire class of bugs and makes code more modular."
+    },
+    {
+      "id": "principle_6",
+      "number": "6",
+      "principle": "Memory Management Strategy Trades Safety Against Performance",
+      "statement": "All programs must manage memory. Languages choose who is responsible: the programmer (manual), the language runtime (automatic), or a hybrid (borrowing).",
+      "reasoning": "Manual (C): Zero overhead; maximum control; memory bugs common. Automatic GC (Java/Python): Safe; has GC pauses (10ms-1s); not suitable for real-time. Borrowed (Rust): Safe; zero overhead; steeper learning curve.",
+      "when_to_use": "When choosing language for latency-sensitive or memory-constrained systems.",
+      "key_rules": [
+        "Real-time systems (finance, medical, embedded): Cannot use GC languages",
+        "Memory-constrained (IoT, embedded): Cannot use GC overhead",
+        "Web services (abundant CPU): GC languages fine",
+        "Data processing (some jitter acceptable): GC languages fine"
+      ],
+      "decision_criteria": {
+        "latency_requirement": "If >10ms pause unacceptable: No GC languages",
+        "memory_constraint": "If <1GB available: Minimize GC overhead",
+        "budget": "Rust has steep learning curve; C has expertise needs; Java/Python have lower hiring costs"
+      },
+      "bad_example": {
+        "situation": "High-frequency trading system using Java. GC pause occurs at worst moment; order doesn't execute; misses market window.",
+        "why_bad": "Java GC pauses (100ms-1s typical) unacceptable for millisecond-precision trading. Stop-the-world pause means can't execute orders.",
+        "cost": "Lost trades; millions of dollars in missed opportunities"
+      },
+      "good_example": {
+        "situation": "Same system using C with careful memory management.",
+        "why_works": "No GC pauses. Predictable latency. Orders execute on time.",
+        "benefit": "Millisecond-precision trading possible; consistent performance"
+      },
+      "tags": ["memory-management", "performance", "safety", "garbage-collection", "latency"],
+      "source": "GC performance studies; trading system design patterns",
+      "related_principles": ["principle_1", "principle_14"],
+      "trade_offs": "Manual memory: Maximum performance; requires expertise. Automatic GC: Maximum safety; unpredictable latency. Borrowed: Balance; learning curve."
+    },
+    {
+      "id": "principle_7",
+      "number": "7",
+      "principle": "Paradigm Determines What Patterns Are Natural and Which Are Awkward",
+      "statement": "Imperative, functional, and OO paradigms each make certain patterns natural (little boilerplate) and others awkward (lots of boilerplate).",
+      "reasoning": "Functional: Recursion, data transformation natural; state management awkward. OO: Object modeling natural; simple transformations awkward. Imperative: Step-by-step logic natural; abstractions awkward.",
+      "when_to_use": "When choosing paradigm for a specific problem class. When understanding why certain languages dominate certain domains.",
+      "key_rules": [
+        "Data transformation → Functional paradigm",
+        "Object modeling → OO paradigm",
+        "Step-by-step procedures → Imperative paradigm",
+        "Multi-paradigm languages: Use the paradigm that fits the problem"
+      ],
+      "bad_example": {
+        "situation": "Building data pipeline (filter, transform, aggregate) in Java (OOP-first).",
+        "why_bad": "Must create classes for each transformation. Simple pipeline requires 20+ lines of boilerplate.",
+        "cost": "30% more code; harder to read; harder to maintain"
+      },
+      "good_example": {
+        "situation": "Same pipeline in Python using functional style.",
+        "why_works": "Use map/filter/reduce. Concise, readable. 3-4 lines of code.",
+        "benefit": "10x less code; clearer intent; easier to modify"
+      },
+      "tags": ["programming-paradigm", "natural-expression", "design-patterns", "multi-paradigm", "pragmatism"],
+      "source": "Language design studies; comparative language expressiveness",
+      "related_principles": ["principle_1", "principle_10"],
+      "trade_offs": "Paradigm mismatch doesn't break code, just creates friction. Multi-paradigm languages let you choose; cost is larger language to learn."
+    },
+    {
+      "id": "principle_8",
+      "number": "8",
+      "principle": "Explicit Semantics are More Maintainable than Implicit Ones",
+      "statement": "Explicit semantics mean behavior is stated in code; implicit semantics mean you must know a rule. Implicit saves typing but requires hidden knowledge.",
+      "reasoning": "Implicit semantics (Python MRO, C++ implicit conversions) save typing but require knowledge of hidden rules. When violated accidentally, bugs are hard to find.",
+      "when_to_use": "When designing language features. When understanding why some languages are easier to debug.",
+      "key_rules": [
+        "If behavior isn't obvious from reading code, make it explicit",
+        "Favor `if x is not None:` over `if x:`",
+        "Favor `err != nil` checks over exception handling magic",
+        "Favor `@Override` annotations over implicit method overriding"
+      ],
+      "bad_example": {
+        "situation": "Python code: `if obj.attr:` doesn't specify what truthy means. Could be checking for None, empty list, zero, False string.",
+        "why_bad": "Maintainer doesn't know what types are expected. Code might work for years, then crash on unexpected input.",
+        "cost": "Debugging takes hours; production crashes"
+      },
+      "good_example": {
+        "situation": "Explicit Python: `if obj.attr is not None:`",
+        "why_works": "Clear what's being checked. Maintainer knows exactly what types are expected.",
+        "benefit": "Code self-documents; fewer bugs; easier debugging"
+      },
+      "tags": ["semantics", "explicitness", "maintainability", "debugging", "code-clarity"],
+      "source": "Code review studies; bug analysis in implicit vs. explicit languages",
+      "related_principles": ["principle_2"],
+      "trade_offs": "Explicit code slightly more verbose. But prevents entire class of bugs and makes intent obvious."
+    },
+    {
+      "id": "principle_9",
+      "number": "9",
+      "principle": "Orthogonality Reduces Cognitive Load—Each Feature is Independent",
+      "statement": "Orthogonal language features are independent: using one doesn't require understanding all others. Non-orthogonal features interact in unexpected ways.",
+      "reasoning": "Each interaction rule multiplies cognitive load. N features with no interactions = N rules. N features with interactions = N + (N² interactions) rules.",
+      "when_to_use": "When evaluating language for team adoption. When understanding why some languages are easier to learn.",
+      "key_rules": [
+        "Evaluate: Do features interact unexpectedly?",
+        "Count interaction rules (should be ~5-10, not 50+)",
+        "Lower orthogonality = higher expertise required"
+      ],
+      "bad_example": {
+        "situation": "C++ with templates, inheritance, operator overloading. Templates interact with inheritance (unusual behavior). Operators interact with implicit conversions.",
+        "why_bad": "Learning curve steep; developers must master interaction rules; easy to write subtle bugs.",
+        "cost": "Longer onboarding; more code review; more bugs"
+      },
+      "good_example": {
+        "situation": "Go designed for orthogonality. Interfaces work with all types. No inheritance complications. No template-inheritance interactions.",
+        "why_works": "Small interaction count. Features work predictably together.",
+        "benefit": "Shorter learning curve; consistent code quality; faster onboarding"
+      },
+      "tags": ["orthogonality", "cognitive-load", "language-design", "simplicity", "learnability"],
+      "source": "Language usability studies; Go design philosophy",
+      "related_principles": ["principle_11"],
+      "trade_offs": "Orthogonal languages sometimes less expressive. But simplicity is worth it for team productivity."
+    },
+    {
+      "id": "principle_10",
+      "number": "10",
+      "principle": "Control Structures Enable Composition—The Wrong Choices Prevent It",
+      "statement": "Control structures determine what programs you can compose. Poor choices leave certain patterns impossible.",
+      "reasoning": "Without first-class functions, cannot do dependency injection. Without lambdas, cannot do map/filter/reduce. Each structural choice enables or disables patterns.",
+      "when_to_use": "When designing APIs. When understanding language limitations.",
+      "key_rules": [
+        "First-class functions enable higher-order programming",
+        "Lambdas enable functional composition",
+        "Pattern matching enables exhaustiveness checking",
+        "Structured control flow enables decomposition"
+      ],
+      "bad_example": {
+        "situation": "Java before lambdas. Implementing map operation requires anonymous class for each behavior.",
+        "why_bad": "Boilerplate for simple operation. Code hard to read.",
+        "cost": "30% more code; harder to understand"
+      },
+      "good_example": {
+        "situation": "Java 8+ with lambdas.",
+        "why_works": "Can write: `items.stream().map(x -> x * 2).filter(x -> x > 10).collect(...)`",
+        "benefit": "Concise, readable, composable"
+      },
+      "tags": ["control-flow", "composition", "expressiveness", "modularity", "abstraction"],
+      "source": "Functional programming research; language design patterns",
+      "related_principles": ["principle_7"],
+      "trade_offs": "Powerful control structures sometimes harder to learn. But expressiveness worth it."
+    },
+    {
+      "id": "principle_11",
+      "number": "11",
+      "principle": "Regularity Improves Learnability—Fewer Rules to Learn",
+      "statement": "Regular languages have few exceptions. Irregular languages have special cases you must memorize.",
+      "reasoning": "Regularity is learnable. Irregularity requires memorization. Regular language with 10 features = learn 10 principles. Irregular language with 10 features = memorize 20+ special cases.",
+      "when_to_use": "When evaluating language for team adoption. When understanding why some languages are 'simple'.",
+      "key_rules": [
+        "Count special cases (higher = harder to learn)",
+        "Evaluate: Do similar things work similarly?",
+        "Consistent naming and behavior reduces learning time"
+      ],
+      "bad_example": {
+        "situation": "JavaScript with type coercion: `[] + {} != {} + []`. `==` vs `===`. Type juggling surprises.",
+        "why_bad": "Many special cases to memorize. Developers make mistakes; irregular behavior hard to predict.",
+        "cost": "Longer learning curve; more bugs; need stricter linting"
+      },
+      "good_example": {
+        "situation": "Python with consistent behavior. List operations work same across contexts. Consistent naming conventions.",
+        "why_works": "Few special cases. Behavior predictable. Easy to learn.",
+        "benefit": "Shorter onboarding; fewer bugs from surprises"
+      },
+      "tags": ["language-regularity", "learnability", "consistency", "predictability", "simplicity"],
+      "source": "Language learning studies; programmer onboarding data",
+      "related_principles": ["principle_9"],
+      "trade_offs": "Regular languages sometimes less expressive. But consistency is worth it for team productivity."
+    },
+    {
+      "id": "principle_12",
+      "number": "12",
+      "principle": "Abstraction Level Must Match Problem Complexity",
+      "statement": "Languages provide abstractions at different levels: machine-level (C), algorithmic (Python), mathematical (Haskell). Mismatch creates friction.",
+      "reasoning": "Low abstraction: Maximum control; waste time on details. High abstraction: Express intent concisely; hide important details. Sweet spot is where language abstractions match problem structure.",
+      "when_to_use": "When choosing language for a project. When understanding why certain languages dominate certain domains.",
+      "key_rules": [
+        "If writing lots of boilerplate → abstraction too low",
+        "If mystified by what's happening → abstraction too high",
+        "Sweet spot: Can control what matters; don't see unnecessary details"
+      ],
+      "decision_criteria": {
+        "fighting_language": "If struggling with language for basic operations: abstraction too low",
+        "blind_to_details": "If can't see/control important behavior: abstraction too high",
+        "control_points": "Can I drop to lower level when needed?"
+      },
+      "bad_example": {
+        "situation": "Building IoT firmware in Python. Memory constrained (64MB).",
+        "why_bad": "Python abstractions hide memory allocation. Can't control footprint. Program uses 200MB; crashes.",
+        "cost": "Forced to rewrite in C/Rust; months of development time"
+      },
+      "good_example": {
+        "situation": "Same firmware in Rust. Abstractions let you control memory precisely while remaining safe.",
+        "why_works": "Can see/control allocations. Program uses exactly what's needed. Fits in 64MB.",
+        "benefit": "Efficient; safe; completed on time"
+      },
+      "tags": ["abstraction-level", "problem-matching", "language-fit", "sweet-spot", "pragmatism"],
+      "source": "Language pragmatism; comparative performance studies",
+      "related_principles": ["principle_1", "principle_6"],
+      "trade_offs": "Perfect abstraction match rare. Accept reasonable mismatch; use language escapes when needed."
+    },
+    {
+      "id": "principle_13",
+      "number": "13",
+      "principle": "Language Features Enable or Prevent Certain Patterns",
+      "statement": "A language feature either enables a pattern naturally or makes it impossible. Absence of a feature isn't neutral; it prevents solutions.",
+      "reasoning": "First-class functions enable DI and higher-order programming. Immutability enables concurrent programming without locks. Pattern matching enables exhaustiveness checking.",
+      "when_to_use": "When evaluating whether to adopt a language. When understanding language limitations.",
+      "key_rules": [
+        "List patterns you need to implement",
+        "Check if language enables each naturally",
+        "For missing features, is workaround acceptable?"
+      ],
+      "bad_example": {
+        "situation": "Building distributed system in language without immutability support. Need concurrent processing.",
+        "why_bad": "Cannot guarantee thread-safety by construction. Must use locks everywhere. Easy to deadlock. Race conditions hard to debug.",
+        "cost": "3x development time for concurrency; production bugs; reliability issues"
+      },
+      "good_example": {
+        "situation": "Same system in Rust. Immutability enabled by design. Compiler prevents race conditions.",
+        "why_works": "Concurrent processing inherently safe. No locks needed. Compiler prevents categories of bugs.",
+        "benefit": "Correct by construction; concurrent code as reliable as sequential"
+      },
+      "tags": ["language-features", "pattern-enablement", "expressiveness", "design-patterns", "architecture"],
+      "source": "Language design trade-offs; design pattern literature",
+      "related_principles": ["principle_7", "principle_10"],
+      "trade_offs": "Languages with more features are more expressive but harder to learn. Trade expressiveness for simplicity based on needs."
+    },
+    {
+      "id": "principle_14",
+      "number": "14",
+      "principle": "Runtime Overhead vs. Safety is a Fundamental Trade-off",
+      "statement": "Every safety feature (bounds checking, type checking, GC) has runtime cost. No language has zero overhead AND complete safety.",
+      "reasoning": "Safe languages check bounds, types, memory at runtime. These checks consume CPU. Unsafe languages trust programmer; no checks; maximum performance; maximum risk.",
+      "when_to_use": "When evaluating languages for performance-critical systems. When deciding safety vs. performance trade-off.",
+      "key_rules": [
+        "Measure: What's the overhead? Is it acceptable for use case?",
+        "Some overhead (5-10%) often worth safety benefit",
+        "Excessive overhead (50%+) might disqualify language for critical paths"
+      ],
+      "decision_criteria": {
+        "latency_budget": "If overhead consumes entire budget: Language doesn't fit",
+        "safety_cost": "If production bugs cost 100x overhead: Accept overhead",
+        "hybrid_approach": "Can use safe language for most, unsafe for hot path?"
+      },
+      "bad_example": {
+        "situation": "Game engine using Python. Frame rate requirements: 60 FPS (16ms per frame). Python overhead makes engine too slow.",
+        "why_bad": "Safety overhead + overhead of dynamic typing = performance insufficient. Cannot achieve frame rate.",
+        "cost": "Game unplayable; cannot ship"
+      },
+      "good_example": {
+        "situation": "Same game engine in Rust. Safety without performance penalty. Achieves required frame rate.",
+        "why_works": "Safety checks at compile-time (zero runtime overhead). Memory safe. Performance sufficient.",
+        "benefit": "Safe AND fast"
+      },
+      "tags": ["performance", "safety", "overhead", "trade-offs", "optimization"],
+      "source": "Language benchmark data; performance profiling studies",
+      "related_principles": ["principle_1", "principle_6"],
+      "trade_offs": "True Pareto frontier: safe/slow vs. unsafe/fast. Only Rust achieves safe/fast; others choose one end or middle."
+    },
+    {
+      "id": "principle_15",
+      "number": "15",
+      "principle": "Language Evolution Should Be Driven by Real Problems",
+      "statement": "Languages that add features solving real problems stay coherent. Languages adding features for completeness become complex and incoherent.",
+      "reasoning": "Python type hints added because teams needed IDE completion. Go refuses inheritance because teams solve those problems differently. Pragmatic evolution keeps languages learnable.",
+      "when_to_use": "When evaluating language for long-term use. When understanding language design philosophy.",
+      "key_rules": [
+        "Read language RFCs/proposals. Are they solving real problems?",
+        "Check removal/deprecation plans. Removes unused features?",
+        "Evaluate community feedback. Does community ask for feature?"
+      ],
+      "decision_criteria": {
+        "evolution_direction": "Problem-driven → language will stay good. Completeness-driven → expect bloat",
+        "removal_willingness": "Removes features? → healthy. Never removes? → eventual bloat",
+        "community_input": "Listens to users? → language fits real needs"
+      },
+      "bad_example": {
+        "situation": "C++ adding features for 40 years without removing any. Template specialization, move semantics, concepts, attributes.",
+        "why_bad": "Language grew to enormous complexity. Most developers use subset. Learning entire language now takes months. New features interact in surprising ways.",
+        "cost": "High barrier to entry; more bugs; requires expert-level knowledge"
+      },
+      "good_example": {
+        "situation": "Go evolved by solving real problems: fast startup (20ms), static binary, simple syntax. Refuses to add features (generics until 1.18) until solution solves real problem well.",
+        "why_works": "Language stays simple. New features integrate smoothly. Developers can learn entire language in weeks.",
+        "benefit": "High adoption; easy to hire; consistent code quality"
+      },
+      "tags": ["language-evolution", "pragmatism", "feature-bloat", "focused-design", "community"],
+      "source": "Language design history; adoption metrics and community surveys",
+      "related_principles": ["principle_1", "principle_9"],
+      "trade_offs": "Pragmatic evolution sacrifices some expressiveness for clarity. But simplicity usually wins in practice."
+    }
+  ],
+  "decision_guide": {
+    "when_choosing_language": [
+      "What is the primary constraint? (performance, time-to-market, safety, learning curve)",
+      "Does the domain have specific language advantages? (Python for ML, Go for DevOps)",
+      "What ecosystem exists? (Missing libraries = build it yourself)",
+      "What expertise do we have? (Expertise reduces time by 2-4x)",
+      "What are non-negotiable requirements? (GC pauses, memory footprint, latency)"
+    ],
+    "when_designing_systems": [
+      "Can we exploit language strengths? (Functional paradigm for transformations)",
+      "Can we mitigate language weaknesses? (TypeScript for JavaScript type safety)",
+      "What patterns does language enable naturally?",
+      "Where will we fight the language and why?",
+      "Is there a better language for a critical subsystem?"
+    ],
+    "when_optimizing": [
+      "Where is time spent? (Profile first)",
+      "Can we stay in current language? (Use lower-level abstractions)",
+      "Do we need different language for hot path?",
+      "What's the cost of language switch?",
+      "Can we use hybrid approach?"
+    ]
+  },
+  "faq": [
+    {
+      "question": "Should we rewrite our system in a different language?",
+      "answer": "Only if: (1) current language prevents solving a critical problem, (2) problem cannot be solved with current language's techniques, (3) rewrite cost < cost of not solving problem. Rewriting is always more expensive than expected."
+    },
+    {
+      "question": "Is there a 'best' programming language?",
+      "answer": "No. Each language makes specific trade-offs. Best language is the one where trade-offs align with your problem's constraints. Python is best for ML; Go is best for microservices; Rust is best for systems programming."
+    },
+    {
+      "question": "How do we choose between languages with similar capabilities?",
+      "answer": "Compare: (1) ecosystem (do libraries exist?), (2) performance (matches requirements?), (3) team expertise (can we hire/train?), (4) community (good resources?), (5) evolution (direction of language development?)."
+    },
+    {
+      "question": "Should we use a language the team knows or one that's better-suited?",
+      "answer": "Expertise reduces time by 2-4x. Expertise usually wins unless the better language removes a fundamental problem (e.g., C cannot safely handle concurrency; Rust can)."
+    },
+    {
+      "question": "Can we mix languages in one system?",
+      "answer": "Yes, strategically. Use best language for each subsystem. Cost: Integration complexity; multiple toolchains; larger hiring pool. Benefit: Each subsystem optimized. Worth it for large systems where benefits outweigh costs."
+    }
+  ],
+  "tags": ["programming-languages", "language-design", "paradigms", "language-selection", "type-systems", "memory-management", "performance", "safety", "pragmatism", "trade-offs"],
+  "master_insight": "Programming languages are tool choices, not religious commitments. Choose the language whose trade-offs best align with your problem's constraints. Understand the trade-offs, not just the buzzwords."
+}

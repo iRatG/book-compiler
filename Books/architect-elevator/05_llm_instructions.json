@@ -1,0 +1,142 @@
+{
+  "metadata": {
+    "title": "The Software Architect Elevator",
+    "author": "Gregor Hohpe",
+    "publication": "2020",
+    "format_version": "4.0",
+    "language": "English",
+    "principles_count": 15
+  },
+  "system_instruction": "You are applying Software Architect Elevator principles to organizational and architectural decisions. Use these principles to evaluate leadership approach, architecture decisions, and organizational change.",
+  "quick_reference": {
+    "core_insight": "Architects must ride the elevator connecting boardroom strategy with engine-room execution. Architecture enables change; influence matters more than authority.",
+    "top_3_principles": [
+      "The Architect Elevator",
+      "Riding Both Directions",
+      "Sell Options, Not Decisions"
+    ]
+  },
+  "principles": [
+    {
+      "id": "principle_1",
+      "principle": "The Architect Elevator - Bridging Strategy and Implementation",
+      "statement": "Architects must connect boardroom strategy with engine room execution.",
+      "reasoning": "Decision-makers lack technical understanding; builders lack business context. Architects translate.",
+      "when_to_use": "Always; fundamental role of architects.",
+      "tags": ["architect-role", "strategy-execution", "communication"]
+    },
+    {
+      "id": "principle_2",
+      "principle": "Riding Both Directions Is Non-Negotiable",
+      "statement": "Architects who abandon engine room become disconnected and lose credibility.",
+      "reasoning": "Must stay engaged in implementation to understand real constraints.",
+      "when_to_use": "Continuously.",
+      "tags": ["engagement", "credibility", "technical-reality"]
+    },
+    {
+      "id": "principle_3",
+      "principle": "Three Legs Support an Architect",
+      "statement": "Sustainable careers require: technical skill, business impact, and mentorship.",
+      "reasoning": "Career on only one leg is unstable.",
+      "when_to_use": "When assessing career development.",
+      "tags": ["career-development", "impact", "mentorship"]
+    },
+    {
+      "id": "principle_4",
+      "principle": "Rate of Change Defines Architecture's Value",
+      "statement": "Architecture's value is enabling rapid system change.",
+      "reasoning": "Systems that never change don't need architecture.",
+      "when_to_use": "When evaluating architectural decisions.",
+      "tags": ["adaptability", "flexibility", "change-enablement"]
+    },
+    {
+      "id": "principle_5",
+      "principle": "Architects Are Gardeners, Not Master Planners",
+      "statement": "Complex IT grows organically; guide through gentle influence, not top-down control.",
+      "reasoning": "Master plans fail when assumptions change; gardening adapts.",
+      "when_to_use": "When managing large technical landscapes.",
+      "tags": ["emergence", "complexity-management", "guidance"]
+    },
+    {
+      "id": "principle_6",
+      "principle": "Architecture Is Selling Options, Not Making Decisions",
+      "statement": "Minimize irreversible decisions; preserve future optionality.",
+      "reasoning": "Early decisions made with incomplete information.",
+      "when_to_use": "Before every major decision.",
+      "tags": ["reversible-decisions", "optionality", "flexibility"]
+    },
+    {
+      "id": "principle_7",
+      "principle": "Rational Decision-Making Must Override Cognitive Bias",
+      "statement": "Use disciplined processes for major decisions; combat confirmation bias and loss aversion.",
+      "reasoning": "Humans consistently violate rational thinking.",
+      "when_to_use": "Before major decisions.",
+      "tags": ["decision-making", "bias-awareness", "rigor"]
+    },
+    {
+      "id": "principle_8",
+      "principle": "Never Send a Human to Do a Machine's Job",
+      "statement": "Automate everything; manual processes fail hardest when they matter most.",
+      "reasoning": "Automation == reliability.",
+      "when_to_use": "For deployments, infrastructure, operations.",
+      "tags": ["automation", "reliability", "consistency"]
+    },
+    {
+      "id": "principle_9",
+      "principle": "Software-Defined Everything Requires Software-Developer Mindsets",
+      "statement": "When infrastructure becomes code, apply software practices: version control, CI/CD, code review.",
+      "reasoning": "Operations culture incompatible with modern infrastructure.",
+      "when_to_use": "During cloud adoption and DevOps transformation.",
+      "tags": ["infrastructure-as-code", "devops", "culture-change"]
+    },
+    {
+      "id": "principle_10",
+      "principle": "Software Is Collaboration—Use Version Control Everywhere",
+      "statement": "Apply version control and trunk-based development to all collaborative work.",
+      "reasoning": "Git-style collaboration fundamentally improves organizational performance.",
+      "when_to_use": "For code, design docs, configurations, everything.",
+      "tags": ["collaboration", "version-control", "git-culture"]
+    },
+    {
+      "id": "principle_11",
+      "principle": "Reverse-Engineer Organizational Beliefs to Enable Transformation",
+      "statement": "Organizations perfectly designed to produce current behavior. Change beliefs to change behavior.",
+      "reasoning": "Beliefs drive behavior more than rules.",
+      "when_to_use": "When attempting organization-wide transformation.",
+      "tags": ["culture-change", "beliefs", "transformation"]
+    },
+    {
+      "id": "principle_12",
+      "principle": "Scale Organizations Like Systems",
+      "statement": "Minimize synchronization points (meetings); maximize independent productivity.",
+      "reasoning": "Meetings kill throughput; organization structure determines speed.",
+      "when_to_use": "When scaling organizations.",
+      "tags": ["organizational-scaling", "meetings", "decision-velocity"]
+    },
+    {
+      "id": "principle_13",
+      "principle": "Every System Is Perfect at Producing Its Current Behavior",
+      "statement": "If you don't like outcomes, change system structure; don't blame people.",
+      "reasoning": "People respond rationally to systems they're in.",
+      "when_to_use": "When addressing dysfunction.",
+      "tags": ["systems-thinking", "incentives", "structure"]
+    },
+    {
+      "id": "principle_14",
+      "principle": "Develop an IT Worldview",
+      "statement": "Build coherent understanding of technology landscape; don't react to vendor roadmaps.",
+      "reasoning": "Clear worldview enables decisions at team level.",
+      "when_to_use": "For strategic guidance.",
+      "tags": ["technology-strategy", "worldview", "coherence"]
+    },
+    {
+      "id": "principle_15",
+      "principle": "Express Ideas Through Influence and Stories",
+      "statement": "Lead by influence and credibility; communicate through stories, not mandates.",
+      "reasoning": "Stories make change tangible; mandates create resistance.",
+      "when_to_use": "In all communication.",
+      "tags": ["leadership", "influence", "communication"]
+    }
+  ],
+  "tags": ["architecture", "leadership", "organizational-change", "digital-transformation", "devops"]
+}
