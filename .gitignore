@@ -29,5 +29,18 @@ tmp/
 source/
 reports/
 
+# Internal working files (keep locally, DON'T push to GitHub)
+# Audits, analysis, reports, plans, session notes
+ANALYSIS_REPORT*.md
+AUDIT_REPORT*.md
+IMPROVEMENTS_FOR_LLM_GENERATION.md
+NEXT_SESSION_ASSIGNMENT.md
+PASS_*_*.md
+QUICKSTART_AUDIT_SUMMARY.md
+SESSION_*.md
+SETUP_COMPLETE.md
+SYSTEM_USAGE.md
+LLM_USAGE_GUIDE_v*.md
+
 # Git
 .git/
