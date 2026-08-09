@@ -41,6 +41,12 @@ SESSION_*.md
 SETUP_COMPLETE.md
 SYSTEM_USAGE.md
 LLM_USAGE_GUIDE_v*.md
+VALIDATION_CHECKLIST.md
+*_IMPROVED.json
+
+# Obsidian config (local only)
+.obsidian/
+**/.obsidian/
 
 # Git
 .git/
