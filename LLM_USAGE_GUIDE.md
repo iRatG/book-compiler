@@ -76,18 +76,23 @@ Review this code through all three lenses:
 
 ---
 
-## Books Available
+## Books Available (11 Total)
 
-| Book | Principles | Source Language | Tags |
+| Book | Principles | Language | Key Tags |
 |------|-----------|---|------|
-| Clean Architecture | 15 | English | #architecture, #cost-of-change, #paradigms |
-| Ideal Work (Clean Coder) | 15 | English | #craftsmanship, #tdd, #professionalism |
-| Pragmatic Programmer | 7 | Russian | #dry, #automation, #risk-management |
-| Parallel Programming | 15 | English | #concurrency, #synchronization, #performance |
-| Code That Fits in Head | 8 | Russian | #readability, #cognitive-load, #simplicity |
+| Clean Architecture | 6 | English | #architecture, #cost-of-change, #paradigms |
+| Ideal Work (Clean Coder) | 6 | English | #craftsmanship, #tdd, #professionalism, #ethics |
+| Pragmatic Programmer | 7 | English | #dry, #automation, #risk-management, #estimation |
+| Parallel Programming | 7 | English | #concurrency, #synchronization, #performance |
+| Code That Fits in Head | 8 | English | #readability, #cognitive-load, #simplicity |
 | Clean Code | 15 | Russian | #craftsmanship, #readability, #naming |
+| Philosophy of Software Design | 10+ | English | #design, #systems-thinking |
+| Domain-Driven Design | 10+ | English | #domain-modeling, #patterns |
+| Concepts in Programming Languages | 10+ | English | #language-design, #paradigms |
+| Architect Elevator | 8+ | English | #architecture, #leadership, #organization |
+| **Refactoring** ⭐ | **20** | English | #refactoring, #code-quality, #design, #testing, #behavior-preservation |
 
-**Note:** All 05_llm_instructions.json files are always in English, regardless of whether layers 00-04 are in Russian or English.
+**Note:** All 05_llm_instructions.json files are in English, regardless of whether layers 00-04 are in Russian or English. This enables universal LLM compatibility.
 
 ---
 
@@ -196,6 +201,56 @@ done
 
 ---
 
+## Examples: Using Refactoring (NEW)
+
+### Example 1: Identify Code Smells
+
+```
+Paste: Books/refactoring/05_llm_instructions.json
+
+Question: What code smells does this function have?
+
+code:
+function processPayment(user, amount, cardToken, db, logger) {
+    // 200 lines mixing payment logic, logging, database access
+}
+
+Claude will reference:
+- Long Parameter List smell → Introduce Parameter Object
+- Long Function smell → Extract Function
+- Feature Envy → Move Function
+- And suggest specific refactorings from principle_8 (22 code smells)
+```
+
+### Example 2: Justify Refactoring to Management
+
+```
+Paste: Books/refactoring/05_llm_instructions.json
+
+Question: How do I justify this refactoring to my manager?
+
+Context: I want to refactor our payment module (1 week effort) before adding 
+multi-currency support. Without refactoring, multi-currency will take 3 weeks.
+
+Claude will use principle_6 (economic justification):
+"Your refactoring will make the next change 3x faster. That's the fastest 
+way to work. It's not about 'clean code'—it's about business speed."
+```
+
+### Example 3: Combine Refactoring + Architecture
+
+```
+Paste: Books/clean-architecture/05_llm_instructions.json
+Paste: Books/refactoring/05_llm_instructions.json
+
+Question: Our architecture is clear but code is tangled. How do we bridge the gap?
+
+Claude will show how refactoring (principle_1: behavior-preserving) 
+enables the architecture principles to actually manifest in code.
+```
+
+---
+
 ## Advanced: Combining Multiple Books
 
 Load principles from multiple books in one system:
@@ -203,16 +258,21 @@ Load principles from multiple books in one system:
 ```json
 {
   "clean_architecture": { /* principles from book 1 */ },
-  "ideal_work": { /* principles from book 2 */ },
-  "pragmatic_programmer": { /* principles from book 3 */ }
+  "pragmatic_programmer": { /* principles from book 2 */ },
+  "refactoring": { /* principles from book 3 */ }
 }
 ```
 
-Then when reviewing code:
+Then when reviewing code or discussing design:
 
 ```
-Evaluate this code against all three books' principles.
+Evaluate this code/architecture against all three books' principles.
 Report violations with reference to principle IDs from each book.
+
+For example:
+- Clean Architecture violation (principle_2): Layer boundary crossed
+- Pragmatic Programmer violation (principle_2): Estimate not met due to poor structure
+- Refactoring opportunity (principle_8): Code smell "Feature Envy" detected
 ```
 
 ---

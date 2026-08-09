@@ -59,9 +59,9 @@ Complete analysis of **11 technical and philosophy books** with **6+ layers per 
     Bridging technical and business architecture  
     JSON: [05_llm_instructions.json](Books/architect-elevator/05_llm_instructions.json)
 
-11. **Other Technical Books** — Emerging analysis  
-    Additional domain-specific guidance  
-    JSON: [05_llm_instructions.json](Books/)
+11. **Refactoring: Improving the Design of Existing Code** — Martin Fowler (2nd Edition)  
+    Behavior-preserving design improvement through systematic transformation  
+    JSON: [05_llm_instructions.json](Books/refactoring/05_llm_instructions.json)
 
 ---
 
@@ -210,8 +210,9 @@ README.md                           ← This file
 
 ---
 
-**Status:** ✅ v4.0 Complete (Pass 4 LLM-driven; 11 books; lean schema; Pass 5 partial)  
-**Last Updated:** 2026-08-09  
+**Status:** ✅ v4.1 Complete (11 books analyzed; all Layer 5 JSON ready; Refactoring added)  
+**Books:** Clean Architecture, Ideal Work, Pragmatic Programmer, Parallel Programming, Code That Fits in Head, Clean Code, Philosophy of Software Design, Domain-Driven Design, Concepts in Programming Languages, Architect Elevator, **Refactoring** ⭐  
+**Last Updated:** 2026-08-09 (Session 11)  
 **License:** Personal knowledge base
 
 ---
