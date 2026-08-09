@@ -1,0 +1,287 @@
+{
+  "metadata": {
+    "title": "Идеальная Работа — Программирование Без Прикрас",
+    "author": "Unknown",
+    "source_folder": "Books\\ideal-work",
+    "format_version": "1.0"
+  },
+  "usage_instruction": "Load this file at the start of a conversation. Reference principle IDs when making architectural decisions based on Идеальная Работа — Программирование Без Прикрас.",
+  "system_instruction": "You are guided by Идеальная Работа — Программирование Без Прикрас principles when making design decisions. Prioritize: minimizing cost of change, clarity, and long-term maintainability.",
+  "principles": [
+    {
+      "id": "principle_1",
+      "principle": "Мастерство — Это Путь, Не Пункт Назначения",
+      "reasoning": "",
+      "tags": [
+        "#craftsmanship",
+        "#mastery",
+        "#professional-development",
+        "#continuous-learning",
+        "#excellence"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_2",
+      "principle": "Разработка Через Тестирование — Это НЕ о Тестировании",
+      "reasoning": "",
+      "tags": [
+        "#tdd",
+        "#disciplined-approach",
+        "#quality-assurance",
+        "#double-entry-bookkeeping",
+        "#test-driven-development"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_3",
+      "principle": "Страх — Главный Враг Качества",
+      "reasoning": "",
+      "tags": [
+        "#fear",
+        "#psychological-safety",
+        "#confidence",
+        "#courage",
+        "#code-quality"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_4",
+      "principle": "Три Закона TDD Обеспечивают Четыре Блага",
+      "reasoning": "",
+      "tags": [
+        "#code-coverage",
+        "#safety",
+        "#design-quality",
+        "#modularity",
+        "#living-documentation",
+        "#completeness",
+        "#testability",
+        "#separation-of-concerns",
+        "#documentation",
+        "#examples",
+        "#improvement",
+        "#continuous-enhancement",
+        "#clarity",
+        "#refactoring",
+        "#quality-metrics"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_5",
+      "principle": "Рефакторинг — Это Четвертый Закон TDD",
+      "reasoning": "",
+      "tags": [
+        "#red-green-refactor",
+        "#refactoring",
+        "#design-improvement",
+        "#code-quality",
+        "#continuous-improvement"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_6",
+      "principle": "Простой Дизайн — Это Чувство, А Не Правило",
+      "reasoning": "",
+      "tags": [
+        "#craftsmanship",
+        "#simple-design",
+        "#mastery",
+        "#principles",
+        "#code-elegance"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_7",
+      "principle": "Совместное Программирование — Это Передача Культуры",
+      "reasoning": "",
+      "tags": [
+        "#team-culture",
+        "#knowledge-sharing",
+        "#mentoring",
+        "#collaboration",
+        "#pair-programming"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_8",
+      "principle": "Приемочные Тесты — Это Договор с Заказчиком",
+      "reasoning": "",
+      "tags": [
+        "#requirements",
+        "#automation",
+        "#clarity",
+        "#acceptance-testing",
+        "#customer-collaboration"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_9",
+      "principle": "Производительность — Это Не Скорость, Это Стабильность",
+      "reasoning": "",
+      "tags": [
+        "#long-term-thinking",
+        "#flexibility",
+        "#continuous-delivery",
+        "#modularity",
+        "#quality-first",
+        "#sustainable-pace",
+        "#sustainable-development",
+        "#change-management",
+        "#no-shortcuts",
+        "#automation",
+        "#readiness",
+        "#stability"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_10",
+      "principle": "Качество — Это НЕ Прерогатива QA",
+      "reasoning": "",
+      "tags": [
+        "#responsibility",
+        "#quality",
+        "#confidence",
+        "#excellence",
+        "#continuous-improvement"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_11",
+      "principle": "Смелость — Это Умение Сказать \"Нет\"",
+      "reasoning": "",
+      "tags": [
+        "#ethics",
+        "#advocacy",
+        "#professional-judgment",
+        "#courage",
+        "#integrity"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_12",
+      "principle": "Клятва Программиста — Десять Постулатов",
+      "reasoning": "",
+      "tags": [
+        "#responsibility",
+        "#ethics",
+        "#society",
+        "#values",
+        "#professional-oath"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_13",
+      "principle": "Цена Молчания — Выше, Чем Цена Проблемы",
+      "reasoning": "",
+      "tags": [
+        "#responsibility",
+        "#accountability",
+        "#ethics",
+        "#whistleblowing",
+        "#courage"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_14",
+      "principle": "Непрерывная Интеграция — Это о Доверии",
+      "reasoning": "",
+      "tags": [
+        "#deployment",
+        "#automation",
+        "#quality-assurance",
+        "#readiness",
+        "#continuous-integration"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_15",
+      "principle": "Менторство — Это Долг Опытного Разработчика",
+      "reasoning": "",
+      "tags": [
+        "#craftsmanship",
+        "#ideal-work",
+        "#advocacy",
+        "#elegance",
+        "#responsibility",
+        "#quality",
+        "#mastery",
+        "#knowledge-transfer",
+        "#culture",
+        "#requirements",
+        "#professionalism",
+        "#mentoring",
+        "#productivity",
+        "#tdd",
+        "#collaboration",
+        "#quality-assurance",
+        "#professional-development",
+        "#continuous-learning",
+        "#accountability",
+        "#ethics",
+        "#automation",
+        "#courage",
+        "#refactoring"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    }
+  ],
+  "decision_workflows": [],
+  "faq_for_llm": [
+    {
+      "question": "How should I apply: 1: Для Разработчика Каждый День Должен Начинаться с TDD...?",
+      "answer": " 1: Для Разработчика Каждый День Должен Начинаться с TDD\n\n**Практическое Действие:**\nКаждое утро разработчик пишет тесты ДО кода.\n\n**Что Это Означает:**\n1. Открыл задачу — написал тест\n2. Тест падает ..."
+    },
+    {
+      "question": "How should I apply: 2: Первая 1-2 Недели — Обучение TDD Болезненны...?",
+      "answer": " 2: Первая 1-2 Недели — Обучение TDD Болезненны\n\n**Практическое Действие:**\nНовичок в TDD будет работать медленнее первые 1-2 недели.\n\n**Почему?**\n- Мозг переучивается\n- Думается о тестах, потом о код..."
+    },
+    {
+      "question": "How should I apply: 3: Рефакторинг Должен Быть Постоянной Практикой...?",
+      "answer": " 3: Рефакторинг Должен Быть Постоянной Практикой\n\n**Практическое Действие:**\nПосле каждого зеленого теста должен быть рефакторинг.\n\n**Что Рефакторить?**\n- Тестовый код (имена, дублирование)\n- Производ..."
+    }
+  ]
+}

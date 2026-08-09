@@ -1,0 +1,194 @@
+{
+  "metadata": {
+    "title": "Код, который умещается в голове",
+    "author": "Unknown",
+    "source_folder": "Books\\code-fits-in-head",
+    "format_version": "1.0"
+  },
+  "usage_instruction": "Load this file at the start of a conversation. Reference principle IDs when making architectural decisions based on Код, который умещается в голове.",
+  "system_instruction": "You are guided by Код, который умещается в голове principles when making design decisions. Prioritize: minimizing cost of change, clarity, and long-term maintainability.",
+  "principles": [
+    {
+      "id": "principle_1",
+      "principle": "Эвристики важнее правил",
+      "reasoning": "",
+      "tags": [
+        "#context-aware",
+        "#practical-wisdom",
+        "#heuristics",
+        "#judgment"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_2",
+      "principle": "Код читается больше, чем пишется",
+      "reasoning": "",
+      "tags": [
+        "#writer-reader-asymmetry",
+        "#code-comprehension",
+        "#readability"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_3",
+      "principle": "Когнитивная нагрузка - главный враг",
+      "reasoning": "",
+      "tags": [
+        "#mental-model",
+        "#memory-limits",
+        "#code-complexity",
+        "#cognitive-load"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_4",
+      "principle": "Инкапсуляция - это защита инвариантов",
+      "reasoning": "",
+      "tags": [
+        "#object-design",
+        "#encapsulation",
+        "#contracts",
+        "#invariants"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_5",
+      "principle": "Декомпозиция - это уменьшение когнитивной нагрузки",
+      "reasoning": "",
+      "tags": [
+        "#modularity",
+        "#decomposition",
+        "#function-size",
+        "#cyclomatic-complexity"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_6",
+      "principle": "Вертикальный срез лучше, чем послойная разработка",
+      "reasoning": "",
+      "tags": [
+        "#agile-development",
+        "#vertical-slice",
+        "#working-software",
+        "#iterative-design"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_7",
+      "principle": "Тестирование \"снаружи внутрь\" (outside-in)",
+      "reasoning": "",
+      "tags": [
+        "#test-driven-development",
+        "#behavior-driven",
+        "#outside-in",
+        "#api-design"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_8",
+      "principle": "API дизайн - это дизайн вызывающего кода",
+      "reasoning": "",
+      "tags": [
+        "#affordance",
+        "#usability",
+        "#type-safety",
+        "#api-design"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_9",
+      "principle": "Чек-листы спасают жизни",
+      "reasoning": "",
+      "tags": [
+        "#habituation",
+        "#checklists",
+        "#discipline",
+        "#quality-gates"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_10",
+      "principle": "Коллективное владение кодом требует инструментов и дисциплины",
+      "reasoning": "",
+      "tags": [
+        "#continuous-integration",
+        "#git-discipline",
+        "#collective-ownership",
+        "#code-review"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_11",
+      "principle": "Для расширения большого кода используйте паттерны",
+      "reasoning": "",
+      "tags": [
+        "#refactoring",
+        "#feature-flags",
+        "#legacy-code",
+        "#strangler-pattern"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_12",
+      "principle": "Рабочий процесс - это часть архитектуры",
+      "reasoning": "",
+      "tags": [
+        "#organizational-structure",
+        "#time-management",
+        "#work-habits",
+        "#focus"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    }
+  ],
+  "decision_workflows": [],
+  "faq_for_llm": [
+    {
+      "question": "How should I apply: Создайте чек-лист для новой кодовой базы...?",
+      "answer": " Создайте чек-лист для новой кодовой базы\n\n**Что делать:**\nПрежде чем писать бизнес-логику, установите:\n\n### Чек-лист:\n- [ ] Git репозиторий инициализирован\n- [ ] .gitignore настроен (bin/, obj/, node..."
+    },
+    {
+      "question": "How should I apply: Напишите интеграционный тест перед первой кодовой строкой...?",
+      "answer": " Напишите интеграционный тест перед первой кодовой строкой\n\n**Что делать:**\nПеред разработкой фичи напишите один тест, который показывает, как она должна использоваться:\n\n```csharp\n[Fact]\npublic void ..."
+    },
+    {
+      "question": "How should I apply: Ограничьте размер функций и модулей...?",
+      "answer": " Ограничьте размер функций и модулей\n\n**Метрики:**\n\n### Размер функции\n- **Максимум 80 символов в ширину**: можно видеть всю функцию на экране без скролла\n- **Максимум 24 строк в высоту**: примерно по..."
+    }
+  ]
+}

@@ -1,0 +1,261 @@
+{
+  "metadata": {
+    "title": "Clean Architecture — A Craftsman's Guide to Software Structure and Design",
+    "author": "** Robert C. Martin (\"Uncle Bob\")",
+    "source_folder": "Books\\clean-architecture",
+    "format_version": "1.0"
+  },
+  "usage_instruction": "Load this file at the start of a conversation. Reference principle IDs when making architectural decisions based on Clean Architecture — A Craftsman's Guide to Software Structure and Design.",
+  "system_instruction": "You are guided by Clean Architecture — A Craftsman's Guide to Software Structure and Design principles when making design decisions. Prioritize: minimizing cost of change, clarity, and long-term maintainability.",
+  "principles": [
+    {
+      "id": "principle_1",
+      "principle": "Architecture is NOT Separate from Code",
+      "reasoning": "You cannot hand off \"architecture\" to senior people and \"coding\" to juniors. Both happen at all levels.",
+      "tags": [
+        "#unity-of-design",
+        "#architecture-definition",
+        "#responsibility-distribution"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_2",
+      "principle": "The Goal of Architecture is Minimizing Human Effort",
+      "reasoning": "",
+      "tags": [
+        "#architectural-goal",
+        "#cost-of-change",
+        "#long-term-value"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_3",
+      "principle": "Two Distinct Values Exist in Every System",
+      "reasoning": "",
+      "tags": [
+        "#requirements",
+        "#strategic-thinking",
+        "#changeability",
+        "#feature-development",
+        "#urgency-vs-importance",
+        "#behavior-value",
+        "#architecture-value",
+        "#flexibility",
+        "#prioritization"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_4",
+      "principle": "The Hare and Tortoise Parable Applies to Code",
+      "reasoning": "Slowing down to maintain cleanliness is the fastest path.",
+      "tags": [
+        "#false-economy",
+        "#craftsmanship",
+        "#arrogance",
+        "#long-term-thinking"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_5",
+      "principle": "Three Paradigms Control All Programming",
+      "reasoning": "",
+      "tags": [
+        "#dependency-inversion",
+        "#concurrency",
+        "#state-management",
+        "#structured-programming",
+        "#oop",
+        "#abstraction",
+        "#methodology",
+        "#paradigm-wisdom",
+        "#immutability",
+        "#decomposition",
+        "#functional-programming",
+        "#polymorphism",
+        "#testability",
+        "#constraints"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_6",
+      "principle": "Architecture Uses All Three Paradigms at Different Levels",
+      "reasoning": "",
+      "tags": [
+        "#integrated-approach",
+        "#architectural-layering",
+        "#multi-paradigm"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_7",
+      "principle": "A Test Can Only Prove Wrongness, Not Rightness",
+      "reasoning": "",
+      "tags": [
+        "#testing-philosophy",
+        "#design-for-testability",
+        "#falsifiability",
+        "#verification-limits"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_8",
+      "principle": "Technical Debt is a Lie About Timing",
+      "reasoning": "",
+      "tags": [
+        "#deadline-pressure",
+        "#sustainable-pace",
+        "#technical-debt",
+        "#velocity"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_9",
+      "principle": "All Good Architecture Enables Fast, Safe Change",
+      "reasoning": "",
+      "tags": [
+        "#modularity",
+        "#scope-vs-form",
+        "#decoupling",
+        "#change-management"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_10",
+      "principle": "The Architecture Should Cry Out Its Intent",
+      "reasoning": "",
+      "tags": [
+        "#screaming-architecture",
+        "#intent-revelation",
+        "#domain-driven-design",
+        "#code-organization"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_11",
+      "principle": "Rules Transcend Languages, Frameworks, and Technology",
+      "reasoning": "A programmer from 1966 could learn modern Java/IntelliJ in a day and write correct code. The fundamentals haven't changed.",
+      "tags": [
+        "#technology-independence",
+        "#universal-rules",
+        "#timeless-principles"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_12",
+      "principle": "Flexibility Must Be Built In, Not Bolted On",
+      "reasoning": "",
+      "tags": [
+        "#flexibility",
+        "#architectural-options",
+        "#options-value",
+        "#deferred-decisions"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_13",
+      "principle": "Development Teams Should Defend Architecture",
+      "reasoning": "",
+      "tags": [
+        "#advocacy",
+        "#team-agency",
+        "#leadership",
+        "#professional-responsibility"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_14",
+      "principle": "There are Three Ways to Fail at Architecture",
+      "reasoning": "",
+      "tags": [
+        "#speculation",
+        "#over-engineering",
+        "#chaos",
+        "#burnout",
+        "#rigid-authority",
+        "#entropy",
+        "#learning-culture",
+        "#humility",
+        "#adaptive-architecture",
+        "#unnecessary-complexity",
+        "#cowboy-coding",
+        "#hypothesis-driven",
+        "#prediction-failure"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_15",
+      "principle": "Architecture is a Set of Decisions You Wish You'd Made Earlier",
+      "reasoning": "Architecture is humble—it acknowledges uncertainty while still providing structure.",
+      "tags": [
+        "#technical-leadership",
+        "#architectural-decisions",
+        "#design-principles",
+        "#humility",
+        "#learning",
+        "#software-architecture",
+        "#professional-practice",
+        "#reversibility"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    }
+  ],
+  "decision_workflows": [],
+  "faq_for_llm": [
+    {
+      "question": "How should I apply: 1: Adopt Structured Programming Practices...?",
+      "answer": " 1: Adopt Structured Programming Practices\n\n**What this means:**\n- Write small, decomposable functions\n- Each function should be testable in isolation\n- Use only sequences, conditionals, loops (no wil..."
+    },
+    {
+      "question": "How should I apply: 2: Use Polymorphism to Cross Architectural Boundaries...?",
+      "answer": " 2: Use Polymorphism to Cross Architectural Boundaries\n\n**What this means:**\n- Instead of high-level code knowing about low-level implementations, reverse it\n- High-level code should depend on abstrac..."
+    },
+    {
+      "question": "How should I apply: 3: Manage State and Concurrency with Functional Principles...?",
+      "answer": " 3: Manage State and Concurrency with Functional Principles\n\n**What this means:**\n- Prefer immutability where possible\n- Minimize shared mutable state\n- Use functional patterns for data transformation..."
+    }
+  ]
+}

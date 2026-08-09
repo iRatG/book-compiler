@@ -1,0 +1,130 @@
+{
+  "metadata": {
+    "title": "Идеальный программист. Как стать профессионалом разработки ПО",
+    "author": "Unknown",
+    "source_folder": "Books\\pragmatic-programmer",
+    "format_version": "1.0"
+  },
+  "usage_instruction": "Load this file at the start of a conversation. Reference principle IDs when making architectural decisions based on Идеальный программист. Как стать профессионалом разработки ПО.",
+  "system_instruction": "You are guided by Идеальный программист. Как стать профессионалом разработки ПО principles when making design decisions. Prioritize: minimizing cost of change, clarity, and long-term maintainability.",
+  "principles": [
+    {
+      "id": "principle_1",
+      "principle": "принципы профессионализма",
+      "reasoning": "",
+      "tags": [
+        "#язык",
+        "#отношение",
+        "#владение-результатом",
+        "#честность",
+        "#clarity",
+        "#управление-ожиданиями",
+        "#commitment",
+        "#оценка",
+        "#ответственность",
+        "#professional-responsibility"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_2",
+      "principle": "рабочего процесса",
+      "reasoning": "",
+      "tags": [
+        "#collaboration",
+        "#quality",
+        "#long-term-thinking",
+        "#technical-debt",
+        "#TDD",
+        "#quality-assurance",
+        "#risk-mitigation",
+        "#responsibility",
+        "#testing",
+        "#sustainability",
+        "#code-review"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_3",
+      "principle": "взаимодействия",
+      "reasoning": "",
+      "tags": [
+        "#boundaries",
+        "#professional-standards",
+        "#professionalism",
+        "#conflict-resolution",
+        "#mentoring",
+        "#teamwork",
+        "#assertiveness",
+        "#communication",
+        "#knowledge-sharing",
+        "#psychology"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_4",
+      "principle": "обучения и развития",
+      "reasoning": "",
+      "tags": [
+        "#entrepreneurship",
+        "#value-creation",
+        "#learning",
+        "#career-development",
+        "#self-improvement",
+        "#lifelong-learning",
+        "#career-ownership"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_5",
+      "principle": "принципы",
+      "reasoning": "",
+      "tags": [
+        "#trade-offs",
+        "#error-handling",
+        "#time-management",
+        "#metrics",
+        "#quality-measurement",
+        "#productivity",
+        "#deep-work",
+        "#accountability",
+        "#risk-management",
+        "#pragmatism",
+        "#learning",
+        "#prioritization",
+        "#sustainable-pace",
+        "#focus",
+        "#trust-recovery"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    }
+  ],
+  "decision_workflows": [],
+  "faq_for_llm": [
+    {
+      "question": "How should I apply: 1: Личный кодекс поведения...?",
+      "answer": " 1: Личный кодекс поведения\n\n**Суть:** Каждый программист должен написать свой кодекс – набор принципов, которым он следует.\n\n**Включает:**\n1. **Качество:** Я не отправляю код, который не тестирую\n2. ..."
+    },
+    {
+      "question": "How should I apply: 2: Техника \"здоровой спешки\" (Healthy Hustle)...?",
+      "answer": " 2: Техника \"здоровой спешки\" (Healthy Hustle)\n\n**Суть:** Есть правильный способ работать быстро, не теряя качество.\n\n**Техника:**\n\n**Фаза 1: Планирование (1-2 часа на проект)**\n- Разбиваешь задачу на..."
+    },
+    {
+      "question": "How should I apply: 3: Структурированная оценка (Three-Point Estimation)...?",
+      "answer": " 3: Структурированная оценка (Three-Point Estimation)\n\n**Суть:** Реалистичная оценка требует учета неопределенности.\n\n**Техника:**\n\nВместо: \"Это займет 5 дней\"\n\nПиши:\n1. **Оптимистичный сценарий (если..."
+    }
+  ]
+}

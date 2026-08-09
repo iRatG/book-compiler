@@ -1,0 +1,225 @@
+{
+  "metadata": {
+    "title": "Модели параллельного программирования",
+    "author": "Unknown",
+    "source_folder": "Books\\parallel-programming",
+    "format_version": "1.0"
+  },
+  "usage_instruction": "Load this file at the start of a conversation. Reference principle IDs when making architectural decisions based on Модели параллельного программирования.",
+  "system_instruction": "You are guided by Модели параллельного программирования principles when making design decisions. Prioritize: minimizing cost of change, clarity, and long-term maintainability.",
+  "principles": [
+    {
+      "id": "principle_1",
+      "principle": "Concurrency Requires a Mental Model",
+      "reasoning": "",
+      "tags": [
+        "#mental-models",
+        "#formal-reasoning",
+        "#concurrency-abstraction"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_2",
+      "principle": "Thread Safety is Not Binary",
+      "reasoning": "",
+      "tags": [
+        "#specification",
+        "#thread-safety-nuance",
+        "#consistency-models"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_3",
+      "principle": "Locks Provide Two Distinct Guarantees",
+      "reasoning": "",
+      "tags": [
+        "#mutual-exclusion",
+        "#memory-visibility",
+        "#locks-semantics"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_4",
+      "principle": "Memory Ordering is a Fundamental Property",
+      "reasoning": "",
+      "tags": [
+        "#memory-barriers",
+        "#CPU-architecture",
+        "#memory-ordering"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_5",
+      "principle": "Different Synchronization Primitives Have Different Guarantees",
+      "reasoning": "",
+      "tags": [
+        "#tool-selection",
+        "#synchronization-primitives",
+        "#formal-properties"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_6",
+      "principle": "Shared State Scaling is Non-Linear",
+      "reasoning": "",
+      "tags": [
+        "#contention-analysis",
+        "#scalability-limits",
+        "#amdahl-law"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_7",
+      "principle": "Lock-Free Programming is Not \"Faster Programming\"",
+      "reasoning": "",
+      "tags": [
+        "#expert-techniques",
+        "#lock-free",
+        "#performance-myths"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_8",
+      "principle": "The Actor Model Eliminates Shared Memory Races",
+      "reasoning": "",
+      "tags": [
+        "#actor-model",
+        "#message-passing",
+        "#isolation"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_9",
+      "principle": "Immutability is Concurrency-Free Lunch (Almost)",
+      "reasoning": "",
+      "tags": [
+        "#immutability",
+        "#state-management",
+        "#functional-concurrency"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_10",
+      "principle": "Progress Guarantees Come in Levels",
+      "reasoning": "",
+      "tags": [
+        "#correctness-levels",
+        "#progress-guarantees",
+        "#formal-properties"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_11",
+      "principle": "False Sharing Destroys Scalability",
+      "reasoning": "",
+      "tags": [
+        "#performance-optimization",
+        "#false-sharing",
+        "#cache-effects"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_12",
+      "principle": "Distributed Concurrency Changes Everything",
+      "reasoning": "",
+      "tags": [
+        "#distributed-systems",
+        "#network-failures",
+        "#asynchronous-protocols"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_13",
+      "principle": "Consistency Models Define the Rules of the Game",
+      "reasoning": "",
+      "tags": [
+        "#distributed-systems",
+        "#trade-offs",
+        "#consistency-models"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_14",
+      "principle": "Concurrency Testing Requires New Strategies",
+      "reasoning": "Race conditions depend on precise timing, hardware scheduling, and cache behavior.",
+      "tags": [
+        "#verification",
+        "#testing-concurrency",
+        "#reliability"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "principle_15",
+      "principle": "Parallelism is Not Always Worth It",
+      "reasoning": "",
+      "tags": [
+        "#premature-optimization",
+        "#complexity-cost",
+        "#pragmatism",
+        "#knowledge-integration",
+        "#progressive-understanding",
+        "#principle-hierarchy"
+      ],
+      "key_rules": [],
+      "examples": [],
+      "severity": "CRITICAL"
+    }
+  ],
+  "decision_workflows": [],
+  "faq_for_llm": [
+    {
+      "question": "How should I apply: 1: API Design Must Be Thread-Safe by Default...?",
+      "answer": " 1: API Design Must Be Thread-Safe by Default\n\n**Principle:** Never build concurrency as an afterthought; design it in from the start.\n\n### Practical Impact\n\n**What NOT to do:**\n```java\n// Common patt..."
+    },
+    {
+      "question": "How should I apply: 2: Performance Optimization Becomes Counterintuitive...?",
+      "answer": " 2: Performance Optimization Becomes Counterintuitive\n\n**Principle:** Faster sequential operations don't mean faster concurrent ones.\n\n### Practical Impact\n\n**Wrong optimization (Cache-invalidating):*..."
+    },
+    {
+      "question": "How should I apply: 3: Choose Concurrency Model Based on Domain, Not Fashion...?",
+      "answer": " 3: Choose Concurrency Model Based on Domain, Not Fashion\n\n**Principle:** Each model fits different problems. Pick wrong, pay heavily.\n\n### Practical Impact\n\n**When to use Shared Memory (Locks):**\n- S..."
+    }
+  ]
+}
