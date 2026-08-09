@@ -5,7 +5,7 @@
     "publication": "Unknown",
     "book_name": "code-fits-in-head",
     "format_version": "4.0",
-    "generated_at": "2026-08-09T10:38:20.934167",
+    "generated_at": "2026-08-09T11:10:29.488175",
     "language": "English",
     "source_language": "Russian",
     "generation_pass": "Pass 4: Generate LLM Instructions (LLM-driven)"
@@ -15,9 +15,9 @@
     "book": "code-fits-in-head",
     "principles_count": 12,
     "top_3_principles": [
-      "Эвристики важнее правил",
-      "Код читается больше, чем пишется",
-      "Когнитивная нагрузка - главный враг"
+      "Heuristics are more important than rules",
+      "The code is read more than it is written",
+      "Cognitive load is the main enemy"
     ],
     "questions_count": 12,
     "arguments_count": 10,
@@ -27,8 +27,8 @@
     {
       "id": "principle_1",
       "number": "1",
-      "principle": "Эвристики важнее правил",
-      "statement": "**Утверждение:**\nВместо жестких правил (\"максимум 80 символов в строке\") используйте эвристики (\"код должен быть удобен для чтения\").\n**Почему это важно:**\n- Правила создают ложное чувство уверенности\n- Эвристики требуют суждения и понимания контекста\n- Опытный разработчик использует эвристики интуитивно, новичок - учится их применять\n**Практический смысл:**\n- Это книга о том, как думать и решать, а не о том, что делать\n**Tags:** #heuristics, #judgment, #context-aware, #practical-wisdom",
+      "principle": "Heuristics are more important than rules",
+      "statement": "**Statement:**\\n",
       "tags": [
         "heuristics",
         "judgment",
@@ -44,8 +44,8 @@
     {
       "id": "principle_2",
       "number": "2",
-      "principle": "Код читается больше, чем пишется",
-      "statement": "**Утверждение:**\nРазработчик тратит 90% времени на чтение и понимание кода, 10% на написание.\n**Следствия:**\n- Оптимизируйте для читаемости, а не для скорости написания\n- Понятность важнее краткости\n- Четкие имена переменных стоят больше, чем экономия символов\n**Tags:** #readability, #code-comprehension, #writer-reader-asymmetry",
+      "principle": "The code is read more than it is written",
+      "statement": "**Statement:**\\n",
       "tags": [
         "readability",
         "code-comprehension",
@@ -57,15 +57,15 @@
       "related_implications": [
         {
           "id": "impl_003",
-          "name": "Ограничьте размер функций и модулей",
-          "what_means": "**Метрики:**\n### Размер функции\n- **Максимум 80 символов в ширину**: можно видеть всю функцию на экране без скролла\n- **Максимум 24 строк в высоту**: примерно половина типичного экрана\n- **Правило 80/24**: если функция не уместится в прямоугольник 80x24, разделите ее\n### Цикломатическая сложность\n- **< 5**: очень простая функция, легко понять\n- **5-10**: умеренно сложная, требует внимания\n- **> 15**: слишком сложная, нужен рефакторинг\n```csharp\n// Сложность = 5 (слишком высоко)\npublic bool IsValidReservation(Reservation r) {\n    if (r.PartySize <= 0) return false;\n    if (r.PartySize > 20) return false;\n    if (r.Date < DateTime.Now) return false;\n    if (string.IsNullOrEmpty(r.Name)) return false;\n    if (r.Restaurant == null) return false;\n    return true;\n}\n// Сложность = 1 (идеально)\npublic bool IsValidReservation(Reservation r) {\n    return HasValidPartySize(r) &&\n           HasValidDate(r) &&\n           HasValidName(r) &&\n           HasValidRestaurant(r);\n}\n```\n**Практическое применение:**\n- Во время код-ревью: если функция > 80x24, просите разделить\n- В CI/CD: используйте инструменты для измерения сложности\n**Tags:** #code-metrics, #complexity, #refactoring, #readability, #function-size",
+          "name": "Limit the size of functions and modules",
+          "what_means": "**Metrics:**\\n",
           "source": "04_consequences.md: Implication 003"
         }
       ],
       "related_questions": [
         {
           "id": "question_02",
-          "text": "Почему программировать сложнее, чем кажется? На поверхности программирование выглядит \"просто\": пишите код, компилируйте, тестируйте. Но почему это становится мучением? **Глубокие вопросы:** - Почему код \"обрастает\" сложностью, несмотря на наши усилия? - Как когнитивные ограничения человека влияют на качество кода? - Что означает \"удобочитаемость\" и почему она важнее, чем мы думаем? **Tags:** #complexity, #cognitive-science, #readability, #human-factors",
+          "text": "Why is programming more difficult than it seems? ",
           "source": "01_questions.md: Question 002"
         }
       ]
@@ -73,8 +73,8 @@
     {
       "id": "principle_3",
       "number": "3",
-      "principle": "Когнитивная нагрузка - главный враг",
-      "statement": "**Утверждение:**\nЧеловеческий мозг может удерживать в рабочей памяти только ~7-9 концепций одновременно.\n**Практические следствия:**\n- Функция, требующая понимания 50 переменных - это враг\n- Лучше иметь 20 маленьких функций, чем одну большую сложную\n- Инкапсуляция - это способ снизить когнитивную нагрузку на читателя кода\n**Tags:** #cognitive-load, #memory-limits, #mental-model, #code-complexity",
+      "principle": "Cognitive load is the main enemy",
+      "statement": "**Statement:**\\n",
       "tags": [
         "cognitive-load",
         "memory-limits",
@@ -88,7 +88,7 @@
       "related_questions": [
         {
           "id": "question_02",
-          "text": "Почему программировать сложнее, чем кажется? На поверхности программирование выглядит \"просто\": пишите код, компилируйте, тестируйте. Но почему это становится мучением? **Глубокие вопросы:** - Почему код \"обрастает\" сложностью, несмотря на наши усилия? - Как когнитивные ограничения человека влияют на качество кода? - Что означает \"удобочитаемость\" и почему она важнее, чем мы думаем? **Tags:** #complexity, #cognitive-science, #readability, #human-factors",
+          "text": "Why is programming more difficult than it seems? ",
           "source": "01_questions.md: Question 002"
         }
       ]
@@ -96,8 +96,8 @@
     {
       "id": "principle_4",
       "number": "4",
-      "principle": "Инкапсуляция - это защита инвариантов",
-      "statement": "**Утверждение:**\nИнкапсуляция - не просто \"скрыть приватное\", а защита неизменяемых свойств объекта (инвариантов).\n**Пример:**\nКласс `Money` с полями `amount` и `currency` должен гарантировать, что:\n- `amount` никогда не отрицательное\n- `currency` никогда не `null`\n**Это значит:**\n- Класс проверяет эти условия при создании и модификации\n- Внешний код может полагаться на эти гарантии\n**Tags:** #encapsulation, #invariants, #contracts, #object-design",
+      "principle": "Encapsulation is the protection of invariants",
+      "statement": "**Statement:**\\n",
       "tags": [
         "encapsulation",
         "invariants",
@@ -109,23 +109,23 @@
       "supporting_arguments": [
         {
           "id": "arg_004",
-          "name": "Инкапсуляция - это контракт между кодом и его читателем",
-          "claim": "**Аргумент:** Когда класс защищает свои инварианты (свойства, которые всегда верны), читатель может полагаться на эти гарантии.\n**Пример - класс Money:**\n```csharp\n// Плохо: нет защиты инвариантов\npublic class Money {\n    public decimal Amount; // Может быть отрицательным!\n    public string Currency; // Может быть null!\n}\n// Хорошо: инварианты защищены\npublic class Money {\n    private decimal amount;\n    private string currency;\n    public Money(decimal amount, string currency) {\n        if (amount < 0) throw new ArgumentException(\"Amount cannot be negative\");\n        if (currency == null) throw new ArgumentNullException(nameof(currency));\n        this.amount = amount;\n        this.currency = currency;\n    }\n    public decimal Amount => amount; // Readonly\n    public string Currency => currency; // Readonly\n}\n```\n**Следствие:**\n- Читатель кода может спать спокойно, зная, что Money никогда не будет иметь отрицательное значение\n- Не нужно везде проверять `if (money.Amount >= 0)`\n**Tags:** #encapsulation, #invariants, #contracts, #defensive-programming, #object-design",
+          "name": "Encapsulation is a contract between code and its reader",
+          "claim": "**Argument:** When a class protects its invariants (properties that are always true), the reader can rely on those guarantees.\\n",
           "source": "03_reasoning.md: Argument 004"
         }
       ],
       "related_implications": [
         {
           "id": "impl_004",
-          "name": "Инкапсулируйте данные, защитите инварианты",
-          "what_means": "**Что делать:**\nКогда создаете класс, спросите: \"Какие свойства этого объекта ВСЕГДА должны быть верны?\"\n```csharp\n// ПЛОХО: никаких гарантий\npublic class Reservation {\n    public string Name { get; set; }\n    public int PartySize { get; set; }\n    public DateTime Date { get; set; }\n}\nvar r = new Reservation();\nr.PartySize = -5; // Оп! Отрицательное число людей?\nr.Name = null;    // Оп! Забыли имя?\n// ХОРОШО: инварианты защищены\npublic class Reservation {\n    private string name;\n    private int partySize;\n    private DateTime date;\n    public Reservation(string name, int partySize, DateTime date) {\n        if (string.IsNullOrEmpty(name))\n            throw new ArgumentException(\"Name is required\", nameof(name));\n        if (partySize <= 0 || partySize > 20)\n            throw new ArgumentException(\"Party size must be 1-20\", nameof(partySize));\n        if (date < DateTime.Now)\n            throw new ArgumentException(\"Cannot reserve in the past\", nameof(date));\n        this.name = name;\n        this.partySize = partySize;\n        this.date = date;\n    }\n    public string Name => name; // Readonly\n    public int PartySize => partySize;\n    public DateTime Date => date;\n}\n// Теперь это невозможно:\nvar r = new Reservation(\"John\", -5, DateTime.Now); // Компилятор: No way!\n```\n**Преимущество для читателя кода:**\n- Если вы видите `Reservation`, вы знаете, что она валидна\n- Не нужно везде проверять `if (r.PartySize > 0)`\n**Tags:** #encapsulation, #object-design, #invariants, #value-objects, #contracts",
+          "name": "Encapsulate data, protect invariants",
+          "what_means": "**What to do:**\\n",
           "source": "04_consequences.md: Implication 004"
         }
       ],
       "related_questions": [
         {
           "id": "question_03",
-          "text": "Как управлять сложностью на уровне архитектуры? Декомпозиция, инкапсуляция, модульность - это не просто красивые слова. Как их применить конкретно? **Практические вопросы:** - Когда функция слишком большая и нуждается в разделении? - Как измерить сложность кода численно? - Какой размер модуля оптимален для понимания? **Tags:** #decomposition, #complexity-metrics, #modularity, #encapsulation",
+          "text": "How to manage complexity at the architectural level? ",
           "source": "01_questions.md: Question 003"
         }
       ]
@@ -133,8 +133,8 @@
     {
       "id": "principle_5",
       "number": "5",
-      "principle": "Декомпозиция - это уменьшение когнитивной нагрузки",
-      "statement": "**Утверждение:**\nРазделяйте большие функции на маленькие не ради \"правил\", а чтобы читатель понимал каждый кусок отдельно.\n**Метрика сложности:**\n- Цикломатическая сложность (количество условных ветвлений)\n- Правило 80/24: функция не должна быть больше 80 символов ширины на 24 строки высоты\n**Tags:** #decomposition, #cyclomatic-complexity, #function-size, #modularity",
+      "principle": "Decomposition is a reduction in cognitive load",
+      "statement": "**Statement:**\\n",
       "tags": [
         "decomposition",
         "cyclomatic-complexity",
@@ -147,15 +147,15 @@
       "related_implications": [
         {
           "id": "impl_003",
-          "name": "Ограничьте размер функций и модулей",
-          "what_means": "**Метрики:**\n### Размер функции\n- **Максимум 80 символов в ширину**: можно видеть всю функцию на экране без скролла\n- **Максимум 24 строк в высоту**: примерно половина типичного экрана\n- **Правило 80/24**: если функция не уместится в прямоугольник 80x24, разделите ее\n### Цикломатическая сложность\n- **< 5**: очень простая функция, легко понять\n- **5-10**: умеренно сложная, требует внимания\n- **> 15**: слишком сложная, нужен рефакторинг\n```csharp\n// Сложность = 5 (слишком высоко)\npublic bool IsValidReservation(Reservation r) {\n    if (r.PartySize <= 0) return false;\n    if (r.PartySize > 20) return false;\n    if (r.Date < DateTime.Now) return false;\n    if (string.IsNullOrEmpty(r.Name)) return false;\n    if (r.Restaurant == null) return false;\n    return true;\n}\n// Сложность = 1 (идеально)\npublic bool IsValidReservation(Reservation r) {\n    return HasValidPartySize(r) &&\n           HasValidDate(r) &&\n           HasValidName(r) &&\n           HasValidRestaurant(r);\n}\n```\n**Практическое применение:**\n- Во время код-ревью: если функция > 80x24, просите разделить\n- В CI/CD: используйте инструменты для измерения сложности\n**Tags:** #code-metrics, #complexity, #refactoring, #readability, #function-size",
+          "name": "Limit the size of functions and modules",
+          "what_means": "**Metrics:**\\n",
           "source": "04_consequences.md: Implication 003"
         }
       ],
       "related_questions": [
         {
           "id": "question_03",
-          "text": "Как управлять сложностью на уровне архитектуры? Декомпозиция, инкапсуляция, модульность - это не просто красивые слова. Как их применить конкретно? **Практические вопросы:** - Когда функция слишком большая и нуждается в разделении? - Как измерить сложность кода численно? - Какой размер модуля оптимален для понимания? **Tags:** #decomposition, #complexity-metrics, #modularity, #encapsulation",
+          "text": "How to manage complexity at the architectural level? ",
           "source": "01_questions.md: Question 003"
         }
       ]
@@ -163,8 +163,8 @@
     {
       "id": "principle_6",
       "number": "6",
-      "principle": "Вертикальный срез лучше, чем послойная разработка",
-      "statement": "**Утверждение:**\nВместо разработки \"сначала все модели, потом все контроллеры\" делайте вертикальные срезы: от пользовательского ввода до сохранения в БД.\n**Почему:**\n- Вы быстро получаете работающее ПО\n- Видите ошибки дизайна рано\n- Вся команда видит тот же \"ходячий скелет\"\n**Tags:** #vertical-slice, #agile-development, #working-software, #iterative-design",
+      "principle": "Vertical cutting is better than layer-by-layer development",
+      "statement": "**Statement:**\\n",
       "tags": [
         "vertical-slice",
         "agile-development",
@@ -176,8 +176,8 @@
       "supporting_arguments": [
         {
           "id": "arg_005",
-          "name": "Вертикальный срез выявляет ошибки дизайна раньше",
-          "claim": "**Аргумент:** Если вы разрабатываете слой за слоем (сначала модели, потом контроллеры), вы можете недостаточно хорошо спроектировать интерфейсы. Вертикальный срез выявляет это рано.\n**Сценарий - Резервирование ресторана:**\n**Послойный подход (BAD):**\n1. Месяц 1: Разработчик A создает модели BankAccount, Reservation, Restaurant\n2. Месяц 2: Разработчик B создает API контроллеры\n3. Месяц 3: Команда встречается и понимает - контроллеры не подходят к моделям\n**Вертикальный срез (GOOD):**\n1. День 1: От HTTP запроса до сохранения в БД - работает одна маленькая фича\n2. День 2: Вся команда видит работающий код, обсуждает дизайн\n3. Недели 2-8: Расширяют вертикальный срез, добавляют новые фичи\n**Преимущество:**\n- Ошибки выявляются в день 1, а не в месяц 3\n- Вся команда видит одно и то же состояние кода\n**Tags:** #vertical-slice, #early-feedback, #agile-development, #integration, #api-design",
+          "name": "Vertical slice reveals design errors earlier",
+          "claim": "**Argument:** If you design layer by layer (models first, then controllers), you may not design interfaces well enough. ",
           "source": "03_reasoning.md: Argument 005"
         }
       ],
@@ -185,7 +185,7 @@
       "related_questions": [
         {
           "id": "question_04",
-          "text": "Как начать разработку, чтобы получить работающий код с первой итерации? Тестирование, дизайн API, вертикальный срез - как это все координировать? **Tags:** #test-driven-development, #vertical-slice, #initial-development",
+          "text": "How to start development to get working code from the first iteration? ",
           "source": "01_questions.md: Question 004"
         }
       ]
@@ -193,8 +193,8 @@
     {
       "id": "principle_7",
       "number": "7",
-      "principle": "Тестирование \"снаружи внутрь\" (outside-in)",
-      "statement": "**Утверждение:**\nНачните с интеграционного теста (как будет использован код), потом пишите код для его прохождения.\n**Отличие от TDD:**\n- TDD: unit тест → код → рефакторинг\n- Outside-in: интеграционный тест → unit тесты → код\n**Преимущество:**\n- Сразу видно, нужен ли вам код\n- API дизайн рождается из использования, не из идей в воздухе\n**Tags:** #test-driven-development, #outside-in, #behavior-driven, #api-design",
+      "principle": "Outside-in testing",
+      "statement": "**Statement:**\\n",
       "tags": [
         "test-driven-development",
         "outside-in",
@@ -206,29 +206,29 @@
       "supporting_arguments": [
         {
           "id": "arg_005",
-          "name": "Вертикальный срез выявляет ошибки дизайна раньше",
-          "claim": "**Аргумент:** Если вы разрабатываете слой за слоем (сначала модели, потом контроллеры), вы можете недостаточно хорошо спроектировать интерфейсы. Вертикальный срез выявляет это рано.\n**Сценарий - Резервирование ресторана:**\n**Послойный подход (BAD):**\n1. Месяц 1: Разработчик A создает модели BankAccount, Reservation, Restaurant\n2. Месяц 2: Разработчик B создает API контроллеры\n3. Месяц 3: Команда встречается и понимает - контроллеры не подходят к моделям\n**Вертикальный срез (GOOD):**\n1. День 1: От HTTP запроса до сохранения в БД - работает одна маленькая фича\n2. День 2: Вся команда видит работающий код, обсуждает дизайн\n3. Недели 2-8: Расширяют вертикальный срез, добавляют новые фичи\n**Преимущество:**\n- Ошибки выявляются в день 1, а не в месяц 3\n- Вся команда видит одно и то же состояние кода\n**Tags:** #vertical-slice, #early-feedback, #agile-development, #integration, #api-design",
+          "name": "Vertical slice reveals design errors earlier",
+          "claim": "**Argument:** If you design layer by layer (models first, then controllers), you may not design interfaces well enough. ",
           "source": "03_reasoning.md: Argument 005"
         },
         {
           "id": "arg_006",
-          "name": "Тестирование \"снаружи внутрь\" дает лучший дизайн API",
-          "claim": "**Аргумент:** Если вы сначала напишете тест, который вызывает код так, как вы его хотите использовать, то API получится удобным.\n**Пример - бронирование столика:**\n```csharp\n// Сначала пишем ИНТЕГРАЦИОННЫЙ тест (вызвав из HTTP)\n// Это показывает, как код будет использован\n[Fact]\npublic void ReserveTable_WithValidRequest_ReturnsOk() {\n    var request = new ReservationRequest {\n        Date = new DateTime(2024, 1, 15),\n        Name = \"John Doe\",\n        PartySize = 4\n    };\n    var response = controller.MakeReservation(request);\n    Assert.Equal(200, response.StatusCode);\n}\n// Потом пишем UNIT тесты для деталей\n// Потом пишем код\n```\n**Преимущество:**\n- API рождается из использования, а не из фантазии\n- Если тест сложно писать, значит API плохой\n**Tags:** #test-driven-development, #outside-in, #api-design, #testability",
+          "name": "Outside-in testing yields better API design",
+          "claim": "**Argument:** If you first write a test that calls the code the way you want to use it, the API will be user-friendly.\\n",
           "source": "03_reasoning.md: Argument 006"
         }
       ],
       "related_implications": [
         {
           "id": "impl_002",
-          "name": "Напишите интеграционный тест перед первой кодовой строкой",
-          "what_means": "**Что делать:**\nПеред разработкой фичи напишите один тест, который показывает, как она должна использоваться:\n```csharp\n[Fact]\npublic void MakeReservation_WithValidInput_ReturnsConfirmation() {\n    // Arrange\n    var controller = new ReservationsController();\n    var request = new ReservationRequest {\n        Date = new DateTime(2024, 1, 15),\n        Name = \"John Doe\",\n        PartySize = 4\n    };\n    // Act\n    var result = controller.MakeReservation(request);\n    // Assert\n    Assert.NotNull(result);\n    Assert.Equal(\"Reservation confirmed\", result.Message);\n}\n```\n**Как это работает:**\n1. Тест не скомпилируется (нет контроллера, нет запроса)\n2. Вы пишете минимальный код для компиляции\n3. Тест падает (нет реализации)\n4. Вы пишете реализацию\n5. Тест проходит\n**Преимущество:**\n- Вы проектируете API через использование, а не через фантазию\n- Каждый код, который вы пишете, имеет цель (пройти тест)\n**Tags:** #test-driven-development, #api-design, #outside-in, #behavioral-testing",
+          "name": "Write an integration test before the first line of code",
+          "what_means": "**What to do:**\\n",
           "source": "04_consequences.md: Implication 002"
         }
       ],
       "related_questions": [
         {
           "id": "question_04",
-          "text": "Как начать разработку, чтобы получить работающий код с первой итерации? Тестирование, дизайн API, вертикальный срез - как это все координировать? **Tags:** #test-driven-development, #vertical-slice, #initial-development",
+          "text": "How to start development to get working code from the first iteration? ",
           "source": "01_questions.md: Question 004"
         }
       ]
@@ -236,8 +236,8 @@
     {
       "id": "principle_8",
       "number": "8",
-      "principle": "API дизайн - это дизайн вызывающего кода",
-      "statement": "**Утверждение:**\nХороший API - это тот, который удобно вызывать, не заставляет запоминать порядок параметров или читать документацию каждый раз.\n**Техники:**\n- **Affordance** (возможность): по названию и сигнатуре должно быть ясно, как использовать\n- **Poka-Yoke** (защита от ошибок): сложно вызвать неправильно\n- **CQS** (Command Query Separation): команды меняют состояние, запросы - нет\n**Tags:** #api-design, #usability, #affordance, #type-safety",
+      "principle": "API design is the design of the calling code",
+      "statement": "**Statement:**\\n",
       "tags": [
         "api-design",
         "usability",
@@ -249,22 +249,22 @@
       "supporting_arguments": [
         {
           "id": "arg_005",
-          "name": "Вертикальный срез выявляет ошибки дизайна раньше",
-          "claim": "**Аргумент:** Если вы разрабатываете слой за слоем (сначала модели, потом контроллеры), вы можете недостаточно хорошо спроектировать интерфейсы. Вертикальный срез выявляет это рано.\n**Сценарий - Резервирование ресторана:**\n**Послойный подход (BAD):**\n1. Месяц 1: Разработчик A создает модели BankAccount, Reservation, Restaurant\n2. Месяц 2: Разработчик B создает API контроллеры\n3. Месяц 3: Команда встречается и понимает - контроллеры не подходят к моделям\n**Вертикальный срез (GOOD):**\n1. День 1: От HTTP запроса до сохранения в БД - работает одна маленькая фича\n2. День 2: Вся команда видит работающий код, обсуждает дизайн\n3. Недели 2-8: Расширяют вертикальный срез, добавляют новые фичи\n**Преимущество:**\n- Ошибки выявляются в день 1, а не в месяц 3\n- Вся команда видит одно и то же состояние кода\n**Tags:** #vertical-slice, #early-feedback, #agile-development, #integration, #api-design",
+          "name": "Vertical slice reveals design errors earlier",
+          "claim": "**Argument:** If you design layer by layer (models first, then controllers), you may not design interfaces well enough. ",
           "source": "03_reasoning.md: Argument 005"
         },
         {
           "id": "arg_006",
-          "name": "Тестирование \"снаружи внутрь\" дает лучший дизайн API",
-          "claim": "**Аргумент:** Если вы сначала напишете тест, который вызывает код так, как вы его хотите использовать, то API получится удобным.\n**Пример - бронирование столика:**\n```csharp\n// Сначала пишем ИНТЕГРАЦИОННЫЙ тест (вызвав из HTTP)\n// Это показывает, как код будет использован\n[Fact]\npublic void ReserveTable_WithValidRequest_ReturnsOk() {\n    var request = new ReservationRequest {\n        Date = new DateTime(2024, 1, 15),\n        Name = \"John Doe\",\n        PartySize = 4\n    };\n    var response = controller.MakeReservation(request);\n    Assert.Equal(200, response.StatusCode);\n}\n// Потом пишем UNIT тесты для деталей\n// Потом пишем код\n```\n**Преимущество:**\n- API рождается из использования, а не из фантазии\n- Если тест сложно писать, значит API плохой\n**Tags:** #test-driven-development, #outside-in, #api-design, #testability",
+          "name": "Outside-in testing yields better API design",
+          "claim": "**Argument:** If you first write a test that calls the code the way you want to use it, the API will be user-friendly.\\n",
           "source": "03_reasoning.md: Argument 006"
         }
       ],
       "related_implications": [
         {
           "id": "impl_002",
-          "name": "Напишите интеграционный тест перед первой кодовой строкой",
-          "what_means": "**Что делать:**\nПеред разработкой фичи напишите один тест, который показывает, как она должна использоваться:\n```csharp\n[Fact]\npublic void MakeReservation_WithValidInput_ReturnsConfirmation() {\n    // Arrange\n    var controller = new ReservationsController();\n    var request = new ReservationRequest {\n        Date = new DateTime(2024, 1, 15),\n        Name = \"John Doe\",\n        PartySize = 4\n    };\n    // Act\n    var result = controller.MakeReservation(request);\n    // Assert\n    Assert.NotNull(result);\n    Assert.Equal(\"Reservation confirmed\", result.Message);\n}\n```\n**Как это работает:**\n1. Тест не скомпилируется (нет контроллера, нет запроса)\n2. Вы пишете минимальный код для компиляции\n3. Тест падает (нет реализации)\n4. Вы пишете реализацию\n5. Тест проходит\n**Преимущество:**\n- Вы проектируете API через использование, а не через фантазию\n- Каждый код, который вы пишете, имеет цель (пройти тест)\n**Tags:** #test-driven-development, #api-design, #outside-in, #behavioral-testing",
+          "name": "Write an integration test before the first line of code",
+          "what_means": "**What to do:**\\n",
           "source": "04_consequences.md: Implication 002"
         }
       ],
@@ -273,8 +273,8 @@
     {
       "id": "principle_9",
       "number": "9",
-      "principle": "Чек-листы спасают жизни",
-      "statement": "**Утверждение:**\nЧек-листы не для новичков, а для экспертов. Они превращают знание в привычку.\n**Примеры из книги:**\n- Чек-лист для новой кодовой базы (Git, автоматизация сборки, сообщения об ошибках)\n- Чек-лист перед коммитом\n- Чек-лист код-ревью\n**Tags:** #checklists, #quality-gates, #discipline, #habituation",
+      "principle": "Checklists save lives",
+      "statement": "**Statement:**\\n",
       "tags": [
         "checklists",
         "quality-gates",
@@ -286,16 +286,16 @@
       "supporting_arguments": [
         {
           "id": "arg_003",
-          "name": "Чек-листы работают, потому что превращают знание в действие",
-          "claim": "**Аргумент:** Опытный пилот самолета не \"вспоминает\" чек-лист во время полета - выполняет его автоматически. Это экономит в критических ситуациях.\n**Исторический пример:**\n- В 1930-х годах самолет B-17 был настолько сложен, что пилоты часто ошибались и падали даже с исправным самолетом\n- Инженеры создали чек-лист предполетной проверки\n- Результат: ошибки упали на 90%\n**Применение к коду:**\n- Чек-лист перед коммитом: прогнал ли я тесты? Проверил ли я форматирование?\n- Чек-лист для код-ревью: расматрены ли граничные случаи? Хорошие ли имена переменных?\n- Чек-лист для новой кодовой базы: настроен ли Git? Включены ли все ошибки компилятора?\n**Психология:**\n- Человеческая память ненадежна\n- Чек-лист превращает знание (в голове) в действие (в истории Git)\n**Tags:** #checklists, #quality-gates, #discipline, #error-prevention, #human-factors",
+          "name": "Checklists work because they turn knowledge into action.",
+          "claim": "**Argument:** An experienced airplane pilot does not “remember” the checklist during the flight - he performs it automatically. ",
           "source": "03_reasoning.md: Argument 003"
         }
       ],
       "related_implications": [
         {
           "id": "impl_001",
-          "name": "Создайте чек-лист для новой кодовой базы",
-          "what_means": "**Что делать:**\nПрежде чем писать бизнес-логику, установите:\n### Чек-лист:\n- [ ] Git репозиторий инициализирован\n- [ ] .gitignore настроен (bin/, obj/, node_modules/ и т.д.)\n- [ ] Build автоматизирован (make, gradle, npm, dotnet build)\n- [ ] Компилятор включает ВСЕ предупреждения (все ошибки уровня warning)\n- [ ] Статический анализ включен (SonarQube, StyleCop, ESLint)\n- [ ] Unit тесты настроены и работают\n- [ ] CI/CD pipeline создан (каждый коммит должен быть автоматически проверен)\n**Почему это важно:**\n- Если включить это позже, будет в 10 раз сложнее\n- Это экономит часы отладки проблем \"на моей машине работает\"\n**Tags:** #automation, #quality-gates, #ci-cd, #new-project, #checklist",
+          "name": "Create a checklist for your new codebase",
+          "what_means": "**What to do:**\\n",
           "source": "04_consequences.md: Implication 001"
         }
       ],
@@ -304,8 +304,8 @@
     {
       "id": "principle_10",
       "number": "10",
-      "principle": "Коллективное владение кодом требует инструментов и дисциплины",
-      "statement": "**Утверждение:**\nНельзя просто сказать \"владеть кодом вместе\" - нужны Git, code review, парное программирование, ясные коммиты.\n**Инструменты:**\n- **Git**: правильные сообщения коммитов, маленькие коммиты\n- **CI/CD**: каждый коммит должен пройти все тесты\n- **Code Review**: обязательная проверка перед слиянием\n**Tags:** #collective-ownership, #git-discipline, #code-review, #continuous-integration",
+      "principle": "Collaborative code ownership requires tools and discipline",
+      "statement": "**Statement:**\\n",
       "tags": [
         "collective-ownership",
         "git-discipline",
@@ -317,35 +317,35 @@
       "supporting_arguments": [
         {
           "id": "arg_007",
-          "name": "Коммиты с хорошими сообщениями - это документация кода",
-          "claim": "**Аргумент:** Вместо того, чтобы писать длинные комментарии, пишите понятные коммиты. История Git становится рассказом о том, почему код выглядит так.\n**Плохой коммит:**\n```\nFix bug\n```\n**Хороший коммит:**\n```\nFix off-by-one error in DateRange validation\nThe method was checking if date <= end instead of date < end,\ncausing out-of-range dates to be accepted.\nFixes #1234\n```\n**Почему это работает:**\n- Через неделю вы забудете, почему вы изменили эту линию кода\n- Через месяц новый разработчик спросит \"почему это так странно?\"\n- История Git показывает ответ\n**Tags:** #git-discipline, #documentation, #commit-messages, #knowledge-transfer",
+          "name": "Commits with good messages are code documentation",
+          "claim": "**Argument:** Instead of writing long comments, write clear commits. ",
           "source": "03_reasoning.md: Argument 007"
         }
       ],
       "related_implications": [
         {
           "id": "impl_006",
-          "name": "Разделяйте рефакторинг тестов и продакшен-кода",
-          "what_means": "**Проблема:**\n```csharp\n// Вы хотите переименовать метод\n// И одновременно рефакторить тесты\n// Результат: огромный коммит, невозможно понять, что сломалось\n```\n**Решение:**\n```\nКоммит 1: Рефакторю тесты (без изменения проверяемого кода)\nКоммит 2: Переименовываю метод (тесты уже готовы)\nКоммит 3: Меняю реализацию (тесты гарантируют, что работает)\n```\n**Почему это важно:**\n- Если коммит \"рефакторинг тестов + переименование\" сломает CI, сложнее понять почему\n- Маленькие коммиты легче рецензировать\n- История Git чиста и понятна\n**Tags:** #git-discipline, #refactoring, #test-maintenance, #commit-hygiene",
+          "name": "Separate refactoring of tests and production code",
+          "what_means": "**Problem:**\\n",
           "source": "04_consequences.md: Implication 006"
         },
         {
           "id": "impl_009",
-          "name": "Организуйте код-ревью как обучение, не как контроль",
-          "what_means": "**Как это работать:**\n**Плохой код-ревью:**\n```\nРецензент: \"Это плохо, переделай\"\nАвтор: \"Почему?\"\nРецензент: \"Потому что я так сказал\"\nРезультат: Автор обижен, ничего не выучил\n```\n**Хороший код-ревью:**\n```\nРецензент: \"Почему ты выбрал этот подход вместо альтернативы X?\"\nАвтор: \"Я не думал об альтернативе\"\nРецензент: \"Вот статья об этом подходе [ссылка]. Давай обсудим на встрече.\"\nРезультат: Оба научились чему-то\n```\n**Практическое применение:**\n- Используйте questions, не commands: \"Зачем?\" вместо \"Делай вот так\"\n- Шлите ссылки на статьи и примеры\n- Хвалите хороший код: \"Мне нравится, как ты обработал ошибку здесь\"\n- Приводите примеры: \"Вот как бы я это написал\" + объяснение\n**Tags:** #code-review, #mentoring, #team-dynamics, #knowledge-sharing, #communication",
+          "name": "Organize code reviews as training, not as control",
+          "what_means": "**How it works:**\\n",
           "source": "04_consequences.md: Implication 009"
         },
         {
           "id": "impl_011",
-          "name": "Делайте маленькие коммиты, пишите хорошие сообщения",
-          "what_means": "**Структура коммита:**\n```\nКраткое резюме (50 символов или меньше)\nБолее подробное объяснение (если нужно).\nОбъясняет ПОЧЕМУ вы сделали это изменение,\nа не ЧТО вы изменили (ЧТО видно в diff).\n- Бонус: можно использовать маркеры\n- Если необходимо объяснить альтернативы\n- Которые вы рассмотрели и отклонили\nFixes #1234\n```\n**Пример хорошего коммита:**\n```\nFix race condition in ReservationService\nThe service was checking availability and booking in two separate\ndatabase operations, allowing two concurrent requests to double-book\nthe same table.\nFixed by using a database transaction to ensure atomicity.\nAlso added a unique constraint on (table_id, date) to prevent\nsimilar issues at the database level.\nFixes #456\n```\n**Преимущество:**\n- История Git становится документацией\n- `git log` показывает рассказ о проекте\n- Можно использовать `git blame` с пониманием\n**Tags:** #git-discipline, #commit-messages, #documentation, #code-history",
+          "name": "Make small commits, write good posts",
+          "what_means": "**Commit structure:**\\n",
           "source": "04_consequences.md: Implication 011"
         }
       ],
       "related_questions": [
         {
           "id": "question_06",
-          "text": "Как работать в команде, не создавая конфликты и не теряя качество? **Tags:** #teamwork, #code-review, #collective-ownership, #git-practices",
+          "text": "How to work in a team without creating conflicts and losing quality? ",
           "source": "01_questions.md: Question 006"
         }
       ]
@@ -353,8 +353,8 @@
     {
       "id": "principle_11",
       "number": "11",
-      "principle": "Для расширения большого кода используйте паттерны",
-      "statement": "**Утверждение:**\nКогда нужно добавить новую функцию в легаси-код, используйте проверенные паттерны, а не переписывайте все.\n**Паттерны:**\n- **Strangler Pattern** (\"Душитель\"): постепенно вводи новый код, задушив старый\n- **Feature Flags**: новые фичи скрыты под флагом до полной готовности\n**Tags:** #legacy-code, #refactoring, #strangler-pattern, #feature-flags",
+      "principle": "Use patterns to extend large code",
+      "statement": "**Statement:**\\n",
       "tags": [
         "legacy-code",
         "refactoring",
@@ -366,41 +366,41 @@
       "supporting_arguments": [
         {
           "id": "arg_001",
-          "name": "Когда код становится легаси - экспоненциальный рост затрат",
-          "claim": "**Аргумент:** Каждая новая фича в старом коде требует все больше времени на понимание и модификацию.\n**Доказательство из практики:**\n- Версия 1: Добавить новую функцию за 1 день\n- Версия 5: Та же функция требует 2 дня (нужно понять существующий код)\n- Версия 10: Та же функция требует неделю (слишком много зависимостей)\n**Почему это происходит:**\n1. Первоначальный дизайн был простой\n2. Каждая новая фича \"прилеплялась\" к существующей архитектуре\n3. Когда достигается критическая сложность, любое изменение требует рефакторинга половины системы\n**Научная основа:**\n- Когнитивная нагрузка растет экспоненциально, а не линейно\n- Кривая сложности: сначала пологая, потом резко взлетает\n**Tags:** #legacy-code, #cost-of-change, #complexity-growth, #technical-debt",
+          "name": "When code becomes legacy, costs increase exponentially",
+          "claim": "**Argument:** Each new feature in the old code requires more and more time to understand and modify.\\n",
           "source": "03_reasoning.md: Argument 001"
         }
       ],
       "related_implications": [
         {
           "id": "impl_003",
-          "name": "Ограничьте размер функций и модулей",
-          "what_means": "**Метрики:**\n### Размер функции\n- **Максимум 80 символов в ширину**: можно видеть всю функцию на экране без скролла\n- **Максимум 24 строк в высоту**: примерно половина типичного экрана\n- **Правило 80/24**: если функция не уместится в прямоугольник 80x24, разделите ее\n### Цикломатическая сложность\n- **< 5**: очень простая функция, легко понять\n- **5-10**: умеренно сложная, требует внимания\n- **> 15**: слишком сложная, нужен рефакторинг\n```csharp\n// Сложность = 5 (слишком высоко)\npublic bool IsValidReservation(Reservation r) {\n    if (r.PartySize <= 0) return false;\n    if (r.PartySize > 20) return false;\n    if (r.Date < DateTime.Now) return false;\n    if (string.IsNullOrEmpty(r.Name)) return false;\n    if (r.Restaurant == null) return false;\n    return true;\n}\n// Сложность = 1 (идеально)\npublic bool IsValidReservation(Reservation r) {\n    return HasValidPartySize(r) &&\n           HasValidDate(r) &&\n           HasValidName(r) &&\n           HasValidRestaurant(r);\n}\n```\n**Практическое применение:**\n- Во время код-ревью: если функция > 80x24, просите разделить\n- В CI/CD: используйте инструменты для измерения сложности\n**Tags:** #code-metrics, #complexity, #refactoring, #readability, #function-size",
+          "name": "Limit the size of functions and modules",
+          "what_means": "**Metrics:**\\n",
           "source": "04_consequences.md: Implication 003"
         },
         {
           "id": "impl_006",
-          "name": "Разделяйте рефакторинг тестов и продакшен-кода",
-          "what_means": "**Проблема:**\n```csharp\n// Вы хотите переименовать метод\n// И одновременно рефакторить тесты\n// Результат: огромный коммит, невозможно понять, что сломалось\n```\n**Решение:**\n```\nКоммит 1: Рефакторю тесты (без изменения проверяемого кода)\nКоммит 2: Переименовываю метод (тесты уже готовы)\nКоммит 3: Меняю реализацию (тесты гарантируют, что работает)\n```\n**Почему это важно:**\n- Если коммит \"рефакторинг тестов + переименование\" сломает CI, сложнее понять почему\n- Маленькие коммиты легче рецензировать\n- История Git чиста и понятна\n**Tags:** #git-discipline, #refactoring, #test-maintenance, #commit-hygiene",
+          "name": "Separate refactoring of tests and production code",
+          "what_means": "**Problem:**\\n",
           "source": "04_consequences.md: Implication 006"
         },
         {
           "id": "impl_007",
-          "name": "Используйте паттерн Strangler для прогрессивного улучшения",
-          "what_means": "**Сценарий:**\nВы унаследовали легаси-код, который нужно улучшить, но нельзя переписать сразу.\n**Strangler Pattern - шаг за шагом:**\n```csharp\n// Старая система\npublic class LegacyReservationService {\n    public Reservation ReserveTable(string name, int size, DateTime date) {\n        // Много грязного кода...\n        return new Reservation { /* ... */ };\n    }\n}\n// Шаг 1: Создаем новый интерфейс\npublic interface IReservationService {\n    Reservation ReserveTable(ReservationRequest request);\n}\n// Шаг 2: Пишем правильную реализацию\npublic class NewReservationService : IReservationService {\n    public Reservation ReserveTable(ReservationRequest request) {\n        // Чистый код, тесты и т.д.\n    }\n}\n// Шаг 3: Адаптер \"Strangler\" - новый слой вызывает новый сервис\npublic class StranglerAdapter : IReservationService {\n    private readonly IReservationService newService;\n    private readonly LegacyReservationService legacyService;\n    public Reservation ReserveTable(ReservationRequest request) {\n        if (ShouldUseNewService(request)) {\n            return newService.ReserveTable(request);\n        } else {\n            // Адаптируем старый API\n            return legacyService.ReserveTable(\n                request.Name, \n                request.PartySize, \n                request.Date\n            );\n        }\n    }\n    private bool ShouldUseNewService(ReservationRequest r) {\n        // Постепенно переводим на новый сервис\n        // Сначала только тестовые данные, потом 10% трафика, потом 50%, etc.\n        return r.IsTestData || Random.Next(100) < percentageNewService;\n    }\n}\n// Результат: постепенно душим старую систему, не ломая production\n```\n**Преимущество:**\n- Нет большого баада (Big Bang Rewrite)\n- Риск минимален\n- Можно откатиться в любой момент\n**Tags:** #legacy-code, #refactoring, #strangler-pattern, #gradual-improvement",
+          "name": "Use the Strangler Pattern for Progressive Improvement",
+          "what_means": "**Scenario:**\\n",
           "source": "04_consequences.md: Implication 007"
         },
         {
           "id": "impl_008",
-          "name": "Используйте Feature Flags для безопасного развертывания новых фич",
-          "what_means": "**Концепция:**\n```csharp\n// Вместо:\npublic decimal CalculatePrice(Reservation reservation) {\n    return reservation.PartySize * PRICE_PER_PERSON;\n}\n// Используйте:\npublic decimal CalculatePrice(Reservation reservation) {\n    if (featureFlags.IsEnabled(\"dynamic-pricing\")) {\n        return CalculateDynamicPrice(reservation); // Новая логика\n    } else {\n        return reservation.PartySize * PRICE_PER_PERSON; // Старая логика\n    }\n}\n```\n**Жизненный цикл:**\n1. Разработчик пишет новую логику за флагом\n2. Флаг выключен для всех в production\n3. Тестировщики включают флаг для себя и тестируют\n4. QA и product manager включают флаг для себя\n5. Флаг включается для 10% пользователей - мониторим метрики\n6. Флаг включается для 100% пользователей\n7. Удаляем старую логику и флаг (Cleanup phase)\n**Преимущество:**\n- Новый код может жить в production, но не видим\n- Легко откатиться, если что-то пошло не так\n- Постепенный откат на пользователей\n**Tags:** #feature-flags, #continuous-deployment, #risk-management, #a-b-testing",
+          "name": "Use Feature Flags to safely deploy new features",
+          "what_means": "**Concept:**\\n",
           "source": "04_consequences.md: Implication 008"
         }
       ],
       "related_questions": [
         {
           "id": "question_05",
-          "text": "Как делать изменения в большом коде, не сломав существующую функциональность? **Tags:** #refactoring, #legacy-code, #change-management",
+          "text": "How to make changes to large code without breaking existing functionality? ",
           "source": "01_questions.md: Question 005"
         }
       ]
@@ -408,8 +408,8 @@
     {
       "id": "principle_12",
       "number": "12",
-      "principle": "Рабочий процесс - это часть архитектуры",
-      "statement": "**Утверждение:**\nКак вы организуете день, берете перерывы, пишете коммиты - все это влияет на качество кода.\n**Тайм-боксинг:**\n- Работайте сосредоточенно, но с перерывами\n- Не зацикливайтесь на одной проблеме часами\n**Закон Конвея:**\n- Организационная структура отражается в архитектуре системы\n**Tags:** #time-management, #focus, #work-habits, #organizational-structure",
+      "principle": "Workflow is part of the architecture",
+      "statement": "**Statement:**\\n",
       "tags": [
         "time-management",
         "focus",
@@ -422,21 +422,21 @@
       "related_implications": [
         {
           "id": "impl_010",
-          "name": "Используйте тайм-боксинг для сохранения фокуса",
-          "what_means": "**Техника Pomodoro (помидор):**\n- Работайте 25 минут полностью сосредоточено\n- 5 минут перерыва\n- Каждые 4 помидора - длинный перерыв (15-30 минут)\n**Почему это работает:**\n- Человеческий мозг может сосредотачиваться максимум 90 минут\n- Регулярные перерывы восстанавливают энергию\n- 25 минут достаточно для решения небольшой задачи, но не слишком мало\n**Практическое применение:**\n- Установите таймер\n- Отключите уведомления на 25 минут\n- Запишите, над чем работали, когда закончится помидор\n- Не нарушайте помидор\n**Tags:** #time-management, #focus, #productivity, #work-habits, #pomodoro",
+          "name": "Use time boxing to maintain focus",
+          "what_means": "**Pomodoro (tomato) technique:**\\n",
           "source": "04_consequences.md: Implication 010"
         },
         {
           "id": "impl_013",
-          "name": "Поймите свой рабочий процесс - это часть архитектуры",
-          "what_means": "**Закон Конвея:**\n> Архитектура системы отражает организационную структуру команды, которая ее создает.\n**Примеры:**\n- Если команда разделена на \"фронтенд\" и \"бэкенд\", система будет состоять из отдельных фронтенда и бэкенда\n- Если есть отдельная команда QA, тесты будут писаться отдельно от кода\n- Если разработчики работают в разных часовых поясах, нужны хорошие коммиты и документация\n**Практическое применение:**\n- Обсудите в команде: как мы работаем?\n- Сделайте рабочий процесс явным (в PROCESS.md или похожем)\n- Если процесс неудовлетворителен, измените структуру команды\n**Tags:** #organizational-structure, #team-dynamics, #communication, #work-process",
+          "name": "Understand your workflow - it's part of the architecture",
+          "what_means": "**Conway's Law:**\\n",
           "source": "04_consequences.md: Implication 013"
         }
       ],
       "related_questions": [
         {
           "id": "question_08",
-          "text": "Как организовать свой день, чтобы сохранить фокус и качество кода? **Tags:** #time-management, #focus, #productivity, #work-habits",
+          "text": "How can you organize your day to maintain focus and code quality? ",
           "source": "01_questions.md: Question 008"
         }
       ]
