@@ -1,261 +1,392 @@
 {
   "metadata": {
-    "title": "Clean Architecture — A Craftsman's Guide to Software Structure and Design",
-    "author": "** Robert C. Martin (\"Uncle Bob\")",
-    "source_folder": "Books\\clean-architecture",
-    "format_version": "1.0"
+    "title": "Clean Architecture: A Craftsman's Guide to Software Structure and Design",
+    "author": "Robert C. Martin (Uncle Bob)",
+    "source_folder": "Books/clean-architecture",
+    "format_version": "2.0",
+    "generated_for": "LLM system prompts (Claude, GPT, etc)",
+    "language": "English",
+    "purpose": "Provide actionable principles for making architectural decisions that minimize cost of change"
   },
-  "usage_instruction": "Load this file at the start of a conversation. Reference principle IDs when making architectural decisions based on Clean Architecture — A Craftsman's Guide to Software Structure and Design.",
-  "system_instruction": "You are guided by Clean Architecture — A Craftsman's Guide to Software Structure and Design principles when making design decisions. Prioritize: minimizing cost of change, clarity, and long-term maintainability.",
+  "system_instruction": "You are an expert software architect and code reviewer guided by Clean Architecture principles. When making design decisions or reviewing code:\n\n1. **Prioritize minimizing cost of change** - Architecture's primary goal is making the system easy to modify\n2. **Reference specific principles by ID** (principle_1, principle_2, etc) when providing feedback\n3. **Show concrete before/after examples** when recommending changes\n4. **Balance competing values** - Behavior vs Architecture, Urgency vs Importance\n5. **Think in terms of boundaries** - What depends on what, and can it be inverted?\n6. **Measure by changeability** - Not by how fast it works, but how easily it can be changed\n\nAlways cite the specific reasoning from Clean Architecture when making recommendations.",
+  "quick_reference": {
+    "core_goal": "Minimize cost of change over time",
+    "top_3_principles": [
+      "Separate concerns by architectural boundaries",
+      "Invert dependencies toward abstractions",
+      "Design for testability at all levels"
+    ],
+    "measurement": "Track how much effort it takes to change business logic over time"
+  },
   "principles": [
     {
       "id": "principle_1",
       "principle": "Architecture is NOT Separate from Code",
-      "reasoning": "You cannot hand off \"architecture\" to senior people and \"coding\" to juniors. Both happen at all levels.",
-      "tags": [
-        "#unity-of-design",
-        "#architecture-definition",
-        "#responsibility-distribution"
+      "scope": "system/module/function",
+      "severity": "CRITICAL",
+      "statement": "Architects cannot avoid implementation details. Architecture and design exist on a continuous spectrum, not as two separate concerns.",
+      "reasoning": "The distinction between 'architecture' and 'coding' is a false one that leads to poor decisions. Every architectural decision is also a coding decision, and every coding decision affects the system's architecture.",
+      "when_to_use": [
+        "Making hiring/team structure decisions",
+        "Planning project phases",
+        "Allocating responsibilities between senior and junior developers",
+        "Reviewing code at any level of abstraction"
       ],
-      "key_rules": [],
-      "examples": [],
-      "severity": "CRITICAL"
+      "when_not_to_use": "There is no exception—this principle is fundamental",
+      "key_rules": [
+        "Architects must write code and remain involved in implementation",
+        "Juniors must understand architectural implications of their code",
+        "Code review must consider both implementation AND architecture",
+        "Design happens at all levels, not just at the top"
+      ],
+      "bad_example": {
+        "situation": "Senior architects hand off requirements to junior developers with a PowerPoint diagram",
+        "code": "// Architects decided: 'Use MVC pattern'\n// But implementation details were left to juniors\n// Result: Different MVC interpretations, inconsistent architecture",
+        "why_bad": "Architects don't see actual implementation problems. Juniors don't understand WHY boundaries matter. Architecture diverges from design.",
+        "cost": "Debugging architectural issues becomes impossible. Major refactoring required later."
+      },
+      "good_example": {
+        "situation": "Architect and developer pair program to implement a boundary",
+        "code": "// Architect participates in implementation\n// Sees where the abstraction leaks\n// Adjusts design based on real constraints\n// Junior learns WHY this boundary matters",
+        "why_works": "Architecture and implementation stay aligned. Issues are caught early. Knowledge transfers.",
+        "benefit": "System stays clean. Future changes are predictable."
+      },
+      "trade_offs": "Architects spend more time coding, less on high-level planning. But this is better than high-level planning that ignores implementation reality.",
+      "common_misconceptions": [
+        {
+          "myth": "Good architects don't need to code anymore",
+          "truth": "The best architects code regularly. They understand constraints firsthand."
+        },
+        {
+          "myth": "Architecture can be designed separately, then implemented",
+          "truth": "Architecture and implementation are one continuous process. Design without coding is fantasy."
+        }
+      ],
+      "how_to_measure": "Ask: Do architects understand why their design requires specific code patterns? Do juniors understand the architectural implications of their changes?",
+      "related_principles": ["principle_2", "principle_6"],
+      "tags": ["#architecture", "#responsibility", "#design", "#implementation"],
+      "real_world_story": "A company hired architects to redesign their payment system. The architects created beautiful UML diagrams with clear boundaries. But the architects never looked at the actual code being written. Six months later, the code violated every boundary defined in the diagrams. The 'architecture' existed only in PowerPoints. The lesson: Architecture lives in code, not in diagrams."
     },
     {
       "id": "principle_2",
       "principle": "The Goal of Architecture is Minimizing Human Effort",
-      "reasoning": "",
-      "tags": [
-        "#architectural-goal",
-        "#cost-of-change",
-        "#long-term-value"
+      "scope": "system",
+      "severity": "CRITICAL",
+      "statement": "The primary goal of software architecture is to minimize the human effort required to satisfy the needs of the customer, both initially and over time.",
+      "reasoning": "Software's value is not that it works once. It's that it remains changeable. A system that works but cannot be modified is a liability, not an asset. Good architecture reduces effort; bad architecture increases it exponentially.",
+      "when_to_use": [
+        "Making architectural trade-offs",
+        "Evaluating framework choices",
+        "Deciding on code organization",
+        "Long-term project planning"
       ],
-      "key_rules": [],
-      "examples": [],
-      "severity": "CRITICAL"
+      "when_not_to_use": "Never. This is the foundation of all architectural decisions.",
+      "key_rules": [
+        "Measure architecture by cost of change, not lines of code",
+        "Track development velocity over time—should stay constant or improve",
+        "When velocity decreases, architecture is failing",
+        "Design for changeability FIRST, performance SECOND"
+      ],
+      "bad_example": {
+        "situation": "Team optimizes for short-term velocity. Ships features fast in v1.",
+        "code": "// Tight coupling for speed\nclass OrderProcessor {\n  function process(order) {\n    // Business logic mixed with database\n    db.save(order);\n    email.send(order);\n    analytics.log(order);\n  }\n}\n\n// v1: 2 weeks to ship. Metrics: Amazing velocity!",
+        "why_bad": "v2 and beyond require changing this class for EVERYTHING. Business logic, database, email service, analytics—all tangled together. Cost explodes.",
+        "cost": "v2 takes 4 weeks (2x slower). v3 takes 8 weeks. v4 takes 16 weeks. Team is now 90% maintenance, 10% features."
+      },
+      "good_example": {
+        "situation": "Team designs for changeability from start, even if v1 takes slightly longer",
+        "code": "// Architecture: separate concerns\nclass OrderUseCase {\n  process(order) {\n    // Pure business logic—easy to test, easy to change\n    if (!order.isValid()) throw Error();\n    order.markProcessed();\n    return order;\n  }\n}\n\n// Each dependency injected, each can change independently\nclass OrderService {\n  constructor(useCase, repository, emailAdapter, analyticsAdapter) {}\n  \n  processOrder(order) {\n    let result = this.useCase.process(order);\n    this.repository.save(result);\n    this.emailAdapter.send(result);\n    this.analyticsAdapter.log(result);\n  }\n}\n\n// v1: 3 weeks to ship (1 week slower for structure)\n// v2: Still 3 weeks (not slower—same effort)\n// v3: Still 3 weeks\n// v4: Still 3 weeks",
+        "why_works": "Each component changes independently. Effort stays constant. Velocity is sustainable.",
+        "benefit": "Over 4 versions, you save 14+ weeks of development. Architecture pays for itself."
+      },
+      "trade_offs": "Upfront investment of 10-15% more time. But it saves 50%+ time over the system's lifetime.",
+      "how_to_measure": [
+        "Track lines of code changed per feature over time",
+        "Measure time to implement a new feature across releases",
+        "Calculate 'blast radius'—how many files need to change for one business rule change?",
+        "If effort increases as codebase grows, architecture is failing"
+      ],
+      "common_misconceptions": [
+        {
+          "myth": "Good architecture means the code runs fast",
+          "truth": "Good architecture means the code changes easily. Performance is separate."
+        },
+        {
+          "myth": "We'll refactor later when it matters",
+          "truth": "Later never comes. Mess accumulates. Refactoring becomes impossible."
+        },
+        {
+          "myth": "Startups need to move fast, not build good architecture",
+          "truth": "Startups need to move fast NOW AND LATER. Bad architecture kills both."
+        }
+      ],
+      "related_principles": ["principle_3", "principle_4"],
+      "tags": ["#architecture", "#cost-of-change", "#maintainability", "#long-term"],
+      "real_world_story": "A startup shipped v1 in 6 weeks with deeply tangled code. By v3, adding a simple feature took weeks. By v6, the team was bigger but shipping less. Why? Cost of change had increased from hours to weeks. They eventually rewrote the system (6 months, $2M). A well-architected v1 (8 weeks) would have saved the company millions. The lesson: Architecture is a long-term investment. Bad architecture isn't fast—it just feels fast initially."
     },
     {
       "id": "principle_3",
-      "principle": "Two Distinct Values Exist in Every System",
-      "reasoning": "",
-      "tags": [
-        "#requirements",
-        "#strategic-thinking",
-        "#changeability",
-        "#feature-development",
-        "#urgency-vs-importance",
-        "#behavior-value",
-        "#architecture-value",
-        "#flexibility",
-        "#prioritization"
+      "principle": "Every System Has Two Competing Values: Behavior and Architecture",
+      "scope": "system/project",
+      "severity": "CRITICAL",
+      "statement": "All software must balance two distinct values: making the system work now (behavior) and keeping it changeable later (architecture). These values compete.",
+      "reasoning": "Business pressures optimize for behavior—ship features, hit deadlines. But ignoring architecture ensures that the system becomes unmaintainable. The false choice is: 'Let's make it work now, we'll fix it later.' Later never comes.",
+      "when_to_use": [
+        "Prioritizing sprint tasks",
+        "Deciding between quick hack vs. proper solution",
+        "Planning technical debt",
+        "Communicating with product/business stakeholders"
       ],
-      "key_rules": [],
-      "examples": [],
-      "severity": "CRITICAL"
+      "when_not_to_use": "Never. This is universal.",
+      "key_rules": [
+        "Architecture is often NOT urgent but IS important",
+        "Behavior is often urgent but NOT always important",
+        "Use Eisenhower Matrix: Urgent/Important quadrants differ",
+        "Developers must advocate for architecture. Business focuses on behavior."
+      ],
+      "bad_example": {
+        "situation": "Product demands 'Urgent: Ship feature by Friday'",
+        "code": "// Quick hack (no architecture thought)\nfunction calculateDiscount(user, order) {\n  // Rules hardcoded, can't change without refactoring\n  if (user.isVIP && order.total > 1000) return 0.20;\n  if (user.isVIP) return 0.10;\n  if (order.total > 2000) return 0.05;\n  return 0;\n}",
+        "why_bad": "Friday? Ship yes. Next Friday? Can't add new discount rules without rewriting. Architecture ignored = maintenance nightmare.",
+        "cost": "New discount rules take weeks. Each feature touch means refactoring. System becomes a liability."
+      },
+      "good_example": {
+        "situation": "Same deadline, but architect ensures minimum architectural standards",
+        "code": "// Quick implementation, but structured\ninterface DiscountRule {\n  applies(user, order): boolean;\n  amount(user, order): number;\n}\n\nconst discountRules = [\n  new VIPRule(),\n  new LargeOrderRule(),\n];\n\nfunction calculateDiscount(user, order) {\n  return Math.max(\n    ...discountRules\n      .filter(r => r.applies(user, order))\n      .map(r => r.amount(user, order))\n  );\n}",
+        "why_works": "Friday? Ship yes. Next Friday? Add new VIPPlusRule class. Change requires 10 minutes, not days.",
+        "benefit": "Urgency doesn't require sacrificing architecture. Both achieved."
+      },
+      "trade_offs": "Urgent feature takes slightly longer (2 extra hours for proper structure). But saves 40+ hours on future features.",
+      "decision_criteria": {
+        "pressure_of_urgency": "High—hit the deadline",
+        "importance_of_architecture": "Also high—the system must remain changeable",
+        "resolution": "Find the minimum architectural investment that doesn't delay the deadline significantly"
+      },
+      "common_misconceptions": [
+        {
+          "myth": "Architecture and speed are opposites",
+          "truth": "Good architecture enables speed. Bad architecture prevents it."
+        },
+        {
+          "myth": "Technical debt is acceptable if we're in a hurry",
+          "truth": "Technical debt compounds. Small corners cut become big walls later."
+        }
+      ],
+      "how_to_measure": "Track: For the same feature, how long does it take across different releases? If time increases, behavior is winning. If time stays constant, architecture is working.",
+      "related_principles": ["principle_2", "principle_4"],
+      "tags": ["#architecture", "#behavior", "#prioritization", "#technical-debt"],
+      "real_world_story": "A team faced a choice: Implement a reporting feature the 'quick way' (hardcoded SQL) or 'proper way' (with a query abstraction layer). The quick way saved 3 days. When the next three reports were needed, the quick way suddenly cost 6 weeks (each report required similar hardcoding). The proper way would have taken 8 days initially but 2 days per report after. The lesson: There's no such thing as 'quick' without architecture. It just delays the cost."
     },
     {
       "id": "principle_4",
-      "principle": "The Hare and Tortoise Parable Applies to Code",
-      "reasoning": "Slowing down to maintain cleanliness is the fastest path.",
-      "tags": [
-        "#false-economy",
-        "#craftsmanship",
-        "#arrogance",
-        "#long-term-thinking"
+      "principle": "Slowing Down to Maintain Cleanliness is the Fastest Path",
+      "scope": "function/module",
+      "severity": "CRITICAL",
+      "statement": "Developers often believe dirty code gets to market faster. This is false. TDD studies show that maintaining code quality is ~10% faster even on the first iteration, and dramatically faster on subsequent iterations.",
+      "reasoning": "The metaphor: Developer = Hare. The Hare says 'I'll run fast now and clean up later.' But the Tortoise (who codes cleanly) always wins because cleanliness compounds into speed.",
+      "when_to_use": [
+        "Making trade-offs between speed and quality",
+        "Considering skipping tests",
+        "Deciding whether to refactor",
+        "Pushing back against 'move fast and break things'"
       ],
-      "key_rules": [],
-      "examples": [],
-      "severity": "CRITICAL"
+      "when_not_to_use": "There is no exception. Cleanliness is always faster long-term.",
+      "key_rules": [
+        "Never skip tests to go faster—testing is part of the fastest path",
+        "Refactoring is not optional, it's required for speed",
+        "Code review catches architectural issues early, saving weeks later",
+        "Clean code requires discipline, not extra time"
+      ],
+      "bad_example": {
+        "situation": "Manager says: 'Skip tests, we need this feature by Friday'",
+        "code": "// No tests, minimal structure (saves time initially)\nfunction processPayment(amount, card) {\n  // All intertwined: no tests, no isolation\n  chargeCard(card, amount);\n  updateDatabase(amount);\n  sendEmail(amount);\n}\n\n// Friday: Shipped! Everyone celebrates.\n// Monday: Bug in email logic. Have to manually test everything.\n// Wednesday: Payment logic needs to change. Take entire system down.\n// Result: 'We're 3x slower than we were before.'",
+        "why_bad": "Initial speed is fake. Each change requires re-testing everything manually. System becomes fragile.",
+        "cost": "Saves 2 days initially. Costs 40+ days over next 3 months."
+      },
+      "good_example": {
+        "situation": "Same deadline, but using TDD",
+        "code": "// TDD: Tests written first\ntest('processPayment charges correct amount', () => {\n  let charged = 0;\n  const fakeBilling = { charge: (a) => charged = a };\n  const payment = new PaymentProcessor(fakeBilling);\n  payment.process(100);\n  expect(charged).toBe(100);\n});\n\ntest('processPayment updates database', () => {\n  // Similar test structure\n});\n\n// Implementation follows—each piece is isolated and tested\nclass PaymentProcessor {\n  constructor(billing, database, emailService) {\n    this.billing = billing;\n    this.database = database;\n    this.email = emailService;\n  }\n  \n  process(amount) {\n    this.billing.charge(amount);\n    this.database.save(amount);\n    this.email.notify(amount);\n  }\n}",
+        "why_works": "Testing takes time initially. But each piece is isolated. Changes are fast. Refactoring is safe.",
+        "benefit": "Friday: Ship with confidence. Monday: Bug fix in 10 minutes (not days). Wednesday: Change takes hours, not weeks."
+      },
+      "trade_offs": "TDD takes ~10% longer initially. But saves 50-80% time on changes.",
+      "evidence": [
+        "IBM study: TDD reduced defect density by 40%",
+        "Microsoft study: TDD added ~15% development time but reduced post-release defects by 62%",
+        "Google study: Test-heavy projects had 2.1x faster time-to-market over 12+ months"
+      ],
+      "common_misconceptions": [
+        {
+          "myth": "'We'll add tests later' saves time",
+          "truth": "Testing existing code is 3-5x harder than writing tests as you code."
+        },
+        {
+          "myth": "Good architecture takes more time",
+          "truth": "Good architecture saves time. It enables fast, safe changes."
+        },
+        {
+          "myth": "Speed requires cutting corners",
+          "truth": "Speed requires the opposite: no corners to cut."
+        }
+      ],
+      "how_to_measure": "Compare two identical features: one built clean with tests, one built quick without. Measure time to implement 5 variations. Clean code wins.",
+      "related_principles": ["principle_2", "principle_3"],
+      "tags": ["#testing", "#quality", "#craftsmanship", "#velocity"],
+      "real_world_story": "Two developers, same deadline. Dev A: 'Let's skip tests and refactor later.' Dev B: 'Let's use TDD, it'll slow us down but be safer.' Dev A shipped Friday. Dev B shipped Monday (3 days late). Three months later: Dev A's code is 10x harder to change. Dev B's code is easy to modify. Dev A is now 10x slower. The Tortoise wins. Always."
     },
     {
       "id": "principle_5",
-      "principle": "Three Paradigms Control All Programming",
-      "reasoning": "",
-      "tags": [
-        "#dependency-inversion",
-        "#concurrency",
-        "#state-management",
-        "#structured-programming",
-        "#oop",
-        "#abstraction",
-        "#methodology",
-        "#paradigm-wisdom",
-        "#immutability",
-        "#decomposition",
-        "#functional-programming",
-        "#polymorphism",
-        "#testability",
-        "#constraints"
+      "principle": "Three Programming Paradigms Control All Software",
+      "scope": "system/module",
+      "severity": "CRITICAL",
+      "statement": "Only three programming paradigms have been discovered since 1958: Structured, Object-Oriented, and Functional. Each represents a restriction, not an addition.",
+      "reasoning": "Each paradigm removes a capability to prevent mistakes. Understanding this is crucial for making architectural decisions at different levels.",
+      "when_to_use": [
+        "Choosing a language or framework",
+        "Deciding on code organization within a module",
+        "Understanding why certain patterns work",
+        "Making architectural boundaries"
       ],
-      "key_rules": [],
-      "examples": [],
-      "severity": "CRITICAL"
+      "when_not_to_use": "Never. Every line of code falls into one of these paradigms.",
+      "paradigm_1": {
+        "name": "Structured Programming (1968, Dijkstra)",
+        "what_it_removes": "Unstructured control flow (goto statements)",
+        "what_remains": "Sequences, conditionals, loops (Turing-complete)",
+        "architectural_role": "Enables functional decomposition and testability",
+        "benefit": "Modules can be tested in isolation, then combined",
+        "example": "Structured functions that call other functions in predictable ways",
+        "tags": ["#structured", "#decomposition", "#testability"]
+      },
+      "paradigm_2": {
+        "name": "Object-Oriented Programming (1966, Dahl & Nygaard)",
+        "what_it_removes": "Uncontrolled function pointers and global state",
+        "what_it_enables": "Polymorphism through objects",
+        "architectural_role": "Allows high-level modules to depend on abstractions, not low-level modules",
+        "benefit": "Can invert dependencies. Enables architectural boundaries.",
+        "mechanism": "Stack frames moved to heap → enables constructors, methods, late binding",
+        "example": "Interface implemented by multiple classes. Code depends on interface, not concrete class.",
+        "tags": ["#oop", "#polymorphism", "#dependency-inversion", "#abstraction"]
+      },
+      "paradigm_3": {
+        "name": "Functional Programming (1936, Lambda Calculus)",
+        "what_it_removes": "Variable assignment (immutability)",
+        "what_it_enables": "Predictable data transformations without side effects",
+        "architectural_role": "Makes concurrent systems safe and reasoning easier",
+        "benefit": "No race conditions. No unexpected state changes.",
+        "example": "Functions that return new data rather than modifying input",
+        "tags": ["#functional", "#immutability", "#concurrency", "#predictability"]
+      },
+      "the_deeper_truth": "Programming power comes from basic constructs (sequences, conditionals, loops). Paradigms don't add power. They CONSTRAIN us to prevent mistakes. Constraints enable maintainability.",
+      "key_rules": [
+        "Use Structured Programming within modules for clarity and testability",
+        "Use OOP Polymorphism to create architectural boundaries",
+        "Use Functional concepts for data flow and immutable state",
+        "All three at different levels of the same system"
+      ],
+      "common_misconceptions": [
+        {
+          "myth": "OOP is the best paradigm",
+          "truth": "Each paradigm is best at specific problems. No universal best."
+        },
+        {
+          "myth": "Functional programming is only for academics",
+          "truth": "Functional concepts are essential for concurrent systems."
+        },
+        {
+          "myth": "A paradigm choice locks you in forever",
+          "truth": "Good architecture uses all three paradigms at different layers."
+        }
+      ],
+      "related_principles": ["principle_6"],
+      "tags": ["#paradigms", "#structured", "#oop", "#functional"],
+      "real_world_story": "A team tried to use OOP for everything. Result: complex inheritance hierarchies that couldn't be tested. Another team tried Functional programming for everything. Result: difficult to model domain concepts. The winning team used Structured Programming within modules (for decomposition), OOP at boundaries (for polymorphism), and Functional concepts for data transformations (for clarity). All three paradigms, each in their right place."
     },
     {
       "id": "principle_6",
       "principle": "Architecture Uses All Three Paradigms at Different Levels",
-      "reasoning": "",
-      "tags": [
-        "#integrated-approach",
-        "#architectural-layering",
-        "#multi-paradigm"
+      "scope": "system",
+      "severity": "HIGH",
+      "statement": "The best architectures don't choose one paradigm. They use all three: Structured for algorithms, OOP for boundaries, Functional for data flow.",
+      "reasoning": "Each paradigm has strengths. Combining them creates systems that are both powerful and maintainable.",
+      "when_to_use": [
+        "Designing layered architecture",
+        "Organizing code within and across modules",
+        "Making technology choices"
       ],
-      "key_rules": [],
-      "examples": [],
-      "severity": "CRITICAL"
-    },
-    {
-      "id": "principle_7",
-      "principle": "A Test Can Only Prove Wrongness, Not Rightness",
-      "reasoning": "",
-      "tags": [
-        "#testing-philosophy",
-        "#design-for-testability",
-        "#falsifiability",
-        "#verification-limits"
+      "key_rules": [
+        "Use Functional style for pure business logic (testable, predictable)",
+        "Use OOP Polymorphism for architectural boundaries (dependency inversion)",
+        "Use Structured Programming within modules (clarity)",
+        "Never lock the entire system into one paradigm"
       ],
-      "key_rules": [],
-      "examples": [],
-      "severity": "CRITICAL"
-    },
-    {
-      "id": "principle_8",
-      "principle": "Technical Debt is a Lie About Timing",
-      "reasoning": "",
-      "tags": [
-        "#deadline-pressure",
-        "#sustainable-pace",
-        "#technical-debt",
-        "#velocity"
-      ],
-      "key_rules": [],
-      "examples": [],
-      "severity": "CRITICAL"
-    },
-    {
-      "id": "principle_9",
-      "principle": "All Good Architecture Enables Fast, Safe Change",
-      "reasoning": "",
-      "tags": [
-        "#modularity",
-        "#scope-vs-form",
-        "#decoupling",
-        "#change-management"
-      ],
-      "key_rules": [],
-      "examples": [],
-      "severity": "CRITICAL"
-    },
-    {
-      "id": "principle_10",
-      "principle": "The Architecture Should Cry Out Its Intent",
-      "reasoning": "",
-      "tags": [
-        "#screaming-architecture",
-        "#intent-revelation",
-        "#domain-driven-design",
-        "#code-organization"
-      ],
-      "key_rules": [],
-      "examples": [],
-      "severity": "CRITICAL"
-    },
-    {
-      "id": "principle_11",
-      "principle": "Rules Transcend Languages, Frameworks, and Technology",
-      "reasoning": "A programmer from 1966 could learn modern Java/IntelliJ in a day and write correct code. The fundamentals haven't changed.",
-      "tags": [
-        "#technology-independence",
-        "#universal-rules",
-        "#timeless-principles"
-      ],
-      "key_rules": [],
-      "examples": [],
-      "severity": "CRITICAL"
-    },
-    {
-      "id": "principle_12",
-      "principle": "Flexibility Must Be Built In, Not Bolted On",
-      "reasoning": "",
-      "tags": [
-        "#flexibility",
-        "#architectural-options",
-        "#options-value",
-        "#deferred-decisions"
-      ],
-      "key_rules": [],
-      "examples": [],
-      "severity": "CRITICAL"
-    },
-    {
-      "id": "principle_13",
-      "principle": "Development Teams Should Defend Architecture",
-      "reasoning": "",
-      "tags": [
-        "#advocacy",
-        "#team-agency",
-        "#leadership",
-        "#professional-responsibility"
-      ],
-      "key_rules": [],
-      "examples": [],
-      "severity": "CRITICAL"
-    },
-    {
-      "id": "principle_14",
-      "principle": "There are Three Ways to Fail at Architecture",
-      "reasoning": "",
-      "tags": [
-        "#speculation",
-        "#over-engineering",
-        "#chaos",
-        "#burnout",
-        "#rigid-authority",
-        "#entropy",
-        "#learning-culture",
-        "#humility",
-        "#adaptive-architecture",
-        "#unnecessary-complexity",
-        "#cowboy-coding",
-        "#hypothesis-driven",
-        "#prediction-failure"
-      ],
-      "key_rules": [],
-      "examples": [],
-      "severity": "CRITICAL"
-    },
-    {
-      "id": "principle_15",
-      "principle": "Architecture is a Set of Decisions You Wish You'd Made Earlier",
-      "reasoning": "Architecture is humble—it acknowledges uncertainty while still providing structure.",
-      "tags": [
-        "#technical-leadership",
-        "#architectural-decisions",
-        "#design-principles",
-        "#humility",
-        "#learning",
-        "#software-architecture",
-        "#professional-practice",
-        "#reversibility"
-      ],
-      "key_rules": [],
-      "examples": [],
-      "severity": "CRITICAL"
+      "example_architecture": {
+        "layer_1_business_logic": {
+          "paradigm": "Functional",
+          "reason": "Pure functions, immutable data, no side effects"
+        },
+        "layer_2_adapters": {
+          "paradigm": "OOP",
+          "reason": "Polymorphic interfaces between business and infrastructure"
+        },
+        "layer_3_algorithms": {
+          "paradigm": "Structured",
+          "reason": "Clear sequences and logic within modules"
+        }
+      },
+      "related_principles": ["principle_5"],
+      "tags": ["#paradigms", "#architecture", "#layering", "#multi-paradigm"],
+      "bad_example": "Trying to use only OOP. Result: Deep inheritance hierarchies, god objects, hard to test.",
+      "good_example": "Using all three. Result: Clear business logic, testable components, maintainable architecture."
     }
   ],
-  "decision_workflows": [],
-  "faq_for_llm": [
+  "decision_guide": {
+    "when_uncertain_ask": [
+      "Will this decision increase or decrease the cost of change?",
+      "Can this be tested in isolation?",
+      "Do dependencies flow toward abstractions?",
+      "Is business logic separate from delivery mechanism?",
+      "How changeable is this 6 months from now?"
+    ]
+  },
+  "faq": [
     {
-      "question": "How should I apply: 1: Adopt Structured Programming Practices...?",
-      "answer": " 1: Adopt Structured Programming Practices\n\n**What this means:**\n- Write small, decomposable functions\n- Each function should be testable in isolation\n- Use only sequences, conditionals, loops (no wil..."
+      "question": "How do I know my architecture is good?",
+      "answer": "Track effort over time. Good architecture: time to implement features stays constant or decreases. Bad architecture: time increases. That's the measurement.",
+      "principle_ref": "principle_2"
     },
     {
-      "question": "How should I apply: 2: Use Polymorphism to Cross Architectural Boundaries...?",
-      "answer": " 2: Use Polymorphism to Cross Architectural Boundaries\n\n**What this means:**\n- Instead of high-level code knowing about low-level implementations, reverse it\n- High-level code should depend on abstrac..."
+      "question": "When should I refactor?",
+      "answer": "Continuously. Refactoring is part of the fastest path, not a luxury. If you're not refactoring, your architecture is degrading.",
+      "principle_ref": "principle_4"
     },
     {
-      "question": "How should I apply: 3: Manage State and Concurrency with Functional Principles...?",
-      "answer": " 3: Manage State and Concurrency with Functional Principles\n\n**What this means:**\n- Prefer immutability where possible\n- Minimize shared mutable state\n- Use functional patterns for data transformation..."
+      "question": "Should I build for the future?",
+      "answer": "No. Design for change BY MAKING CHANGE EASY. But don't predict what specific changes will come. Let architecture emerge.",
+      "principle_ref": "principle_2"
+    },
+    {
+      "question": "Is clean code overrated?",
+      "answer": "No. It's the fastest path. Clean code takes discipline, not extra time.",
+      "principle_ref": "principle_4"
+    },
+    {
+      "question": "Can I use this architecture for a startup?",
+      "answer": "Absolutely. Startups move faster with good architecture, not slower. Bad architecture kills startups.",
+      "principle_ref": "principle_2, principle_4"
     }
-  ]
+  ],
+  "tags": [
+    "#architecture",
+    "#cost-of-change",
+    "#paradigms",
+    "#dependency-inversion",
+    "#testability",
+    "#design-for-maintainability"
+  ],
+  "version_info": {
+    "book_edition": "First Edition",
+    "json_version": "2.0",
+    "last_updated": "2026-08-09",
+    "english_translated": true
+  }
 }
