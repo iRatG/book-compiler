@@ -1,112 +1,177 @@
-# book-compiler
+# 📚 Deep Reading System v2.0
 
-A Claude skill for deep reading—not summarization.
+Complete analysis of 5 technical books with **6 layers per book**:
 
-**book-compiler** reconstructs books as knowledge systems. When you ask it to read a text, it identifies the author's problem, traces the reasoning, reconstructs the ideas and their connections, and produces a machine-readable model of the book's intellectual architecture.
+## Layers
 
-The output is five structured markdown files containing nodes (concepts, claims, arguments, evidence, implications, etc.) with metadata (status, importance, source, relations).
+| Layer | File | Purpose |
+|-------|------|---------|
+| 0 | `00_purpose.md` | Why this book matters — problem, goal, audience |
+| 1 | `01_questions.md` | 12-15 central questions the book answers |
+| 2 | `02_ideas.md` | 12-15 core principles and concepts |
+| 3 | `03_reasoning.md` | Arguments and evidence supporting each idea |
+| 4 | `04_consequences.md` | Practical applications and how to use each idea |
+| 5 | `05_llm_instructions.json` | **NEW:** Machine-readable principles for LLM system prompts |
 
-## What It Does
+---
 
-- ✓ Reconstructs intellectual structure before summarizing
-- ✓ Separates explicit statements from inference from interpretation
-- ✓ Traces claims back to their sources
-- ✓ Preserves nuance, scope, qualifications, and exceptions
-- ✓ Models relationships between ideas
-- ✓ Produces machine-readable knowledge files
+## Books
 
-## What It Does NOT Do
+### 1. Clean Architecture ← [Learn More](Books/clean-architecture/)
+**Robert C. Martin** — How to structure systems that minimize change cost
 
-- ✗ Does not compress books into short summaries
-- ✗ Does not treat chapter summaries as the main output
-- ✗ Does not prioritize frequency over structural importance
-- ✗ Does not present inferences as facts
-- ✗ Does not treat examples as knowledge
+- 15 principles extracted
+- Tags: #architecture, #cost-of-change, #paradigms
+- JSON: [05_llm_instructions.json](Books/clean-architecture/05_llm_instructions.json)
 
-## Installation & Use
+### 2. Ideal Work / The Clean Coder ← [Learn More](Books/ideal-work/)
+**Robert C. Martin** — Professionalism as ethical commitment and long-term thinking
 
-This is a Claude skill. To use it:
+- 15 principles extracted
+- Tags: #craftsmanship, #tdd, #professionalism, #ethics
+- JSON: [05_llm_instructions.json](Books/ideal-work/05_llm_instructions.json)
 
-1. **Via Claude Web (claude.ai):**
-   - You need to set up a custom skill. Follow Anthropic's documentation on skill creation.
-   - Copy the SKILL.md frontmatter and instructions into your skill configuration.
+### 3. The Pragmatic Programmer ← [Learn More](Books/pragmatic-programmer/)
+**Thomas & Hunt** — Sustainable pace and managing technical risk
 
-2. **Via Claude Code:**
-   - Use `/book-compiler` to invoke (once registered).
-   - Paste text or upload a document, then ask: "Read this book deeply" or "Reconstruct the ideas in this text."
+- 5 principles extracted
+- Tags: #dry, #automation, #risk-management
+- JSON: [05_llm_instructions.json](Books/pragmatic-programmer/05_llm_instructions.json)
 
-3. **Manually:**
-   - Copy the instructions from `SKILL.md` into a prompt to Claude.
-   - Provide the text you want read.
-   - Claude will generate the five output files as markdown.
+### 4. Parallel Programming Models ← [Learn More](Books/parallel-programming/)
+**R.E. Fedotov** — Choosing the right concurrency model
 
-## The Three-Pass Process
+- 15 principles extracted
+- Tags: #concurrency, #synchronization, #performance
+- JSON: [05_llm_instructions.json](Books/parallel-programming/05_llm_instructions.json)
 
-1. **Survey** — Identify the text type, central problem, questions, and structure.
-2. **Reconstruct** — Read and extract the five-layer model: Purpose, Questions, Ideas, Reasoning, Consequences.
-3. **Write** — Render as five markdown files with full metadata and relationships.
+### 5. Code That Fits in Your Head ← [Learn More](Books/code-fits-in-head/)
+**Mark Seeman** — Cognitive load as an architectural constraint
 
-## Output Format
+- 12 principles extracted
+- Tags: #readability, #cognitive-load, #simplicity
+- JSON: [05_llm_instructions.json](Books/code-fits-in-head/05_llm_instructions.json)
 
-For each book analyzed, you get:
-```
-Books/<slug>/
-├── 00_purpose.md       # Problem & Intent
-├── 01_questions.md     # Central questions
-├── 02_ideas.md         # Concepts, Claims, Principles
-├── 03_reasoning.md     # Arguments, Evidence, Examples, Assumptions
-└── 04_consequences.md  # Implications, Applications, Limitations
-```
+---
 
-Each file contains nodes with:
-- id, type, title, statement
-- status (explicit/inferred/interpretation/evaluation)
-- importance (core/important/supporting/detail)
-- confidence (high/medium/low)
-- source (chapter, location)
-- relations (answers, supports, depends_on, leads_to, etc.)
+## What's New (v2.0)
 
-## Philosophy & Design
+### Layer 5: LLM Instructions
 
-- **philosophy.md** — The three-author foundation (Povarnin, Adler, Foster) and six core principles
-- **ontology.md** — Complete specification of node types, relations, metadata contract, and output templates
-- **design-log.md** — Full design process, rationale, and decision history
+Every book now outputs a **machine-readable JSON file** with:
+- ✅ Structured principles (title, reasoning, tags, severity)
+- ✅ System instructions for Claude/GPT/other LLMs
+- ✅ FAQ for common questions
+- ✅ Cross-references between principles
 
-## Quick Start Example
+**Use case:** Load JSON into your LLM conversations to apply book principles automatically.
 
-Prompt:
-```
-Read this book deeply:
-[paste opening chapter of a book]
+### Example
 
-Create the five output files.
+```bash
+# In Claude, at conversation start:
+@paste content of Books/clean-architecture/05_llm_instructions.json
+
+# Claude now understands Clean Architecture principles
+# and applies them to any code review you ask
 ```
 
-Output:
+See [**LLM_USAGE_GUIDE.md**](LLM_USAGE_GUIDE.md) for full examples.
+
+---
+
+## Quick Start
+
+### I want to understand a book
+
+Choose a layer:
+- **5 minutes?** Read `00_purpose.md`
+- **30 minutes?** Read `02_ideas.md`
+- **2 hours?** Read all layers in order (00 → 04)
+
+### I want LLM to apply principles
+
+```bash
+# Open conversation with Claude
+# At the start, paste:
+
+cat Books/clean-architecture/05_llm_instructions.json
+
+# Then ask Claude to review your code
 ```
-Books/example-book/
-├── 00_purpose.md
-├── 01_questions.md
-├── 02_ideas.md
-├── 03_reasoning.md
-└── 04_consequences.md
+
+### I want to combine multiple books
+
+See [LLM_USAGE_GUIDE.md → Advanced section](LLM_USAGE_GUIDE.md#advanced-combining-multiple-books)
+
+### I want to regenerate the JSON files
+
+```bash
+# Regenerate all llm_instructions.json files
+python generate-llm-instructions.py Books/clean-architecture
+python generate-llm-instructions.py Books/ideal-work
+# ... etc
 ```
 
 ---
 
-## Version
+## Architecture Decision
 
-**v0 (Minimum Viable Reconstruction)**
+### Why 6 Layers?
 
-- Core 5-layer model
-- 13 node types
-- 9 relation types
-- Markdown file output
-- No database, no external dependencies
-- Designed for non-fiction; fiction support is future work
+Layers 0-4 serve **humans** reading books:
+- Progressive deepening (summary → full understanding)
+- Each layer is self-contained
+- Can skip layers based on time/need
 
-## Author & License
+Layer 5 serves **LLMs**:
+- Structured, parseable format (JSON)
+- No prose ambiguity
+- Ready for system prompts
+- Optimized for Claude/GPT comprehension
 
-Created as a thoughtful alternative to summary-based reading.
+### Why Not Library/ Yet?
 
-See `reference/design-log.md` for the full development conversation and design rationale.
+v1.0 focuses on **standalone books**. Each book is independent and useful on its own.
+
+v2.0 (future): Optional cross-book network at `Library/` level (if you choose to build it).
+
+---
+
+## Files
+
+```
+Books/
+├─ clean-architecture/
+│  ├─ 00_purpose.md
+│  ├─ 01_questions.md
+│  ├─ 02_ideas.md
+│  ├─ 03_reasoning.md
+│  ├─ 04_consequences.md
+│  ├─ 05_llm_instructions.json  ← NEW
+│  └─ README.md
+├─ ideal-work/ (same structure)
+├─ pragmatic-programmer/ (same structure)
+├─ parallel-programming/ (same structure)
+└─ code-fits-in-head/ (same structure)
+
+generate-llm-instructions.py    ← Script to generate JSON layer
+LLM_USAGE_GUIDE.md              ← How to use the JSON files
+README.md                        ← This file
+```
+
+---
+
+## Next Steps (v2.1+)
+
+- [ ] Auto-update JSON when book layers change
+- [ ] Cross-book concept mapping (optional Library/)
+- [ ] Tags registry across all books
+- [ ] Integration with Obsidian graph
+- [ ] Version control for principles (detect changes between editions)
+
+---
+
+**Status:** ✅ v2.0 Complete  
+**Last Updated:** 2026-08-09  
+**License:** Personal knowledge base
