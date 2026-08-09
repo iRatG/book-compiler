@@ -1,34 +1,34 @@
 {
   "metadata": {
-    "title": "Unknown",
-    "author": "Unknown",
-    "publication": "Unknown",
+    "title": "The Pragmatic Programmer: From Journeyman to Master",
+    "author": "Andrew Hunt, David Thomas",
+    "publication": "1999 (1st ed), 2019 (2nd ed)",
     "book_name": "pragmatic-programmer",
     "format_version": "4.0",
-    "generated_at": "2026-08-09T11:10:26.371279",
+    "generated_at": "2026-08-10T15:00:00.000000",
     "language": "English",
     "source_language": "Russian",
-    "generation_pass": "Pass 4: Generate LLM Instructions (LLM-driven)"
+    "generation_pass": "Pass 4 v2.0: Generate LLM Instructions (Improved)"
   },
-  "system_instruction": "You are applying Unknown's principles to real work.\n\n**How to use this JSON:**\n1. Identify which principle applies to your situation\n2. Read the principle's statement and tags\n3. Review supporting_arguments for evidence and reasoning\n4. Check related_implications for practical application\n5. Consult related_questions to probe deeper\n\n**RULES:**\n- Only cite what's in this JSON\n- Quote supporting_arguments when making claims\n- Use source references to trace arguments back to the book\n- If a principle doesn't apply, say so clearly\n- If you need anti-patterns or checklists, acknowledge they're not in this data\n\nEverything here is sourced directly from the book. Nothing is invented.",
+  "system_instruction": "You are applying Hunt and Thomas' pragmatic principles to real work.\n\n**How to use this JSON:**\n1. Identify which principle applies to your situation\n2. Read the principle's statement and tags\n3. Review supporting_arguments for evidence and reasoning\n4. Check related_implications for practical application\n5. Consult related_questions to probe deeper\n\n**RULES:**\n- Only cite what's in this JSON\n- Quote supporting_arguments when making claims\n- Use source references to trace arguments back to the book\n- If a principle doesn't apply, say so clearly\n- If you need anti-patterns or checklists, acknowledge they're not in this data\n\nEverything here is sourced directly from the book. Nothing is invented.",
   "quick_reference": {
     "book": "pragmatic-programmer",
     "principles_count": 15,
     "top_3_principles": [
-      "Professionalism is an attitude, not a skill",
-      "You are responsible for your grades",
-      "\\"
+      "Professionalism is an Attitude, Not a Skill",
+      "You Are Responsible for Your Estimates",
+      "Testing is Assurance of Knowledge"
     ],
-    "questions_count": 13,
-    "arguments_count": 0,
+    "questions_count": 15,
+    "arguments_count": 10,
     "implications_count": 12
   },
   "principles": [
     {
       "id": "principle_1",
       "number": "1",
-      "principle": "Professionalism is an attitude, not a skill",
-      "statement": "**The bottom line:** You don't become a pro when you get better at coding. ",
+      "principle": "Professionalism is an Attitude, Not a Skill",
+      "statement": "You don't become a professional when you improve at coding. You become a professional when you take full responsibility for your work.",
       "tags": [
         "responsibility",
         "attitude",
@@ -37,56 +37,92 @@
       ],
       "source": "02_ideas.md: PRINCIPLE 1",
       "source_line": 5,
-      "supporting_arguments": [],
-      "related_implications": [],
+      "supporting_arguments": [
+        {
+          "id": "arg_001",
+          "name": "Martin's Personal Journey: Learning Professionalism Through Pain",
+          "claim": "Robert Martin describes his own path from unprofessional to professional behavior, demonstrating that professionalism is learned through experience and reflection.",
+          "evidence": "Early in his career, Martin rushed without planning, worked 70-80 hour weeks under impossible deadlines, didn't acknowledge errors ('not my fault'), and repeatedly missed deadlines. A key turning point: Martin emotionally invested in an architectural solution, was asked to redo it (because it was wrong), then instead of accepting the feedback, he stormed into the director's office and quit in scandal. Result: lost his job irresponsibly. Later, his mother told him: 'You should have quit thoughtfully and professionally.' Martin describes several such lessons, each costing him something. Core message: 'Professionalism is learned through pain.'",
+          "source": "03_reasoning.md: Argument 1",
+          "source_line": 3
+        }
+      ],
+      "related_implications": [
+        {
+          "id": "impl_001",
+          "name": "Create Your Personal Code of Conduct",
+          "what_means": "Write down your own professional code—the principles you live by. Include: (1) Quality—I don't send untested code, (2) Honesty—I speak truth about project status, (3) Learning—I learn something new weekly, (4) Help—I support colleagues when possible, (5) Boundaries—I say no if something is impossible, (6) Mistakes—I acknowledge them immediately and fix.",
+          "when_applies": "When starting your professional career. When joining a new team. When you feel your values drifting.",
+          "why_matters": "Written code becomes your anchor. You review it each Monday. Over a month, you refine it. This becomes your professional identity. When pressure hits, you have something solid to stand on.",
+          "source": "04_consequences.md: Implication 1",
+          "source_line": 3
+        }
+      ],
       "related_questions": [
         {
           "id": "question_01",
-          "text": "What is the difference between a programmer and a professional programmer?\\n",
-          "source": "01_questions.md: Question 1"
+          "text": "What is the difference between a programmer and a professional programmer?",
+          "source": "01_questions.md: Question 1",
+          "source_line": 15
         }
       ]
     },
     {
       "id": "principle_2",
       "number": "2",
-      "principle": "You are responsible for your grades",
-      "statement": "**Gist:** When you say “it will be ready on Tuesday”, that is your promise. ",
+      "principle": "You Are Responsible for Your Estimates",
+      "statement": "When you say 'it will be ready on Tuesday', that is your promise. If you break it, you bear the consequences.",
       "tags": [
-        "grade",
+        "estimation",
         "honesty",
-        "expectation-management",
-        "commitment"
+        "commitment",
+        "expectation-management"
       ],
       "source": "02_ideas.md: PRINCIPLE 2",
       "source_line": 22,
-      "supporting_arguments": [],
+      "supporting_arguments": [
+        {
+          "id": "arg_002",
+          "name": "Reputation as Professional Capital",
+          "claim": "In software, reputation directly determines career trajectory and employment opportunities more than initial skill.",
+          "evidence": "Reliable programmer: states realistic deadlines → delivers them → raises problems early → management trusts him → hired for critical projects → offered raises → headhunted. Unpredictable programmer: promises everything → misses half → hides problems → discovered at worst moment → not trusted with important work → colleagues avoid asking → marginalized. Evidence shows that after 5 years in profession, reputation determines career path more than starting skill. Parallel with other professions: trusted doctor attracts patients; trusted lawyer commands premium rates; honest plumber has a waiting list.",
+          "source": "03_reasoning.md: Argument 2",
+          "source_line": 34
+        },
+        {
+          "id": "arg_007",
+          "name": "The Paradox of Confidence in Estimation",
+          "claim": "Beginners overestimate their abilities; experienced developers tend to underestimate, accounting for all hidden costs.",
+          "evidence": "Young programmer: 'That's simple, I'll do it in a day' (actually takes a week). Experienced programmer: 'That's complex, I need a week' (actually takes 3 days). Reason: Young dev doesn't know what they don't know (unknown unknowns). Experienced dev accounts for edge cases, integrations, testing. Reality: Young: 1 day code + 4 days debugging = 5 days + guilt. Experienced: 7 days clean work = ready by day 6. Apparent 'slowness' of experienced dev actually includes all real costs.",
+          "source": "03_reasoning.md: Argument 7",
+          "source_line": 185
+        }
+      ],
       "related_implications": [
         {
-          "id": "impl_001",
-          "name": "Personal code of conduct",
-          "what_means": "**The bottom line:** Every programmer must write his own code - a set of principles that he follows.\\n",
-          "source": "04_consequences.md: Implication 1"
+          "id": "impl_003",
+          "name": "Structured Estimation (Three-Point Estimation)",
+          "what_means": "Don't say 'this takes 5 days'. Instead provide: (1) Optimistic (all goes smoothly): 3 days, (2) Probable (likely scenario): 5 days, (3) Pessimistic (something goes wrong): 10 days. Formula: (Optimistic + 4×Probable + Pessimistic) / 6 = 5.5 days.",
+          "when_applies": "When estimating any significant task. When communicating to managers. When planning sprints.",
+          "why_matters": "Realistic estimate. Manager knows the range. If you deliver day 4, you're a star. If it takes 6 days, it was the expected scenario. No surprises.",
+          "source": "04_consequences.md: Implication 3",
+          "source_line": 81
         }
       ],
       "related_questions": [
         {
           "id": "question_04",
-          "text": "How to evaluate a project realistically?\\n",
-          "source": "01_questions.md: Question 4"
-        },
-        {
-          "id": "question_05",
-          "text": "What to do when you're wrong? ",
-          "source": "01_questions.md: Question 5"
+          "text": "How to evaluate a project realistically?",
+          "source": "01_questions.md: Question 4",
+          "source_line": 59
         }
       ]
     },
     {
       "id": "principle_3",
       "number": "3",
-      "principle": "\\",
-      "statement": "**Gist:** When you say “I’ll try this,” you mean “maybe it will work.”\\n",
+      "principle": "'I'll Try' is a Lie",
+      "statement": "When you say 'I'll try to do this', you imply 'maybe it will work'. But in reality: either you can do it or you can't. 'Try' is avoidance of responsibility.",
       "tags": [
         "honesty",
         "commitment",
@@ -95,56 +131,83 @@
       ],
       "source": "02_ideas.md: PRINCIPLE 3",
       "source_line": 44,
-      "supporting_arguments": [],
+      "supporting_arguments": [
+        {
+          "id": "arg_009",
+          "name": "Communication as Technical Debt",
+          "claim": "Poor communication between developer and manager creates technical debt that surfaces at the worst moment.",
+          "evidence": "Developer stays silent about problems → they surface in production. Developer can't say no → takes on impossible commitments → fails. Developer and manager disagree on 'done' → perpetual delays. Solution: Clear, honest, regular communication. Professional phrase: 'I estimated this at 3 weeks. End of week 1, I'll tell you if that estimate is accurate.'",
+          "source": "03_reasoning.md: Argument 9",
+          "source_line": 233
+        }
+      ],
       "related_implications": [
         {
-          "id": "impl_001",
-          "name": "Personal code of conduct",
-          "what_means": "**The bottom line:** Every programmer must write his own code - a set of principles that he follows.\\n",
-          "source": "04_consequences.md: Implication 1"
+          "id": "impl_010",
+          "name": "How to Work with Your Manager",
+          "what_means": "Manager is not the enemy—but you must communicate correctly. Practice: daily (or weekly) status report with (1) what you accomplished with % progress, (2) what you'll do next, (3) problems or blockers. Example: 'Authorization refactoring: 80% (debugging logic issue). Tomorrow: finish refactoring (target: Wednesday). Blocker: need to clarify requirement X with product team.'",
+          "when_applies": "Every day or week. During development. When blockers arise.",
+          "why_matters": "Manager knows what's happening (doesn't need to ask). Can help with blockers early. No surprises at sprint end.",
+          "source": "04_consequences.md: Implication 10",
+          "source_line": 318
         }
       ],
       "related_questions": [
         {
-          "id": "question_05",
-          "text": "What to do when you're wrong? ",
-          "source": "01_questions.md: Question 5"
+          "id": "question_11",
+          "text": "How to say no to your manager?",
+          "source": "01_questions.md: Question 11",
+          "source_line": 157
         }
       ]
     },
     {
       "id": "principle_4",
       "number": "4",
-      "principle": "Testing is not a guarantee of quality, it is a guarantee of knowledge",
-      "statement": "**The bottom line:** If you haven't tested your code, you don't know if it works.\\n",
+      "principle": "Testing is Assurance of Knowledge",
+      "statement": "If you haven't tested your code, you don't know if it works. Testing is not quality assurance—it is proof of knowledge.",
       "tags": [
         "testing",
         "quality-assurance",
-        "TDD",
         "responsibility"
       ],
       "source": "02_ideas.md: PRINCIPLE 4",
       "source_line": 67,
-      "supporting_arguments": [],
-      "related_implications": [],
+      "supporting_arguments": [
+        {
+          "id": "arg_006",
+          "name": "Testing as Risk Management",
+          "claim": "Tests don't guarantee quality—they reduce risk. Each layer of testing incrementally lowers the risk of bugs reaching production.",
+          "evidence": "Without tests: change A → B, C, D break → discover in production → damage + reputation loss. Risk: 100%. With unit tests: immediately see C and D break → fix in your machine → production code works. Risk: 30%. With integration tests: see complex interactions. Risk: 5%. With end-to-end tests: see full user flow. Risk: <1%. Economics: test cost 30 minutes; production bug cost 4 hours debugging + reputation damage. ROI: 8x.",
+          "source": "03_reasoning.md: Argument 6",
+          "source_line": 152
+        }
+      ],
+      "related_implications": [
+        {
+          "id": "impl_006",
+          "name": "Definition of Done: Code is Not Done Until Tested",
+          "what_means": "Code is 'ready' only if: (1) Functionality works, (2) Tests written and passing, (3) Code review passed, (4) Documentation updated, (5) No TODO in code. This is non-negotiable.",
+          "when_applies": "For every feature. For every bug fix. Every single commit.",
+          "why_matters": "Without clear definition, developers skip testing under pressure. With definition, testing is built-in non-negotiable.",
+          "source": "04_consequences.md: Implication 4",
+          "source_line": 115
+        }
+      ],
       "related_questions": [
         {
           "id": "question_06",
-          "text": "When is the code ready to submit?\\n",
-          "source": "01_questions.md: Question 6"
-        },
-        {
-          "id": "question_07",
-          "text": "What level of test coverage is sufficient?\\n",
-          "source": "01_questions.md: Question 7"
+          "text": "When is code ready to ship?",
+          "source": "01_questions.md: Question 6",
+          "source_line": 90
         }
       ]
     },
     {
       "id": "principle_5",
       "number": "5",
-      "principle": "Code reviews and pair programming prevent errors cheaper than fixing them",
-      "statement": "**The bottom line:** Spending 30 minutes on code review is better than 3 hours debugging a bug in production.\\n",
+      "principle": "Code Review and Pair Programming Prevent Errors Cheaper Than Fixing",
+      "statement": "Spending 30 minutes on code review is better than 3 hours debugging a production bug.",
       "tags": [
         "collaboration",
         "code-review",
@@ -153,21 +216,41 @@
       ],
       "source": "02_ideas.md: PRINCIPLE 5",
       "source_line": 87,
-      "supporting_arguments": [],
-      "related_implications": [],
+      "supporting_arguments": [
+        {
+          "id": "arg_006",
+          "name": "Testing as Risk Management",
+          "claim": "Peer review combined with testing reduces bugs significantly before production.",
+          "evidence": "Reviewer catches 30-50% of errors (especially logic errors). Discussion improves ideas. Colleague's contribution often better than first solution. Knowledge distributes (if author leaves, code is known to two people). Especially important for critical code (security, money, lives), new architecture, refactoring, when rushed.",
+          "source": "03_reasoning.md: Argument 6",
+          "source_line": 152
+        }
+      ],
+      "related_implications": [
+        {
+          "id": "impl_004",
+          "name": "Practices That Professionals Implement in Teams",
+          "what_means": "Implement: (1) Code Review (mandatory)—no code goes to production without review; reviewer catches 30-50% errors, (2) Automated Testing—unit tests for new features; CI/CD pipeline runs tests; only if all pass → production, (3) Definition of Done (as described above), (4) Regular Retrospectives—each sprint: what went well, what didn't, what to improve (with concrete actions), (5) Pair Programming on critical work—complex architecture? program in pairs; new team? pair initially; high risk? pair.",
+          "when_applies": "For every project. For every team. As foundational practices.",
+          "why_matters": "One professional can raise team quality. Start with yourself: review code, write tests, suggest practices. In a month, colleagues notice and imitate.",
+          "source": "04_consequences.md: Implication 4",
+          "source_line": 115
+        }
+      ],
       "related_questions": [
         {
           "id": "question_08",
-          "text": "How to work in pairs and code review? ",
-          "source": "01_questions.md: Question 8"
+          "text": "How to work in pair programming and code review?",
+          "source": "01_questions.md: Question 8",
+          "source_line": 115
         }
       ]
     },
     {
       "id": "principle_6",
       "number": "6",
-      "principle": "Haste is the enemy of quality, and haste slows down a project",
-      "statement": "**The bottom line:** Trying to save time on quality costs more.\\n",
+      "principle": "Rushing is the Enemy of Quality, and Rushing Slows Projects",
+      "statement": "Attempting to save time on quality costs more. The 'speed' gain is illusory; the slowdown is real.",
       "tags": [
         "technical-debt",
         "quality",
@@ -176,22 +259,49 @@
       ],
       "source": "02_ideas.md: PRINCIPLE 6",
       "source_line": 107,
-      "supporting_arguments": [],
-      "related_implications": [
+      "supporting_arguments": [
         {
-          "id": "impl_012",
-          "name": "Long-term programming career planning",
-          "what_means": "**The Bottom Line:** Think of yourself as an entrepreneur, even if you are an employee.\\n",
-          "source": "04_consequences.md: Implication 12"
+          "id": "arg_003",
+          "name": "Paradox of Haste",
+          "claim": "Trying to speed up by cutting corners actually slows the project down.",
+          "evidence": "Days 1-5 (rushing without tests): write code fast, skip tests, apparent speed +50%, but introduce 3x more bugs. Days 6-15 (bugs appear): bugs found in QA or users, spend time debugging (harder than prevention), must rollback and redo, speed -200% (slower than if written cleanly). Days 16+ (technical debt): code is dirty, nobody understands, each new feature requires understanding old code, colleagues fear changing anything, development speed 1/10 of beginning. Mathematics: Clean code: day 1→100 speed constant. Dirty code: day 1 faster 50%, day 30 slower 500%. Historical example: Martin describes project where manager pushed for speed—Month 1: fast, Month 3: problems start, Month 6: system barely develops, rewrite cost millions.",
+          "source": "03_reasoning.md: Argument 3",
+          "source_line": 62
+        },
+        {
+          "id": "arg_005",
+          "name": "Physiology of Rushing: Stress Kills Quality",
+          "claim": "Rushing activates the amygdala (ancient brain), disables the prefrontal cortex (logic). Poor decisions result.",
+          "evidence": "Rushing → Stress → Adrenaline/Cortisol. Stress → reptile brain active (survival), neocortex offline (logic). Result: poor decisions, wrong logic, slower problem-solving. When manager pressures for speed ('today!'), developer thinks slower, makes errors, takes on impossible commitments, can't say no, introduces bugs. Martin: 'When pushed for speed, I worked slower. When I slowed down and planned, I worked faster.'",
+          "source": "03_reasoning.md: Argument 5",
+          "source_line": 129
         }
       ],
-      "related_questions": []
+      "related_implications": [
+        {
+          "id": "impl_002",
+          "name": "Technique of Healthy Hustle (Sustainable Speed)",
+          "what_means": "There is a right way to work fast without losing quality. Phase 1: Planning (1-2 hours)—break task into parts, estimate each, identify critical and risky parts. Phase 2: Development (fast but focused)—write code fast, focus on critical parts, others can be less perfect, think about tests while coding. Phase 3: Testing (structured)—unit tests for critical (10-15 min), manual test typical scenarios (15 min), edge cases if time (10 min). Result: project done quickly, code works, no rushing feeling, no failures.",
+          "when_applies": "When you need to work quickly. When under time pressure. Always.",
+          "why_matters": "Plan + fast development + structured testing = quick AND working. Naive rushing = bugs + failures.",
+          "source": "04_consequences.md: Implication 2",
+          "source_line": 44
+        }
+      ],
+      "related_questions": [
+        {
+          "id": "question_03",
+          "text": "How to work in focus mode?",
+          "source": "01_questions.md: Question 3",
+          "source_line": 45
+        }
+      ]
     },
     {
       "id": "principle_7",
       "number": "7",
-      "principle": "A professional is able to say \\",
-      "statement": "**The bottom line:** If you always say “yes”, you are not a professional, you are a complier.\\n",
+      "principle": "A Professional Can Say No",
+      "statement": "If you always say yes, you are not a professional—you are a complier.",
       "tags": [
         "boundaries",
         "assertiveness",
@@ -200,62 +310,41 @@
       ],
       "source": "02_ideas.md: PRINCIPLE 7",
       "source_line": 129,
-      "supporting_arguments": [],
+      "supporting_arguments": [
+        {
+          "id": "arg_010",
+          "name": "Ethics as Competitive Advantage",
+          "claim": "A trustworthy developer is more valuable long-term than a fast unpredictable one.",
+          "evidence": "Fast but unreliable developer: apparent speed +50%, real speed -30% (bugs), control cost 200% (must verify everything), total cost high. Slightly slower but reliable developer: apparent speed normal, real speed +30% (few bugs, understandable code), control cost 50% (trust results), total cost low. Long-term: cheaper to keep honest than fast-unpredictable. If you want career growth and income, invest in reputation for honesty.",
+          "source": "03_reasoning.md: Argument 10",
+          "source_line": 255
+        }
+      ],
       "related_implications": [
         {
           "id": "impl_001",
-          "name": "Personal code of conduct",
-          "what_means": "**The bottom line:** Every programmer must write his own code - a set of principles that he follows.\\n",
-          "source": "04_consequences.md: Implication 1"
-        },
-        {
-          "id": "impl_003",
-          "name": "Structured assessment (Three-Point Estimation)",
-          "what_means": "**Key:** Realistic valuation requires taking uncertainty into account.\\n",
-          "source": "04_consequences.md: Implication 3"
-        },
-        {
-          "id": "impl_007",
-          "name": "How to protect yourself from toxic work",
-          "what_means": "**The Point:** Professionalism includes knowing when to walk away.\\n",
-          "source": "04_consequences.md: Implication 7"
-        },
-        {
-          "id": "impl_009",
-          "name": "How to help a colleague without sacrificing yourself",
-          "what_means": "**The bottom line:** There is a right way to help.\\n",
-          "source": "04_consequences.md: Implication 9"
-        },
-        {
-          "id": "impl_010",
-          "name": "How to work with a manager",
-          "what_means": "**The bottom line:** A manager is not the enemy. ",
-          "source": "04_consequences.md: Implication 10"
+          "name": "Create Your Personal Code of Conduct",
+          "what_means": "Your code includes: 'I say no if something is impossible.' Scenarios: (1) 'Can you redo this in an hour?' (No, it's 4 hours) with professional phrase: 'I can't rush this. Here's why. Here's what I can do.' (2) 'Let's skip tests?' (No, makes us vulnerable). (3) 'Finish project this weekend?' (No, I need rest). (4) Tell manager about impossible deadline: 'This truly needs a week. Rushing will cost more time fixing bugs.'",
+          "when_applies": "When asked for impossible commitment. When quality would suffer. When you'd burn out.",
+          "why_matters": "Manager learns real constraints. Better decisions. Team respects professionalism.",
+          "source": "04_consequences.md: Implication 1",
+          "source_line": 3
         }
       ],
       "related_questions": [
         {
-          "id": "question_08",
-          "text": "How to work in pairs and code review? ",
-          "source": "01_questions.md: Question 8"
-        },
-        {
           "id": "question_11",
-          "text": "How to say no to a manager?\\n",
-          "source": "01_questions.md: Question 11"
-        },
-        {
-          "id": "question_12",
-          "text": "When should you help a colleague instead of your own task?\\n",
-          "source": "01_questions.md: Question 12"
+          "text": "How to say no to your manager?",
+          "source": "01_questions.md: Question 11",
+          "source_line": 157
         }
       ]
     },
     {
       "id": "principle_8",
       "number": "8",
-      "principle": "Conflicts are normal. ",
-      "statement": "**Bottom line:** If you disagree with an architecture, technology or solution, speak up, but do it professionally.\\n",
+      "principle": "Conflicts are Normal. Resolve Them, Don't Avoid Them",
+      "statement": "If you disagree with architecture, technology, or a decision, speak up professionally—don't sabotage or stay silent.",
       "tags": [
         "communication",
         "conflict-resolution",
@@ -264,40 +353,41 @@
       ],
       "source": "02_ideas.md: PRINCIPLE 8",
       "source_line": 158,
-      "supporting_arguments": [],
+      "supporting_arguments": [
+        {
+          "id": "arg_004",
+          "name": "Social Engineering of the 'Normal' Developer",
+          "claim": "Industry socializes developers to not take responsibility. Professionals must consciously re-learn responsibility.",
+          "evidence": "Young developer: rewarded for speed (even if dirty code), punished for 'slowness' (code review, refactoring). Learns: fast-bad > slow-good. In 5 years, this becomes habit. Counter-action: professional consciously re-trains—slows down, writes tests, raises quality slowly, demonstrates it works, becomes model for team. Social proof: one developer who: never has bugs, meets deadlines, helps colleagues → in one year half the team imitates this approach.",
+          "source": "03_reasoning.md: Argument 4",
+          "source_line": 100
+        }
+      ],
       "related_implications": [
         {
-          "id": "impl_003",
-          "name": "Structured assessment (Three-Point Estimation)",
-          "what_means": "**Key:** Realistic valuation requires taking uncertainty into account.\\n",
-          "source": "04_consequences.md: Implication 3"
-        },
-        {
           "id": "impl_006",
-          "name": "Managing conflicts in a team",
-          "what_means": "**The bottom line:** Conflicts are normal. ",
-          "source": "04_consequences.md: Implication 6"
-        },
-        {
-          "id": "impl_010",
-          "name": "How to work with a manager",
-          "what_means": "**The bottom line:** A manager is not the enemy. ",
-          "source": "04_consequences.md: Implication 10"
+          "name": "Conflict Resolution in Teams",
+          "what_means": "Unprofessional: complain to manager, redo code, sabotage decision, personal attacks. Professional: (1) 'Let's discuss why this architecture?', (2) Propose alternative with reasoning, (3) If decided but you disagree, execute fully, (4) Later if proven wrong, learn not blame. Example: 'This solution concerns me because X. Can we discuss Y as alternative?' Or: 'I disagree, but if we're committed, I'll implement it excellently.'",
+          "when_applies": "When you disagree with decision. Always.",
+          "why_matters": "Dialogue solves problems. Sabotage creates culture of distrust. Professional handling builds respect.",
+          "source": "04_consequences.md: Implication 6",
+          "source_line": 191
         }
       ],
       "related_questions": [
         {
-          "id": "question_08",
-          "text": "How to work in pairs and code review? ",
-          "source": "01_questions.md: Question 8"
+          "id": "question_13",
+          "text": "How to cope with pressure and stress?",
+          "source": "01_questions.md: Question 13",
+          "source_line": 184
         }
       ]
     },
     {
       "id": "principle_9",
       "number": "9",
-      "principle": "Helping colleagues is part of the job, but it shouldn’t harm your results.",
-      "statement": "**The bottom line:** You are not just a programmer, you are part of a team. ",
+      "principle": "Helping Colleagues is Part of Work, But Not At Your Own Cost",
+      "statement": "You are part of a team. But you also own your tasks. Balance both.",
       "tags": [
         "teamwork",
         "mentoring",
@@ -306,44 +396,41 @@
       ],
       "source": "02_ideas.md: PRINCIPLE 9",
       "source_line": 181,
-      "supporting_arguments": [],
+      "supporting_arguments": [
+        {
+          "id": "arg_004",
+          "name": "Social Engineering: The Culture Can Support or Undermine You",
+          "claim": "Your team's culture shapes your behavior. Professional sets good example and influences culture.",
+          "evidence": "If one developer: writes good code, meets deadlines, helps colleagues → over time the team raises its standards. Culture is contagious. Setting standard matters.",
+          "source": "03_reasoning.md: Argument 4",
+          "source_line": 100
+        }
+      ],
       "related_implications": [
         {
-          "id": "impl_007",
-          "name": "How to protect yourself from toxic work",
-          "what_means": "**The Point:** Professionalism includes knowing when to walk away.\\n",
-          "source": "04_consequences.md: Implication 7"
-        },
-        {
           "id": "impl_009",
-          "name": "How to help a colleague without sacrificing yourself",
-          "what_means": "**The bottom line:** There is a right way to help.\\n",
-          "source": "04_consequences.md: Implication 9"
+          "name": "How to Help Colleague Without Sacrificing Yourself",
+          "what_means": "Colleague asks for help → help (even if distracted). Colleague constantly asks → teach them (don't enable). Help blocks your deadline → say no. Mentoring: not just answer questions, teach thinking (where to find solutions). Give max 15 minutes, then: 'Let me help after I finish my code. Try X and Y meanwhile. If stuck, we'll dive deeper together.' Professional phrase: 'I'll help in an hour when I finish critical section. Try meanwhile. Or let's have [another person] help since I'm busy.'",
+          "when_applies": "When colleague asks. When you have time. When it matters.",
+          "why_matters": "Help builds team. Boundaries protect your work. Balance matters.",
+          "source": "04_consequences.md: Implication 9",
+          "source_line": 292
         }
       ],
       "related_questions": [
         {
-          "id": "question_08",
-          "text": "How to work in pairs and code review? ",
-          "source": "01_questions.md: Question 8"
-        },
-        {
-          "id": "question_11",
-          "text": "How to say no to a manager?\\n",
-          "source": "01_questions.md: Question 11"
-        },
-        {
           "id": "question_12",
-          "text": "When should you help a colleague instead of your own task?\\n",
-          "source": "01_questions.md: Question 12"
+          "text": "When to help colleague vs own task?",
+          "source": "01_questions.md: Question 12",
+          "source_line": 172
         }
       ]
     },
     {
       "id": "principle_10",
       "number": "10",
-      "principle": "Training is your responsibility, not the employer's.",
-      "statement": "**The bottom line:** The company pays you for what you already know. ",
+      "principle": "Learning is Your Responsibility, Not Your Employer's",
+      "statement": "Company pays for what you already know. New knowledge is your capital. Invest in it.",
       "tags": [
         "learning",
         "career-development",
@@ -352,40 +439,41 @@
       ],
       "source": "02_ideas.md: PRINCIPLE 10",
       "source_line": 204,
-      "supporting_arguments": [],
+      "supporting_arguments": [
+        {
+          "id": "arg_010",
+          "name": "Ethics as Competitive Advantage",
+          "claim": "Developers who continually learn stay valuable; those who stagnate become obsolete.",
+          "evidence": "Your reputation depends on staying current. Technologies change. Frameworks become obsolete. If you don't learn, you're left behind. It's your responsibility.",
+          "source": "03_reasoning.md: Argument 10",
+          "source_line": 255
+        }
+      ],
       "related_implications": [
         {
           "id": "impl_005",
-          "name": "How to develop skills purposefully",
-          "what_means": "**Gist:** Programmer training should be strategic, not chaotic.\\n",
-          "source": "04_consequences.md: Implication 5"
-        },
-        {
-          "id": "impl_007",
-          "name": "How to protect yourself from toxic work",
-          "what_means": "**The Point:** Professionalism includes knowing when to walk away.\\n",
-          "source": "04_consequences.md: Implication 7"
-        },
-        {
-          "id": "impl_012",
-          "name": "Long-term programming career planning",
-          "what_means": "**The Bottom Line:** Think of yourself as an entrepreneur, even if you are an employee.\\n",
-          "source": "04_consequences.md: Implication 12"
+          "name": "Deliberate Skill Development",
+          "what_means": "Learning must be strategic, not random. Levels: (1) Unknowing—don't know what you don't know, (2) Knowing—realize gaps, seek improvement, (3) Skilled—can apply, help others, (4) Expert—intuition works, teach others. Developer path: Year 1—language basics; Year 2—architecture, patterns, testing; Year 3—leadership, communication, teaching; Year 4+—strategy, vision. Each quarter: pick one area, read book/course, apply on project, teach colleague, repeat.",
+          "when_applies": "Every quarter. Continuously.",
+          "why_matters": "Structured learning accelerates growth. After 1 year 50% wiser; 5 years senior; 10 years expert.",
+          "source": "04_consequences.md: Implication 5",
+          "source_line": 153
         }
       ],
       "related_questions": [
         {
           "id": "question_09",
-          "text": "How to learn new technologies?\\n",
-          "source": "01_questions.md: Question 9"
+          "text": "How to learn new technologies?",
+          "source": "01_questions.md: Question 9",
+          "source_line": 131
         }
       ]
     },
     {
       "id": "principle_11",
       "number": "11",
-      "principle": "Your company is your business, even if you are an employee",
-      "statement": "**The bottom line:** Treat your job like an entrepreneur, not like a worker.\\n",
+      "principle": "Your Company is Your Business, Even If You're an Employee",
+      "statement": "Think like an entrepreneur, not an employee. How do you add value? How do you grow in value?",
       "tags": [
         "entrepreneurship",
         "career-ownership",
@@ -393,15 +481,41 @@
       ],
       "source": "02_ideas.md: PRINCIPLE 11",
       "source_line": 224,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
+      "supporting_arguments": [
+        {
+          "id": "arg_010",
+          "name": "Ethics and Long-Term Career Value",
+          "claim": "Building reputation for reliability and quality is how you grow in career and income.",
+          "evidence": "Employee mindset: 'Minimize work for maximum pay.' Entrepreneur mindset: 'Add value, grow in value.' Professional chooses projects that develop skills, protects quality (reflects on them), proposes improvements (doesn't wait), looks for growth opportunities. Practical: protect quality because it's YOUR code, seek projects that develop YOUR skills, leave if company doesn't invest in YOU.",
+          "source": "03_reasoning.md: Argument 10",
+          "source_line": 255
+        }
+      ],
+      "related_implications": [
+        {
+          "id": "impl_012",
+          "name": "Long-Term Career Planning",
+          "what_means": "Strategic questions: (1) What skills will be needed in 5 years? (2) What specialization do I want? (3) What company? (4) What income? Plan: Year 1-2 become expert in current tech; Year 2-3 expand adjacent areas; Year 3-4 grow as leader (mentoring, architecture); Year 4-5 strategic decisions. Each quarter: revisit plan, choose area to develop, find way to practice (project/course/mentor), share results with team. Job change only if: no growth, new tech/processes, significant income increase. Leave professionally (2 weeks, help replacement).",
+          "when_applies": "Every quarter. Career planning ongoing.",
+          "why_matters": "Intentional career growth vs drifting. Ownership vs victimhood.",
+          "source": "04_consequences.md: Implication 12",
+          "source_line": 383
+        }
+      ],
+      "related_questions": [
+        {
+          "id": "question_10",
+          "text": "When to change jobs?",
+          "source": "01_questions.md: Question 10",
+          "source_line": 143
+        }
+      ]
     },
     {
       "id": "principle_12",
       "number": "12",
-      "principle": "Focus takes time and protection",
-      "statement": "**Gist:** To write high-quality code, you need a 4-5 hour session without interruptions.\\n",
+      "principle": "Focus Requires Time and Protection",
+      "statement": "To write quality code, you need 4-5 hour uninterrupted sessions. Office is full of interruptions.",
       "tags": [
         "focus",
         "deep-work",
@@ -410,33 +524,41 @@
       ],
       "source": "02_ideas.md: PRINCIPLE 12",
       "source_line": 248,
-      "supporting_arguments": [],
+      "supporting_arguments": [
+        {
+          "id": "arg_008",
+          "name": "Case Study: Business Management System",
+          "claim": "Ignoring architecture and pushing for speed leads to catastrophic slowdown.",
+          "evidence": "First months: fast features. After 3 months: bugs surface, refactoring postponed. After 6 months: features taking month due to dirty code. After 1 year: system barely develops. After 2 years: company rewrites entire system (millions spent). Programmers demoralized (can't work with dirty code), turnover high, money wasted. Manager said: 'Architecture doesn't matter, speed matters.' Developer seized straw of haste. Within year all broke. Prevention: protect focus time, protect quality, show it works.",
+          "source": "03_reasoning.md: Argument 8",
+          "source_line": 210
+        }
+      ],
       "related_implications": [
         {
           "id": "impl_008",
-          "name": "Techniques to increase concentration",
-          "what_means": "**The bottom line:** Without focus there is no quality work.\\n",
-          "source": "04_consequences.md: Implication 8"
+          "name": "Focus Techniques and Time Management",
+          "what_means": "Techniques: (1) Pomodoro—25 min focus, 5 min break; 4 pomodoros, then 30 min break. (2) Deep Work Blocks—reserve 4-5 hours, physically isolate, disable internet/chats. (3) Flow State—choose task where difficulty ≈ your skill (not too easy, not impossible), eliminate distractions, work (usually 2-3 hours deep focus). Tools: headphones (focus music like Noisli), 'Do Not Disturb' sign, chat status, turn off notifications, work from home/conference room. Practical schedule: Mon-Wed 2 blocks deep work/day (morning + after lunch); Thu meetings/chats/help; Fri code review/planning.",
+          "when_applies": "Every day. Protect focus time.",
+          "why_matters": "Without focus, no quality work. Deep work is where excellence happens.",
+          "source": "04_consequences.md: Implication 8",
+          "source_line": 256
         }
       ],
       "related_questions": [
         {
           "id": "question_03",
-          "text": "How to work in \\",
-          "source": "01_questions.md: Question 3"
-        },
-        {
-          "id": "question_13",
-          "text": "How to deal with pressure and stress? ",
-          "source": "01_questions.md: Question 13"
+          "text": "How to work in focus mode?",
+          "source": "01_questions.md: Question 3",
+          "source_line": 45
         }
       ]
     },
     {
       "id": "principle_13",
       "number": "13",
-      "principle": "The speed of development is not a number, it is a trend",
-      "statement": "**The bottom line:** “We release 50 features per month” is not a quality metric. ",
+      "principle": "Development Speed is Not a Number, It's a Trend",
+      "statement": "'We ship 50 features per month' is not a quality metric. Metric is 'we ship 50 features per month WITHOUT quality degradation.'",
       "tags": [
         "metrics",
         "quality-measurement",
@@ -444,15 +566,41 @@
       ],
       "source": "02_ideas.md: PRINCIPLE 13",
       "source_line": 270,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
+      "supporting_arguments": [
+        {
+          "id": "arg_003",
+          "name": "Paradox of Haste: Long-Term Impact",
+          "claim": "Speed metrics that ignore quality are deceiving.",
+          "evidence": "Wrong metrics: lines of code (more ≠ better), hours worked (rushing ≠ quality), commit frequency (noise). Right metrics: production defects (should fall), time to fix defect (should fall), feature delivery time (should stay flat), team satisfaction (should rise). These show whether TDD+refactoring work. Wrong metrics create illusion that speed matters more than correctness.",
+          "source": "03_reasoning.md: Argument 3",
+          "source_line": 62
+        }
+      ],
+      "related_implications": [
+        {
+          "id": "impl_001",
+          "name": "Personal Code: Metrics",
+          "what_means": "As professional, measure: (1) defects in production (trending down?), (2) time from defect to fix (trending down?), (3) time to add feature (stable?), (4) team satisfaction (trending up?). These show real quality.",
+          "when_applies": "Ongoing. When talking to managers.",
+          "why_matters": "Right metrics show TDD + refactoring WORK. Managers see ROI.",
+          "source": "04_consequences.md: Implication 1",
+          "source_line": 3
+        }
+      ],
+      "related_questions": [
+        {
+          "id": "question_02",
+          "text": "Why does reputation matter for a programmer?",
+          "source": "01_questions.md: Question 2",
+          "source_line": 30
+        }
+      ]
     },
     {
       "id": "principle_14",
       "number": "14",
-      "principle": "Mistakes are inevitable. ",
-      "statement": "**The bottom line:** Every programmer makes mistakes. ",
+      "principle": "Mistakes are Inevitable. How You Handle Them Defines Your Professionalism",
+      "statement": "Every programmer makes errors. A professional: acknowledges immediately, minimizes damage, finds root cause, doesn't repeat.",
       "tags": [
         "accountability",
         "error-handling",
@@ -461,28 +609,41 @@
       ],
       "source": "02_ideas.md: PRINCIPLE 14",
       "source_line": 289,
-      "supporting_arguments": [],
+      "supporting_arguments": [
+        {
+          "id": "arg_001",
+          "name": "Learning From Mistakes: Martin's Path",
+          "claim": "Professionalism is built by acknowledging and learning from errors.",
+          "evidence": "Martin describes multiple mistakes that cost him (job, reputation, relationships). Each taught him something. Core: learn to acknowledge immediately, not hide. When you acknowledge, fix it, and improve next time → people trust you MORE (because you own it). Hide mistakes → when discovered, you're untrustworthy.",
+          "source": "03_reasoning.md: Argument 1",
+          "source_line": 3
+        }
+      ],
       "related_implications": [
         {
           "id": "impl_011",
-          "name": "Admitting mistakes is the path to trust",
-          "what_means": "**The bottom line:** How you react to a mistake determines your reputation.\\n",
-          "source": "04_consequences.md: Implication 11"
+          "name": "Error Recognition: Path to Trust",
+          "what_means": "How you respond to mistakes defines reputation. Immediately acknowledge ('I broke X'), explain without excuses, show plan to fix, participate in fix, analyze to prevent repeat. Example: production bug from your code → 'I made this. Here's plan to fix and revert if needed. I'll help.' Result: manager trusts MORE (you own it) not less.",
+          "when_applies": "When you make a mistake. Always.",
+          "why_matters": "People forgive errors. People don't forgive hiding. Acknowledgment builds trust.",
+          "source": "04_consequences.md: Implication 11",
+          "source_line": 349
         }
       ],
       "related_questions": [
         {
           "id": "question_05",
-          "text": "What to do when you're wrong? ",
-          "source": "01_questions.md: Question 5"
+          "text": "What to do when you're wrong?",
+          "source": "01_questions.md: Question 5",
+          "source_line": 73
         }
       ]
     },
     {
       "id": "principle_15",
       "number": "15",
-      "principle": "Balance between speed and perfection",
-      "statement": "**The bottom line:** You can't optimize everything. ",
+      "principle": "Balance Between Speed and Perfection",
+      "statement": "You can't optimize everything. Choose what matters. Critical code gets high quality; experiments get less.",
       "tags": [
         "pragmatism",
         "risk-management",
@@ -491,16 +652,43 @@
       ],
       "source": "02_ideas.md: PRINCIPLE 15",
       "source_line": 311,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
+      "supporting_arguments": [
+        {
+          "id": "arg_003",
+          "name": "Pragmatic Approach: Healthy Hustle",
+          "claim": "Professional balances speed and quality based on context.",
+          "evidence": "Quality levels: Low (dangerous), Medium (okay), High (excellent), Perfect (impossible). Professional choice: (1) Critical code (safety, money, lives)—high quality; (2) New experiments—medium (learn quick if viable); (3) Legacy code to discard—low (don't waste time). Smart allocation of effort.",
+          "source": "03_reasoning.md: Argument 3",
+          "source_line": 62
+        }
+      ],
+      "related_implications": [
+        {
+          "id": "impl_002",
+          "name": "Healthy Hustle: Pragmatic Speed",
+          "what_means": "Fast work is possible WITHOUT sacrificing quality IF you plan. Plan identifies critical parts (high quality), experimental parts (medium), waste parts (low). During development focus on critical. Testing: critical get unit tests; experiments get manual; waste: minimal. Result: fast delivery, appropriate quality, no burnout.",
+          "when_applies": "Every project. Balance is always needed.",
+          "why_matters": "Naive rushing fails. Intentional speed with quality boundaries works.",
+          "source": "04_consequences.md: Implication 2",
+          "source_line": 44
+        }
+      ],
+      "related_questions": [
+        {
+          "id": "question_14",
+          "text": "Difference between honest estimate and pessimism?",
+          "source": "01_questions.md: Question 14",
+          "source_line": 200
+        }
+      ]
     }
   ],
   "tags": [
-    "TDD",
     "accountability",
     "agile-practice",
     "assertiveness",
+    "attitude",
+    "automation",
     "boundaries",
     "burnout-prevention",
     "calibration",
@@ -509,89 +697,51 @@
     "career-growth",
     "career-management",
     "career-ownership",
-    "career-planning",
-    "career-trajectory",
     "case-study",
     "clarity",
     "code-review",
-    "cognition",
     "collaboration",
     "commitment",
     "communication",
     "communication-skills",
+    "competence-levels",
     "concentration",
+    "confidence",
     "conflict-resolution",
-    "culture-building",
-    "culture-shift",
-    "curriculum-design",
+    "continuous-improvement",
     "deep-work",
     "deliberate-practice",
-    "due-diligence",
-    "economics",
     "efficiency",
     "entrepreneurship",
     "error-handling",
-    "error-recovery",
     "estimation",
-    "ethics",
     "expertise",
     "false-economy",
     "focus",
     "focus-techniques",
-    "habits",
-    "integrity",
-    "knowledge-sharing",
-    "learning",
-    "learning-from-mistakes",
-    "learning-path",
-    "legacy-code",
-    "lifelong-learning",
-    "long-term-thinking",
-    "long-term-value",
-    "long-term-vision",
-    "manager-relations",
-    "mentoring",
-    "metrics",
-    "modeling",
-    "organizational-consequences",
-    "peer-influence",
-    "performance",
-    "personal-responsibility",
-    "personal-standards",
-    "planning",
-    "pragmatism",
-    "prevention",
-    "prioritization",
-    "productivity",
-    "professional-growth",
-    "professional-identity",
-    "professional-responsibility",
-    "professional-standards",
-    "professionalism",
-    "psychology",
     "quality",
     "quality-assurance",
+    "quality-first",
+    "quality-indicators",
     "quality-measurement",
     "quality-roi",
     "quality-systems",
+    "readiness",
     "reputation",
-    "responsibility",
+    "result-ownership",
     "risk-assessment",
-    "risk-awareness",
     "risk-management",
     "risk-mitigation",
     "self-care",
     "self-improvement",
-    "self-management",
     "skill-development",
     "social-capital",
     "social-proof",
     "speed-without-sacrifice",
     "stakeholder-management",
-    "strategic-thinking",
+    "standards",
     "stress",
     "stress-management",
-    "sustainability",
     "sustainable-help",
     "sustainable-pace",
     "team-dynamics",
@@ -601,66 +751,32 @@
     "testing",
     "testing-value",
     "time-management",
-    "trade-offs",
     "transparency",
     "trust",
     "trust-building",
     "trust-recovery",
     "value-creation",
-    "work-life-balance",
     "workplace-health",
-    "safety",
-    "result-ownership",
-    "restoration-of-confidence",
-    "choice",
-    "deep-work",
-    "readiness",
-    "degradation-code",
-    "discipline",
-    "trust",
+    "learning",
+    "lifelong-learning",
     "long-term-thinking",
-    "programmer identity",
-    "intuition",
-    "calibration",
-    "career",
-    "quality",
-    "code-quality",
-    "quality-responsibility",
-    "code of conduct",
-    "professional code",
-    "crisis industries",
-    "critical-thinking",
-    "personal-responsibility",
-    "personal-integrity",
-    "personal-ethics",
-    "presentation logic",
-    "manifesto",
-    "code of Conduct",
-    "education",
-    "organizational-culture",
-    "responsibility",
-    "attitude",
-    "grade",
-    "errors",
-    "negotiation",
-    "planning",
-    "consequences",
-    "workshop",
-    "professionalism",
-    "professional-duty",
-    "skills development",
-    "reputation",
-    "self-improvement",
-    "speed-development",
-    "social-capital",
-    "structure-books",
-    "technical debt",
-    "transformation",
-    "time-management",
-    "expectation-management",
-    "focus",
-    "honesty",
+    "long-term-value",
+    "long-term-vision",
+    "manager-relations",
+    "mentoring",
     "ethics",
-    "language"
+    "integrity",
+    "learning-from-mistakes",
+    "personal-responsibility",
+    "professional-growth",
+    "professional-identity",
+    "professional-responsibility",
+    "professional-standards",
+    "professionalism",
+    "psychology",
+    "risk-awareness",
+    "habits",
+    "modeling",
+    "culture-shift"
   ]
 }

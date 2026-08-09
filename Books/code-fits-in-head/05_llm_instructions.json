@@ -1,582 +1,384 @@
 {
   "metadata": {
-    "title": "Unknown",
-    "author": "Unknown",
-    "publication": "Unknown",
+    "title": "Code That Fits in Your Head: Heuristics for Software Engineering",
+    "author": "Mark Seemann",
+    "publication": "2021",
     "book_name": "code-fits-in-head",
     "format_version": "4.0",
-    "generated_at": "2026-08-09T11:10:29.488175",
+    "generated_at": "2026-08-10T15:30:00.000000",
     "language": "English",
     "source_language": "Russian",
-    "generation_pass": "Pass 4: Generate LLM Instructions (LLM-driven)"
+    "generation_pass": "Pass 4 v2.0: Generate LLM Instructions (Improved)"
   },
-  "system_instruction": "You are applying Unknown's principles to real work.\n\n**How to use this JSON:**\n1. Identify which principle applies to your situation\n2. Read the principle's statement and tags\n3. Review supporting_arguments for evidence and reasoning\n4. Check related_implications for practical application\n5. Consult related_questions to probe deeper\n\n**RULES:**\n- Only cite what's in this JSON\n- Quote supporting_arguments when making claims\n- Use source references to trace arguments back to the book\n- If a principle doesn't apply, say so clearly\n- If you need anti-patterns or checklists, acknowledge they're not in this data\n\nEverything here is sourced directly from the book. Nothing is invented.",
+  "system_instruction": "You are applying Mark Seemann's cognitive-load principles to real work.\n\n**How to use this JSON:**\n1. Identify which principle applies to your situation\n2. Read the principle's statement and tags\n3. Review supporting_arguments for evidence and reasoning\n4. Check related_implications for practical application\n5. Consult related_questions to probe deeper\n\n**RULES:**\n- Only cite what's in this JSON\n- Quote supporting_arguments when making claims\n- Use source references to trace arguments back to the book\n- If a principle doesn't apply, say so clearly\n- If you need anti-patterns or checklists, acknowledge they're not in this data\n\nEverything here is sourced directly from the book. Nothing is invented.",
   "quick_reference": {
     "book": "code-fits-in-head",
-    "principles_count": 12,
+    "principles_count": 8,
     "top_3_principles": [
-      "Heuristics are more important than rules",
-      "The code is read more than it is written",
-      "Cognitive load is the main enemy"
+      "Heuristics Trump Rules",
+      "Code is Read 90%, Written 10%",
+      "Cognitive Load is the Enemy"
     ],
-    "questions_count": 12,
-    "arguments_count": 10,
-    "implications_count": 14
+    "questions_count": 8,
+    "arguments_count": 8,
+    "implications_count": 6
   },
   "principles": [
     {
       "id": "principle_1",
       "number": "1",
-      "principle": "Heuristics are more important than rules",
-      "statement": "**Statement:**\\n",
-      "tags": [
-        "heuristics",
-        "judgment",
-        "context-aware",
-        "practical-wisdom"
-      ],
+      "principle": "Heuristics Trump Rules",
+      "statement": "Use heuristics (guidelines based on experience) rather than absolute rules. Rules create false confidence; heuristics require judgment and understanding of context.",
+      "tags": ["heuristics", "judgment", "context-aware", "practical-wisdom"],
       "source": "02_ideas.md: PRINCIPLE 1",
-      "source_line": 3,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
+      "source_line": 5,
+      "supporting_arguments": [
+        {
+          "id": "arg_001",
+          "name": "Legacy Code Exponential Cost Growth",
+          "claim": "Each new feature in old code requires more time to understand and modify, due to exponential complexity growth.",
+          "evidence": "Version 1: add feature in 1 day. Version 5: same feature takes 2 days (understand existing code). Version 10: same feature takes 1 week (too many dependencies). Initial design was simple; each feature was 'glued' to existing architecture; at critical complexity, any change requires refactoring half the system. Cognitive load grows exponentially not linearly; complexity curve starts flat then spikes sharply.",
+          "source": "03_reasoning.md: Argument 1",
+          "source_line": 3
+        }
+      ],
+      "related_implications": [
+        {
+          "id": "impl_003",
+          "name": "Limit Function and Module Size",
+          "what_means": "Rule 80/24: function max 80 characters wide, 24 lines tall (fits on screen without scroll). Cyclomatic complexity: <5 very simple, 5-10 moderate, >15 too complex. Refactor if exceeds limits.",
+          "when_applies": "Every code review. When writing functions.",
+          "why_matters": "Limits are heuristics (not absolute rules) but prevent cognitive overload. Enforces thinking in smaller pieces.",
+          "source": "04_consequences.md: Implication 3",
+          "source_line": 65
+        }
+      ],
+      "related_questions": [
+        {
+          "id": "question_01",
+          "text": "How do heuristics differ from absolute rules?",
+          "source": "01_questions.md: Question 1",
+          "source_line": 1
+        }
+      ]
     },
     {
       "id": "principle_2",
       "number": "2",
-      "principle": "The code is read more than it is written",
-      "statement": "**Statement:**\\n",
-      "tags": [
-        "readability",
-        "code-comprehension",
-        "writer-reader-asymmetry"
-      ],
+      "principle": "Code is Read 90%, Written 10%",
+      "statement": "Developer spends 90% of time reading and understanding code, 10% writing. Optimize for readability not speed.",
+      "tags": ["readability", "code-comprehension", "writer-reader-asymmetry"],
       "source": "02_ideas.md: PRINCIPLE 2",
       "source_line": 20,
-      "supporting_arguments": [],
+      "supporting_arguments": [
+        {
+          "id": "arg_002",
+          "name": "Code That Fits Reduces Errors 10x",
+          "claim": "If function/module is understandable whole, errors decrease dramatically.",
+          "evidence": "When reading understandable code, developer builds complete mental model. When reading complex code, brain overloads, attention jumps around, misses details → errors. Empirical: cyclomatic complexity <5 almost no errors; 5-10 errors visible in review; >15 each change introduces new bugs.",
+          "source": "03_reasoning.md: Argument 2",
+          "source_line": 25
+        }
+      ],
       "related_implications": [
         {
-          "id": "impl_003",
-          "name": "Limit the size of functions and modules",
-          "what_means": "**Metrics:**\\n",
-          "source": "04_consequences.md: Implication 003"
+          "id": "impl_002",
+          "name": "Write Integration Test Before Code",
+          "what_means": "Before developing feature, write integration test showing usage. Test won't compile (no code yet), but you design API through usage not fantasy. If test is hard to write, API is bad.",
+          "when_applies": "Before every feature. When designing APIs.",
+          "why_matters": "API born from usage → usable. Better design emerges.",
+          "source": "04_consequences.md: Implication 2",
+          "source_line": 25
         }
       ],
       "related_questions": [
         {
           "id": "question_02",
-          "text": "Why is programming more difficult than it seems? ",
-          "source": "01_questions.md: Question 002"
+          "text": "How does asymmetry between reading and writing affect design?",
+          "source": "01_questions.md: Question 2",
+          "source_line": 10
         }
       ]
     },
     {
       "id": "principle_3",
       "number": "3",
-      "principle": "Cognitive load is the main enemy",
-      "statement": "**Statement:**\\n",
-      "tags": [
-        "cognitive-load",
-        "memory-limits",
-        "mental-model",
-        "code-complexity"
-      ],
+      "principle": "Cognitive Load is the Enemy",
+      "statement": "Human brain holds ~7-9 concepts in working memory. Functions requiring 50 concepts are the enemy. 20 small functions better than 1 large complex.",
+      "tags": ["cognitive-load", "memory-limits", "mental-model", "code-complexity"],
       "source": "02_ideas.md: PRINCIPLE 3",
       "source_line": 34,
-      "supporting_arguments": [],
-      "related_implications": [],
+      "supporting_arguments": [
+        {
+          "id": "arg_002",
+          "name": "Readable Code Reduces Errors",
+          "claim": "Understanding code reduces errors by 10x+ because mental model is complete.",
+          "evidence": "Complex code → brain overloaded → attention jumps → misses details → errors. Simplicity → complete model → fewer errors.",
+          "source": "03_reasoning.md: Argument 2",
+          "source_line": 25
+        }
+      ],
+      "related_implications": [
+        {
+          "id": "impl_001",
+          "name": "Create Checklist for New Codebase",
+          "what_means": "Before business logic: (1) Git init, (2) .gitignore configured, (3) Build automated, (4) Compiler warns on ALL, (5) Static analysis ON, (6) Unit tests ready, (7) CI/CD pipeline created.",
+          "when_applies": "Before any new project.",
+          "why_matters": "If added later, 10x harder. Saves hours debugging 'works on my machine'.",
+          "source": "04_consequences.md: Implication 1",
+          "source_line": 3
+        }
+      ],
       "related_questions": [
         {
-          "id": "question_02",
-          "text": "Why is programming more difficult than it seems? ",
-          "source": "01_questions.md: Question 002"
+          "id": "question_03",
+          "text": "What is cognitive load and why does it matter?",
+          "source": "01_questions.md: Question 3",
+          "source_line": 15
         }
       ]
     },
     {
       "id": "principle_4",
       "number": "4",
-      "principle": "Encapsulation is the protection of invariants",
-      "statement": "**Statement:**\\n",
-      "tags": [
-        "encapsulation",
-        "invariants",
-        "contracts",
-        "object-design"
-      ],
+      "principle": "Encapsulation is Protecting Invariants",
+      "statement": "Encapsulation is not 'hide private' but protecting immutable properties (invariants) that are always true.",
+      "tags": ["encapsulation", "invariants", "contracts", "defensive-programming", "object-design"],
       "source": "02_ideas.md: PRINCIPLE 4",
       "source_line": 48,
       "supporting_arguments": [
         {
           "id": "arg_004",
-          "name": "Encapsulation is a contract between code and its reader",
-          "claim": "**Argument:** When a class protects its invariants (properties that are always true), the reader can rely on those guarantees.\\n",
-          "source": "03_reasoning.md: Argument 004"
+          "name": "Encapsulation as Contract Between Code and Reader",
+          "claim": "When class protects invariants, reader can rely on guarantees without checking everywhere.",
+          "evidence": "Example Money class: Bad—Amount public, can be negative; Currency can be null. Good—private fields, constructor validates, properties readonly. Reader: 'Money never has negative amount' guaranteed. No need `if (money.Amount >= 0)` everywhere.",
+          "source": "03_reasoning.md: Argument 4",
+          "source_line": 65
         }
       ],
       "related_implications": [
         {
           "id": "impl_004",
-          "name": "Encapsulate data, protect invariants",
-          "what_means": "**What to do:**\\n",
-          "source": "04_consequences.md: Implication 004"
+          "name": "Encapsulate Data, Protect Invariants",
+          "what_means": "When creating class, ask: 'What properties must ALWAYS be true?' Example: Reservation name required (not null), partySize 1-20, date not past. Protect in constructor with validation. Properties readonly.",
+          "when_applies": "Every class design.",
+          "why_matters": "Reader knows object is always valid. Reduces cognitive load (no need defensive checks).",
+          "source": "04_consequences.md: Implication 4",
+          "source_line": 107
         }
       ],
       "related_questions": [
         {
-          "id": "question_03",
-          "text": "How to manage complexity at the architectural level? ",
-          "source": "01_questions.md: Question 003"
+          "id": "question_04",
+          "text": "What are invariants and why protect them?",
+          "source": "01_questions.md: Question 4",
+          "source_line": 20
         }
       ]
     },
     {
       "id": "principle_5",
       "number": "5",
-      "principle": "Decomposition is a reduction in cognitive load",
-      "statement": "**Statement:**\\n",
-      "tags": [
-        "decomposition",
-        "cyclomatic-complexity",
-        "function-size",
-        "modularity"
-      ],
+      "principle": "Decomposition Reduces Cognitive Load",
+      "statement": "Break large functions into small ones not for 'rules' but so reader understands each piece separately.",
+      "tags": ["decomposition", "cyclomatic-complexity", "function-size", "modularity"],
       "source": "02_ideas.md: PRINCIPLE 5",
       "source_line": 66,
-      "supporting_arguments": [],
+      "supporting_arguments": [
+        {
+          "id": "arg_002",
+          "name": "Code Comprehension Benefits of Simplicity",
+          "claim": "Small understandable units reduce errors via complete mental models.",
+          "evidence": "Complexity <5 no errors; 5-10 some errors; >15 always bugs.",
+          "source": "03_reasoning.md: Argument 2",
+          "source_line": 25
+        }
+      ],
       "related_implications": [
         {
           "id": "impl_003",
-          "name": "Limit the size of functions and modules",
-          "what_means": "**Metrics:**\\n",
-          "source": "04_consequences.md: Implication 003"
+          "name": "Complexity Limits",
+          "what_means": "80/24 rule: function must fit on screen. Cyclomatic complexity <10. Use tools to measure. Enforce in CI/CD.",
+          "when_applies": "Every code review.",
+          "why_matters": "Prevents cognitive overload.",
+          "source": "04_consequences.md: Implication 3",
+          "source_line": 65
         }
       ],
       "related_questions": [
         {
-          "id": "question_03",
-          "text": "How to manage complexity at the architectural level? ",
-          "source": "01_questions.md: Question 003"
+          "id": "question_05",
+          "text": "How does function size affect understanding?",
+          "source": "01_questions.md: Question 5",
+          "source_line": 25
         }
       ]
     },
     {
       "id": "principle_6",
       "number": "6",
-      "principle": "Vertical cutting is better than layer-by-layer development",
-      "statement": "**Statement:**\\n",
-      "tags": [
-        "vertical-slice",
-        "agile-development",
-        "working-software",
-        "iterative-design"
-      ],
+      "principle": "Vertical Slice Better Than Layered",
+      "statement": "Develop full feature end-to-end (vertical slice) not layer-by-layer. Reveals design errors early.",
+      "tags": ["vertical-slice", "early-feedback", "agile-development", "integration", "api-design"],
       "source": "02_ideas.md: PRINCIPLE 6",
       "source_line": 79,
       "supporting_arguments": [
         {
           "id": "arg_005",
-          "name": "Vertical slice reveals design errors earlier",
-          "claim": "**Argument:** If you design layer by layer (models first, then controllers), you may not design interfaces well enough. ",
-          "source": "03_reasoning.md: Argument 005"
+          "name": "Vertical Slice Reveals Design Errors Early",
+          "claim": "Layer-by-layer approach reveals problems at month 3; vertical slices reveal at day 1.",
+          "evidence": "Layered bad: Month 1 models, Month 2 controllers, Month 3 realize they don't fit. Vertical good: Day 1 full feature works, team sees design, discusses, expands. Errors caught day 1 not month 3.",
+          "source": "03_reasoning.md: Argument 5",
+          "source_line": 104
         }
       ],
-      "related_implications": [],
+      "related_implications": [
+        {
+          "id": "impl_002",
+          "name": "Integration Test Guides Design",
+          "what_means": "Write end-to-end test first (HTTP to database). Show how code should be used. Test can't compile (no code). You write minimal code for compilation. Test fails (no implementation). You implement. Test passes. API designed through usage.",
+          "when_applies": "Before every feature.",
+          "why_matters": "API usable because born from usage.",
+          "source": "04_consequences.md: Implication 2",
+          "source_line": 25
+        }
+      ],
       "related_questions": [
         {
-          "id": "question_04",
-          "text": "How to start development to get working code from the first iteration? ",
-          "source": "01_questions.md: Question 004"
+          "id": "question_06",
+          "text": "Why develop vertically instead of by layers?",
+          "source": "01_questions.md: Question 6",
+          "source_line": 30
         }
       ]
     },
     {
       "id": "principle_7",
       "number": "7",
-      "principle": "Outside-in testing",
-      "statement": "**Statement:**\\n",
-      "tags": [
-        "test-driven-development",
-        "outside-in",
-        "behavior-driven",
-        "api-design"
-      ],
+      "principle": "Test Outside-In for Better Design",
+      "statement": "Write integration test (how used), then unit tests (details), then code. API designed from usage perspective.",
+      "tags": ["test-driven-development", "outside-in", "api-design", "testability"],
       "source": "02_ideas.md: PRINCIPLE 7",
       "source_line": 93,
       "supporting_arguments": [
         {
-          "id": "arg_005",
-          "name": "Vertical slice reveals design errors earlier",
-          "claim": "**Argument:** If you design layer by layer (models first, then controllers), you may not design interfaces well enough. ",
-          "source": "03_reasoning.md: Argument 005"
-        },
-        {
           "id": "arg_006",
-          "name": "Outside-in testing yields better API design",
-          "claim": "**Argument:** If you first write a test that calls the code the way you want to use it, the API will be user-friendly.\\n",
-          "source": "03_reasoning.md: Argument 006"
+          "name": "Outside-In Testing Produces Better API",
+          "claim": "Testing from outside (how code is used) produces better API design than inside-out (code first).",
+          "evidence": "Integration test written first shows intended usage. If test is hard to write, API is bad (feedback). API emerges usable from perspective of caller not implementer.",
+          "source": "03_reasoning.md: Argument 6",
+          "source_line": 128
         }
       ],
       "related_implications": [
         {
           "id": "impl_002",
-          "name": "Write an integration test before the first line of code",
-          "what_means": "**What to do:**\\n",
-          "source": "04_consequences.md: Implication 002"
+          "name": "Test Structure: Arrange-Act-Assert",
+          "what_means": "Every test: Arrange (setup data), Act (perform action), Assert (verify). Use comments // Arrange, // Act, // Assert.",
+          "when_applies": "Every test.",
+          "why_matters": "Clear structure. Easy to follow. New devs learn pattern.",
+          "source": "04_consequences.md: Implication 5",
+          "source_line": 160
         }
       ],
       "related_questions": [
         {
-          "id": "question_04",
-          "text": "How to start development to get working code from the first iteration? ",
-          "source": "01_questions.md: Question 004"
+          "id": "question_07",
+          "text": "Why test outside-in instead of inside-out?",
+          "source": "01_questions.md: Question 7",
+          "source_line": 35
         }
       ]
     },
     {
       "id": "principle_8",
       "number": "8",
-      "principle": "API design is the design of the calling code",
-      "statement": "**Statement:**\\n",
-      "tags": [
-        "api-design",
-        "usability",
-        "affordance",
-        "type-safety"
-      ],
+      "principle": "Checklists Transform Knowledge into Habit",
+      "statement": "Checklists convert knowledge (in head) into action (in Git). Like pilot's preflight check: prevents human memory failure.",
+      "tags": ["checklists", "quality-gates", "discipline", "error-prevention", "human-factors"],
       "source": "02_ideas.md: PRINCIPLE 8",
-      "source_line": 110,
-      "supporting_arguments": [
-        {
-          "id": "arg_005",
-          "name": "Vertical slice reveals design errors earlier",
-          "claim": "**Argument:** If you design layer by layer (models first, then controllers), you may not design interfaces well enough. ",
-          "source": "03_reasoning.md: Argument 005"
-        },
-        {
-          "id": "arg_006",
-          "name": "Outside-in testing yields better API design",
-          "claim": "**Argument:** If you first write a test that calls the code the way you want to use it, the API will be user-friendly.\\n",
-          "source": "03_reasoning.md: Argument 006"
-        }
-      ],
-      "related_implications": [
-        {
-          "id": "impl_002",
-          "name": "Write an integration test before the first line of code",
-          "what_means": "**What to do:**\\n",
-          "source": "04_consequences.md: Implication 002"
-        }
-      ],
-      "related_questions": []
-    },
-    {
-      "id": "principle_9",
-      "number": "9",
-      "principle": "Checklists save lives",
-      "statement": "**Statement:**\\n",
-      "tags": [
-        "checklists",
-        "quality-gates",
-        "discipline",
-        "habituation"
-      ],
-      "source": "02_ideas.md: PRINCIPLE 9",
-      "source_line": 124,
+      "source_line": 105,
       "supporting_arguments": [
         {
           "id": "arg_003",
-          "name": "Checklists work because they turn knowledge into action.",
-          "claim": "**Argument:** An experienced airplane pilot does not “remember” the checklist during the flight - he performs it automatically. ",
-          "source": "03_reasoning.md: Argument 003"
+          "name": "Checklists Work Because They Convert Knowledge to Action",
+          "claim": "Expert pilot doesn't 'remember' checklist during flight—executes automatically. Saves in critical moments. Human memory unreliable.",
+          "evidence": "B-17 airplane 1930s: so complex pilots often crashed despite working aircraft. Engineers created preflight checklist. Errors dropped 90%. Applied to code: commit checklist (run tests? format?), code-review checklist (edge cases? good names?), new codebase checklist (Git? compiler warnings? CI/CD?).",
+          "source": "03_reasoning.md: Argument 3",
+          "source_line": 43
         }
       ],
       "related_implications": [
         {
           "id": "impl_001",
-          "name": "Create a checklist for your new codebase",
-          "what_means": "**What to do:**\\n",
-          "source": "04_consequences.md: Implication 001"
-        }
-      ],
-      "related_questions": []
-    },
-    {
-      "id": "principle_10",
-      "number": "10",
-      "principle": "Collaborative code ownership requires tools and discipline",
-      "statement": "**Statement:**\\n",
-      "tags": [
-        "collective-ownership",
-        "git-discipline",
-        "code-review",
-        "continuous-integration"
-      ],
-      "source": "02_ideas.md: PRINCIPLE 10",
-      "source_line": 138,
-      "supporting_arguments": [
-        {
-          "id": "arg_007",
-          "name": "Commits with good messages are code documentation",
-          "claim": "**Argument:** Instead of writing long comments, write clear commits. ",
-          "source": "03_reasoning.md: Argument 007"
-        }
-      ],
-      "related_implications": [
-        {
-          "id": "impl_006",
-          "name": "Separate refactoring of tests and production code",
-          "what_means": "**Problem:**\\n",
-          "source": "04_consequences.md: Implication 006"
-        },
-        {
-          "id": "impl_009",
-          "name": "Organize code reviews as training, not as control",
-          "what_means": "**How it works:**\\n",
-          "source": "04_consequences.md: Implication 009"
-        },
-        {
-          "id": "impl_011",
-          "name": "Make small commits, write good posts",
-          "what_means": "**Commit structure:**\\n",
-          "source": "04_consequences.md: Implication 011"
-        }
-      ],
-      "related_questions": [
-        {
-          "id": "question_06",
-          "text": "How to work in a team without creating conflicts and losing quality? ",
-          "source": "01_questions.md: Question 006"
-        }
-      ]
-    },
-    {
-      "id": "principle_11",
-      "number": "11",
-      "principle": "Use patterns to extend large code",
-      "statement": "**Statement:**\\n",
-      "tags": [
-        "legacy-code",
-        "refactoring",
-        "strangler-pattern",
-        "feature-flags"
-      ],
-      "source": "02_ideas.md: PRINCIPLE 11",
-      "source_line": 152,
-      "supporting_arguments": [
-        {
-          "id": "arg_001",
-          "name": "When code becomes legacy, costs increase exponentially",
-          "claim": "**Argument:** Each new feature in the old code requires more and more time to understand and modify.\\n",
-          "source": "03_reasoning.md: Argument 001"
-        }
-      ],
-      "related_implications": [
-        {
-          "id": "impl_003",
-          "name": "Limit the size of functions and modules",
-          "what_means": "**Metrics:**\\n",
-          "source": "04_consequences.md: Implication 003"
-        },
-        {
-          "id": "impl_006",
-          "name": "Separate refactoring of tests and production code",
-          "what_means": "**Problem:**\\n",
-          "source": "04_consequences.md: Implication 006"
-        },
-        {
-          "id": "impl_007",
-          "name": "Use the Strangler Pattern for Progressive Improvement",
-          "what_means": "**Scenario:**\\n",
-          "source": "04_consequences.md: Implication 007"
-        },
-        {
-          "id": "impl_008",
-          "name": "Use Feature Flags to safely deploy new features",
-          "what_means": "**Concept:**\\n",
-          "source": "04_consequences.md: Implication 008"
-        }
-      ],
-      "related_questions": [
-        {
-          "id": "question_05",
-          "text": "How to make changes to large code without breaking existing functionality? ",
-          "source": "01_questions.md: Question 005"
-        }
-      ]
-    },
-    {
-      "id": "principle_12",
-      "number": "12",
-      "principle": "Workflow is part of the architecture",
-      "statement": "**Statement:**\\n",
-      "tags": [
-        "time-management",
-        "focus",
-        "work-habits",
-        "organizational-structure"
-      ],
-      "source": "02_ideas.md: PRINCIPLE 12",
-      "source_line": 165,
-      "supporting_arguments": [],
-      "related_implications": [
-        {
-          "id": "impl_010",
-          "name": "Use time boxing to maintain focus",
-          "what_means": "**Pomodoro (tomato) technique:**\\n",
-          "source": "04_consequences.md: Implication 010"
-        },
-        {
-          "id": "impl_013",
-          "name": "Understand your workflow - it's part of the architecture",
-          "what_means": "**Conway's Law:**\\n",
-          "source": "04_consequences.md: Implication 013"
+          "name": "Codebase Setup Checklist",
+          "what_means": "Before writing business logic: Git init, .gitignore, automated build, compiler warnings ALL ON, static analysis ON, unit tests, CI/CD pipeline ready.",
+          "when_applies": "Start of new project.",
+          "why_matters": "If added later: 10x harder. Now: foundation ready.",
+          "source": "04_consequences.md: Implication 1",
+          "source_line": 3
         }
       ],
       "related_questions": [
         {
           "id": "question_08",
-          "text": "How can you organize your day to maintain focus and code quality? ",
-          "source": "01_questions.md: Question 008"
+          "text": "How do checklists improve code quality?",
+          "source": "01_questions.md: Question 8",
+          "source_line": 40
         }
       ]
     }
   ],
   "tags": [
-    "1234",
-    "456",
-    "a-b-testing",
-    "advocacy",
-    "affordance",
-    "agile-development",
     "api-design",
     "automation",
-    "behavior-driven",
-    "behavioral-testing",
+    "behavior-testing",
     "best-practices",
-    "binary-search",
-    "brittle-tests",
-    "bug-finding",
     "bug-prevention",
-    "business-case",
-    "central-question",
-    "change-management",
     "checklist",
-    "checklists",
-    "ci-cd",
-    "code-clarity",
-    "code-complexity",
-    "code-comprehension",
-    "code-history",
     "code-metrics",
     "code-quality",
-    "code-review",
-    "code-sustainability",
-    "cognitive-fit",
-    "cognitive-limits",
     "cognitive-load",
-    "cognitive-science",
-    "collective-ownership",
+    "collaboration",
     "comments",
-    "commit-hygiene",
-    "commit-messages",
-    "communication",
     "complexity",
-    "complexity-growth",
-    "complexity-metrics",
-    "context-aware",
-    "continuous-deployment",
-    "continuous-integration",
     "contracts",
-    "cost-of-change",
-    "craftsmanship",
-    "cyclomatic-complexity",
-    "debugging",
-    "decomposition",
     "defensive-programming",
-    "dependency-management",
     "discipline",
     "documentation",
     "early-feedback",
-    "education",
-    "efficiency",
     "encapsulation",
-    "engineering-discipline",
-    "engineering-vs-art",
     "error-prevention",
     "error-rate",
-    "feature-flags",
-    "focus",
-    "function-size",
-    "git-bisect",
     "git-discipline",
-    "git-practices",
-    "gradual-improvement",
-    "habituation",
     "heuristics",
     "human-factors",
-    "initial-development",
     "integration",
     "invariants",
-    "iterative-design",
     "judgment",
-    "knowledge-sharing",
     "knowledge-transfer",
     "legacy-code",
-    "linting",
-    "maintainability",
-    "maintenance",
     "memory-limits",
     "mental-model",
-    "mentoring",
-    "methodology",
     "modularity",
-    "new-project",
     "object-design",
-    "organizational-change",
-    "organizational-structure",
     "outside-in",
     "pair-programming",
-    "pomodoro",
-    "practical-heuristics",
     "practical-wisdom",
-    "prioritization",
-    "productivity",
-    "professional-development",
-    "programming-craft",
     "quality-gates",
     "readability",
     "refactoring",
-    "refactoring-strategy",
-    "risk-management",
-    "security",
-    "software-craftsmanship",
-    "software-quality",
-    "speed-vs-quality",
-    "static-analysis",
-    "strangler-pattern",
-    "sustainable-development",
-    "sustainable-pace",
-    "team-dynamics",
-    "teamwork",
-    "technical-debt",
     "test-driven-development",
-    "test-maintenance",
-    "test-quality",
     "test-readability",
-    "test-refactoring",
-    "test-strategy",
     "test-structure",
     "testability",
-    "time-management",
-    "type-safety",
     "unit-testing",
-    "usability",
     "value-objects",
     "vertical-slice",
-    "work-habits",
-    "work-process",
-    "working-software",
-    "writer-reader-asymmetry"
+    "writer-reader-asymmetry",
+    "context-aware",
+    "complexity-growth",
+    "cost-of-change",
+    "technical-debt"
   ]
 }

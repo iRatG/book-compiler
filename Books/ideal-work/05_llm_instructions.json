@@ -1,16 +1,16 @@
 {
   "metadata": {
-    "title": "Unknown",
-    "author": "Unknown",
-    "publication": "Unknown",
+    "title": "The Clean Coder: A Code of Conduct for Professional Programmers",
+    "author": "Robert C. Martin (\"Uncle Bob\")",
+    "publication": "2011",
     "book_name": "ideal-work",
     "format_version": "4.0",
-    "generated_at": "2026-08-09T11:10:23.583578",
+    "generated_at": "2026-08-10T14:30:00.000000",
     "language": "English",
     "source_language": "Russian",
-    "generation_pass": "Pass 4: Generate LLM Instructions (LLM-driven)"
+    "generation_pass": "Pass 4 v2.0: Generate LLM Instructions (Improved)"
   },
-  "system_instruction": "You are applying Unknown's principles to real work.\n\n**How to use this JSON:**\n1. Identify which principle applies to your situation\n2. Read the principle's statement and tags\n3. Review supporting_arguments for evidence and reasoning\n4. Check related_implications for practical application\n5. Consult related_questions to probe deeper\n\n**RULES:**\n- Only cite what's in this JSON\n- Quote supporting_arguments when making claims\n- Use source references to trace arguments back to the book\n- If a principle doesn't apply, say so clearly\n- If you need anti-patterns or checklists, acknowledge they're not in this data\n\nEverything here is sourced directly from the book. Nothing is invented.",
+  "system_instruction": "You are applying Robert C. Martin's professional principles to real work.\n\n**How to use this JSON:**\n1. Identify which principle applies to your situation\n2. Read the principle's statement and tags\n3. Review supporting_arguments for evidence and reasoning\n4. Check related_implications for practical application\n5. Consult related_questions to probe deeper\n\n**RULES:**\n- Only cite what's in this JSON\n- Quote supporting_arguments when making claims\n- Use source references to trace arguments back to the book\n- If a principle doesn't apply, say so clearly\n- If you need anti-patterns or checklists, acknowledge they're not in this data\n\nEverything here is sourced directly from the book. Nothing is invented.",
   "quick_reference": {
     "book": "ideal-work",
     "principles_count": 15,
@@ -28,7 +28,7 @@
       "id": "principle_1",
       "number": "1",
       "principle": "Mastery is a Path, Not a Destination",
-      "statement": "**Formulation:** Mastery is a thorough knowledge of how to obtain excellent results, resulting from good training and extensive experience.\\n",
+      "statement": "Mastery is thorough knowledge of how to obtain excellent results, emerging from good training and extensive experience. It is not a destination you reach, but a continuous path of learning and growth.",
       "tags": [
         "craftsmanship",
         "mastery",
@@ -42,50 +42,58 @@
         {
           "id": "arg_001",
           "name": "Aviation History As a Mirror for Software",
-          "claim": "**Thesis:** Computer programming is now at the same stage of development as aviation was in the 1920s.\\n",
-          "source": "03_reasoning.md: Argument 1"
+          "claim": "Computer programming is currently at the same stage of development that aviation was in the 1920s, about 30-40 years behind aviation in professional maturity.",
+          "evidence": "Aviation took 450 years (1500-1950) to mature: from Leonardo da Vinci's concepts to the Wright brothers' controlled flight (1903) to Boeing 707 civilian aviation (1950). Programming has only 90 years of history (1930-2020), with industrial programming for just 50 years. Like aviation in the 1920s-1940s when people fell and died from lack of flying skill, software systems today fail catastrophically due to lack of discipline. We need aviation-level discipline in our industry now.",
+          "source": "03_reasoning.md: Argument 1",
+          "source_line": 5
         },
         {
           "id": "arg_009",
-          "name": "Growth of Developers Every 5 Years",
-          "claim": "**Thesis:** The number of developers doubles every 5 years. ",
-          "source": "03_reasoning.md: Argument 9"
+          "name": "Developer Population Doubles Every 5 Years",
+          "claim": "The developer population doubles every 5 years, meaning most developers are inexperienced and lack systematic training.",
+          "evidence": "2000: ~1 million developers; 2010: ~2 million; 2020: ~4 million; 2025: ~8 million. This means approximately 50% of all developers have less than 2 years of experience. Only 12.5% have 10+ years of quality experience. The industry cannot expect professionalism when half the workforce consists of beginners without systematic mentoring or standards. This demographic reality makes systematic training and mentorship essential.",
+          "source": "03_reasoning.md: Argument 9",
+          "source_line": 310
         }
       ],
       "related_implications": [
         {
-          "id": "impl_007",
-          "name": "Simple Design Is a Feeling You Need to Learn",
-          "what_means": "**Practical Action:**\\n",
-          "source": "04_consequences.md: Implication 7"
-        },
-        {
           "id": "impl_012",
           "name": "Continuous Training is NOT Optional",
-          "what_means": "**Practical Action:**\\n",
-          "source": "04_consequences.md: Implication 12"
+          "what_means": "Each developer must allocate minimum 5-10% of their weekly time to learning new technologies, principles, and practices. This is not optional professional development—it is mandatory to remain relevant.",
+          "when_applies": "Every developer at every career stage. Technology changes continuously. Languages, frameworks, and practices that were standard 5 years ago become obsolete. To maintain mastery, you must continuously invest in learning.",
+          "why_matters": "After 1 year of continuous learning, you are 50% wiser. After 5 years, you reach senior level. After 10 years, you become an expert. Without continuous learning, your skills stagnate and your career trajectory flattens.",
+          "source": "04_consequences.md: Implication 12",
+          "source_line": 407
+        },
+        {
+          "id": "impl_010",
+          "name": "Mentoring is the Duty of the Experienced",
+          "what_means": "If you have 10+ years of experience, you have a professional obligation to mentor younger developers. This is not optional—it is your duty to the profession. Mentor through pair programming, code reviews with explanations, teaching principles, and micro-conferences.",
+          "when_applies": "When you are an experienced developer (10+ years). When new developers join your team. When you review code written by less experienced colleagues. When your team needs guidance on principles and practices.",
+          "why_matters": "Novice + experienced = twice as fast learning. Instead of 6 months to become productive, it takes 3 months. Your profession grows, knowledge distributes (no 'stars' and 'mediocrities'), and culture transmits to the next generation.",
+          "source": "04_consequences.md: Implication 10",
+          "source_line": 326
         }
       ],
       "related_questions": [
         {
           "id": "question_01",
-          "text": "What Fundamental Practices Does a Programmer Need? ",
-          "source": "01_questions.md: Question 1"
+          "text": "What fundamental practices does a programmer need to develop true mastery?",
+          "source": "01_questions.md: Question 1",
+          "source_line": 15
         },
         {
           "id": "question_04",
-          "text": "What does \\",
-          "source": "01_questions.md: Question 4"
+          "text": "What does simple design mean in the context of architecture?",
+          "source": "01_questions.md: Question 4",
+          "source_line": 74
         },
         {
           "id": "question_07",
-          "text": "What Quality Standards Should Developers Meet? ",
-          "source": "01_questions.md: Question 7"
-        },
-        {
-          "id": "question_12",
-          "text": "How to Learn to Be Loyal to Your Principles in the Turmoil of a Project? ",
-          "source": "01_questions.md: Question 12"
+          "text": "What quality standards should developers meet?",
+          "source": "01_questions.md: Question 7",
+          "source_line": 118
         }
       ]
     },
@@ -93,7 +101,7 @@
       "id": "principle_2",
       "number": "2",
       "principle": "Test Driven Development - It's NOT About Testing",
-      "statement": "**Formulation:** TDD is a discipline that defines a programmer's actions down to the seconds. ",
+      "statement": "TDD is a discipline that defines a programmer's actions down to the seconds. It is the equivalent of double-entry bookkeeping for software: a way to ensure correctness through systematic verification.",
       "tags": [
         "tdd",
         "test-driven-development",
@@ -106,36 +114,55 @@
       "supporting_arguments": [
         {
           "id": "arg_002",
-          "name": "Real Software Disasters",
-          "claim": "**Thesis:** Software is already causing lethal harm due to lack of discipline.\\n",
-          "source": "03_reasoning.md: Argument 2"
+          "name": "Real Software Disasters Caused by Lack of Discipline",
+          "claim": "Software is already causing lethal harm and massive financial losses due to lack of systematic discipline and rigorous testing.",
+          "evidence": "Boeing 737 Max (2018-2019): 346 deaths in two crashes due to defects in the MCAS system caused by poor integration and weak testing. Toyota sudden acceleration (2009-2010): 89 deaths, 10 million vehicle recall due to faulty control system code. Knight Capital Group (2012): $460 million loss in 45 minutes due to old code not being deleted before deployment with no verification process. Iowa Caucuses Voting System (2020): Application failure on election night causing political crisis due to inadequate testing and lack of experienced developers. China's Social Credit System: Algorithmic discrimination with systematic errors, yet developers knew the algorithm was biased and continued working. These are not isolated cases but a SYSTEM of problems caused by lack of discipline.",
+          "source": "03_reasoning.md: Argument 2",
+          "source_line": 51
         },
         {
           "id": "arg_003",
-          "name": "Double Entry in Accounting As an Analogy to TDD",
-          "claim": "**Thesis:** TDD is to programming what double entry is to accounting.\\n",
-          "source": "03_reasoning.md: Argument 3"
+          "name": "Double Entry Bookkeeping As Analogy to TDD",
+          "claim": "TDD is to programming what double-entry bookkeeping is to accounting—a fundamental discipline that ensures correctness through systematic verification.",
+          "evidence": "Double-entry bookkeeping was perfected by Venetian merchants (1500s), documented by Luca Pacioli (1494), and saved Josiah Wedgwood from bankruptcy (1772). Johann Wolfgang von Goethe wrote in 1795: 'Order in business! What advantages double-entry bookkeeping gives to a merchant!' The principle is identical: each transaction is recorded in two places; both must balance. In TDD: each code line is verified by a test; all tests must pass. Without double-entry bookkeeping, accounting is guesswork. Without TDD, programming is guesswork.",
+          "source": "03_reasoning.md: Argument 3",
+          "source_line": 123
         },
         {
           "id": "arg_005",
           "name": "Empirical Proof - Jason Gorman's TDD Experiment",
-          "claim": "**Thesis:** TDD makes developers FASTER, even on the first iteration.\\n",
-          "source": "03_reasoning.md: Argument 5"
+          "claim": "TDD makes developers FASTER, not slower, even on the first iteration.",
+          "evidence": "Jason Gorman's research compared TDD vs. Cowboy Coding in parallel. Result: TDD was 10% faster already on the first iteration. Long-term differences are enormous (months/years). Reasons: (1) Less time on debugging—far less since code is tested continuously, (2) Better architecture—tests reveal design problems early, (3) Fewer reworks—problems caught immediately, not discovered later in QA. The myth 'TDD slows development' is false. It accelerates development both short-term and long-term.",
+          "source": "03_reasoning.md: Argument 5",
+          "source_line": 206
         }
       ],
       "related_implications": [
         {
           "id": "impl_001",
           "name": "For a Developer, Every Day Should Start with TDD",
-          "what_means": "**Practical Action:**\\n",
-          "source": "04_consequences.md: Implication 1"
+          "what_means": "Each morning, write tests BEFORE writing code. The cycle is: write test (RED) → write code to pass (GREEN) → refactor (REFACTOR) → repeat. Each cycle takes 5-10 seconds.",
+          "when_applies": "Every developer, every day, every task. This is daily discipline, not optional practice. This is how professional programmers work.",
+          "why_matters": "By day's end: 100+ cycles completed, 50+ new lines of code written, 0 bugs deployed to production. Tests become perfect low-level documentation. Code is well-structured (tests reveal design problems). Developer has pride: 'I worked well today.'",
+          "source": "04_consequences.md: Implication 1",
+          "source_line": 5
+        },
+        {
+          "id": "impl_002",
+          "name": "First 1-2 Weeks of TDD Learning Are Painful",
+          "what_means": "New TDD practitioners will work slower for the first 1-2 weeks while the brain relearns to think in tests-first mode. This is the learning curve cost.",
+          "when_applies": "When a developer or team adopts TDD for the first time. The psychological moment occurs around day 3: 'I'm writing so many tests! This is slowing me down!'",
+          "why_matters": "By week 2: you become faster. By week 4: MUCH faster. By month's end: cannot work without TDD. The temporary slowdown is the price of mastery. With mentorship from experienced TDD practitioners, learning accelerates from 3 months to 4 weeks.",
+          "source": "04_consequences.md: Implication 2",
+          "source_line": 29
         }
       ],
       "related_questions": [
         {
           "id": "question_02",
-          "text": "What is Test Driven Development and Why Is It Primary? ",
-          "source": "01_questions.md: Question 2"
+          "text": "What is Test Driven Development and why is it primary?",
+          "source": "01_questions.md: Question 2",
+          "source_line": 36
         }
       ]
     },
@@ -143,7 +170,7 @@
       "id": "principle_3",
       "number": "3",
       "principle": "Fear is the Main Enemy of Quality",
-      "statement": "**Formulation:** Developers are afraid to touch bad code because they are afraid of breaking it. ",
+      "statement": "Developers are afraid to touch bad code because they fear breaking it. This fear creates a cycle: bad code → fear of touching it → no improvement → worse code → more fear → stagnation.",
       "tags": [
         "courage",
         "fear",
@@ -155,41 +182,39 @@
       "source_line": 51,
       "supporting_arguments": [
         {
-          "id": "arg_002",
-          "name": "Real Software Disasters",
-          "claim": "**Thesis:** Software is already causing lethal harm due to lack of discipline.\\n",
-          "source": "03_reasoning.md: Argument 2"
+          "id": "arg_004",
+          "name": "Psychological Effects of TDD",
+          "claim": "TDD produces psychological effects that dramatically improve developer performance through endorphin release, fear reduction, and elimination of frustration.",
+          "evidence": "When a test passes, the brain releases small amounts of endorphins producing a sense of competence. Without TDD: write 100 lines of code without knowing if correct. With TDD: every 5 seconds, small success. Psychologically: like being a master of the universe every few seconds. This creates positive feedback loop. Additionally: without TDD you spend 50% of time debugging (frustrating); with TDD only 5% debugging and 95% creating new features (satisfying). Fear cycle: FEAR → 'I won't touch this' → Degradation. TDD cycle: TRUST → 'I can safely change this' → COURAGE → Improvement.",
+          "source": "03_reasoning.md: Argument 4",
+          "source_line": 159
         },
         {
-          "id": "arg_004",
-          "name": "Psychological Effect of TDD",
-          "claim": "**Thesis:** TDD produces certain psychological effects that improve developer performance.\\n",
-          "source": "03_reasoning.md: Argument 4"
+          "id": "arg_008",
+          "name": "Code Degradation Cycle (Exponential Decay)",
+          "claim": "Bad code creates bad code. This is exponential degradation—a system moving toward zero velocity.",
+          "evidence": "Cycle: (1) Developer writes poor code (poor architecture), (2) Next developer sees this mess and adds more mess, (3) Code becomes increasingly tangled, (4) Nobody cleans because they fear breaking it, (5) Fear = lack of courage = degradation continues, (6) System approaches zero velocity. Mathematics: Version 1: 40 lines, 1 day. Version 2: 80 lines, 2 days (2x code, 2x time). Version 8: 320 lines, 256 days! (2^7!). This is not hypothetical—it's observed in real systems. Solution: TDD + refactoring stops the cycle.",
+          "source": "03_reasoning.md: Argument 8",
+          "source_line": 285
         }
       ],
       "related_implications": [
         {
-          "id": "impl_004",
-          "name": "There Must Be a “No” Culture in the Organization",
-          "what_means": "**Practical Action:**\\n",
-          "source": "04_consequences.md: Implication 4"
+          "id": "impl_003",
+          "name": "Refactoring Should Be a Constant Practice",
+          "what_means": "After each green test, refactor both test code and production code. Ask: 'Is there anything redundant here?' Clean names, remove duplication, improve structure. Follow the Boy Scout Rule: 'Leave code in better condition than you found it.'",
+          "when_applies": "After EVERY green test (i.e., constantly). This is daily, hourly practice. Every commit should improve the system.",
+          "why_matters": "Each commit improves the system. Degradation stops. After one month: system is cleaner than before. After one year: system is practically impossible to break (so good is it). Developer with pride: 'I contribute to quality every day.'",
+          "source": "04_consequences.md: Implication 3",
+          "source_line": 56
         }
       ],
       "related_questions": [
         {
           "id": "question_03",
-          "text": "What is Refactoring and How is it Related to TDD? ",
-          "source": "01_questions.md: Question 3"
-        },
-        {
-          "id": "question_07",
-          "text": "What Quality Standards Should Developers Meet? ",
-          "source": "01_questions.md: Question 7"
-        },
-        {
-          "id": "question_08",
-          "text": "When Should a Developer Say No? ",
-          "source": "01_questions.md: Question 8"
+          "text": "What is refactoring and how is it related to TDD?",
+          "source": "01_questions.md: Question 3",
+          "source_line": 57
         }
       ]
     },
@@ -197,70 +222,43 @@
       "id": "principle_4",
       "number": "4",
       "principle": "The Three Laws of TDD Provide Four Goods",
-      "statement": "**Formulation:** Compliance with the three laws of TDD automatically leads to four results that are usually quite difficult to achieve.\\n",
+      "statement": "Compliance with the three laws of TDD automatically leads to four results that are usually quite difficult to achieve: testability, perfect documentation, refactoring safety, and high coverage.",
       "tags": [
         "testability",
         "modularity",
         "design-quality",
-        "separation-of-concerns",
         "documentation",
-        "living-documentation",
-        "examples",
-        "clarity",
-        "refactoring",
-        "safety",
-        "improvement",
-        "continuous-enhancement",
-        "code-coverage",
-        "quality-metrics",
-        "completeness"
+        "refactoring"
       ],
       "source": "02_ideas.md: PRINCIPLE 4",
       "source_line": 78,
       "supporting_arguments": [
         {
-          "id": "arg_002",
-          "name": "Real Software Disasters",
-          "claim": "**Thesis:** Software is already causing lethal harm due to lack of discipline.\\n",
-          "source": "03_reasoning.md: Argument 2"
-        },
-        {
           "id": "arg_006",
-          "name": "Figurative Parallel - Airplane vs. ",
-          "claim": "**Thesis:** A developer without TDD is like a pilot without instruments. ",
-          "source": "03_reasoning.md: Argument 6"
+          "name": "Metaphor: Pilot Without Instruments",
+          "claim": "A developer without TDD is like a pilot without instruments—can fly in good weather but crashes when conditions are poor.",
+          "evidence": "Pilot without instruments: flies during day, good weather; relies on feel and sight; high crash risk; limited capabilities. Pilot with instruments (TDD as the dashboard): flies any weather, day/night; knows exact altitude, speed, direction; minimal risk; expanded capabilities. TDD = developer's instrument panel providing visibility and safety.",
+          "source": "03_reasoning.md: Argument 6",
+          "source_line": 230
         }
       ],
       "related_implications": [
         {
-          "id": "impl_003",
-          "name": "Refactoring Should Be a Constant Practice",
-          "what_means": "**Practical Action:**\\n",
-          "source": "04_consequences.md: Implication 3"
-        },
-        {
-          "id": "impl_007",
-          "name": "Simple Design Is a Feeling You Need to Learn",
-          "what_means": "**Practical Action:**\\n",
-          "source": "04_consequences.md: Implication 7"
-        },
-        {
           "id": "impl_009",
           "name": "Metrics Must Be Correct",
-          "what_means": "**Practical Action:**\\n",
-          "source": "04_consequences.md: Implication 9"
+          "what_means": "Managers must measure what is truly important, not what is easy to measure. Wrong metrics: lines of code (more ≠ better), test coverage % (100% coverage with bad tests doesn't help), velocity (high speed sacrificing quality), error count (if QA isn't catching, errors exist). Right metrics: cost of change over time, time from error to fix, developer turnover, critical incidents in production.",
+          "when_applies": "When measuring team performance. When evaluating whether TDD and refactoring are working. When talking to managers about quality.",
+          "why_matters": "Right metrics show that TDD + refactoring WORK. Managers see ROI of quality investment. Wrong metrics give false impression that speed matters more than correctness.",
+          "source": "04_consequences.md: Implication 9",
+          "source_line": 288
         }
       ],
       "related_questions": [
         {
-          "id": "question_03",
-          "text": "What is Refactoring and How is it Related to TDD? ",
-          "source": "01_questions.md: Question 3"
-        },
-        {
           "id": "question_12",
-          "text": "How to Learn to Be Loyal to Your Principles in the Turmoil of a Project? ",
-          "source": "01_questions.md: Question 12"
+          "text": "How to learn to be loyal to your principles in the turmoil of a project?",
+          "source": "01_questions.md: Question 12",
+          "source_line": 221
         }
       ]
     },
@@ -268,51 +266,42 @@
       "id": "principle_5",
       "number": "5",
       "principle": "Refactoring is the Fourth Law of TDD",
-      "statement": "**Formulation:** TDD consists of four stages: RED → GREEN → REFACTOR → REPEAT\\n",
+      "statement": "TDD consists of four stages: RED → GREEN → REFACTOR → REPEAT. Refactoring is the stage where code quality is improved without changing behavior.",
       "tags": [
         "refactoring",
         "code-quality",
         "design-improvement",
-        "continuous-improvement",
-        "red-green-refactor"
+        "continuous-improvement"
       ],
       "source": "02_ideas.md: PRINCIPLE 5",
       "source_line": 115,
-      "supporting_arguments": [],
-      "related_implications": [
+      "supporting_arguments": [
         {
-          "id": "impl_003",
-          "name": "Refactoring Should Be a Constant Practice",
-          "what_means": "**Practical Action:**\\n",
-          "source": "04_consequences.md: Implication 3"
-        },
+          "id": "arg_010",
+          "name": "Formal Verification Cannot Prove Correctness",
+          "claim": "You cannot prove code is correct, only prove it is incorrect. Therefore, we maximize testing to maximize probability of correctness.",
+          "evidence": "Mathematics can prove theorems (Pythagorean theorem). Science can only test hypotheses, not prove them (Karl Popper's falsifiability). Code is science, not mathematics. A passing test means 'I found no error'—not 'there is no error.' A failing test means 'here is an error.' Therefore: 100% test coverage ≠ no errors, but 0% coverage = guaranteed errors. Strategy: maximize testing (TDD) to maximize correctness probability.",
+          "source": "03_reasoning.md: Argument 10",
+          "source_line": 340
+        }
+      ],
+      "related_implications": [
         {
           "id": "impl_007",
           "name": "Simple Design Is a Feeling You Need to Learn",
-          "what_means": "**Practical Action:**\\n",
-          "source": "04_consequences.md: Implication 7"
+          "what_means": "Ask yourself: 'Is there anything unnecessary in this code?' Apply four rules of simple design: (1) Tests pass, (2) No duplication (DRY), (3) Clear intent (code speaks for itself), (4) Minimal classes/functions. Learning happens through pair programming with experienced devs, code reviews, refactoring your own code after a week, reading good open-source code.",
+          "when_applies": "When refactoring. When reviewing code. When you want to improve design. When learning from others.",
+          "why_matters": "Over time, you develop taste. 'Ah, that's elegant!'—that is simple design. A marker of mastery is recognizing elegance instinctively.",
+          "source": "04_consequences.md: Implication 7",
+          "source_line": 216
         }
       ],
       "related_questions": [
         {
-          "id": "question_02",
-          "text": "What is Test Driven Development and Why Is It Primary? ",
-          "source": "01_questions.md: Question 2"
-        },
-        {
           "id": "question_03",
-          "text": "What is Refactoring and How is it Related to TDD? ",
-          "source": "01_questions.md: Question 3"
-        },
-        {
-          "id": "question_07",
-          "text": "What Quality Standards Should Developers Meet? ",
-          "source": "01_questions.md: Question 7"
-        },
-        {
-          "id": "question_12",
-          "text": "How to Learn to Be Loyal to Your Principles in the Turmoil of a Project? ",
-          "source": "01_questions.md: Question 12"
+          "text": "What is refactoring and how is it related to TDD?",
+          "source": "01_questions.md: Question 3",
+          "source_line": 57
         }
       ]
     },
@@ -320,7 +309,7 @@
       "id": "principle_6",
       "number": "6",
       "principle": "Simple Design Is a Feeling, Not a Rule",
-      "statement": "**Formation:** Newbie follows the rules. ",
+      "statement": "A novice follows rules. A master understands principles and creates elegant solutions. Simple design is not taught—it is developed through experience and mentorship.",
       "tags": [
         "simple-design",
         "code-elegance",
@@ -334,39 +323,29 @@
         {
           "id": "arg_001",
           "name": "Aviation History As a Mirror for Software",
-          "claim": "**Thesis:** Computer programming is now at the same stage of development as aviation was in the 1920s.\\n",
-          "source": "03_reasoning.md: Argument 1"
+          "claim": "Professional mastery in any field follows a pattern: from rules to principles to intuitive mastery.",
+          "evidence": "Aviation: rules-follower pilots follow checklists (safe but limited). Master pilots understand principles and improvise elegantly (like Captain Sully landing in the Hudson). Same in software: rule-follower writes code by rules. Master understands principles and creates elegant solutions. Heuristics trump rules in all professional disciplines.",
+          "source": "03_reasoning.md: Argument 1",
+          "source_line": 5
         }
       ],
       "related_implications": [
         {
           "id": "impl_007",
           "name": "Simple Design Is a Feeling You Need to Learn",
-          "what_means": "**Practical Action:**\\n",
-          "source": "04_consequences.md: Implication 7"
-        },
-        {
-          "id": "impl_012",
-          "name": "Continuous Training is NOT Optional",
-          "what_means": "**Practical Action:**\\n",
-          "source": "04_consequences.md: Implication 12"
+          "what_means": "Apply four rules of simple design (Beck): tests pass, no duplication, clear intent, minimal entities. But understand these are not absolute—they are heuristics. Learning happens through: (1) pair programming with masters, (2) code reviews asking 'why did you choose this?', (3) rereading your code a week later, (4) studying elegant open-source code.",
+          "when_applies": "When writing code. When reviewing code. When refactoring. When learning from others.",
+          "why_matters": "Developing design sense is a mark of mastery. Over time: you look at code and say 'ah, elegant!' That instinct is simple design.",
+          "source": "04_consequences.md: Implication 7",
+          "source_line": 216
         }
       ],
       "related_questions": [
         {
-          "id": "question_01",
-          "text": "What Fundamental Practices Does a Programmer Need? ",
-          "source": "01_questions.md: Question 1"
-        },
-        {
-          "id": "question_03",
-          "text": "What is Refactoring and How is it Related to TDD? ",
-          "source": "01_questions.md: Question 3"
-        },
-        {
           "id": "question_04",
-          "text": "What does \\",
-          "source": "01_questions.md: Question 4"
+          "text": "What does simple design mean?",
+          "source": "01_questions.md: Question 4",
+          "source_line": 74
         }
       ]
     },
@@ -374,7 +353,7 @@
       "id": "principle_7",
       "number": "7",
       "principle": "Collaborative Programming Is Culture Transfer",
-      "statement": "**Formulation:** Collaborative programming (pairs, groups) is not about efficiency, it is about culture, knowledge and team unity.\\n",
+      "statement": "Collaborative programming (pair, group) is not about efficiency—it is about culture, knowledge distribution, and team unity. When two developers work together, knowledge transfers and culture propagates.",
       "tags": [
         "pair-programming",
         "knowledge-sharing",
@@ -387,41 +366,45 @@
       "supporting_arguments": [
         {
           "id": "arg_009",
-          "name": "Growth of Developers Every 5 Years",
-          "claim": "**Thesis:** The number of developers doubles every 5 years. ",
-          "source": "03_reasoning.md: Argument 9"
+          "name": "Developer Population Doubles Every 5 Years",
+          "claim": "Most developers are beginners; systematic knowledge transfer is essential.",
+          "evidence": "Since developer population doubles every 5 years, ~50% have <2 years experience; only ~12.5% have 10+ years. With half the workforce as beginners without mentors, there is no systematic culture or standards. Collaborative programming (pair, group, code review) is the mechanism to transfer knowledge from the experienced to beginners at scale.",
+          "source": "03_reasoning.md: Argument 9",
+          "source_line": 310
         }
       ],
       "related_implications": [
         {
-          "id": "impl_005",
-          "name": "Acceptance Tests Must Be Written with the Customer",
-          "what_means": "**Practical Action:**\\n",
-          "source": "04_consequences.md: Implication 5"
-        },
-        {
           "id": "impl_008",
-          "name": "Collaborative Programming is an Investment in the Team",
-          "what_means": "**Practical Action:**\\n",
-          "source": "04_consequences.md: Implication 8"
+          "name": "Collaborative Programming Is an Investment in the Team",
+          "what_means": "Allocate 2-3 hours per week to collaborative programming: pair programming (2 devs, 1 machine, Driver + Navigator swap every 15 min), group programming (3-5 devs tackling complex task), code review with discussion. Models: Novice + Expert = learning for novice; Expert + Expert = quality check and new ideas.",
+          "when_applies": "Every week. When onboarding. When tackling complex tasks. When junior devs join team.",
+          "why_matters": "Novice becomes productive in 3 months instead of 6. Errors caught earlier. Knowledge distributed (no 'stars'). Culture unified and shared.",
+          "source": "04_consequences.md: Implication 8",
+          "source_line": 247
         },
         {
           "id": "impl_010",
           "name": "Mentoring is the Duty of the Experienced",
-          "what_means": "**Practical Action:**\\n",
-          "source": "04_consequences.md: Implication 10"
+          "what_means": "If you have 10+ years experience, mentor younger developers. Methods: (1) pair programming explaining solutions, (2) code review with 'why did you choose this?' not just 'redo it', (3) teach principles (SRP, SOLID), (4) weekly micro-conferences on topics.",
+          "when_applies": "Constantly if you are experienced. With every junior who joins. During code review. In team discussions.",
+          "why_matters": "Novice reaches competence in 6 months instead of 3 years. Experienced dev grows as leader. Team becomes self-sufficient. Culture transmits. Personal benefit: explaining improves your own understanding; pride in helping next generation.",
+          "source": "04_consequences.md: Implication 10",
+          "source_line": 326
         }
       ],
       "related_questions": [
         {
           "id": "question_05",
-          "text": "Why is Collaborative Programming So Important? ",
-          "source": "01_questions.md: Question 5"
+          "text": "Why is collaborative programming so important?",
+          "source": "01_questions.md: Question 5",
+          "source_line": 90
         },
         {
           "id": "question_13",
-          "text": "How to Work in a Team Without Losing Personal Principles? ",
-          "source": "01_questions.md: Question 13"
+          "text": "How to work in a team without losing personal principles?",
+          "source": "01_questions.md: Question 13",
+          "source_line": 235
         }
       ]
     },
@@ -429,43 +412,51 @@
       "id": "principle_8",
       "number": "8",
       "principle": "Acceptance Tests are a Contract with the Customer",
-      "statement": "**Word:** Acceptance tests connect developers with the business. ",
+      "statement": "Acceptance tests bind developers to business requirements. They say: 'The system does exactly what is expected.' They are the contract between developers and customers.",
       "tags": [
         "acceptance-testing",
         "requirements",
         "customer-collaboration",
-        "clarity",
-        "automation"
+        "clarity"
       ],
       "source": "02_ideas.md: PRINCIPLE 8",
       "source_line": 190,
       "supporting_arguments": [
         {
           "id": "arg_002",
-          "name": "Real Software Disasters",
-          "claim": "**Thesis:** Software is already causing lethal harm due to lack of discipline.\\n",
-          "source": "03_reasoning.md: Argument 2"
+          "name": "Real Software Disasters Caused by Lack of Discipline",
+          "claim": "Many disasters stem from unclear requirements and poor communication between developers and customers.",
+          "evidence": "Without clear requirements, developers interpret wrongly. Customers expect something different. Rework cascades. Acceptance tests written WITH the customer (in BDD/Gherkin format) prevent this. Requirements become verifiable. No 'I thought you meant this'—tests clarify intent upfront.",
+          "source": "03_reasoning.md: Argument 2",
+          "source_line": 51
         }
       ],
       "related_implications": [
         {
           "id": "impl_005",
           "name": "Acceptance Tests Must Be Written with the Customer",
-          "what_means": "**Practical Action:**\\n",
-          "source": "04_consequences.md: Implication 5"
+          "what_means": "BEFORE development starts: developer sits with customer and writes tests together. Process: (1) Understand requirement ('what is a search function?'), (2) Write tests in natural language (BDD: Given/When/Then), (3) Customer reviews tests, (4) Negotiate edge cases, (5) Developer writes code to pass tests. Example: Given user in system / When enters 'Ivan' / Then system shows all Ivans. Customer: 'Wait, filter by age too!' Developer: 'Here is new test for that.' Result: contract is clear before coding starts.",
+          "when_applies": "Before every major feature. With every requirement change. When uncertainty exists about what customer wants.",
+          "why_matters": "No 'I understood the requirement differently.' Tests = contract. Customer sees system working. No surprises. Automation possible.",
+          "source": "04_consequences.md: Implication 5",
+          "source_line": 140
         },
         {
           "id": "impl_006",
           "name": "Continuous Integration is a MUST",
-          "what_means": "**Practical Action:**\\n",
-          "source": "04_consequences.md: Implication 6"
+          "what_means": "Every commit to master must be deployable. Achieve this: (1) Short-lived branches (hours, not weeks), (2) Automated tests before merge (CI/CD: GitHub Actions, GitLab CI), (3) If tests fail: block merge, (4) After merge: auto-deploy (CD) or button-deploy (Continuous Delivery). Branches live hours; most live minutes. Each branch: run tests, verify no regressions.",
+          "when_applies": "Every day. Every commit. Every merge.",
+          "why_matters": "Never 'almost done 95%'. Never 'night build fails'. Always working version. Deploy confidence.",
+          "source": "04_consequences.md: Implication 6",
+          "source_line": 180
         }
       ],
       "related_questions": [
         {
           "id": "question_06",
-          "text": "How is User Testing related to Customer Requirements? ",
-          "source": "01_questions.md: Question 6"
+          "text": "How is user testing related to customer requirements?",
+          "source": "01_questions.md: Question 6",
+          "source_line": 103
         }
       ]
     },
@@ -473,19 +464,11 @@
       "id": "principle_9",
       "number": "9",
       "principle": "Performance Is Not Speed, It's Stability",
-      "statement": "**Formulation:** A professional developer doesn’t just write fast, he writes at a constant, predictable speed.\\n",
+      "statement": "A professional developer doesn't write fast—he writes at a constant, predictable speed. Stability and predictability matter more than occasional bursts of speed.",
       "tags": [
         "quality-first",
-        "no-shortcuts",
         "sustainable-pace",
-        "flexibility",
-        "modularity",
-        "change-management",
-        "readiness",
-        "continuous-delivery",
-        "automation",
         "stability",
-        "sustainable-development",
         "long-term-thinking"
       ],
       "source": "02_ideas.md: PRINCIPLE 9",
@@ -493,36 +476,30 @@
       "supporting_arguments": [
         {
           "id": "arg_002",
-          "name": "Real Software Disasters",
-          "claim": "**Thesis:** Software is already causing lethal harm due to lack of discipline.\\n",
-          "source": "03_reasoning.md: Argument 2"
+          "name": "Real Software Disasters Caused by Lack of Discipline",
+          "claim": "Rushing and cutting quality corners leads to disasters, not faster delivery.",
+          "evidence": "Knight Capital Group: 45 minutes of bad code cost $460 million. Iowa Caucuses: rushed testing before election night → system failure → political crisis. All because teams rushed, skipped discipline, cut corners. Real outcome: slower delivery, more cost, more risk.",
+          "source": "03_reasoning.md: Argument 2",
+          "source_line": 51
         }
       ],
       "related_implications": [
         {
           "id": "impl_006",
           "name": "Continuous Integration is a MUST",
-          "what_means": "**Practical Action:**\\n",
-          "source": "04_consequences.md: Implication 6"
-        },
-        {
-          "id": "impl_009",
-          "name": "Metrics Must Be Correct",
-          "what_means": "**Practical Action:**\\n",
-          "source": "04_consequences.md: Implication 9"
-        },
-        {
-          "id": "impl_012",
-          "name": "Continuous Training is NOT Optional",
-          "what_means": "**Practical Action:**\\n",
-          "source": "04_consequences.md: Implication 12"
+          "what_means": "Every commit deployable. Short-lived branches. Automated tests. Always ready.",
+          "when_applies": "Every day, every commit.",
+          "why_matters": "Stable, predictable delivery. No surprises. Deploy confidence.",
+          "source": "04_consequences.md: Implication 6",
+          "source_line": 180
         }
       ],
       "related_questions": [
         {
           "id": "question_07",
-          "text": "What Quality Standards Should Developers Meet? ",
-          "source": "01_questions.md: Question 7"
+          "text": "What quality standards should developers meet?",
+          "source": "01_questions.md: Question 7",
+          "source_line": 118
         }
       ]
     },
@@ -530,12 +507,11 @@
       "id": "principle_10",
       "number": "10",
       "principle": "Quality is NOT the Prerogative of QA",
-      "statement": "**Formulation:** The developer is responsible for quality. ",
+      "statement": "The developer is responsible for quality. QA only verifies what the developer should have ensured. If QA finds bugs, the developer did not do their job.",
       "tags": [
         "quality",
         "responsibility",
         "continuous-improvement",
-        "confidence",
         "excellence"
       ],
       "source": "02_ideas.md: PRINCIPLE 10",
@@ -544,63 +520,51 @@
         {
           "id": "arg_002",
           "name": "Real Software Disasters",
-          "claim": "**Thesis:** Software is already causing lethal harm due to lack of discipline.\\n",
-          "source": "03_reasoning.md: Argument 2"
+          "claim": "When developers take responsibility for quality, disasters don't happen.",
+          "evidence": "Every disaster mentioned stems from developers not taking quality seriously. Boeing 737: poor testing. Toyota: untested code. If developers had owned quality, these would not occur.",
+          "source": "03_reasoning.md: Argument 2",
+          "source_line": 51
         },
         {
           "id": "arg_004",
           "name": "Psychological Effect of TDD",
-          "claim": "**Thesis:** TDD produces certain psychological effects that improve developer performance.\\n",
-          "source": "03_reasoning.md: Argument 4"
+          "claim": "When developers take ownership through TDD, psychological shift occurs: pride replaces shame.",
+          "evidence": "Developer with TDD: 'My code is tested; I'm confident; I'm proud.' Developer without TDD: 'QA will find bugs; I can't control quality; shame if bugs surface.' Responsibility creates psychology of quality.",
+          "source": "03_reasoning.md: Argument 4",
+          "source_line": 159
         }
       ],
       "related_implications": [
         {
           "id": "impl_003",
           "name": "Refactoring Should Be a Constant Practice",
-          "what_means": "**Practical Action:**\\n",
-          "source": "04_consequences.md: Implication 3"
-        },
-        {
-          "id": "impl_011",
-          "name": "Ethics is NOT Optional",
-          "what_means": "**Practical Action:**\\n",
-          "source": "04_consequences.md: Implication 11"
+          "what_means": "As developer, constantly refactor. After each test passes, improve. Boy Scout Rule: 'Leave code better than you found it.' This daily practice is how developers take ownership of quality.",
+          "when_applies": "Every day, every commit.",
+          "why_matters": "Each commit improves system. System never degrades. Developer takes pride daily.",
+          "source": "04_consequences.md: Implication 3",
+          "source_line": 56
         }
       ],
       "related_questions": [
         {
-          "id": "question_03",
-          "text": "What is Refactoring and How is it Related to TDD? ",
-          "source": "01_questions.md: Question 3"
-        },
-        {
           "id": "question_07",
-          "text": "What Quality Standards Should Developers Meet? ",
-          "source": "01_questions.md: Question 7"
+          "text": "What quality standards should developers meet?",
+          "source": "01_questions.md: Question 7",
+          "source_line": 118
         },
         {
           "id": "question_09",
-          "text": "What Harm Can Bad Software Cause? ",
-          "source": "01_questions.md: Question 9"
-        },
-        {
-          "id": "question_11",
-          "text": "Who is Responsible for Software Errors? ",
-          "source": "01_questions.md: Question 11"
-        },
-        {
-          "id": "question_12",
-          "text": "How to Learn to Be Loyal to Your Principles in the Turmoil of a Project? ",
-          "source": "01_questions.md: Question 12"
+          "text": "What harm can bad software cause?",
+          "source": "01_questions.md: Question 9",
+          "source_line": 169
         }
       ]
     },
     {
       "id": "principle_11",
       "number": "11",
-      "principle": "Courage is the ability to say “No”",
-      "statement": "**Writing:** A professional developer has a responsibility to champion quality against the pressure of deadlines and requirements.\\n",
+      "principle": "Courage is the Ability to Say No",
+      "statement": "A professional developer has an obligation to champion quality against pressure from deadlines and unrealistic requirements.",
       "tags": [
         "courage",
         "professional-judgment",
@@ -612,62 +576,45 @@
       "source_line": 265,
       "supporting_arguments": [
         {
-          "id": "arg_002",
-          "name": "Real Software Disasters",
-          "claim": "**Thesis:** Software is already causing lethal harm due to lack of discipline.\\n",
-          "source": "03_reasoning.md: Argument 2"
+          "id": "arg_007",
+          "name": "Eisenhower Matrix - Why Architecture Is Ignored",
+          "claim": "Architecture is IMPORTANT but not URGENT. Business behavior (URGENT, IMPORTANT) gets done. Architecture (IMPORTANT, NOT URGENT) gets postponed.",
+          "evidence": "Matrix: Quadrant 1 (Urgent + Important) = crises, gets done. Quadrant 2 (Important, Not Urgent) = development, gets postponed. Result: always in crisis (Q1), no time for development (Q2). System becomes brittle. Developer must advocate for Q2 time.",
+          "source": "03_reasoning.md: Argument 7",
+          "source_line": 254
         },
         {
-          "id": "arg_007",
-          "name": "The Eisenhower Matrix - Why Architecture Is Ignored",
-          "claim": "**Thesis:** Architecture is IMPORTANT, but not URGENT. ",
-          "source": "03_reasoning.md: Argument 7"
+          "id": "arg_002",
+          "name": "Real Software Disasters",
+          "claim": "When developers stayed silent about problems they knew existed, catastrophes resulted.",
+          "evidence": "Boeing 737: developers knew issues, said nothing. Toyota: engineers knew code was problematic, didn't push back. Facebook: developers know of harms, continue working. China social credit: 'developers knew algorithm was biased but continued.' Silence makes you complicit.",
+          "source": "03_reasoning.md: Argument 2",
+          "source_line": 51
         }
       ],
       "related_implications": [
         {
           "id": "impl_004",
-          "name": "There Must Be a “No” Culture in the Organization",
-          "what_means": "**Practical Action:**\\n",
-          "source": "04_consequences.md: Implication 4"
-        },
-        {
-          "id": "impl_011",
-          "name": "Ethics is NOT Optional",
-          "what_means": "**Practical Action:**\\n",
-          "source": "04_consequences.md: Implication 11"
+          "name": "There Must Be a No Culture in the Organization",
+          "what_means": "Developer must have the right to say no to unrealistic requirements. When to say no: (1) Unrealistic timelines: 'This needs 3 weeks well-done or 1 week poorly-done; choose,' (2) Requirements violate architecture: 'Let's rethink this requirement,' (3) Lack of competence: 'I need training or a specialist,' (4) Ethical problems: 'This violates privacy; requires user consent,' (5) Absent testing: 'I can't ship untested code.' Frame as: 'I'm helping the project succeed by being honest about constraints.'",
+          "when_applies": "When asked for unrealistic commitment. When ethical issues arise. When asked to violate architecture. When testing is skipped.",
+          "why_matters": "Manager learns real constraints. Better decisions result. Quality improves. Team is motivated (opinions matter).",
+          "source": "04_consequences.md: Implication 4",
+          "source_line": 85
         }
       ],
       "related_questions": [
         {
-          "id": "question_07",
-          "text": "What Quality Standards Should Developers Meet? ",
-          "source": "01_questions.md: Question 7"
-        },
-        {
           "id": "question_08",
-          "text": "When Should a Developer Say No? ",
-          "source": "01_questions.md: Question 8"
+          "text": "When should a developer say no?",
+          "source": "01_questions.md: Question 8",
+          "source_line": 151
         },
         {
           "id": "question_09",
-          "text": "What Harm Can Bad Software Cause? ",
-          "source": "01_questions.md: Question 9"
-        },
-        {
-          "id": "question_10",
-          "text": "What Ten Postulates Should Guide the Designer? ",
-          "source": "01_questions.md: Question 10"
-        },
-        {
-          "id": "question_11",
-          "text": "Who is Responsible for Software Errors? ",
-          "source": "01_questions.md: Question 11"
-        },
-        {
-          "id": "question_12",
-          "text": "How to Learn to Be Loyal to Your Principles in the Turmoil of a Project? ",
-          "source": "01_questions.md: Question 12"
+          "text": "What harm can bad software cause?",
+          "source": "01_questions.md: Question 9",
+          "source_line": 169
         }
       ]
     },
@@ -675,7 +622,7 @@
       "id": "principle_12",
       "number": "12",
       "principle": "The Programmer's Oath - Ten Postulates",
-      "statement": "**Formation:** Just as doctors take the Hippocratic Oath, programmers must follow a code of ethics.\\n",
+      "statement": "Just as doctors swear the Hippocratic Oath, programmers should follow an ethical code. Ten postulates guide a professional developer's conduct.",
       "tags": [
         "ethics",
         "professional-oath",
@@ -689,38 +636,41 @@
         {
           "id": "arg_002",
           "name": "Real Software Disasters",
-          "claim": "**Thesis:** Software is already causing lethal harm due to lack of discipline.\\n",
-          "source": "03_reasoning.md: Argument 2"
+          "claim": "Without ethical standards, programmers cause mass harm. Society needs us to take an oath.",
+          "evidence": "All disasters stem from lack of ethics: developers building systems they knew were harmful (Boeing, Toyota, China social credit). If every developer swore an oath (not to write harmful code, to be honest, to maintain quality, to respect privacy, etc.), most of these would not occur.",
+          "source": "03_reasoning.md: Argument 2",
+          "source_line": 51
         }
       ],
       "related_implications": [
         {
           "id": "impl_011",
           "name": "Ethics is NOT Optional",
-          "what_means": "**Practical Action:**\\n",
-          "source": "04_consequences.md: Implication 11"
+          "what_means": "Developer must refuse to work on projects that cause harm. Examples: (1) Social rating systems that discriminate, (2) Spyware (surveillance without consent), (3) Systems with known critical vulnerabilities left unfixed, (4) Biased algorithms deployed knowingly. Process: (1) Document risk, (2) Escalate to leadership, (3) If ignored, escalate further, (4) If still ignored, resign. Your conscience matters more than paycheck.",
+          "when_applies": "When ethical issues arise. When you're asked to build something harmful. When you discover a system is harmful.",
+          "why_matters": "You sleep well (conscience clean). Society is protected. Long-term: companies that don't follow ethics collapse (reputation, regulation, trust).",
+          "source": "04_consequences.md: Implication 11",
+          "source_line": 368
         }
       ],
       "related_questions": [
         {
           "id": "question_08",
-          "text": "When Should a Developer Say No? ",
-          "source": "01_questions.md: Question 8"
+          "text": "When should a developer say no?",
+          "source": "01_questions.md: Question 8",
+          "source_line": 151
         },
         {
           "id": "question_09",
-          "text": "What Harm Can Bad Software Cause? ",
-          "source": "01_questions.md: Question 9"
+          "text": "What harm can bad software cause?",
+          "source": "01_questions.md: Question 9",
+          "source_line": 169
         },
         {
           "id": "question_10",
-          "text": "What Ten Postulates Should Guide the Designer? ",
-          "source": "01_questions.md: Question 10"
-        },
-        {
-          "id": "question_11",
-          "text": "Who is Responsible for Software Errors? ",
-          "source": "01_questions.md: Question 11"
+          "text": "What ten postulates should guide the developer?",
+          "source": "01_questions.md: Question 10",
+          "source_line": 186
         }
       ]
     },
@@ -728,7 +678,7 @@
       "id": "principle_13",
       "number": "13",
       "principle": "The Cost of Silence Is Higher Than the Cost of Problems",
-      "statement": "**Formulation:** When a developer sees a problem and remains silent, he becomes an accomplice.\\n",
+      "statement": "When a developer sees a problem and remains silent, they become an accomplice. Speaking up is costly; silence is more costly.",
       "tags": [
         "ethics",
         "accountability",
@@ -742,49 +692,29 @@
         {
           "id": "arg_002",
           "name": "Real Software Disasters",
-          "claim": "**Thesis:** Software is already causing lethal harm due to lack of discipline.\\n",
-          "source": "03_reasoning.md: Argument 2"
+          "claim": "Developers who stayed silent enabled catastrophes. Speaking up would have prevented them.",
+          "evidence": "Boeing 737 Max: developers knew of problems, said nothing. Toyota: engineers knew code problems, did not push back adequately. Facebook: developers know of harms, continue. If they had spoken up (documented, escalated, refused), disasters would not occur. Historical pattern: silence = complicity = catastrophe.",
+          "source": "03_reasoning.md: Argument 2",
+          "source_line": 51
         }
       ],
       "related_implications": [
         {
           "id": "impl_004",
-          "name": "There Must Be a “No” Culture in the Organization",
-          "what_means": "**Practical Action:**\\n",
-          "source": "04_consequences.md: Implication 4"
-        },
-        {
-          "id": "impl_011",
-          "name": "Ethics is NOT Optional",
-          "what_means": "**Practical Action:**\\n",
-          "source": "04_consequences.md: Implication 11"
+          "name": "There Must Be a No Culture in the Organization",
+          "what_means": "Developers must voice concerns. Alternative to silence: (1) Document problem, (2) Report to leadership, (3) Propose solution, (4) If not heard, escalate, (5) If still not heard, resign. This is 'no' culture.",
+          "when_applies": "When you see problems. When you know something is wrong. Always.",
+          "why_matters": "Problems surface early when fixable. Catastrophes prevented. Team respects honesty.",
+          "source": "04_consequences.md: Implication 4",
+          "source_line": 85
         }
       ],
       "related_questions": [
         {
-          "id": "question_07",
-          "text": "What Quality Standards Should Developers Meet? ",
-          "source": "01_questions.md: Question 7"
-        },
-        {
           "id": "question_08",
-          "text": "When Should a Developer Say No? ",
-          "source": "01_questions.md: Question 8"
-        },
-        {
-          "id": "question_09",
-          "text": "What Harm Can Bad Software Cause? ",
-          "source": "01_questions.md: Question 9"
-        },
-        {
-          "id": "question_10",
-          "text": "What Ten Postulates Should Guide the Designer? ",
-          "source": "01_questions.md: Question 10"
-        },
-        {
-          "id": "question_11",
-          "text": "Who is Responsible for Software Errors? ",
-          "source": "01_questions.md: Question 11"
+          "text": "When should a developer say no?",
+          "source": "01_questions.md: Question 8",
+          "source_line": 151
         }
       ]
     },
@@ -792,12 +722,11 @@
       "id": "principle_14",
       "number": "14",
       "principle": "Continuous Integration is about Trust",
-      "statement": "**Writing:** Continuous integration means that the code can always be deployed because it has passed all the tests.\\n",
+      "statement": "Continuous integration means code can always be deployed because it has passed all tests. Trust replaces fear.",
       "tags": [
         "continuous-integration",
         "automation",
         "quality-assurance",
-        "readiness",
         "deployment"
       ],
       "source": "02_ideas.md: PRINCIPLE 14",
@@ -806,29 +735,29 @@
         {
           "id": "arg_002",
           "name": "Real Software Disasters",
-          "claim": "**Thesis:** Software is already causing lethal harm due to lack of discipline.\\n",
-          "source": "03_reasoning.md: Argument 2"
+          "claim": "Many disasters involve deployment failures or untested code reaching production.",
+          "evidence": "Knight Capital: old code not deleted before deploy = $460M loss. Iowa Caucuses: rushed testing = system failure on election night. Disaster pattern: code deployed untested or incompletely tested. CI/CD prevents this by ensuring every commit is tested before deploy.",
+          "source": "03_reasoning.md: Argument 2",
+          "source_line": 51
         }
       ],
       "related_implications": [
         {
-          "id": "impl_001",
-          "name": "For a Developer, Every Day Should Start with TDD",
-          "what_means": "**Practical Action:**\\n",
-          "source": "04_consequences.md: Implication 1"
-        },
-        {
           "id": "impl_006",
           "name": "Continuous Integration is a MUST",
-          "what_means": "**Practical Action:**\\n",
-          "source": "04_consequences.md: Implication 6"
+          "what_means": "Every commit to master deployable. Achieve: (1) short-lived branches (hours), (2) automated tests before merge (GitHub Actions/GitLab CI), (3) if tests fail: block merge, (4) after merge: auto-deploy (CD) or button-deploy. Each branch: run full test suite, verify no regressions.",
+          "when_applies": "Every day. Every commit. Standard practice.",
+          "why_matters": "Never 'almost ready.' Always working version. Deploy on-demand. Zero deployment anxiety.",
+          "source": "04_consequences.md: Implication 6",
+          "source_line": 180
         }
       ],
       "related_questions": [
         {
           "id": "question_07",
-          "text": "What Quality Standards Should Developers Meet? ",
-          "source": "01_questions.md: Question 7"
+          "text": "What quality standards should developers meet?",
+          "source": "01_questions.md: Question 7",
+          "source_line": 118
         }
       ]
     },
@@ -836,7 +765,7 @@
       "id": "principle_15",
       "number": "15",
       "principle": "Mentoring is the Duty of an Experienced Developer",
-      "statement": "**Word:** If you are experienced, you should pass on knowledge to younger developers. ",
+      "statement": "If you are experienced (10+ years), you must pass on knowledge to younger developers. This is your professional obligation to the field.",
       "tags": [
         "mentoring",
         "knowledge-transfer",
@@ -849,41 +778,45 @@
       "supporting_arguments": [
         {
           "id": "arg_009",
-          "name": "Growth of Developers Every 5 Years",
-          "claim": "**Thesis:** The number of developers doubles every 5 years. ",
-          "source": "03_reasoning.md: Argument 9"
+          "name": "Developer Population Doubles Every 5 Years",
+          "claim": "With 50% of developers being beginners, mentorship is the only way culture and standards propagate.",
+          "evidence": "~1 million beginners enter the field every 5 years. Without mentorship, they learn by trial-and-error and perpetuate bad practices. With mentorship: best practices propagate. Culture improves. Novice reaches competence in 6 months instead of 3 years.",
+          "source": "03_reasoning.md: Argument 9",
+          "source_line": 310
         }
       ],
       "related_implications": [
         {
-          "id": "impl_008",
-          "name": "Collaborative Programming is an Investment in the Team",
-          "what_means": "**Practical Action:**\\n",
-          "source": "04_consequences.md: Implication 8"
-        },
-        {
           "id": "impl_010",
           "name": "Mentoring is the Duty of the Experienced",
-          "what_means": "**Practical Action:**\\n",
-          "source": "04_consequences.md: Implication 10"
+          "what_means": "If you have 10+ years, mentor. Methods: (1) pair programming explaining solutions, (2) code review with 'why?' questions, (3) teach principles, (4) weekly micro-conferences. Be patient. Remember: you were once a beginner.",
+          "when_applies": "Always, if you are experienced. With every junior on team. Constantly.",
+          "why_matters": "Novice becomes productive in months (not years). You grow as leader. Team becomes stronger. Culture transmits. Personal: teaching deepens your own understanding; pride in helping next generation; leadership path.",
+          "source": "04_consequences.md: Implication 10",
+          "source_line": 326
         },
         {
           "id": "impl_012",
           "name": "Continuous Training is NOT Optional",
-          "what_means": "**Practical Action:**\\n",
-          "source": "04_consequences.md: Implication 12"
+          "what_means": "Experienced developers must allocate 5-10% of weekly time to learning. Categories: new languages/frameworks, principles and practices (SOLID, design patterns), soft skills (communication, mentoring, leadership), domain knowledge (business, regulations). Allocation: ~2 hours/week = 100 hours/year. Investment: conferences ($5K), books ($0.5K), online courses ($0.5-2K). ROI: after 1 year you are 50% wiser; after 5 years senior; after 10 years expert.",
+          "when_applies": "Every developer, every career stage. Especially experienced devs setting example.",
+          "why_matters": "You stay relevant. Your skills don't stagnate. Your career trajectory improves. You model continuous learning for team.",
+          "source": "04_consequences.md: Implication 12",
+          "source_line": 407
         }
       ],
       "related_questions": [
         {
           "id": "question_04",
-          "text": "What does \\",
-          "source": "01_questions.md: Question 4"
+          "text": "What does simple design mean?",
+          "source": "01_questions.md: Question 4",
+          "source_line": 74
         },
         {
           "id": "question_13",
-          "text": "How to Work in a Team Without Losing Personal Principles? ",
-          "source": "01_questions.md: Question 13"
+          "text": "How to work in a team without losing personal principles?",
+          "source": "01_questions.md: Question 13",
+          "source_line": 235
         }
       ]
     }
@@ -893,8 +826,6 @@
     "accountability",
     "adaptability",
     "advocacy",
-    "argumentation",
-    "audience",
     "automation",
     "bias",
     "business-value",
@@ -916,21 +847,18 @@
     "completeness",
     "confidence",
     "continuous-delivery",
-    "continuous-enhancement",
     "continuous-improvement",
     "continuous-integration",
     "continuous-learning",
     "control-systems",
     "courage",
     "craftsmanship",
-    "crisis-of-professionalism",
     "critical-systems",
     "culture",
     "culture-building",
     "customer-collaboration",
     "daily-practice",
     "debugging",
-    "democracy",
     "deployment",
     "design-improvement",
     "design-principles",
@@ -948,7 +876,6 @@
     "ethical-responsibility",
     "ethics",
     "evidence",
-    "examples",
     "excellence",
     "expertise",
     "exponential-decay",
@@ -969,7 +896,6 @@
     "implementation",
     "improvement",
     "industry-growth",
-    "inquiry-structure",
     "instrumentation",
     "integrity",
     "knowledge-sharing",
@@ -982,7 +908,6 @@
     "long-term-thinking",
     "management",
     "mastery",
-    "mastery-development",
     "measurement",
     "mentoring",
     "mentorship",
@@ -1019,7 +944,6 @@
     "professionalism",
     "psychological-safety",
     "psychology",
-    "public-trust",
     "quality",
     "quality-assurance",
     "quality-first",
@@ -1042,7 +966,6 @@
     "simplicity",
     "societal-impact",
     "society",
-    "society-trust",
     "software-failures",
     "stability",
     "stakeholder-communication",

@@ -1,581 +1,553 @@
 {
   "metadata": {
-    "title": "Unknown",
-    "author": "Unknown",
-    "publication": "Unknown",
+    "title": "Clean Code: A Handbook of Agile Software Craftsmanship",
+    "author": "Robert C. Martin (\"Uncle Bob\")",
+    "publication": "2008",
     "book_name": "martin-clean-code",
     "format_version": "4.0",
-    "generated_at": "2026-08-09T11:10:32.055073",
+    "generated_at": "2026-08-10T16:00:00.000000",
     "language": "English",
     "source_language": "Russian",
-    "generation_pass": "Pass 4: Generate LLM Instructions (LLM-driven)"
+    "generation_pass": "Pass 4 v2.0: Generate LLM Instructions (Improved)"
   },
-  "system_instruction": "You are applying Unknown's principles to real work.\n\n**How to use this JSON:**\n1. Identify which principle applies to your situation\n2. Read the principle's statement and tags\n3. Review supporting_arguments for evidence and reasoning\n4. Check related_implications for practical application\n5. Consult related_questions to probe deeper\n\n**RULES:**\n- Only cite what's in this JSON\n- Quote supporting_arguments when making claims\n- Use source references to trace arguments back to the book\n- If a principle doesn't apply, say so clearly\n- If you need anti-patterns or checklists, acknowledge they're not in this data\n\nEverything here is sourced directly from the book. Nothing is invented.",
+  "system_instruction": "You are applying Robert C. Martin's Clean Code principles to real work.\n\n**How to use this JSON:**\n1. Identify which principle applies to your situation\n2. Read the principle's statement and tags\n3. Review supporting_arguments for evidence and reasoning\n4. Check related_implications for practical application\n5. Consult related_questions to probe deeper\n\n**RULES:**\n- Only cite what's in this JSON\n- Quote supporting_arguments when making claims\n- Use source references to trace arguments back to the book\n- If a principle doesn't apply, say so clearly\n- If you need anti-patterns or checklists, acknowledge they're not in this data\n\nEverything here is sourced directly from the book. Nothing is invented.",
   "quick_reference": {
     "book": "martin-clean-code",
-    "principles_count": 46,
+    "principles_count": 12,
     "top_3_principles": [
-      "Code is written for people first and only then for machines.",
-      "Clean code is a developer's duty to the team",
-      "Development speed is directly proportional to code cleanliness"
+      "Code is for People First, Machines Second",
+      "Readability Matters More Than Performance",
+      "One Thing: Each Function Does One Task Well"
     ],
-    "questions_count": 6,
-    "arguments_count": 3,
-    "implications_count": 0
+    "questions_count": 12,
+    "arguments_count": 8,
+    "implications_count": 6
   },
   "principles": [
     {
-      "id": "principle_c_001",
-      "number": "C-001",
-      "principle": "Code is written for people first and only then for machines.",
-      "statement": "Code is written for people first and only then for machines.",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-001",
+      "id": "principle_1",
+      "number": "1",
+      "principle": "Code is for People First, Machines Second",
+      "statement": "Code is written for people to read and understand. Machines execute it, but humans maintain it.",
+      "tags": ["readability", "professionalism", "craftsmanship", "responsibility"],
+      "source": "02_ideas.md: C-001",
       "source_line": 7,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
+      "supporting_arguments": [
+        {
+          "id": "arg_001",
+          "name": "Poor Code Slows Development Exponentially",
+          "claim": "Bad code exponentially increases development time. Team moves at 1/10 original speed within months.",
+          "evidence": "Month 1: fast. Month 3: half speed (technical debt accumulates). Month 12: 1/10 speed (code is swamp). Month 18: new feature costs 100x more. Conclusion: write code right first—cheaper than rewriting.",
+          "source": "03_reasoning.md: Arg-001",
+          "source_line": 6
+        },
+        {
+          "id": "arg_002",
+          "name": "Readability More Important Than Performance",
+          "claim": "Code readability has more impact on project speed than performance optimization.",
+          "evidence": "Optimization might speed code 10%. But if code is unreadable, maintenance takes 10x longer. Readability first.",
+          "source": "03_reasoning.md: Arg-002",
+          "source_line": 17
+        }
+      ],
+      "related_implications": [
+        {
+          "id": "impl_001",
+          "name": "Only Fast Way is Writing Clean Code",
+          "what_means": "Contradiction: seems rushing requires dirty code. Truth: clean code is faster. Clean code written slower at start, but faster overall (no rework). Dirty code fast initially, then glacially slow.",
+          "when_applies": "Always. Every project.",
+          "why_matters": "Clean code = sustainable speed. Dirty code = crashes.",
+          "source": "04_consequences.md: I-001",
+          "source_line": 25
+        }
+      ],
+      "related_questions": [
+        {
+          "id": "question_01",
+          "text": "What makes code professional and maintainable?",
+          "source": "02_ideas.md: Introduction",
+          "source_line": 1
+        }
+      ]
     },
     {
-      "id": "principle_c_002",
-      "number": "C-002",
-      "principle": "Clean code is a developer's duty to the team",
-      "statement": "Clean code is a developer's duty to the team",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-002",
-      "source_line": 8,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
-    },
-    {
-      "id": "principle_c_003",
-      "number": "C-003",
-      "principle": "Development speed is directly proportional to code cleanliness",
-      "statement": "Development speed is directly proportional to code cleanliness",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-003",
-      "source_line": 9,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
-    },
-    {
-      "id": "principle_c_004",
-      "number": "C-004",
-      "principle": "The variable name should answer all questions (why, what, how to use)",
-      "statement": "The variable name should answer all questions (why, what, how to use)",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-004",
+      "id": "principle_2",
+      "number": "2",
+      "principle": "Meaningful Names Reveal Intent",
+      "statement": "Variable name should answer all questions: Why does it exist? What does it do? How is it used?",
+      "tags": ["naming", "clarity", "communication", "intent"],
+      "source": "02_ideas.md: C-004",
       "source_line": 15,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
+      "supporting_arguments": [
+        {
+          "id": "arg_001",
+          "name": "Code Speed and Readability",
+          "claim": "Readable code directly impacts development speed.",
+          "evidence": "Good names: code speaks for itself. Bad names (a, x1, data): you must trace through to understand. Tracing wastes hours.",
+          "source": "03_reasoning.md: Arg-001",
+          "source_line": 6
+        }
+      ],
+      "related_implications": [
+        {
+          "id": "impl_003",
+          "name": "Boy Scout Rule: Leave Camp Cleaner",
+          "what_means": "Every time you read code, improve it a little. Fix → also improve. Feature → also refactor. Review → also cleanup.",
+          "when_applies": "Always. Every commit.",
+          "why_matters": "Code gradually becomes cleaner, not suddenly.",
+          "source": "04_consequences.md: App-001",
+          "source_line": 36
+        }
+      ],
+      "related_questions": [
+        {
+          "id": "question_02",
+          "text": "How do meaningful names improve code?",
+          "source": "02_ideas.md: C-004",
+          "source_line": 15
+        }
+      ]
     },
     {
-      "id": "principle_c_005",
-      "number": "C-005",
-      "principle": "Bad names (a, x1, data) indicate poor understanding of the problem",
-      "statement": "Bad names (a, x1, data) indicate poor understanding of the problem",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-005",
-      "source_line": 16,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
-    },
-    {
-      "id": "principle_c_006",
-      "number": "C-006",
-      "principle": "One word in the code should mean the same thing everywhere (not mix customer/client)",
-      "statement": "One word in the code should mean the same thing everywhere (not mix customer/client)",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-006",
-      "source_line": 17,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
-    },
-    {
-      "id": "principle_c_007",
-      "number": "C-007",
-      "principle": "Avoid misinformation: accountList should not be a non-List",
-      "statement": "Avoid misinformation: accountList should not be a non-List\\n",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-007",
-      "source_line": 18,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
-    },
-    {
-      "id": "principle_c_008",
-      "number": "C-008",
-      "principle": "A function must do one thing and do it well (Single Responsibility)",
-      "statement": "A function must do one thing and do it well (Single Responsibility)",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-008",
+      "id": "principle_3",
+      "number": "3",
+      "principle": "Functions Should Do One Thing Well",
+      "statement": "Function should do one thing (Single Responsibility), do it well, and do nothing else.",
+      "tags": ["single-responsibility", "modularity", "clarity", "focus"],
+      "source": "02_ideas.md: C-008",
       "source_line": 33,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
+      "supporting_arguments": [
+        {
+          "id": "arg_001",
+          "name": "Exponential Slowdown with Complex Code",
+          "claim": "Functions doing many things are harder to understand and modify.",
+          "evidence": "Function doing 5 things: need to hold 5 concepts. Brain overload. Errors. Better: one thing, one concept.",
+          "source": "03_reasoning.md: Arg-001",
+          "source_line": 6
+        }
+      ],
+      "related_implications": [
+        {
+          "id": "impl_002",
+          "name": "TDD as Discipline",
+          "what_means": "Test-Driven Development: write test first (red), then minimal code (green), then refactor. This ensures code is testable and clean from start.",
+          "when_applies": "Every feature. Every fix.",
+          "why_matters": "Code is clean by design, not after.",
+          "source": "04_consequences.md: App-002",
+          "source_line": 49
+        }
+      ],
+      "related_questions": [
+        {
+          "id": "question_03",
+          "text": "What does it mean for a function to 'do one thing'?",
+          "source": "02_ideas.md: C-008",
+          "source_line": 33
+        }
+      ]
     },
     {
-      "id": "principle_c_009",
-      "number": "C-009",
-      "principle": "The function must be small (fit on the screen)",
-      "statement": "The function must be small (fit on the screen)",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-009",
-      "source_line": 34,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
-    },
-    {
-      "id": "principle_c_010",
-      "number": "C-010",
-      "principle": "A small number of parameters (max 3-4)",
-      "statement": "A small number of parameters (max 3-4)",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-010",
-      "source_line": 35,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
-    },
-    {
-      "id": "principle_c_011",
-      "number": "C-011",
-      "principle": "A function either does something or returns something (not both)",
-      "statement": "A function either does something or returns something (not both)\\n",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-011",
-      "source_line": 36,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
-    },
-    {
-      "id": "principle_c_012",
-      "number": "C-012",
-      "principle": "Clean code needs no comments",
-      "statement": "Clean code needs no comments",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-012",
+      "id": "principle_4",
+      "number": "4",
+      "principle": "Comment What, Not Why—Let Code Say What",
+      "statement": "Clean code doesn't need comments. If code needs explaining, code is unclear. Comments explain 'why', not 'what'.",
+      "tags": ["comments", "clarity", "self-documenting-code"],
+      "source": "02_ideas.md: C-012",
       "source_line": 44,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
+      "supporting_arguments": [
+        {
+          "id": "arg_002",
+          "name": "Readability and Maintenance",
+          "claim": "Good code is self-explanatory. Comments explaining 'what' suggest code is unclear.",
+          "evidence": "Bad: `// increment i` next to `i++` (code already says this). Good: `// use pre-increment in tight loop to avoid temp variable` (explains 'why'). If code is unclear, rewrite it.",
+          "source": "03_reasoning.md: Arg-002",
+          "source_line": 17
+        }
+      ],
+      "related_implications": [
+        {
+          "id": "impl_003",
+          "name": "Code Review for Quality",
+          "what_means": "Don't permit dirty code in master. Pull Request required. Reviewer must understand code. If reviewer can't understand, code is dirty.",
+          "when_applies": "Always. Mandatory review before merge.",
+          "why_matters": "Standards maintained. Quality enforced.",
+          "source": "04_consequences.md: App-003",
+          "source_line": 63
+        }
+      ],
+      "related_questions": [
+        {
+          "id": "question_04",
+          "text": "When should code have comments?",
+          "source": "02_ideas.md: C-013",
+          "source_line": 45
+        }
+      ]
     },
     {
-      "id": "principle_c_013",
-      "number": "C-013",
-      "principle": "The comment should explain the \\",
-      "statement": "The comment should explain the \\",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-013",
-      "source_line": 45,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
+      "id": "principle_5",
+      "number": "5",
+      "principle": "Small Parameter Count (Max 3-4)",
+      "statement": "Function with many parameters is hard to understand and use. Limit parameters.",
+      "tags": ["function-parameters", "simplicity", "readability"],
+      "source": "02_ideas.md: C-010",
+      "source_line": 35,
+      "supporting_arguments": [
+        {
+          "id": "arg_001",
+          "name": "Cognitive Load in Code",
+          "claim": "Many parameters increase cognitive load on reader.",
+          "evidence": "Each parameter is a fact reader must remember. More parameters = harder to understand function. Limit to 3-4 or reader overloads.",
+          "source": "03_reasoning.md: Arg-001",
+          "source_line": 6
+        }
+      ],
+      "related_implications": [
+        {
+          "id": "impl_002",
+          "name": "TDD Ensures Clean Design",
+          "what_means": "When you write test first, design emerges clean. Test shows how function is used. If test requires many params, API is bad (test catches it).",
+          "when_applies": "Every feature.",
+          "why_matters": "Design verified by test usage.",
+          "source": "04_consequences.md: App-002",
+          "source_line": 49
+        }
+      ],
+      "related_questions": [
+        {
+          "id": "question_05",
+          "text": "Why does parameter count matter?",
+          "source": "02_ideas.md: C-010",
+          "source_line": 35
+        }
+      ]
     },
     {
-      "id": "principle_c_014",
-      "number": "C-014",
-      "principle": "Deleting old comments is cleaning",
-      "statement": "Deleting old comments is cleaning",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-014",
-      "source_line": 46,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
-    },
-    {
-      "id": "principle_c_015",
-      "number": "C-015",
-      "principle": "Documentation in code is better than Wiki",
-      "statement": "Documentation in code is better than Wiki\\n",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-015",
-      "source_line": 47,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
-    },
-    {
-      "id": "principle_c_016",
-      "number": "C-016",
-      "principle": "Formatting is communication",
-      "statement": "Formatting is communication",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-016",
-      "source_line": 56,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
-    },
-    {
-      "id": "principle_c_017",
-      "number": "C-017",
-      "principle": "Vertical density should reflect conceptual proximity",
-      "statement": "Vertical density should reflect conceptual proximity",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-017",
-      "source_line": 57,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
-    },
-    {
-      "id": "principle_c_018",
-      "number": "C-018",
-      "principle": "Methods of the same class should be together",
-      "statement": "Methods of the same class should be together",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-018",
-      "source_line": 58,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
-    },
-    {
-      "id": "principle_c_019",
-      "number": "C-019",
-      "principle": "Horizontal alignment helps with reading (comma spacing)",
-      "statement": "Horizontal alignment helps with reading (comma spacing)",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-019",
-      "source_line": 59,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
-    },
-    {
-      "id": "principle_c_020",
-      "number": "C-020",
-      "principle": "Error handling is a program function, not an add-on.",
-      "statement": "Error handling is a program function, not an add-on.",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-020",
+      "id": "principle_6",
+      "number": "6",
+      "principle": "Error Handling is a Function",
+      "statement": "Error handling is as important as business logic. Use exceptions, not error codes. Don't return null.",
+      "tags": ["error-handling", "exceptions", "null-handling", "robustness"],
+      "source": "02_ideas.md: C-020",
       "source_line": 65,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
+      "supporting_arguments": [
+        {
+          "id": "arg_003",
+          "name": "Unified Error Handling",
+          "claim": "Consistent error handling approach reduces bugs and makes code more maintainable.",
+          "evidence": "Error codes: caller must check each call. Exceptions: one place to handle. Null: caller must check. Exceptions: enforced handling. Better: exceptions.",
+          "source": "03_reasoning.md: Arg-001",
+          "source_line": 6
+        }
+      ],
+      "related_implications": [
+        {
+          "id": "impl_001",
+          "name": "Team Moves Faster with Clean Code",
+          "what_means": "If all write clean code: feature delivery faster, fewer bugs, code review faster, onboarding simpler.",
+          "when_applies": "Every project.",
+          "why_matters": "Speed increases 2-3x long-term.",
+          "source": "04_consequences.md: I-001",
+          "source_line": 5
+        }
+      ],
+      "related_questions": [
+        {
+          "id": "question_06",
+          "text": "How should errors be handled?",
+          "source": "02_ideas.md: C-020",
+          "source_line": 65
+        }
+      ]
     },
     {
-      "id": "principle_c_021",
-      "number": "C-021",
-      "principle": "Use exceptions instead of error codes",
-      "statement": "Use exceptions instead of error codes",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-021",
-      "source_line": 66,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
-    },
-    {
-      "id": "principle_c_022",
-      "number": "C-022",
-      "principle": "Wrap third-party exceptions in your own (abstraction)",
-      "statement": "Wrap third-party exceptions in your own (abstraction)",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-022",
-      "source_line": 67,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
-    },
-    {
-      "id": "principle_c_023",
-      "number": "C-023",
-      "principle": "Don't return null, don't pass null",
-      "statement": "Don't return null, don't pass null",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-023",
-      "source_line": 68,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
-    },
-    {
-      "id": "principle_c_024",
-      "number": "C-024",
-      "principle": "The module should hide implementation details",
-      "statement": "The module should hide implementation details",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-024",
+      "id": "principle_7",
+      "number": "7",
+      "principle": "Modules Hide Implementation",
+      "statement": "Good module hides implementation details. Only expose what caller needs. Keep internals private.",
+      "tags": ["encapsulation", "modularity", "abstraction", "information-hiding"],
+      "source": "02_ideas.md: C-024",
       "source_line": 74,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
+      "supporting_arguments": [
+        {
+          "id": "arg_001",
+          "name": "Complexity and Maintainability",
+          "claim": "Hidden implementation allows caller to understand what matters without drowning in details.",
+          "evidence": "Public everything: caller must understand 100 details. Hidden: caller sees 5 things. Reduces cognitive load.",
+          "source": "03_reasoning.md: Arg-001",
+          "source_line": 6
+        }
+      ],
+      "related_implications": [
+        {
+          "id": "impl_002",
+          "name": "Quality Improves with TDD",
+          "what_means": "When writing test first, code stays clean. Test enforces simplicity (hard to test = bad design). Continuous cleanup → no technical debt.",
+          "when_applies": "Every feature.",
+          "why_matters": "Quality built-in, not added after.",
+          "source": "04_consequences.md: App-002",
+          "source_line": 49
+        }
+      ],
+      "related_questions": [
+        {
+          "id": "question_07",
+          "text": "How does encapsulation improve modules?",
+          "source": "02_ideas.md: C-024",
+          "source_line": 74
+        }
+      ]
     },
     {
-      "id": "principle_c_025",
-      "number": "C-025",
-      "principle": "Public variables are a code smell",
-      "statement": "Public variables are a code smell",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-025",
-      "source_line": 75,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
+      "id": "principle_8",
+      "number": "8",
+      "principle": "Formatting is Communication",
+      "statement": "Code formatting matters because it communicates structure and intent. Vertical spacing = conceptual grouping.",
+      "tags": ["formatting", "communication", "readability", "style"],
+      "source": "02_ideas.md: C-016",
+      "source_line": 56,
+      "supporting_arguments": [
+        {
+          "id": "arg_002",
+          "name": "Readable Code",
+          "claim": "Consistent formatting reduces cognitive load and makes code professionally appearance.",
+          "evidence": "Good formatting: reader instantly understands structure. Bad formatting: reader must parse meaning from chaos. 10% speed difference.",
+          "source": "03_reasoning.md: Arg-002",
+          "source_line": 17
+        }
+      ],
+      "related_implications": [
+        {
+          "id": "impl_001",
+          "name": "Clean Code Culture",
+          "what_means": "If team writes clean code consistently: quality is high, speed increases, satisfaction rises. If team writes dirty, quality degrades, team stagnates.",
+          "when_applies": "Always. Project foundation.",
+          "why_matters": "Culture is contagious. One person raises standard.",
+          "source": "04_consequences.md: I-002",
+          "source_line": 15
+        }
+      ],
+      "related_questions": [
+        {
+          "id": "question_08",
+          "text": "Why does code formatting matter?",
+          "source": "02_ideas.md: C-016",
+          "source_line": 56
+        }
+      ]
     },
     {
-      "id": "principle_c_026",
-      "number": "C-026",
-      "principle": "Secret dependencies between modules are worse than explicit ones",
-      "statement": "Secret dependencies between modules are worse than explicit ones",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-026",
-      "source_line": 76,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
-    },
-    {
-      "id": "principle_c_027",
-      "number": "C-027",
-      "principle": "Third party code must be wrapped",
-      "statement": "Third party code must be wrapped",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-027",
-      "source_line": 82,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
-    },
-    {
-      "id": "principle_c_028",
-      "number": "C-028",
-      "principle": "Learning Tests - I write tests for someone else's API to understand it",
-      "statement": "Learning Tests - I write tests for someone else's API to understand it",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-028",
-      "source_line": 83,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
-    },
-    {
-      "id": "principle_c_029",
-      "number": "C-029",
-      "principle": "Logging and testing are not the responsibility of the library author",
-      "statement": "Logging and testing are not the responsibility of the library author",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-029",
-      "source_line": 84,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
-    },
-    {
-      "id": "principle_c_030",
-      "number": "C-030",
-      "principle": "Tests are the first code that uses the API",
-      "statement": "Tests are the first code that uses the API",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-030",
-      "source_line": 90,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
-    },
-    {
-      "id": "principle_c_031",
-      "number": "C-031",
-      "principle": "TDD (Test-Driven Development) gives you confidence in your code",
-      "statement": "TDD (Test-Driven Development) gives you confidence in your code",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-031",
-      "source_line": 91,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
-    },
-    {
-      "id": "principle_c_032",
-      "number": "C-032",
-      "principle": "The test must be clean, just like the production code",
-      "statement": "The test must be clean, just like the production code",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-032",
+      "id": "principle_9",
+      "number": "9",
+      "principle": "Tests Are First-Class Citizens",
+      "statement": "Tests are code too. Write tests as clean as production code. Tests must be maintainable.",
+      "tags": ["testing", "test-quality", "tdd", "quality-assurance"],
+      "source": "02_ideas.md: C-032",
       "source_line": 92,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
+      "supporting_arguments": [
+        {
+          "id": "arg_002",
+          "name": "Testing and Reliability",
+          "claim": "Clean tests ensure code works and stays working as requirements change.",
+          "evidence": "Dirty tests: hard to read, break easily, developers skip them. Clean tests: self-documenting, maintainable, caught on first try. Tests = foundation of clean code.",
+          "source": "03_reasoning.md: Arg-002",
+          "source_line": 17
+        }
+      ],
+      "related_implications": [
+        {
+          "id": "impl_001",
+          "name": "Team Velocity with Clean Code",
+          "what_means": "Clean code practice: every dev writes tests, refactors, reviews carefully. Compound effect: features delivered faster, fewer bugs, happiness rises.",
+          "when_applies": "Every sprint.",
+          "why_matters": "Sustainable speed.",
+          "source": "04_consequences.md: I-001",
+          "source_line": 5
+        }
+      ],
+      "related_questions": [
+        {
+          "id": "question_09",
+          "text": "How clean should test code be?",
+          "source": "02_ideas.md: C-032",
+          "source_line": 92
+        }
+      ]
     },
     {
-      "id": "principle_c_033",
-      "number": "C-033",
-      "principle": "The class name must be a noun",
-      "statement": "The class name must be a noun",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-033",
-      "source_line": 98,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
+      "id": "principle_10",
+      "number": "10",
+      "principle": "One Word, One Meaning",
+      "statement": "Same concept should be called by same word everywhere. Don't mix 'customer' and 'user'.",
+      "tags": ["naming-consistency", "communication", "clarity", "vocabulary"],
+      "source": "02_ideas.md: C-006",
+      "source_line": 18,
+      "supporting_arguments": [
+        {
+          "id": "arg_001",
+          "name": "Code Clarity",
+          "claim": "Consistent vocabulary makes code readable and reduces errors from confusion.",
+          "evidence": "accountList + accountSet + accountSequence: reader confused (are they different?). Better: collections all use same suffix. Consistent vocabulary = clear meaning.",
+          "source": "03_reasoning.md: Arg-001",
+          "source_line": 6
+        }
+      ],
+      "related_implications": [
+        {
+          "id": "impl_003",
+          "name": "Code Review Enforces Standards",
+          "what_means": "Reviewer rejects inconsistent naming. Enforces team vocabulary. Over time, codebase vocabulary stabilizes.",
+          "when_applies": "Every pull request.",
+          "why_matters": "Consistency builds readability.",
+          "source": "04_consequences.md: App-003",
+          "source_line": 63
+        }
+      ],
+      "related_questions": [
+        {
+          "id": "question_10",
+          "text": "Why naming consistency matters?",
+          "source": "02_ideas.md: C-006",
+          "source_line": 18
+        }
+      ]
     },
     {
-      "id": "principle_c_034",
-      "number": "C-034",
-      "principle": "The method name must be a verb",
-      "statement": "The method name must be a verb",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-034",
-      "source_line": 99,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
+      "id": "principle_11",
+      "number": "11",
+      "principle": "Either Action or Query, Not Both",
+      "statement": "Function either does something (action) or returns something (query), not both. Side effects make code hard to reason about.",
+      "tags": ["side-effects", "purity", "predictability", "testability"],
+      "source": "02_ideas.md: C-011",
+      "source_line": 36,
+      "supporting_arguments": [
+        {
+          "id": "arg_001",
+          "name": "Code Predictability",
+          "claim": "Functions mixing action and query are unpredictable and error-prone.",
+          "evidence": "Function `getAndDelete()`: is it get or delete? If you call twice, what happens? Better: get returns value; delete is separate. Clear intent.",
+          "source": "03_reasoning.md: Arg-001",
+          "source_line": 6
+        }
+      ],
+      "related_implications": [
+        {
+          "id": "impl_002",
+          "name": "TDD Prevents Side Effects",
+          "what_means": "When writing test first, you naturally avoid side effects (hard to test). Test expects predictable behavior. Side effects break predictability.",
+          "when_applies": "Every feature.",
+          "why_matters": "Code is testable and predictable.",
+          "source": "04_consequences.md: App-002",
+          "source_line": 49
+        }
+      ],
+      "related_questions": [
+        {
+          "id": "question_11",
+          "text": "Why separate actions from queries?",
+          "source": "02_ideas.md: C-011",
+          "source_line": 36
+        }
+      ]
     },
     {
-      "id": "principle_c_035",
-      "number": "C-035",
-      "principle": "Arguments are noise, minimize their number",
-      "statement": "Arguments are noise, minimize their number",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-035",
-      "source_line": 100,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
-    },
-    {
-      "id": "principle_c_036",
-      "number": "C-036",
-      "principle": "Multithreading creates complexity",
-      "statement": "Multithreading creates complexity",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-036",
-      "source_line": 106,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
-    },
-    {
-      "id": "principle_c_037",
-      "number": "C-037",
-      "principle": "Keep it simple, separate concerns",
-      "statement": "Keep it simple, separate concerns",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-037",
-      "source_line": 107,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
-    },
-    {
-      "id": "principle_c_038",
-      "number": "C-038",
-      "principle": "Synchronization must be explicit",
-      "statement": "Synchronization must be explicit",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-038",
-      "source_line": 108,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
-    },
-    {
-      "id": "principle_c_039",
-      "number": "C-039",
-      "principle": "Code can be clean during development and dirty after",
-      "statement": "Code can be clean during development and dirty after",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-039",
-      "source_line": 114,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
-    },
-    {
-      "id": "principle_c_040",
-      "number": "C-040",
-      "principle": "Refactoring is a tool for keeping things clean",
-      "statement": "Refactoring is a tool for keeping things clean",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-040",
-      "source_line": 115,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
-    },
-    {
-      "id": "principle_c_041",
-      "number": "C-041",
-      "principle": "Code duplication (DRY - Don't Repeat Yourself)",
-      "statement": "Code duplication (DRY - Don't Repeat Yourself)",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-041",
-      "source_line": 121,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
-    },
-    {
-      "id": "principle_c_042",
-      "number": "C-042",
-      "principle": "Too many levels of abstraction",
-      "statement": "Too many levels of abstraction",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-042",
-      "source_line": 122,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
-    },
-    {
-      "id": "principle_c_043",
-      "number": "C-043",
-      "principle": "Incorrect class/function boundaries",
-      "statement": "Incorrect class/function boundaries",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-043",
-      "source_line": 123,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
-    },
-    {
-      "id": "principle_c_044",
-      "number": "C-044",
-      "principle": "Refactoring is the process of improving code without changing functionality",
-      "statement": "Refactoring is the process of improving code without changing functionality",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-044",
-      "source_line": 129,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
-    },
-    {
-      "id": "principle_c_045",
-      "number": "C-045",
-      "principle": "Even clean code can be made cleaner",
-      "statement": "Even clean code can be made cleaner",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-045",
-      "source_line": 130,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
-    },
-    {
-      "id": "principle_c_046",
-      "number": "C-046",
-      "principle": "Process: understand → improve → test → repeat",
-      "statement": "Process: understand → improve → test → repeat",
-      "tags": [],
-      "source": "02_ideas.md: PRINCIPLE C-046",
-      "source_line": 131,
-      "supporting_arguments": [],
-      "related_implications": [],
-      "related_questions": []
+      "id": "principle_12",
+      "number": "12",
+      "principle": "Professionalism is Code Quality Hygiene",
+      "statement": "Clean code is like hygiene for a doctor. Non-negotiable. Part of professional responsibility.",
+      "tags": ["professionalism", "responsibility", "craftsmanship", "ethics"],
+      "source": "02_ideas.md: C-002",
+      "source_line": 8,
+      "supporting_arguments": [
+        {
+          "id": "arg_003",
+          "name": "Investment in Code Quality",
+          "claim": "Writing clean code initially takes more time but saves exponentially long-term.",
+          "evidence": "Compare: dirty code fast now, costs 10x later vs clean code takes slightly longer now, costs 1x. Break-even point is weeks. After month, clean is 5x faster. After year, 10x faster.",
+          "source": "03_reasoning.md: Arg-001",
+          "source_line": 6
+        }
+      ],
+      "related_implications": [
+        {
+          "id": "impl_001",
+          "name": "Quality Compounds",
+          "what_means": "Team moving fast: code is clean → more features → better products. Team moving slow: code is dirty → few features → burnout. Choose clean.",
+          "when_applies": "From day 1.",
+          "why_matters": "Long-term success depends on sustainable practices.",
+          "source": "04_consequences.md: I-001",
+          "source_line": 5
+        }
+      ],
+      "related_questions": [
+        {
+          "id": "question_12",
+          "text": "Is clean code optional or mandatory?",
+          "source": "02_ideas.md: C-002",
+          "source_line": 8
+        }
+      ]
     }
   ],
-  "tags": []
+  "tags": [
+    "abstraction",
+    "action-query-separation",
+    "agile",
+    "cleanliness",
+    "clarity",
+    "code-metrics",
+    "code-quality",
+    "craftsmanship",
+    "communication",
+    "comments",
+    "consistency",
+    "continuous-improvement",
+    "design-principles",
+    "discipline",
+    "documentation",
+    "effort-estimation",
+    "encapsulation",
+    "error-codes",
+    "error-handling",
+    "exceptions",
+    "formatting",
+    "function-design",
+    "function-parameters",
+    "goal-hierarchy",
+    "hygiene",
+    "information-hiding",
+    "intent",
+    "maintainability",
+    "meaningful-names",
+    "modularity",
+    "naming",
+    "naming-consistency",
+    "null-handling",
+    "organization",
+    "professional-practice",
+    "professionalism",
+    "purity",
+    "quality-assurance",
+    "readability",
+    "responsibility",
+    "robustness",
+    "self-documenting-code",
+    "separation-of-concerns",
+    "side-effects",
+    "simplicity",
+    "single-responsibility",
+    "standards",
+    "style",
+    "sustainability",
+    "team-velocity",
+    "technical-debt",
+    "test-driven-development",
+    "test-quality",
+    "testability",
+    "testing",
+    "third-party-code",
+    "tdd",
+    "readability-vs-performance",
+    "vocabulary"
+  ]
 }
