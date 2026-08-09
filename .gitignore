@@ -39,7 +39,9 @@ PASS_*_*.md
 QUICKSTART_AUDIT_SUMMARY.md
 SESSION_*.md
 SETUP_COMPLETE.md
-SYSTEM_USAGE.md
+SYSTEM_USAGE.local.md          # Local copy with examples and logs
+SKILL_AUDIT*.md                # Local audit reports
+AUDIT_BRIEF*.md                # Local audit summaries
 LLM_USAGE_GUIDE_v*.md
 VALIDATION_CHECKLIST.md
 *_IMPROVED.json
