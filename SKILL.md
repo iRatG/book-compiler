@@ -83,6 +83,34 @@ description: Deep reading skill. Reconstructs books (not summarizes). Use when a
 
 **See:** `reference/pass-4-json-generation.md` for the complete schema and detailed specification.
 
+### Pass 5: Generate Agent Rules (06_agent_rules.md + 06_agent_rules.traceability.md)
+
+**Goal:** Compress the book's 5-layer model into an operational, pastable rules file suitable for agent instruction, with rigorous traceability back to source material.
+
+**Input:** 
+- `00_purpose.md` through `04_consequences.md` (native language)
+- Existing `05_llm_instructions.json` (reused for source citations)
+
+**Output:** 
+- `06_agent_rules.md` — Public, clean rules file (when to use / primary bias to correct / decision rules / trigger rules / final checklist)
+- `06_agent_rules.traceability.md` — Audit trail (rule IDs R#/T#, source citations, section coverage review, intentionally-lost ledger)
+
+**How it works:**
+1. Read all five markdown layers and the 05 JSON completely.
+2. Classify each principle/argument/implication/question as `decision-rule` (general bias), `trigger` (conditional "when X do Y"), `checklist-only` (verification), or `drop` (too narrow, duplicate, or out of scope).
+3. Synthesize decision rules into imperative, compressed statements (not verbatim quotes). Merge duplicates.
+4. Synthesize trigger rules from conditional items ("When X occurs, do Y").
+5. Build final checklist by restating highest-leverage rules as self-check questions.
+6. Assign rule IDs (R#, T#) and build traceability file with source citations, coverage review, and explicit ledger of intentionally-lost principles with reasons.
+
+**Rules:**
+- No rule exists without a source citation (R# or T# must cite a specific principle/argument/implication/question with line number).
+- No fabricated data (metrics, scenarios, examples beyond source).
+- All output is in English, regardless of source language (same rule as Pass 4).
+- Traceability file must account for every principle in 02_ideas.md — either covered by a rule ID or marked "intentionally lost" with explicit reason.
+
+**See:** `reference/pass-5-agent-rules-generation.md` for the complete procedure and detailed specification.
+
 ---
 
 ## Hard Rules (Non-Negotiable)
@@ -110,11 +138,13 @@ Each node includes: id, type, title, statement, status, importance, confidence, 
 
 ## Output Structure
 
-Output is six files in `Books/<slug>/`:
+Output is up to eight files in `Books/<slug>/`:
 
 **Layers 00-04 (markdown):** `00_purpose.md`, `01_questions.md`, `02_ideas.md`, `03_reasoning.md`, `04_consequences.md` — always in the original language of the book (Russian, English, or other). See **reference/process.md** for detailed structure and examples.
 
-**Layer 05 (JSON):** `05_llm_instructions.json` — always in English, regardless of the language of layers 00-04. See **reference/pass-4-json-generation.md** for schema and specification. This file is ready to paste into an LLM conversation for expert guidance on applying the book's principles to real work.
+**Layer 05 (JSON):** `05_llm_instructions.json` — always in English, regardless of the language of layers 00-04. Literal, non-synthesized extraction of principles, arguments, implications, and questions with full source citations. Ready to paste into an LLM conversation for expert guidance on applying the book's principles to real work. See **reference/pass-4-json-generation.md** for schema and specification.
+
+**Layer 06 (Markdown + Traceability):** `06_agent_rules.md` + `06_agent_rules.traceability.md` — (optional; new as of Pass 5) Compressed, operational rules distilled from the book, with rigorous audit trail. Ready to paste directly into an LLM conversation as agent instructions (CLAUDE.md/AGENTS.md style). See **reference/pass-5-agent-rules-generation.md** for procedure and specification. Traceability file documents every rule's source and accounts for all principles covered or intentionally excluded.
 
 ---
 
