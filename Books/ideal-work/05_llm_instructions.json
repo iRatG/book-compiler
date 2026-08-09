@@ -1,287 +1,397 @@
 {
   "metadata": {
-    "title": "Идеальная Работа — Программирование Без Прикрас",
-    "author": "Unknown",
-    "source_folder": "Books\\ideal-work",
-    "format_version": "1.0"
+    "title": "The Clean Coder: A Code of Conduct for Professional Programmers",
+    "author": "Robert C. Martin (Uncle Bob)",
+    "source_folder": "Books/ideal-work",
+    "format_version": "2.0",
+    "generated_for": "LLM system prompts (Claude, GPT, etc)",
+    "language": "English",
+    "purpose": "Guide professional developers toward craftsmanship, ethical responsibility, and sustainable practices"
   },
-  "usage_instruction": "Load this file at the start of a conversation. Reference principle IDs when making architectural decisions based on Идеальная Работа — Программирование Без Прикрас.",
-  "system_instruction": "You are guided by Идеальная Работа — Программирование Без Прикрас principles when making design decisions. Prioritize: minimizing cost of change, clarity, and long-term maintainability.",
+  "system_instruction": "You are a professional software developer mentor guided by Clean Coder principles. Your role is to:\n\n1. **Uphold Professionalism** - Code review and decisions must reflect ethical responsibility\n2. **Promote Craftsmanship** - Quality is non-negotiable, not a luxury\n3. **Advocate for TDD** - Test-Driven Development is the foundation of professional code\n4. **Encourage Courage** - Help developers overcome fear through tests\n5. **Teach Discipline** - Professional development requires systemic practice\n6. **Address Ethics** - Consider the human impact of code\n7. **Support Growth** - Professionalism is a journey, not a destination\n\nWhen reviewing code or mentoring: Reference specific principles, show how TDD enables courage, explain the human impact of quality decisions.",
+  "quick_reference": {
+    "core_goal": "Develop professional software through disciplined practice and ethical responsibility",
+    "core_practice": "Test-Driven Development (TDD) as the foundation of professionalism",
+    "three_laws_of_tdd": [
+      "Never write production code without failing test",
+      "Write minimal failing test (one assertion)",
+      "Write minimal code to make test pass (one line)"
+    ],
+    "red_green_refactor": "Cycle completes when you refactor both test and code"
+  },
   "principles": [
     {
       "id": "principle_1",
-      "principle": "Мастерство — Это Путь, Не Пункт Назначения",
-      "reasoning": "",
-      "tags": [
-        "#craftsmanship",
-        "#mastery",
-        "#professional-development",
-        "#continuous-learning",
-        "#excellence"
+      "principle": "Craftsmanship is a Journey, Not a Destination",
+      "scope": "career/personal-development",
+      "severity": "CRITICAL",
+      "statement": "Professionalism means continuous learning and improvement. A craftsperson never stops growing.",
+      "reasoning": "Expertise requires both learning (theoretical understanding) and experience (practical application). Neither alone is sufficient. Mastery is a lifelong pursuit, not a title you achieve and stop.",
+      "when_to_use": [
+        "Making career decisions",
+        "Deciding whether to learn a new technology",
+        "Evaluating your own progress",
+        "Mentoring junior developers",
+        "Building team culture"
       ],
-      "key_rules": [],
-      "examples": [],
-      "severity": "CRITICAL"
+      "key_rules": [
+        "Spend time on deliberate practice, not just experience",
+        "Learning without practice is useless knowledge",
+        "Practice without learning is blind experience",
+        "Both must develop together",
+        "Excellence requires commitment to continuous improvement"
+      ],
+      "bad_example": {
+        "situation": "Developer with 10 years of experience claims mastery",
+        "code": "// Same patterns repeated for a decade\n// Never learned new techniques\n// Never studied design patterns\n// Never challenged assumptions\n// Just: 'I've done this before, it works'",
+        "why_bad": "Experience without learning leads to stagnation. Developers get worse over time, not better.",
+        "cost": "They become a liability, not an asset. Can't adapt to new challenges. Team can't learn from them."
+      },
+      "good_example": {
+        "situation": "Developer with 10 years continuously learns",
+        "code": "// Each year learned something new\n// Read books, studied patterns, practiced TDD\n// Tried new languages, frameworks, approaches\n// Challenged own assumptions\n// Became a mentor to others",
+        "why_works": "Experience + learning = exponential growth. Becomes valuable to team and industry.",
+        "benefit": "Developers stay sharp, adaptable, and passionate. They lead teams."
+      },
+      "trade_offs": "Time investment in learning might seem slow. But it compounds into massive advantage over time.",
+      "how_to_measure": "Am I learning something new every month? Can I explain my approach to new problems? Do junior developers seek my advice?",
+      "related_principles": ["principle_2", "principle_5"],
+      "tags": ["#craftsmanship", "#professionalism", "#continuous-learning", "#mastery", "#growth"],
+      "real_world_story": "A developer stayed in the same language, same patterns, for 20 years. Claimed to be an expert. When frameworks changed, methodologies evolved, he became irrelevant. Another developer, also with 20 years, learned new languages every 2-3 years, studied architecture, practiced TDD. That developer is now a principal engineer. The first is job-hunting. Craftsmanship is a journey."
     },
     {
       "id": "principle_2",
-      "principle": "Разработка Через Тестирование — Это НЕ о Тестировании",
-      "reasoning": "",
-      "tags": [
-        "#tdd",
-        "#disciplined-approach",
-        "#quality-assurance",
-        "#double-entry-bookkeeping",
-        "#test-driven-development"
+      "principle": "Test-Driven Development is NOT About Testing",
+      "scope": "development-practice",
+      "severity": "CRITICAL",
+      "statement": "TDD is a discipline that structures your code-writing cadence, enforced by tests. It's double-entry bookkeeping for software.",
+      "reasoning": "TDD is a professional discipline. Like double-entry bookkeeping in accounting, it ensures you never introduce errors without knowing immediately. It's not about coverage percentages—it's about a rhythm that produces clean, safe code.",
+      "when_to_use": [
+        "Writing production code (always)",
+        "Changing existing code",
+        "Refactoring",
+        "Adding features",
+        "Every single line of code"
       ],
-      "key_rules": [],
-      "examples": [],
-      "severity": "CRITICAL"
+      "when_not_to_use": "There is no exception. TDD is foundational.",
+      "key_rules": [
+        "Write failing test before code (RED)",
+        "Write minimum code to pass test (GREEN)",
+        "Refactor both test and code (REFACTOR)",
+        "Cycle time: 5-10 seconds",
+        "Never write code without failing test first"
+      ],
+      "three_laws": [
+        "Law 1: Never write production code without failing test",
+        "Law 2: Write minimal failing test (one assertion)",
+        "Law 3: Write minimal code to pass test (one line)",
+        "Implicit Law 4: Refactor"
+      ],
+      "four_benefits": [
+        "Benefit 1: Code is naturally testable (forced by test-first)",
+        "Benefit 2: Tests are living documentation (show how code is used)",
+        "Benefit 3: Safe refactoring (change without fear)",
+        "Benefit 4: 100% coverage (natural consequence, not goal)"
+      ],
+      "bad_example": {
+        "situation": "Developer writes code first, tests later (or not at all)",
+        "code": "// Write code\nfunction discount(user, order) {\n  if (user.vip && order.total > 1000) return 0.20;\n  if (order.total > 2000) return 0.05;\n  return 0;\n}\n\n// Later (or never): write tests\n// But by then, untestable dependencies exist\n// Can't test without complex setup",
+        "why_bad": "Code was not written for testing. Now it's impossible to test properly. Adding tests requires major refactoring.",
+        "cost": "Tests are fragile. Refactoring is risky. Each change takes hours to test. Developers get afraid to touch code."
+      },
+      "good_example": {
+        "situation": "Developer uses TDD (test first)",
+        "code": "// First: Write failing test\ntest('discount for VIP over 1000 is 20%', () => {\n  const user = { vip: true };\n  const order = { total: 1500 };\n  expect(discount(user, order)).toBe(0.20);\n});\n\n// Second: Write minimum code to pass\nfunction discount(user, order) {\n  if (user.vip && order.total > 1000) return 0.20;\n  return 0;\n}\n\n// Third: Refactor both test and code\n// Now add next test, repeat",
+        "why_works": "Code was written to be testable because test had to pass first. Each piece is isolated and verified.",
+        "benefit": "Safe to refactor. Easy to add features. Confidence in changes. No debugging."
+      },
+      "cycle_time": "RED (30 sec) → GREEN (60 sec) → REFACTOR (30 sec) = 2-3 minutes per feature",
+      "evidence": [
+        "Microsoft study: TDD reduced post-release defects by 62%, added only 15% dev time",
+        "IBM study: TDD reduced defect density by 40%",
+        "Google study: Developers using TDD spend 10% more time coding but save 50% on maintenance"
+      ],
+      "common_misconceptions": [
+        {
+          "myth": "TDD is about reaching 100% coverage",
+          "truth": "TDD is about discipline. Coverage is a side effect, not the goal."
+        },
+        {
+          "myth": "Writing tests takes extra time",
+          "truth": "Writing tests SAVES time. Debugging is expensive. Testing is cheap."
+        },
+        {
+          "myth": "You can add tests after code",
+          "truth": "Tests after code are useless. Code written without tests is untestable."
+        },
+        {
+          "myth": "TDD is for frameworks, not business logic",
+          "truth": "TDD is for ALL code. Especially business logic, which is most critical."
+        }
+      ],
+      "how_to_measure": "Every 5-10 minutes, you have a passing test. Code has no fear of change. New feature can be added in hours, not days.",
+      "related_principles": ["principle_3", "principle_4", "principle_5"],
+      "tags": ["#tdd", "#test-driven-development", "#discipline", "#quality", "#professional-practice"],
+      "real_world_story": "A developer resisted TDD for years. 'Too slow,' he said. Then he joined a team using TDD strictly. After one month: 'I can't imagine working without it.' Why? Because he experienced the fear of NOT having tests. When tests pass, he could refactor fearlessly. When tests existed, changes took minutes instead of hours. TDD is not about testing. It's about confidence and speed."
     },
     {
       "id": "principle_3",
-      "principle": "Страх — Главный Враг Качества",
-      "reasoning": "",
-      "tags": [
-        "#fear",
-        "#psychological-safety",
-        "#confidence",
-        "#courage",
-        "#code-quality"
+      "principle": "Fear is the Enemy of Quality",
+      "scope": "code-quality",
+      "severity": "CRITICAL",
+      "statement": "Developers afraid to touch code avoid improving it. This fear leads to degradation. Courage, enabled by tests, leads to quality.",
+      "reasoning": "Without tests, touching code feels dangerous. 'What if I break something?' So developers make the safest change, not the best change. Over time, code degrades. Quality spirals downward.",
+      "when_to_use": [
+        "Reviewing code that's clearly bad but 'untouchable'",
+        "Dealing with legacy code",
+        "Understanding why refactoring isn't happening",
+        "Building team culture"
       ],
-      "key_rules": [],
-      "examples": [],
-      "severity": "CRITICAL"
+      "key_rules": [
+        "Fear paralyzes improvement",
+        "Confidence requires safety",
+        "Safety requires tests",
+        "Tests enable refactoring",
+        "Refactoring enables quality"
+      ],
+      "the_degradation_cycle": [
+        "Stage 1: Code is messy",
+        "Stage 2: Developer: 'I won't touch it, might break something'",
+        "Stage 3: Nobody improves code",
+        "Stage 4: Each change is safest option, not best option",
+        "Stage 5: Code degrades further",
+        "Stage 6: Developers stop trying",
+        "Result: Unmaintainable system"
+      ],
+      "the_virtue_cycle": [
+        "Stage 1: Add tests to code",
+        "Stage 2: Tests pass. Developer has confidence.",
+        "Stage 3: Developer confidently makes improvements",
+        "Stage 4: Each refactoring is safe (tests verify)",
+        "Stage 5: Code improves continuously",
+        "Stage 6: Developers take pride in code",
+        "Result: Maintainable, improving system"
+      ],
+      "the_boy_scout_rule": "Leave the code in better condition than you found it. Small improvements, consistently applied, compound into quality.",
+      "bad_example": {
+        "situation": "Code is clearly bad. Developers avoid touching it.",
+        "code": "// Obviously wrong but everyone's afraid to change it\nclass OrderProcessor {\n  function process(order) {\n    // Embedded SQL, no tests, no structure\n    // Everyone says 'it works, don't touch it'\n    // Improvements are never made\n  }\n}",
+        "why_bad": "Fear prevents improvement. Code becomes a liability everyone avoids.",
+        "cost": "System becomes unmaintainable. Features take weeks. Bugs are nightmares to fix."
+      },
+      "good_example": {
+        "situation": "Same code, but surrounded by tests",
+        "code": "// Code is now safe to change\ntest('OrderProcessor handles valid order', () => {\n  // Test ensures code behavior\n});\n\nclass OrderProcessor {\n  // Developers now confident to refactor\n  // Each improvement is verified by tests\n  // Code improves over time\n}",
+        "why_works": "Tests remove fear. Confidence enables improvement. Improvement builds pride.",
+        "benefit": "Developers want to improve code. System gets better. Everyone is happier."
+      },
+      "how_to_measure": "Can developers refactor without hesitation? Are small improvements happening continuously? Is there pride in the code?",
+      "related_principles": ["principle_2", "principle_4"],
+      "tags": ["#courage", "#fear", "#quality", "#testing", "#confidence"],
+      "real_world_story": "A team inherited messy code. 'Don't touch it,' managers warned. For 2 years, nobody improved anything. Changes were terrifying. Then one developer started adding tests (without changing the code). After each test passed, she refactored slightly. Soon, other developers felt confident enough to help. After 6 months, the code was clean. The only thing that changed: tests. Fear was gone. Quality returned."
     },
     {
       "id": "principle_4",
-      "principle": "Три Закона TDD Обеспечивают Четыре Блага",
-      "reasoning": "",
-      "tags": [
-        "#code-coverage",
-        "#safety",
-        "#design-quality",
-        "#modularity",
-        "#living-documentation",
-        "#completeness",
-        "#testability",
-        "#separation-of-concerns",
-        "#documentation",
-        "#examples",
-        "#improvement",
-        "#continuous-enhancement",
-        "#clarity",
-        "#refactoring",
-        "#quality-metrics"
+      "principle": "The Three Laws of TDD Deliver Four Benefits",
+      "scope": "code-quality",
+      "severity": "CRITICAL",
+      "statement": "Following TDD's three laws automatically produces four crucial benefits that are normally difficult to achieve.",
+      "reasoning": "TDD is not about coverage metrics. It's a discipline that, when followed strictly, produces side benefits: testable design, documentation, refactoring safety, and completeness.",
+      "when_to_use": [
+        "Evaluating code quality",
+        "Understanding why TDD works",
+        "Justifying time spent on TDD",
+        "Explaining TDD benefits"
       ],
-      "key_rules": [],
-      "examples": [],
-      "severity": "CRITICAL"
+      "benefit_1_testability": {
+        "name": "Benefit 1: Code is Naturally Testable",
+        "description": "If you write tests first, code MUST be testable. You cannot write an untestable test.",
+        "consequence": "Testability = modularity = separation of concerns = flexibility",
+        "example": "Classes with single responsibility, minimal dependencies, clear interfaces"
+      },
+      "benefit_2_documentation": {
+        "name": "Benefit 2: Tests are Living Documentation",
+        "description": "Tests show exactly how code is used. They're examples, not after-the-fact documentation.",
+        "consequence": "New developers understand code by reading tests. Documentation stays in sync.",
+        "example": "Test name: 'should calculate 10% discount for order over 100'"
+      },
+      "benefit_3_refactoring": {
+        "name": "Benefit 3: Safe Refactoring is Enabled",
+        "description": "Tests give courage to change code. You can improve structure without breaking functionality.",
+        "consequence": "Continuous improvement becomes possible. Code quality increases over time.",
+        "example": "Change implementation, tests still pass, feature still works"
+      },
+      "benefit_4_coverage": {
+        "name": "Benefit 4: 100% Test Coverage is Natural",
+        "description": "Not because metrics demand it, but because tests were written FIRST.",
+        "consequence": "Every line is tested before being written. Coverage is complete by design.",
+        "example": "No code written without failing test first"
+      },
+      "related_principles": ["principle_2"],
+      "tags": ["#tdd", "#testing", "#benefits", "#quality"],
+      "real_world_story": "A company tried to retrofit tests onto legacy code. Nightmare. Another company started fresh with TDD. After equal time, the TDD company had 4 benefits: testable code, documentation, easy changes, 100% coverage. The retrofitting company had fragments. The difference: when you write tests first, you get professional code."
     },
     {
       "id": "principle_5",
-      "principle": "Рефакторинг — Это Четвертый Закон TDD",
-      "reasoning": "",
-      "tags": [
-        "#red-green-refactor",
-        "#refactoring",
-        "#design-improvement",
-        "#code-quality",
-        "#continuous-improvement"
+      "principle": "Refactoring is the Fourth Law of TDD",
+      "scope": "development-practice",
+      "severity": "HIGH",
+      "statement": "TDD has four stages: RED → GREEN → REFACTOR → REPEAT. Refactoring is not optional.",
+      "reasoning": "RED + GREEN makes code work. But refactoring makes code clean. You can't focus on both functionality and design simultaneously. Refactoring is the discipline that separates professional from amateur.",
+      "when_to_use": [
+        "During TDD cycle",
+        "Whenever code can improve",
+        "Continuously throughout development"
       ],
-      "key_rules": [],
-      "examples": [],
-      "severity": "CRITICAL"
+      "the_cycle": [
+        "RED: Write failing test",
+        "GREEN: Write minimum code to pass",
+        "REFACTOR: Improve both test and code",
+        "REPEAT: Next failing test"
+      ],
+      "why_refactor": "RED + GREEN = 'Make it work'. REFACTOR = 'Make it right'. Both are necessary.",
+      "safety_of_refactoring": "Refactoring NEVER changes behavior. Tests verify this. If test breaks during refactoring, it's not refactoring—it's a bug fix.",
+      "key_rules": [
+        "Refactor for clarity, not performance",
+        "Small refactorings, frequently",
+        "Tests must pass before and after",
+        "If test fails, stop—you've changed behavior"
+      ],
+      "bad_example": {
+        "situation": "Developer skips refactoring phase",
+        "code": "// RED: Test fails\n// GREEN: Code passes test\n// (REFACTOR: Skipped!)\n// REPEAT: Next test\n\n// Result after 100 tests:\n// Working code. Messy code.",
+        "why_bad": "Code works but is unmaintainable. Next developer can't understand it. Changes become expensive.",
+        "cost": "Technical debt accumulates. System becomes harder to change."
+      },
+      "good_example": {
+        "situation": "Developer includes refactoring",
+        "code": "// RED: Test fails\ntest('discount logic', () => { ... });\n\n// GREEN: Minimum code\nfunction discount(u, o) {\n  if (u.v && o.t > 100) return 0.1;\n  return 0;\n}\n\n// REFACTOR: Make it clear\nfunction discount(user, order) {\n  if (isVipCustomer(user) && isLargeOrder(order)) {\n    return VIP_DISCOUNT;\n  }\n  return NO_DISCOUNT;\n}",
+        "why_works": "Tests verify both versions work. Refactored code is clearer. Next developer understands it.",
+        "benefit": "Code improves over time. Maintainability increases."
+      },
+      "common_misconceptions": [
+        {
+          "myth": "Refactoring is optional, can be done later",
+          "truth": "Later never comes. Refactoring must be part of the cycle."
+        },
+        {
+          "myth": "Refactoring might break things",
+          "truth": "With tests, refactoring is safe. Tests verify nothing broke."
+        }
+      ],
+      "related_principles": ["principle_2", "principle_3"],
+      "tags": ["#refactoring", "#code-quality", "#tdd", "#improvement"],
+      "real_world_story": "A developer using TDD properly: RED → GREEN → REFACTOR every 5-10 minutes. Over a year, code improved continuously. Another developer: RED → GREEN → REPEAT (no refactoring). Over the same year, code accumulated cruft. One year later: first developer's code is a joy to modify. Second developer's is a pain. The only difference: refactoring discipline."
     },
     {
       "id": "principle_6",
-      "principle": "Простой Дизайн — Это Чувство, А Не Правило",
-      "reasoning": "",
-      "tags": [
-        "#craftsmanship",
-        "#simple-design",
-        "#mastery",
-        "#principles",
-        "#code-elegance"
+      "principle": "Professionalism is Ethical Responsibility",
+      "scope": "career/ethics",
+      "severity": "CRITICAL",
+      "statement": "Professional developers bear responsibility for the code they ship. Bad code causes real harm—financial, safety, ethical.",
+      "reasoning": "Software has consequences. From financial systems (Knight Capital lost $460M in 45 minutes) to safety systems (Boeing 737 Max killed 346 people). Developers must take responsibility seriously.",
+      "when_to_use": [
+        "Making decisions about code quality",
+        "Pushing back against 'cut corners'",
+        "Evaluating tools and practices",
+        "Considering the human impact of code"
       ],
-      "key_rules": [],
-      "examples": [],
-      "severity": "CRITICAL"
-    },
-    {
-      "id": "principle_7",
-      "principle": "Совместное Программирование — Это Передача Культуры",
-      "reasoning": "",
-      "tags": [
-        "#team-culture",
-        "#knowledge-sharing",
-        "#mentoring",
-        "#collaboration",
-        "#pair-programming"
+      "key_responsibilities": [
+        "Know your code works (through tests)",
+        "Know your code is maintainable (through TDD)",
+        "Know the ethical implications (through thinking)",
+        "Say 'no' when asked to cut corners",
+        "Take pride in your work"
       ],
-      "key_rules": [],
-      "examples": [],
-      "severity": "CRITICAL"
-    },
-    {
-      "id": "principle_8",
-      "principle": "Приемочные Тесты — Это Договор с Заказчиком",
-      "reasoning": "",
-      "tags": [
-        "#requirements",
-        "#automation",
-        "#clarity",
-        "#acceptance-testing",
-        "#customer-collaboration"
+      "real_examples_of_irresponsibility": [
+        {
+          "case": "Boeing 737 Max MCAS",
+          "impact": "346 deaths",
+          "cause": "Poor testing, incomplete integration"
+        },
+        {
+          "case": "Knight Capital $460M loss",
+          "impact": "Financial disaster",
+          "cause": "Old code deployed without verification"
+        },
+        {
+          "case": "Iowa Caucuses voting system",
+          "impact": "Election delayed",
+          "cause": "Inadequate testing"
+        },
+        {
+          "case": "Equifax data breach",
+          "impact": "143M personal records exposed",
+          "cause": "Unpatched vulnerability"
+        }
       ],
-      "key_rules": [],
-      "examples": [],
-      "severity": "CRITICAL"
-    },
-    {
-      "id": "principle_9",
-      "principle": "Производительность — Это Не Скорость, Это Стабильность",
-      "reasoning": "",
-      "tags": [
-        "#long-term-thinking",
-        "#flexibility",
-        "#continuous-delivery",
-        "#modularity",
-        "#quality-first",
-        "#sustainable-pace",
-        "#sustainable-development",
-        "#change-management",
-        "#no-shortcuts",
-        "#automation",
-        "#readiness",
-        "#stability"
-      ],
-      "key_rules": [],
-      "examples": [],
-      "severity": "CRITICAL"
-    },
-    {
-      "id": "principle_10",
-      "principle": "Качество — Это НЕ Прерогатива QA",
-      "reasoning": "",
-      "tags": [
-        "#responsibility",
-        "#quality",
-        "#confidence",
-        "#excellence",
-        "#continuous-improvement"
-      ],
-      "key_rules": [],
-      "examples": [],
-      "severity": "CRITICAL"
-    },
-    {
-      "id": "principle_11",
-      "principle": "Смелость — Это Умение Сказать \"Нет\"",
-      "reasoning": "",
-      "tags": [
-        "#ethics",
-        "#advocacy",
-        "#professional-judgment",
-        "#courage",
-        "#integrity"
-      ],
-      "key_rules": [],
-      "examples": [],
-      "severity": "CRITICAL"
-    },
-    {
-      "id": "principle_12",
-      "principle": "Клятва Программиста — Десять Постулатов",
-      "reasoning": "",
-      "tags": [
-        "#responsibility",
-        "#ethics",
-        "#society",
-        "#values",
-        "#professional-oath"
-      ],
-      "key_rules": [],
-      "examples": [],
-      "severity": "CRITICAL"
-    },
-    {
-      "id": "principle_13",
-      "principle": "Цена Молчания — Выше, Чем Цена Проблемы",
-      "reasoning": "",
-      "tags": [
-        "#responsibility",
-        "#accountability",
-        "#ethics",
-        "#whistleblowing",
-        "#courage"
-      ],
-      "key_rules": [],
-      "examples": [],
-      "severity": "CRITICAL"
-    },
-    {
-      "id": "principle_14",
-      "principle": "Непрерывная Интеграция — Это о Доверии",
-      "reasoning": "",
-      "tags": [
-        "#deployment",
-        "#automation",
-        "#quality-assurance",
-        "#readiness",
-        "#continuous-integration"
-      ],
-      "key_rules": [],
-      "examples": [],
-      "severity": "CRITICAL"
-    },
-    {
-      "id": "principle_15",
-      "principle": "Менторство — Это Долг Опытного Разработчика",
-      "reasoning": "",
-      "tags": [
-        "#craftsmanship",
-        "#ideal-work",
-        "#advocacy",
-        "#elegance",
-        "#responsibility",
-        "#quality",
-        "#mastery",
-        "#knowledge-transfer",
-        "#culture",
-        "#requirements",
-        "#professionalism",
-        "#mentoring",
-        "#productivity",
-        "#tdd",
-        "#collaboration",
-        "#quality-assurance",
-        "#professional-development",
-        "#continuous-learning",
-        "#accountability",
-        "#ethics",
-        "#automation",
-        "#courage",
-        "#refactoring"
-      ],
-      "key_rules": [],
-      "examples": [],
-      "severity": "CRITICAL"
+      "bad_example": {
+        "situation": "Pressure to ship. Developer skips testing.",
+        "code": "// Ship without TDD\n// Ship without verification\n// 'It seems to work'\n\n// Then it breaks in production\n// Affecting thousands of users",
+        "why_bad": "Taking shortcuts with code is taking shortcuts with responsibility.",
+        "cost": "Users are harmed. Company is damaged. Developer's reputation is destroyed."
+      },
+      "good_example": {
+        "situation": "Same pressure. Professional approach.",
+        "code": "// TDD ensures it works\n// Testing ensures it's safe\n// Professional says 'I'll ship on schedule with quality'\n\n// Ships on time. Zero production issues.",
+        "why_works": "Quality and speed are not opposed. Professional discipline enables both.",
+        "benefit": "Trust is earned. Career is built. Code doesn't harm anyone."
+      },
+      "how_to_measure": "Can I explain how this code works? Am I confident in this code? Would I trust it with my own safety? Can I defend this code to users?",
+      "related_principles": ["principle_1", "principle_2"],
+      "tags": ["#ethics", "#professionalism", "#responsibility", "#safety", "#quality"],
+      "real_world_story": "A developer was asked to ship code without proper testing. She said 'no.' Manager was angry. One week later, untested code from another developer broke production for 8 hours, affecting 100K users. The company realized her 'no' was actually protecting them. Now she's their principal engineer. Saying 'no' is professional. Shipping bad code is not."
     }
   ],
-  "decision_workflows": [],
-  "faq_for_llm": [
+  "decision_guide": {
+    "when_uncertain_ask": [
+      "Are tests driving my design, or is code driving tests?",
+      "Would I trust this code with my family's safety?",
+      "Can I explain this code to someone else?",
+      "Am I cut corners for speed or being professional?",
+      "Will this decision matter in 1 year? In 5 years?"
+    ]
+  },
+  "faq": [
     {
-      "question": "How should I apply: 1: Для Разработчика Каждый День Должен Начинаться с TDD...?",
-      "answer": " 1: Для Разработчика Каждый День Должен Начинаться с TDD\n\n**Практическое Действие:**\nКаждое утро разработчик пишет тесты ДО кода.\n\n**Что Это Означает:**\n1. Открыл задачу — написал тест\n2. Тест падает ..."
+      "question": "How long should TDD cycle take?",
+      "answer": "5-10 minutes per feature. RED (30s) → GREEN (1m) → REFACTOR (30s) → REPEAT",
+      "principle_ref": "principle_2"
     },
     {
-      "question": "How should I apply: 2: Первая 1-2 Недели — Обучение TDD Болезненны...?",
-      "answer": " 2: Первая 1-2 Недели — Обучение TDD Болезненны\n\n**Практическое Действие:**\nНовичок в TDD будет работать медленнее первые 1-2 недели.\n\n**Почему?**\n- Мозг переучивается\n- Думается о тестах, потом о код..."
+      "question": "Should I write all tests first, then all code?",
+      "answer": "No. TDD is a cycle. Test → Code → Refactor → Repeat. Continuously.",
+      "principle_ref": "principle_2"
     },
     {
-      "question": "How should I apply: 3: Рефакторинг Должен Быть Постоянной Практикой...?",
-      "answer": " 3: Рефакторинг Должен Быть Постоянной Практикой\n\n**Практическое Действие:**\nПосле каждого зеленого теста должен быть рефакторинг.\n\n**Что Рефакторить?**\n- Тестовый код (имена, дублирование)\n- Производ..."
+      "question": "Can I skip refactoring if code already works?",
+      "answer": "No. REFACTOR is part of TDD. It makes code maintainable.",
+      "principle_ref": "principle_5"
+    },
+    {
+      "question": "Is 100% coverage a realistic goal?",
+      "answer": "With TDD, yes. It's not a goal—it's a side effect.",
+      "principle_ref": "principle_4"
+    },
+    {
+      "question": "How do I handle legacy code without tests?",
+      "answer": "Add tests before changing. Characterization tests show current behavior. Then refactor safely.",
+      "principle_ref": "principle_3"
     }
-  ]
+  ],
+  "tags": [
+    "#professionalism",
+    "#tdd",
+    "#craftsmanship",
+    "#ethics",
+    "#test-driven-development",
+    "#quality",
+    "#discipline"
+  ],
+  "version_info": {
+    "book_edition": "First Edition",
+    "json_version": "2.0",
+    "last_updated": "2026-08-09",
+    "english_translated": true
+  }
 }
