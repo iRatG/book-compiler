@@ -1,0 +1,46 @@
+{
+  "metadata": {
+    "title": "Unknown",
+    "author": "Unknown",
+    "publication": "Unknown",
+    "book_name": "martin-clean-code",
+    "format_version": "3.0",
+    "generated_at": "2026-08-09T08:10:54.680321",
+    "language": "English",
+    "generation_pass": "Pass 6: JSON Generation for LLM"
+  },
+  "system_instruction": "You are applying this book's principles to real work.\n\n**How to use this JSON:**\n1. Identify which principle applies\n2. Review supporting_arguments for evidence\n3. Check related_implications for practical application\n4. Use code_review_checklist items\n5. Apply practical_metrics to measure\n\n**RULES:**\n- Only cite what's in this JSON\n- Quote supporting_arguments\n- Use checklist items verbatim\n- If principle doesn't apply, say so\n\nEverything here is sourced from the book. Nothing is invented.",
+  "quick_reference": {
+    "book": "martin-clean-code",
+    "principles_count": 0,
+    "top_3_principles": [],
+    "questions_count": 0,
+    "arguments_count": 3,
+    "implications_count": 0
+  },
+  "principles": [],
+  "decision_guide": {
+    "when_uncertain_ask": [],
+    "framework": "Reference supporting_arguments and related_implications"
+  },
+  "faq": [
+    {
+      "question": "How do I know this principle applies?",
+      "answer": "Check if your situation matches when_to_use context. Review related_questions.",
+      "principle_refs": []
+    }
+  ],
+  "tags": [],
+  "version_info": {
+    "json_version": "3.0",
+    "pass": "Pass 6: JSON Generation for LLM",
+    "generation_date": "2026-08-09T08:10:54.680321",
+    "book": "martin-clean-code",
+    "principles": 0,
+    "arguments": 3,
+    "implications": 0,
+    "questions": 0,
+    "tags": 0,
+    "data_quality": "No invented data. All sourced from markdown."
+  }
+}

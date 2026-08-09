@@ -1,377 +1,182 @@
 {
   "metadata": {
-    "title": "Code That Fits in Your Head: Heuristics for Software Engineering",
-    "author": "Mark Seemann",
-    "source_folder": "Books/code-fits-in-head",
-    "format_version": "2.0",
-    "generated_for": "LLM system prompts (Claude, GPT, etc)",
+    "title": "Unknown",
+    "author": "Unknown",
+    "publication": "Unknown",
+    "book_name": "code-fits-in-head",
+    "format_version": "3.0",
+    "generated_at": "2026-08-09T08:10:54.659380",
     "language": "English",
-    "purpose": "Guide developers to write code that humans can understand and maintain, prioritizing cognitive load over arbitrary rules"
+    "generation_pass": "Pass 6: JSON Generation for LLM"
   },
-  "system_instruction": "You are a code architect focused on readability and cognitive load. Your approach emphasizes:\n\n1. **Cognitive Load First** - Every design decision should minimize mental overhead\n2. **Readability Over Brevity** - Code is read 90% of the time, written 10%\n3. **Heuristics Not Rules** - Apply judgment, not rigid standards\n4. **Encapsulation as Protection** - Protect invariants, not just hide data\n5. **API from Usage** - Design from how code will be called, not abstract ideas\n6. **Decomposition** - Break complexity into understandable pieces\n7. **Vertical Slices** - Deliver working software, not layers\n\nWhen reviewing code: Consider cognitive load, readability, and maintainability above all else.",
+  "system_instruction": "You are applying this book's principles to real work.\n\n**How to use this JSON:**\n1. Identify which principle applies\n2. Review supporting_arguments for evidence\n3. Check related_implications for practical application\n4. Use code_review_checklist items\n5. Apply practical_metrics to measure\n\n**RULES:**\n- Only cite what's in this JSON\n- Quote supporting_arguments\n- Use checklist items verbatim\n- If principle doesn't apply, say so\n\nEverything here is sourced from the book. Nothing is invented.",
   "quick_reference": {
-    "core_goal": "Code that fits in a developer's head—maintainable, understandable, changeable",
-    "key_metric": "Cognitive load—how many concepts must a developer hold in mind to understand this code?",
-    "red_flags": [
-      "Too many local variables",
-      "Deep nesting",
-      "Long parameter lists",
-      "Unclear names",
-      "Hidden dependencies"
-    ]
+    "book": "code-fits-in-head",
+    "principles_count": 0,
+    "top_3_principles": [],
+    "questions_count": 0,
+    "arguments_count": 10,
+    "implications_count": 0
   },
-  "principles": [
-    {
-      "id": "principle_1",
-      "principle": "Heuristics Trump Rules",
-      "scope": "design-philosophy",
-      "severity": "CRITICAL",
-      "statement": "Use heuristics (judgment-based guidelines) instead of rigid rules. Heuristics require understanding; rules don't.",
-      "reasoning": "Rules like 'max 80 characters per line' create false confidence. A junior blindly follows them. An expert knows when to break them. This book teaches heuristics—principles that require judgment.",
-      "when_to_use": [
-        "Evaluating code style",
-        "Making design decisions",
-        "Reviewing code from others",
-        "Mentoring developers"
-      ],
-      "key_rules": [
-        "Understand the principle behind the rule",
-        "Know when exceptions exist",
-        "Judge based on context",
-        "Code is specific to its context"
-      ],
-      "bad_example": {
-        "situation": "Newbie applies rules blindly",
-        "code": "// 'Never write functions > 10 lines'\nfunction process() {\n  // Split into 10 one-liners\n  // Each one-liner is confusing\n  // Total code is less clear\n}\n\n// Followed rule, violated principle",
-        "why_bad": "Rule was broken. Principle was violated.",
-        "cost": "Code is hard to understand. Technical debt from overengineering."
-      },
-      "good_example": {
-        "situation": "Expert applies heuristics",
-        "code": "// 'Write for readability'\nfunction process() {\n  // 25 lines, but clear\n  // Each step is obvious\n  // One function is better than 10 confusing ones\n}\n\n// Rule broken. Principle honored.",
-        "why_works": "Principle guides decision. Code is understandable.",
-        "benefit": "Professional judgment. Code that maintains itself."
-      },
-      "how_to_measure": "Can you explain WHY a design is better, not just THAT it follows a rule?",
-      "related_principles": ["principle_3", "principle_5"],
-      "tags": ["#heuristics", "#judgment", "#principles", "#context-awareness"],
-      "real_world_story": "Developer A learned: 'Functions must be < 10 lines.' Splits every function into fragments. Code becomes 100 lines where 30 would do. Developer B learned: 'Optimize for readability.' One clear 30-line function beats 10 confusing ones. A's code follows the rule. B's code follows the principle. B's is better."
-    },
-    {
-      "id": "principle_2",
-      "principle": "Code is Read 90% of the Time, Written 10%",
-      "scope": "coding-practice",
-      "severity": "CRITICAL",
-      "statement": "Optimize for reading, not writing. A developer spends 9 hours understanding code for every 1 hour writing it.",
-      "reasoning": "Your primary job is not writing code. It's modifying existing code. Make reading easy. Make writing slightly harder if needed.",
-      "when_to_use": [
-        "Choosing names",
-        "Deciding on abstractions",
-        "Organizing modules",
-        "Writing documentation"
-      ],
-      "key_rules": [
-        "Name should tell you what it does",
-        "Structure should be predictable",
-        "Dependencies should be explicit",
-        "Clear > clever"
-      ],
-      "bad_example": {
-        "situation": "Code optimized for writing speed",
-        "code": "// Short names, compact\nconst c = ctx => {\n  const u = c.usr;\n  const o = u.orgs;\n  return o.map(x => x.id);\n};\n\n// Fast to write. Slow to read.",
-        "why_bad": "Reader must decode every abbreviation. Takes 5 minutes to understand.",
-        "cost": "90% of your time is wasted."
-      },
-      "good_example": {
-        "situation": "Code optimized for reading",
-        "code": "// Clear names\nconst getUserOrganizationIds = context => {\n  const user = context.user;\n  const organizations = user.organizations;\n  return organizations.map(org => org.id);\n};\n\n// Slower to write. Fast to read.",
-        "why_works": "Reader understands immediately. No decoding needed.",
-        "benefit": "90% of time is productive."
-      },
-      "the_math": "1 hour writing + 9 hours reading = 10 hours per feature. Optimize for the 9.",
-      "how_to_measure": "How long does it take a new developer to understand this code? If > 5 minutes, it's not readable enough.",
-      "related_principles": ["principle_3"],
-      "tags": ["#readability", "#clarity", "#naming", "#code-quality"],
-      "real_world_story": "Developer writes compact code. Fast to write. Team takes 2x longer to modify it. Over a year: time spent reading >> time spent writing. Short-term writing speedup costs long-term reading slowdown. Readability is not a luxury."
-    },
-    {
-      "id": "principle_3",
-      "principle": "Cognitive Load is the Enemy",
-      "scope": "design",
-      "severity": "CRITICAL",
-      "statement": "The human brain can hold 7±2 concepts in working memory. Code requiring 20 concepts to understand is hostile.",
-      "reasoning": "Every variable you introduce, every condition you nest, every dependency you add—all increase cognitive load. Each increases the chance of misunderstanding.",
-      "when_to_use": [
-        "Designing functions",
-        "Choosing abstractions",
-        "Organizing code",
-        "Naming concepts"
-      ],
-      "cognitive_load_factors": [
-        "Local variables: Each one needs understanding",
-        "Nested conditions: Each level doubles mental load",
-        "Implicit dependencies: Hidden state is hardest to track",
-        "Long parameter lists: Difficult to remember order",
-        "Complex algorithm: Hard to predict behavior"
-      ],
-      "bad_example": {
-        "situation": "High cognitive load",
-        "code": "function processOrder(o, u, d, q, t, c, p, x) {\n  // 8 parameters, each needs understanding\n  // Nested conditions\n  // Hidden dependencies\n  // Reader must hold 20+ concepts\n  if (u.v && o.s === 'p' && t > d) {\n    if (q > 0) {\n      // ...\n    }\n  }\n}\n\n// What is 'v'? What is 'p'? What is 'x'?\n// Reader gives up.",
-        "why_bad": "Too much to understand. Reader makes mistakes.",
-        "cost": "Bugs. Misunderstandings. Refactoring is dangerous."
-      },
-      "good_example": {
-        "situation": "Low cognitive load",
-        "code": "function processOrder(order, user, config) {\n  // 3 clear parameters\n  // Simple logic\n  // Reader holds 5 concepts\n  const userIsValid = isValidUser(user);\n  const orderIsReady = isOrderReady(order, config);\n  \n  if (userIsValid && orderIsReady) {\n    return completeOrder(order);\n  }\n}\n\n// Clear. Safe. Easy to modify.",
-        "why_works": "Few concepts. Clear names. Reader understands.",
-        "benefit": "Code is maintainable. Changes are safe."
-      },
-      "how_to_measure": "Count: local variables, nesting levels, parameters, dependencies. Too many = too complex.",
-      "related_principles": ["principle_2", "principle_5"],
-      "tags": ["#cognitive-load", "#simplicity", "#clarity", "#maintainability"],
-      "real_world_story": "Senior developer writes 60-line function with 12 variables, 5 nested ifs. Thinks it's clear. Junior can't understand it. After two weeks of trying, junior asks for rewrite. Senior is annoyed. But the code WAS hard. The writer knows their own code. New readers don't. Cognitive load matters."
-    },
-    {
-      "id": "principle_4",
-      "principle": "Encapsulation Protects Invariants, Not Just Data",
-      "scope": "object-design",
-      "severity": "HIGH",
-      "statement": "Encapsulation is not about hiding—it's about protecting promises. An object guarantees certain things will always be true.",
-      "reasoning": "A Money object promises: amount ≥ 0, currency ≠ null. If anyone could set amount = -5, the object is broken. Encapsulation protects these promises.",
-      "when_to_use": [
-        "Designing classes",
-        "Creating value objects",
-        "Protecting business rules",
-        "Ensuring consistency"
-      ],
-      "invariants_are": [
-        "Properties that must always be true",
-        "Promises the object makes",
-        "Contracts with clients",
-        "Safety guarantees"
-      ],
-      "bad_example": {
-        "situation": "Public fields. No invariants.",
-        "code": "class Money {\n  public amount;  // Public. Anyone can set it to -5.\n  public currency;  // Public. Anyone can set to null.\n}\n\nconst m = new Money();\nm.amount = -5;  // Object broken.\nm.currency = null;  // Object broken.",
-        "why_bad": "No protection. Object can be in invalid state.",
-        "cost": "Bugs when amount is -5. Crashes when currency is null."
-      },
-      "good_example": {
-        "situation": "Encapsulated invariants",
-        "code": "class Money {\n  constructor(amount, currency) {\n    if (amount < 0) throw Error('amount must be >= 0');\n    if (!currency) throw Error('currency required');\n    this.amount = amount;\n    this.currency = currency;\n  }\n  \n  add(other) {\n    // Object guarantees this invariant\n    return new Money(this.amount + other.amount, this.currency);\n  }\n}\n\nconst m = new Money(-5); // Error thrown. Object can't be broken.",
-        "why_works": "Invariants are protected. Object always valid.",
-        "benefit": "No defensive coding needed. Clients can trust the object."
-      },
-      "how_to_measure": "Can this object be in an invalid state? If yes, invariants aren't protected.",
-      "related_principles": ["principle_8"],
-      "tags": ["#encapsulation", "#invariants", "#object-design", "#contracts"],
-      "real_world_story": "Developer creates Amount class with public field. Later, someone sets it to -5. Bug appears elsewhere. Took 4 hours to debug. Could have been prevented with encapsulation. Protect invariants from day one."
-    },
-    {
-      "id": "principle_5",
-      "principle": "Decomposition Reduces Cognitive Load",
-      "scope": "code-organization",
-      "severity": "HIGH",
-      "statement": "Break complex functions into smaller ones not for rules, but to reduce cognitive load. Each piece should be understandable alone.",
-      "reasoning": "A 50-line function requires holding 50 lines of context. A 5-line function requires holding 5. Decompose to reduce load.",
-      "when_to_use": [
-        "Function is hard to understand",
-        "Multiple concerns in one function",
-        "Nested logic is deep",
-        "Same code appears twice"
-      ],
-      "bad_example": {
-        "situation": "Long function, high cognitive load",
-        "code": "function processOrder(order) {\n  // 50 lines of logic\n  // Validate\n  // Calculate tax\n  // Apply discount\n  // Update inventory\n  // Send email\n  // Log event\n  // All in one function",
-        "why_bad": "Reader must understand all 50 lines. High cognitive load.",
-        "cost": "Easy to miss bugs. Hard to modify. Hard to reuse."
-      },
-      "good_example": {
-        "situation": "Decomposed, low cognitive load",
-        "code": "function processOrder(order) {\n  validate(order);  // 5 lines\n  const total = calculateTotal(order);  // 5 lines\n  updateInventory(order);  // 5 lines\n  sendConfirmation(order, total);  // 5 lines\n}\n\n// Reader understands each piece separately\n// Can understand the whole in context",
-        "why_works": "Each function is small. Each is understandable.",
-        "benefit": "Easy to modify. Easy to test. Easy to reuse."
-      },
-      "metrics": [
-        "Cyclomatic complexity (# of conditions)",
-        "Number of local variables",
-        "Nesting depth",
-        "Lines of code"
-      ],
-      "how_to_measure": "Can someone understand this function without reading all 50 lines?",
-      "related_principles": ["principle_3"],
-      "tags": ["#decomposition", "#modularity", "#function-size", "#simplicity"],
-      "real_world_story": "Function with 200 lines. Everyone fears changing it. Senior refactors into 10 small functions. Now everyone modifies it confidently. The code doesn't change. The decomposition does."
-    },
-    {
-      "id": "principle_6",
-      "principle": "Vertical Slices Trump Layers",
-      "scope": "development-methodology",
-      "severity": "HIGH",
-      "statement": "Build working software incrementally from user input to database, not layer by layer. Deliver 'walking skeleton' early.",
-      "reasoning": "Layer-by-layer builds all models, then all controllers, then all views. Takes weeks before anything works. Vertical slices deliver working features immediately.",
-      "when_to_use": [
-        "Planning features",
-        "Organizing sprints",
-        "Delivering to stakeholders",
-        "Discovering design issues"
-      ],
-      "bad_approach_layered": [
-        "Week 1: Build all models",
-        "Week 2: Build all controllers",
-        "Week 3: Build all views",
-        "Result: 3 weeks before anything works"
-      ],
-      "good_approach_vertical": [
-        "Day 1: User input → processing → database → display",
-        "Day 2: Next feature same way",
-        "Result: Working software daily"
-      ],
-      "bad_example": {
-        "situation": "Layered approach",
-        "code": "Week 1: Create all database schemas\nWeek 2: Create all service classes\nWeek 3: Create all controllers\nWeek 4: Create all UI\n\nResult: Can't show anything until week 4",
-        "why_bad": "Layers are disconnected. Design issues discovered late.",
-        "cost": "4 weeks of development before feedback."
-      },
-      "good_example": {
-        "situation": "Vertical slice approach",
-        "code": "Day 1: User input → database → display (simple)\nDay 2: Add validation\nDay 3: Add error handling\nDay 4: Add next feature\n\nResult: Working feature daily. Feedback daily.",
-        "why_works": "See problems early. Iterate quickly.",
-        "benefit": "Feedback drives design. No big surprises."
-      },
-      "how_to_measure": "How often can you demo working software? If not daily, you're not doing vertical slices.",
-      "related_principles": ["principle_1"],
-      "tags": ["#agile", "#vertical-slice", "#working-software", "#iterative-development"],
-      "real_world_story": "Team A: Layer by layer. No working feature for 6 weeks. Design is wrong. Big refactor needed. Team B: Vertical slices. Working features every 2 days. Design evolves naturally. Same complexity. Different approach. B wins."
-    },
-    {
-      "id": "principle_7",
-      "principle": "API Design is About Usage, Not Theory",
-      "scope": "code-design",
-      "severity": "HIGH",
-      "statement": "Design your API based on how it will be called, not based on abstract principles. Test-drive it from usage first.",
-      "reasoning": "If you design an API in theory, it feels good until someone tries to use it. Designing from usage ensures it's natural to call.",
-      "when_to_use": [
-        "Creating new classes or modules",
-        "Designing public interfaces",
-        "Writing library code",
-        "Defining contracts"
-      ],
-      "design_principles": [
-        "Affordance: Usage should be obvious",
-        "Poka-Yoke: Hard to use wrong",
-        "CQS: Commands change state, queries don't"
-      ],
-      "bad_example": {
-        "situation": "API designed in theory",
-        "code": "// Abstract design\nclass Repository {\n  public execute(query, params, options, callback) {}\n}\n\n// How do I call this? What's the order of params?\n// I need to read documentation every time",
-        "why_bad": "Not obvious. Easy to use wrong.",
-        "cost": "Confusion. Bugs. People avoid using it."
-      },
-      "good_example": {
-        "situation": "API designed from usage",
-        "code": "// Test first: How do I want to use this?\ntest('get user by id', () => {\n  const user = repository.getUserById(123);\n  expect(user.name).toBe('Alice');\n});\n\n// Now design API to make test pass\nclass Repository {\n  getUserById(id) {\n    // Natural to call. Obvious what it does.\n  }\n}",
-        "why_works": "API feels natural. Usage is obvious.",
-        "benefit": "Developers use it correctly without thinking."
-      },
-      "how_to_measure": "Can a new developer use this API without reading documentation?",
-      "related_principles": ["principle_8"],
-      "tags": ["#api-design", "#usability", "#affordance", "#test-driven-design"],
-      "real_world_story": "Developer A designs API theoretically. Others can't figure out how to use it. Developer B designs from usage tests. API is obvious. Everyone uses it correctly. Same complexity. Different design process. B's API wins."
-    },
-    {
-      "id": "principle_8",
-      "principle": "Checklists Turn Knowledge into Habit",
-      "scope": "quality-practice",
-      "severity": "MEDIUM",
-      "statement": "Checklists aren't for beginners—they're for experts. They ensure expertise becomes consistent practice, not hit-or-miss intuition.",
-      "reasoning": "Even experts skip steps when rushed. Checklists prevent that. They transform individual knowledge into team discipline.",
-      "when_to_use": [
-        "Before committing code",
-        "During code review",
-        "Starting new projects",
-        "Critical operations"
-      ],
-      "checklist_examples": [
-        {
-          "name": "Pre-commit checklist",
-          "items": [
-            "All tests pass",
-            "Code is formatted",
-            "No console.log left",
-            "Commit message is clear"
-          ]
-        },
-        {
-          "name": "Code review checklist",
-          "items": [
-            "Are tests comprehensive?",
-            "Is cognitive load acceptable?",
-            "Are names clear?",
-            "Are invariants protected?"
-          ]
-        }
-      ],
-      "bad_example": {
-        "situation": "No checklist. Depends on memory.",
-        "code": "Developer 1: Commits. Runs tests first. Good.\nDeveloper 2: Rushed. Forgets to run tests. Broken code committed.\nDeveloper 3: Sometimes runs tests, sometimes doesn't. Inconsistent.",
-        "why_bad": "Inconsistency. Depends on mood and time.",
-        "cost": "Broken commits. Bad reputation for code quality."
-      },
-      "good_example": {
-        "situation": "Checklist. Makes it discipline.",
-        "code": "Checklist:\n- [ ] Run all tests\n- [ ] Code formatted\n- [ ] Commit message clear\n- [ ] No debugging code left\n\nEveryone follows. Every time.\nResult: Consistent quality.",
-        "why_works": "Checklist removes memory. Makes it automatic.",
-        "benefit": "Consistency. Reliability. Trust."
-      },
-      "how_to_measure": "Are standards met consistently, or only when someone remembers?",
-      "tags": ["#checklists", "#discipline", "#quality", "#consistency"],
-      "real_world_story": "Team without checklist: Code quality varies. Some developers excellent, others sloppy. Team with checklist: Everyone follows same standard. Quality is consistent. Checklists don't make experts better. They make everyone consistent."
-    }
-  ],
+  "principles": [],
   "decision_guide": {
-    "when_uncertain_ask": [
-      "How many concepts must a developer hold to understand this?",
-      "Can a new developer use this without reading documentation?",
-      "Could this be broken by accident?",
-      "Is this clear or clever?",
-      "Does the name tell you what it does?"
-    ]
+    "when_uncertain_ask": [],
+    "framework": "Reference supporting_arguments and related_implications"
   },
   "faq": [
     {
-      "question": "How many lines should a function be?",
-      "answer": "However many it needs to be clear. One clear 30-line function beats 10 confusing ones.",
-      "principle_ref": "principle_1"
-    },
-    {
-      "question": "How many parameters is too many?",
-      "answer": "More than 3-4 is usually too many. If you have many, consider grouping them in an object.",
-      "principle_ref": "principle_3"
-    },
-    {
-      "question": "Should I comment this?",
-      "answer": "If the code isn't clear enough to understand without comment, fix the code, not the comment.",
-      "principle_ref": "principle_2"
-    },
-    {
-      "question": "How do I design a good API?",
-      "answer": "Write tests first (how you want to call it), then make the API work for those tests.",
-      "principle_ref": "principle_7"
+      "question": "How do I know this principle applies?",
+      "answer": "Check if your situation matches when_to_use context. Review related_questions.",
+      "principle_refs": []
     }
   ],
   "tags": [
-    "#cognitive-load",
-    "#readability",
-    "#code-quality",
-    "#simplicity",
-    "#api-design",
-    "#maintainability"
+    "1234",
+    "456",
+    "a-b-testing",
+    "advocacy",
+    "affordance",
+    "agile-development",
+    "api-design",
+    "automation",
+    "behavior-driven",
+    "behavioral-testing",
+    "best-practices",
+    "binary-search",
+    "brittle-tests",
+    "bug-finding",
+    "bug-prevention",
+    "business-case",
+    "central-question",
+    "change-management",
+    "checklist",
+    "checklists",
+    "ci-cd",
+    "code-clarity",
+    "code-complexity",
+    "code-comprehension",
+    "code-history",
+    "code-metrics",
+    "code-quality",
+    "code-review",
+    "code-sustainability",
+    "cognitive-fit",
+    "cognitive-limits",
+    "cognitive-load",
+    "cognitive-science",
+    "collective-ownership",
+    "comments",
+    "commit-hygiene",
+    "commit-messages",
+    "communication",
+    "complexity",
+    "complexity-growth",
+    "complexity-metrics",
+    "context-aware",
+    "continuous-deployment",
+    "continuous-integration",
+    "contracts",
+    "cost-of-change",
+    "craftsmanship",
+    "cyclomatic-complexity",
+    "debugging",
+    "decomposition",
+    "defensive-programming",
+    "dependency-management",
+    "discipline",
+    "documentation",
+    "early-feedback",
+    "education",
+    "efficiency",
+    "encapsulation",
+    "engineering-discipline",
+    "engineering-vs-art",
+    "error-prevention",
+    "error-rate",
+    "feature-flags",
+    "focus",
+    "function-size",
+    "git-bisect",
+    "git-discipline",
+    "git-practices",
+    "gradual-improvement",
+    "habituation",
+    "heuristics",
+    "human-factors",
+    "initial-development",
+    "integration",
+    "invariants",
+    "iterative-design",
+    "judgment",
+    "knowledge-sharing",
+    "knowledge-transfer",
+    "legacy-code",
+    "linting",
+    "maintainability",
+    "maintenance",
+    "memory-limits",
+    "mental-model",
+    "mentoring",
+    "methodology",
+    "modularity",
+    "new-project",
+    "object-design",
+    "organizational-change",
+    "organizational-structure",
+    "outside-in",
+    "pair-programming",
+    "pomodoro",
+    "practical-heuristics",
+    "practical-wisdom",
+    "prioritization",
+    "productivity",
+    "professional-development",
+    "programming-craft",
+    "quality-gates",
+    "readability",
+    "refactoring",
+    "refactoring-strategy",
+    "risk-management",
+    "security",
+    "software-craftsmanship",
+    "software-quality",
+    "speed-vs-quality",
+    "static-analysis",
+    "strangler-pattern",
+    "sustainable-development",
+    "sustainable-pace",
+    "team-dynamics",
+    "teamwork",
+    "technical-debt",
+    "test-driven-development",
+    "test-maintenance",
+    "test-quality",
+    "test-readability",
+    "test-refactoring",
+    "test-strategy",
+    "test-structure",
+    "testability",
+    "time-management",
+    "type-safety",
+    "unit-testing",
+    "usability",
+    "value-objects",
+    "vertical-slice",
+    "work-habits",
+    "work-process",
+    "working-software",
+    "writer-reader-asymmetry"
   ],
   "version_info": {
-    "book_edition": "First Edition",
-    "json_version": "2.0",
-    "last_updated": "2026-08-09",
-    "english_translated": true
+    "json_version": "3.0",
+    "pass": "Pass 6: JSON Generation for LLM",
+    "generation_date": "2026-08-09T08:10:54.659380",
+    "book": "code-fits-in-head",
+    "principles": 0,
+    "arguments": 10,
+    "implications": 0,
+    "questions": 0,
+    "tags": 135,
+    "data_quality": "No invented data. All sourced from markdown."
   }
 }
