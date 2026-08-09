@@ -1,0 +1,1008 @@
+{
+  "metadata": {
+    "title": "Refactoring: Improving the Design of Existing Code",
+    "author": "Martin Fowler",
+    "edition": "2nd Edition (2018)",
+    "language": "English",
+    "source_language": "English",
+    "format_version": "2.0",
+    "purpose": "Systematic guide to improving code design through behavior-preserving transformations",
+    "total_principles": 20,
+    "key_focus": "Design Stamina Hypothesis—how continuous refactoring enables teams to maintain or increase velocity while improving code quality"
+  },
+  "system_instruction": "You are an expert in refactoring guided by Martin Fowler's principles. You understand: (1) The Design Stamina Hypothesis: good design enables faster long-term delivery; (2) Refactoring is behavior-preserving, systematic transformation; (3) Small steps with tests eliminate risk; (4) Code is read 90% of the time—optimize for readability; (5) Opportunistic refactoring beats planned refactoring; (6) Refactoring is continuous, not a separate activity. When reviewing code or discussing design, reference specific refactoring patterns (Extract Function, Move Function, Replace Conditional with Polymorphism, etc.), identify code smells, and help teams justify refactoring economically to management.",
+  "quick_reference": {
+    "core_goal": "Enable teams to continuously improve code design through systematic, behavior-preserving refactoring",
+    "design_stamina": "Investing in good design now allows faster feature delivery over months and years, not slower",
+    "top_3_principles": [
+      "Refactoring is behavior-preserving transformation—systematic, small steps, always working code",
+      "Code is read 90% of the time—optimize for reader, not writer. Small functions with good names clarify intent.",
+      "Design Stamina Hypothesis: teams with good internal design add features faster over time; teams without design decay"
+    ],
+    "when_to_apply": [
+      "Before adding a feature (preparatory refactoring)",
+      "While fixing a bug (comprehension refactoring)",
+      "During code review (collaborative refactoring)",
+      "When reading code to understand it (move understanding into code)"
+    ]
+  },
+  "principles": [
+    {
+      "id": "principle_1",
+      "principle": "Refactoring is Behavior-Preserving Transformation",
+      "scope": "system",
+      "severity": "CRITICAL",
+      "statement": "A refactoring is a change made to the internal structure of software to make it easier to understand and cheaper to modify, without changing its observable behavior.",
+      "reasoning": "This definition is crucial because it distinguishes refactoring from other code improvements. Refactoring is low-risk when done in small steps because behavior never changes. This is different from fixing bugs (changing behavior) or adding features (adding behavior) or rewriting (discarding old code entirely).",
+      "when_to_use": [
+        "Improving code structure while keeping functionality identical",
+        "Making code easier to understand without changing what it does",
+        "Preparing structure before adding new features"
+      ],
+      "when_not_to_use": "When behavior needs to change (that's a bug fix or feature addition, not refactoring)",
+      "key_rules": [
+        "Every refactoring preserves observable behavior",
+        "Small, named refactorings reduce risk to near-zero",
+        "Tests verify behavior is preserved after each refactoring",
+        "You can stop at any time and have working code"
+      ],
+      "bad_example": {
+        "situation": "Code is confusing, so developer does major restructuring without tests, changing some behavior accidentally",
+        "code": "function process() { /* major rewrites, some logic changed */ }",
+        "why_bad": "Without tests, behavior changes go undetected. This is rewriting, not refactoring. Risky.",
+        "cost": "Bugs introduced, system fails in production, requires emergency fixes"
+      },
+      "good_example": {
+        "situation": "Code is confusing, so developer applies small refactorings, one at a time, running tests after each",
+        "code": "Extract Function → Rename Variable → Split Phase (each tested individually)",
+        "why_works": "Small steps mean any mistake is caught immediately. Behavior is verified after every change.",
+        "benefit": "Code is clearer, no behavior changed, no bugs introduced"
+      },
+      "trade_offs": "None for the principle itself. Refactoring by definition preserves behavior.",
+      "decision_criteria": {
+        "refactor": "Code is unclear but works; you want to improve structure; you have tests",
+        "rewrite": "Code is broken or requirements changed so much that refactoring is slower",
+        "leave_alone": "Code is working and you're not modifying it; refactoring effort is high; tests don't exist"
+      },
+      "common_misconceptions": [
+        "Refactoring = code cleanup (no, it's systematic transformation guided by tests)",
+        "Refactoring = adding new features (no, behavior must stay identical)",
+        "You can refactor safely without tests (no, tests are prerequisite)",
+        "Refactoring is expensive (no, small steps are fast; not refactoring is expensive)"
+      ],
+      "how_to_measure": "Tests pass before and after refactoring; observable behavior is identical; code is clearer (measured by easier to understand/modify)",
+      "related_principles": ["principle_3", "principle_7", "principle_13"],
+      "tags": ["#refactoring", "#behavior-preservation", "#discipline"],
+      "real_world_story": "A team inherits a 10-year-old system. Code is tangled—changing one feature requires modifying five places. Instead of rewriting (risky, expensive), they systematically apply Extract Function, Move Function, Replace Conditional with Polymorphism. After 3 months of opportunistic refactoring, the same feature now requires one change. Tests ensured no behavior changed throughout."
+    },
+    {
+      "id": "principle_2",
+      "principle": "The Design Stamina Hypothesis",
+      "scope": "system",
+      "severity": "CRITICAL",
+      "statement": "By putting effort into good internal design, you increase the stamina (longevity and speed) of your software effort. Good design allows you to go faster for longer.",
+      "reasoning": "Fowler has observed this pattern repeatedly: teams with good design add features faster over months/years than teams without. This contradicts the intuition that 'we have no time for design, must ship fast.' The reality is the opposite: teams that neglect design eventually ship nothing because they're bogged down in complexity.",
+      "when_to_use": [
+        "Justifying refactoring to managers (economic argument)",
+        "Deciding whether to refactor or rewrite (refactoring pays off long-term)",
+        "Designing new systems (invest in clear structure early)",
+        "Mentoring teams on sustainable pace"
+      ],
+      "when_not_to_use": "When code will be deleted soon (no long-term payoff); short-lived prototypes (don't optimize)",
+      "key_rules": [
+        "Good design now = faster features later (weeks to months, not years)",
+        "Poor design now = slower features later (exponential slowdown)",
+        "Design decay is predictable—address it before velocity plummets",
+        "Feature velocity is the proxy metric for design quality"
+      ],
+      "bad_example": {
+        "situation": "Team skips refactoring to ship features faster. After 6 months, every change is slow.",
+        "code": "// Messy codebase, tangled dependencies, hard to understand",
+        "why_bad": "Code debt compounds. Over time, making simple changes takes longer because code is tangled.",
+        "cost": "Team wanted to ship fast but ended up shipping slow. Missed market window. Eventually rewrites system (huge cost)."
+      },
+      "good_example": {
+        "situation": "Team refactors continuously while adding features. Design stays clear.",
+        "code": "Refactor structure before each feature. Clear separation of concerns. Tests guide design.",
+        "why_works": "Each new feature builds on clear foundation. Understanding existing code is fast. Changes are safe.",
+        "benefit": "Team is faster on month 6 than month 1. Can ship more, higher quality."
+      },
+      "trade_offs": "Upfront investment in design costs time initially (week 1), but saves time exponentially (week 8+). Short-term: slightly slower. Long-term: much faster.",
+      "decision_criteria": {
+        "refactor": "Codebase is 3+ months old; you want to maintain or increase velocity; design is degrading",
+        "rewrite": "Design is so bad that refactoring effort > 50% of rewrite effort",
+        "leave_alone": "Code is <3 weeks old; shipping is one-time only"
+      },
+      "common_misconceptions": [
+        "Good design slows initial delivery (false—it's slower only upfront, faster overall)",
+        "Design Stamina is unproven theory (false—observed in hundreds of projects)",
+        "Only big projects need good design (false—accumulates at any scale)",
+        "Refactoring is a luxury (false—it's the fastest way to ship long-term)"
+      ],
+      "how_to_measure": "Feature velocity over time (should stay constant or increase with good design; should decrease without it). Cost per feature (should decrease with good design).",
+      "related_principles": ["principle_5", "principle_6", "principle_20"],
+      "tags": ["#design-quality", "#long-term-thinking", "#economics", "#stamina"],
+      "real_world_story": "Two teams start projects on the same day with similar scope. Team A refactors continuously, keeping design clear. Team B skips refactoring, prioritizes shipping. Month 1: Team B is faster (90 features vs 60). Month 3: Teams are equal (80 features each). Month 6: Team A is ahead (90 features per sprint vs 30 for Team B). Team B is considering a rewrite; Team A is adding sophisticated features because design is stable."
+    },
+    {
+      "id": "principle_3",
+      "principle": "Self-Testing Code Is a Prerequisite for Safe Refactoring",
+      "scope": "module",
+      "severity": "CRITICAL",
+      "statement": "To refactor safely, you need comprehensive automated tests that run quickly and catch most bugs. Without tests, refactoring is dangerous and slow.",
+      "reasoning": "Small refactorings are safe only if you can verify behavior is preserved. Tests provide that verification in seconds. Without tests, you must test manually (slow, incomplete), making refactoring feel risky and expensive. This creates a trap: teams skip refactoring because it's risky, code gets worse, everything becomes harder.",
+      "when_to_use": [
+        "Before starting refactoring effort (prerequisite)",
+        "Deciding whether to refactor or rewrite legacy code (no tests = rewrite might be faster)",
+        "Setting team standards (tests are non-negotiable)"
+      ],
+      "when_not_to_use": "N/A—tests are always required before refactoring",
+      "key_rules": [
+        "Write tests before (or alongside) refactoring",
+        "Tests must be fast (< 5 seconds for entire suite)",
+        "Tests must be comprehensive (catch the bugs you're likely to introduce)",
+        "Tests must run on every commit (CI pipeline)"
+      ],
+      "bad_example": {
+        "situation": "Developer wants to refactor messy code but no tests exist. Tries to refactor anyway.",
+        "code": "// Long function, no tests. Developer extracts, hopes nothing breaks.",
+        "why_bad": "A mistake goes undetected. Code appears to work for weeks until customer hits edge case. Expensive bug, emergency fix.",
+        "cost": "Bugs in production, customer trust damaged, emergency firefighting"
+      },
+      "good_example": {
+        "situation": "Developer adds tests first, then refactors confidently",
+        "code": "Add tests covering all branches → Extract Function → Tests still pass → Continue",
+        "why_works": "Tests catch mistakes immediately. Refactoring is fast and safe.",
+        "benefit": "Code is improved, no bugs introduced, team confidence in refactoring increases"
+      },
+      "trade_offs": "Writing tests takes time upfront (20-30% of development time). But it enables refactoring, which saves time overall (exponential payoff).",
+      "decision_criteria": {
+        "refactor": "Tests exist and cover the code you're changing; tests run in < 5 seconds",
+        "rewrite": "Code is legacy, no tests, effort to test > effort to rewrite",
+        "leave_alone": "Code is working, untested, and you're not changing it soon"
+      },
+      "common_misconceptions": [
+        "Tests are only for quality (false—they enable refactoring, which is what makes you fast)",
+        "You need 100% test coverage (false—cover the code you're modifying and likely bug-prone areas)",
+        "Testing slows you down (false—it enables refactoring, which speeds you up)",
+        "Refactoring is safe without tests if you're careful (false—mistakes hide until production)"
+      ],
+      "how_to_measure": "Can you refactor and verify success in < 10 minutes? (If yes, tests are sufficient. If no, more tests needed). Code passes all tests after refactoring (every time).",
+      "related_principles": ["principle_1", "principle_7", "principle_8"],
+      "tags": ["#testing", "#self-testing-code", "#safety", "#automation"],
+      "real_world_story": "A team inherits legacy Java code with no tests. They want to refactor Extract Class to reduce complexity. Without tests, they estimate 3 weeks (and high risk of bugs). They decide to add tests first: 1 week of seam identification, test writing. Then refactoring takes 3 days (now safe and fast). Final code is better, and they learned how the system works (bonus). Tests now prevent future bugs."
+    },
+    {
+      "id": "principle_4",
+      "principle": "Code Is Read 90% of the Time—Optimize for Readers",
+      "scope": "module",
+      "severity": "HIGH",
+      "statement": "Programmers spend 90% of their time reading existing code, 10% writing new code. Therefore, optimize code for readers, not writers. A 3-line function with a clear name is better than a 10-line function.",
+      "reasoning": "Traditional wisdom said 'minimize functions to reduce overhead.' But function call overhead is negligible; human cognition is the bottleneck. A small, well-named function immediately conveys intent; you rarely read the body. A large function requires parsing logic, holding multiple concerns in mind.",
+      "when_to_use": [
+        "Deciding whether to extract a function (extract if the name clarifies intent)",
+        "Naming functions and variables (prioritize clarity over brevity)",
+        "Writing comments (avoid—let code speak for itself via good names)"
+      ],
+      "when_not_to_use": "N/A—readability always matters",
+      "key_rules": [
+        "Extract Function when name clarifies intent (not when code is short)",
+        "Rename aggressively. If you can't name something, design is unclear.",
+        "Use full names, not abbreviations (customer not cust, invoice not inv)",
+        "Comments should explain why, not what (code should say what)"
+      ],
+      "bad_example": {
+        "situation": "Developer keeps functions large to 'reduce indirection'",
+        "code": "function statement() { // 100 lines mixing calculation, formatting, rendering }",
+        "why_bad": "Reader must hold entire function in mind. Easy to miss bugs. Hard to reuse parts.",
+        "cost": "New features take longer (must understand entire function, hard to change without breaking something)"
+      },
+      "good_example": {
+        "situation": "Developer extracts with clear names",
+        "code": "function statement() { return renderStatement(calculateCharges(invoice)); }",
+        "why_works": "Reader immediately understands flow. Each piece is understandable independently.",
+        "benefit": "Easy to change rendering without touching calculation. Easy to understand what each part does."
+      },
+      "trade_offs": "Slightly more functions (more indirection). But clarity trumps indirection—indirection is free if names are clear.",
+      "decision_criteria": {
+        "extract": "Function name clarifies what code does; readers would benefit from the abstraction",
+        "inline": "Function adds no clarity; its body is as clear as the name",
+        "leave_alone": "Function is already clear and appropriately sized"
+      },
+      "common_misconceptions": [
+        "Small functions are wasteful (false—they're clarifying, especially with good names)",
+        "Comments explain unclear code (false—if code needs a comment, rename/extract instead)",
+        "Brevity in code is good (false—clarity in code is good)",
+        "Performance requires minimizing functions (false—negligible difference; clarity matters more)"
+      ],
+      "how_to_measure": "Can a new team member understand what a function does from its name alone (without reading the body)? (If yes, readability is good. If no, rename or extract.)",
+      "related_principles": ["principle_14", "principle_2"],
+      "tags": ["#readability", "#clarity", "#naming", "#cognitive-load"],
+      "real_world_story": "A team reviews a 50-line function and decide to extract it into five 3-line functions (getVolumeBonus, getSeasonalBonus, etc.). Critics worry about overhead. Months later, they need to add a new bonus type. With the old code, they'd have to understand the entire function and copy-paste carefully. With the extracted code, they add one line: return getVolumeBonus() + getSeasonalBonus() + getNewBonus(). Clarity wins."
+    },
+    {
+      "id": "principle_5",
+      "principle": "Refactoring Fits Naturally Into Programming Workflow",
+      "scope": "system",
+      "severity": "HIGH",
+      "statement": "Refactoring should not be a separate activity (refactoring week, refactoring sprint). Instead, it should happen continuously as part of adding features, fixing bugs, and reviewing code.",
+      "reasoning": "Planned refactoring competes with feature delivery and is often cancelled ('we need features more'). Opportunistic refactoring is invisible—it's part of the work you're already doing. Teams that refactor opportunistically steadily improve code; teams that plan refactoring often never get to it.",
+      "when_to_use": [
+        "Before adding a feature: preparatory refactoring (make structure fit new feature)",
+        "While fixing a bug: comprehension refactoring (understand the bug by refactoring)",
+        "During code review: collaborative refactoring (see improvements concretely)",
+        "While reading code: move understanding into code via refactoring"
+      ],
+      "when_not_to_use": "Planning dedicated refactoring sprints (doesn't work—gets cancelled)",
+      "key_rules": [
+        "Refactor as part of adding features (preparatory refactoring)",
+        "Refactor while fixing bugs (comprehension refactoring)",
+        "Refactor in code reviews (collaborative refactoring)",
+        "Refactor when reading code (move understanding into code)"
+      ],
+      "bad_example": {
+        "situation": "Team schedules 'refactoring week' once per month",
+        "code": "Monday: stop feature work. Start refactoring. Thursday: manager asks for urgent feature. Refactoring cancelled.",
+        "why_bad": "Refactoring competes with delivery. Management always wins. Code never improves.",
+        "cost": "Technical debt compounds. Code decays. Team velocity slows."
+      },
+      "good_example": {
+        "situation": "Developers refactor opportunistically while working",
+        "code": "Add feature X → Need to change structure → Refactor (1 hour) → Add feature X (1 hour) → Done",
+        "why_works": "Refactoring is invisible. No scheduling conflict. Code structure improves naturally.",
+        "benefit": "Code steadily improves. Features are delivered faster (because structure is good). Team doesn't feel like they're not shipping."
+      },
+      "trade_offs": "Requires discipline—developers must refactor rather than hack. But the payoff is continuous improvement without scheduling headaches.",
+      "decision_criteria": {
+        "preparatory_refactor": "Adding feature, code structure doesn't fit",
+        "comprehension_refactor": "Reading code, trying to understand",
+        "review_refactor": "Code review, spot improvement",
+        "skip_refactor": "Code is working, untouched, refactoring is not enabling anything"
+      },
+      "common_misconceptions": [
+        "Planned refactoring works (false—it gets cancelled)",
+        "Refactoring should be separate from feature work (false—should be integrated)",
+        "Refactoring takes time away from features (false—it's part of adding features cleanly)",
+        "Teams won't refactor without explicit time (false—they will if it's part of daily work)"
+      ],
+      "how_to_measure": "Is code structure improving over time? (Should be yes. If no, refactoring isn't happening.) Are features taking less time to implement? (Should trend down if design is improving.)",
+      "related_principles": ["principle_2", "principle_5", "principle_18"],
+      "tags": ["#workflow", "#continuous-improvement", "#opportunistic", "#team-practice"],
+      "real_world_story": "A team tries scheduled refactoring. 5 of 10 sprints, refactoring is cancelled for urgent features. The other 5, team refactors but code isn't much better (structural problems remain). They switch to opportunistic refactoring: before each feature, check if structure fits. If not, refactor. 6 months later, code is dramatically clearer, and features are shipping faster. No big refactoring effort—just small, continuous improvements."
+    },
+    {
+      "id": "principle_6",
+      "principle": "Economic Logic, Not Aesthetics, Justifies Refactoring",
+      "scope": "system",
+      "severity": "HIGH",
+      "statement": "Refactor because it makes you faster at delivering features and fixing bugs, not because 'clean code is beautiful' or 'good engineering practice.'' Economic arguments convince management; moral arguments don't.",
+      "reasoning": "Developers often say 'we should refactor because it's the right thing to do.' Managers hear 'we're wasting time on something that doesn't ship features.' The solution: frame refactoring economically—'this refactoring will make the next change 3x faster.'",
+      "when_to_use": [
+        "Explaining refactoring to managers (use economic argument, not moral)",
+        "Justifying refactoring time to yourself (you're paid to ship fast, refactoring enables that)",
+        "Deciding which refactorings are worth it (only if they enable future changes)"
+      ],
+      "when_not_to_use": "N/A—economic logic always applies",
+      "key_rules": [
+        "Refactor only if it enables faster feature delivery or bug fixes",
+        "Communicate to management: 'I refactor so I can work faster'",
+        "Don't refactor for aesthetic reasons (it's not worth it)",
+        "Evaluate refactoring by cost/benefit: does it pay off?"
+      ],
+      "bad_example": {
+        "situation": "Developer pitches refactoring to manager: 'Code is ugly, it violates SOLID principles, we should clean it up.'",
+        "code": "Manager response: 'Do we have features to ship? Yes. Then refactor later.'",
+        "why_bad": "Moral arguments don't work. Code will never be refactored (manager will always prioritize features).",
+        "cost": "Code decays. Features take longer to ship."
+      },
+      "good_example": {
+        "situation": "Developer pitches refactoring to manager: 'To add multi-language support, we need to split rendering from calculation. That's 1 day of refactoring. Then the feature takes 1 day. Without refactoring, it takes 3 days because we have to change five places.'",
+        "code": "Manager response: 'OK, refactor then add the feature. That saves us time.'",
+        "why_works": "Economic argument. Manager sees refactoring saves time overall.",
+        "benefit": "Refactoring is approved. Feature is shipped faster. Code is better."
+      },
+      "trade_offs": "Framing refactoring economically (vs. morally) requires thinking about business impact. But it's worth it—it's how you get permission to do good work.",
+      "decision_criteria": {
+        "refactor": "This refactoring will make the next change significantly faster (2x+)",
+        "skip": "No immediate feature benefit; refactoring is optimization for its own sake"
+      },
+      "common_misconceptions": [
+        "Managers care about code quality (false—they care about features and cost)",
+        "You should refactor because code is 'bad' (false—refactor because it enables speed)",
+        "Moral arguments convince managers (false—economic arguments do)",
+        "Refactoring is always worth it (false—only if it enables future changes)"
+      ],
+      "how_to_measure": "Did this refactoring make the next change faster? (If yes, it was worth it. If no, consider it in future decisions.)",
+      "related_principles": ["principle_2", "principle_6"],
+      "tags": ["#economics", "#justification", "#pragmatism", "#business-value"],
+      "real_world_story": "A team wants to refactor a 10-year-old module. Manager says no. Developer reframes: 'We're building three new features this quarter. Each touches this module. Each requires careful copy-paste to avoid breaking things. That's 15 hours per feature. If we refactor (8 hours), each feature takes 2 hours. Net savings: 33 hours.' Manager approves immediately. Refactoring happens. Features ship fast."
+    },
+    {
+      "id": "principle_7",
+      "principle": "The Rule of Three",
+      "scope": "module",
+      "severity": "MEDIUM",
+      "statement": "First time you do something, just do it. Second time, wince at duplication but do it again. Third time, refactor and eliminate the duplication.",
+      "reasoning": "Extracting on first occurrence often misses the true pattern. By third occurrence, you understand what varies and what's constant. Premature abstraction creates complexity that doesn't pay off. The Rule of Three is pragmatic guidance.",
+      "when_to_use": [
+        "Deciding when to eliminate duplicated code (wait for third occurrence)",
+        "Avoiding premature abstraction (don't extract after first or second duplication)"
+      ],
+      "when_not_to_use": "If the pattern is obvious after second occurrence, extract early. Rule of Three is heuristic, not law.",
+      "key_rules": [
+        "First time: do it",
+        "Second time: wince but do it again",
+        "Third time: refactor",
+        "Exception: if pattern is obvious after second, extract early"
+      ],
+      "bad_example": {
+        "situation": "Developer sees two similar functions, extracts immediately",
+        "code": "function calculatePrice(a, b) { /* parameterized logic */ }",
+        "why_bad": "Third occurrence reveals differences. Abstraction doesn't work. Must re-refactor.",
+        "cost": "Wasted time. Premature abstraction adds complexity instead of reducing it."
+      },
+      "good_example": {
+        "situation": "Developer sees two similar functions, leaves them duplicated. Third occurrence, pattern is clear, extract.",
+        "code": "function calculatePrice(a, b) { /* true abstraction */ }",
+        "why_works": "Abstraction handles all three cases naturally. No re-refactoring needed.",
+        "benefit": "Clean abstraction, less complexity, less wasted effort"
+      },
+      "trade_offs": "Accepting duplication temporarily (2x) to find the right abstraction later. But better to accept temporary duplication than create wrong abstraction.",
+      "decision_criteria": {
+        "extract": "Third occurrence, pattern is clear",
+        "leave_alone": "Only one or two occurrences; pattern is unclear"
+      },
+      "common_misconceptions": [
+        "DRY (Don't Repeat Yourself) means extract on first duplication (false—it means extract when pattern is clear)",
+        "Any duplication is bad (false—temporary duplication is fine, bad abstraction is worse)",
+        "Rule of Three is absolute (false—it's a heuristic; if pattern is obvious after two, extract)"
+      ],
+      "how_to_measure": "Does the abstraction handle all cases naturally? (If yes, it was worth waiting for. If no, waited too long or pattern wasn't ready.)",
+      "related_principles": ["principle_1", "principle_14"],
+      "tags": ["#abstraction", "#duplication", "#pragmatism"],
+      "real_world_story": "A team extracts a utility function after seeing it twice. They parameterize the differences. Third occurrence reveals a special case that doesn't fit the parameters. They have to re-extract, adding complexity. Then they realize if they'd waited for the third occurrence, the abstraction would have been obvious and simpler."
+    },
+    {
+      "id": "principle_8",
+      "principle": "Code Smells: Patterns That Signal Refactoring Opportunities",
+      "scope": "module",
+      "severity": "MEDIUM",
+      "statement": "Code smells are patterns in code that suggest design problems. They're not precise rules, but heuristics that signal 'consider refactoring here.' 22 smells are catalogued.",
+      "reasoning": "Some code patterns reliably correlate with design problems. By learning to recognize them, you develop instinct for when refactoring would help. Smells are guides, not absolutes—context matters.",
+      "when_to_use": [
+        "Reviewing code (look for smells, ask if refactoring would help)",
+        "Deciding where to refactor (smells point to problem areas)",
+        "Training developers (smells are teachable, tangible patterns)"
+      ],
+      "when_not_to_use": "Refactoring every smell (some smells are acceptable in context)",
+      "key_rules": [
+        "Learn the 22 smells (mysterious name, duplicated code, long function, etc.)",
+        "Smell indicates 'consider refactoring,' not 'must refactor'",
+        "Context matters—sometimes the smell is acceptable",
+        "Refactor only if it enables faster feature development"
+      ],
+      "bad_example": {
+        "situation": "Developer sees 'long function' smell and reflexively extracts",
+        "code": "Breaks large function into many small functions, even if they're tightly coupled",
+        "why_bad": "Extraction adds indirection without benefit. Makes code harder to follow.",
+        "cost": "Code is worse, not better"
+      },
+      "good_example": {
+        "situation": "Developer sees 'long function' smell, evaluates context, extracts only if it clarifies",
+        "code": "Extract if extraction reveals multiple concerns and simplifies the function",
+        "why_works": "Extraction reduces complexity, makes code clearer",
+        "benefit": "Code is better, next developer benefits"
+      },
+      "trade_offs": "Learning 22 smells takes time. But it's worthwhile—smells become second nature.",
+      "decision_criteria": {
+        "refactor": "Smell indicates design problem; refactoring would clarify or enable change",
+        "leave_alone": "Smell is acceptable in this context; refactoring wouldn't help"
+      },
+      "common_misconceptions": [
+        "A smell always requires refactoring (false—context matters)",
+        "No smell means code is good (false—some bad code has no obvious smell)",
+        "Smells are absolute rules (false—they're heuristics)"
+      ],
+      "how_to_measure": "After addressing a smell, is code easier to understand and modify? (If yes, refactoring was justified. If no, consider leaving the smell.)",
+      "related_principles": ["principle_13", "principle_4"],
+      "tags": ["#code-smell", "#pattern-recognition", "#heuristics", "#design"],
+      "real_world_story": "A developer learns the 22 smells. Later, when reviewing a function, they notice 'divergent change' smell: 'Every time requirements change, I modify functions A, B, and C. Every time database changes, I modify D, E, F.' They extract class separating requirements logic from database logic. Now changes to requirements don't touch database code (and vice versa). Smell identified a real design problem."
+    },
+    {
+      "id": "principle_9",
+      "principle": "Extract vs. Inline Refactorings Are Inverses",
+      "scope": "module",
+      "severity": "MEDIUM",
+      "statement": "For every 'extract' refactoring (Extract Function, Extract Class), there's an inverse 'inline' refactoring (Inline Function, Inline Class). You can move in both directions.",
+      "reasoning": "Refactoring is not a one-way street. Sometimes you extract to clarify. Later, the abstraction isn't paying off, and you inline. This flexibility is a feature—it lets you refactor in one direction, then adjust if needed.",
+      "when_to_use": [
+        "Deciding to extract (will this add clarity, or just indirection?)",
+        "Reviewing extracted code (is this abstraction adding value?)",
+        "Refactoring long-lived codebases (abstractions that were right become wrong)"
+      ],
+      "when_not_to_use": "N/A—flexibility is always useful",
+      "key_rules": [
+        "Extract when extraction clarifies intent",
+        "Inline when indirection no longer adds value",
+        "Don't fear extracting then inlining (it's all learning)"
+      ],
+      "bad_example": {
+        "situation": "Developer extracts a function, creating new indirection",
+        "code": "function getAmount() { return this.amount; }  // Adds indirection without benefit",
+        "why_bad": "Indirection with no payoff. Code is harder to read (must look up the function).",
+        "cost": "Reader is confused, must trace function to understand"
+      },
+      "good_example": {
+        "situation": "Developer extracts if extraction clarifies, inlines if it doesn't",
+        "code": "Extract: function volumeBonus() { /* complex logic */ } → clarifies, keep. Inline: function getAmount() → doesn't add value, inline.",
+        "why_works": "Adds abstraction only when it helps",
+        "benefit": "Code is clearer"
+      },
+      "trade_offs": "Flexibility requires discipline—developers must evaluate whether abstraction is worth it.",
+      "decision_criteria": {
+        "extract": "Extraction clarifies intent; multiple places use the same logic",
+        "inline": "Indirection adds no value; body is as clear as name"
+      },
+      "common_misconceptions": [
+        "Extraction is permanent (false—you can inline later)",
+        "Inlining is admitting defeat (false—it's refactoring appropriately to context)",
+        "Code should be maximally abstracted (false—abstraction should enable change, not just exist)"
+      ],
+      "how_to_measure": "After extraction/inlining, is code clearer and easier to modify? (If yes, refactoring was correct. If no, consider reversing.)",
+      "related_principles": ["principle_1", "principle_4"],
+      "tags": ["#refactoring-catalog", "#abstraction", "#flexibility"],
+      "real_world_story": "Developer extracts a class separating concerns. Makes sense at the time. Months later, the separation isn't adding value—classes are tightly coupled anyway. Developer inlines the class back into the parent. Not a mistake—the code evolved. Extracting then inlining taught the team about the domain."
+    },
+    {
+      "id": "principle_10",
+      "principle": "Naming Is Among the Hardest Parts of Programming",
+      "scope": "module",
+      "severity": "MEDIUM",
+      "statement": "If you struggle to name something, it's often a sign of deeper design problems. Renaming refactorings (Change Function Declaration, Rename Variable, Rename Field) are among the most common and valuable.",
+      "reasoning": "Names encode understanding. If you can't find a good name, you probably don't understand what the code does, or it's doing too many things. Struggling with a name is a signal to refactor.",
+      "when_to_use": [
+        "When you struggle to name something (refactor rather than leave cryptic)",
+        "When reading code (rename to clarify understanding)",
+        "When improving code (renaming is one of the cheapest, highest-payoff refactorings)"
+      ],
+      "when_not_to_use": "N/A—naming always matters",
+      "key_rules": [
+        "If you can't name something clearly, the design is unclear",
+        "Rename aggressively (a 5-minute rename can improve weeks of reading)",
+        "Use full names, not abbreviations (customer not cust)",
+        "If name is long, maybe it's doing too much (consider extracting)"
+      ],
+      "bad_example": {
+        "situation": "Variables named cryptically: a, b, result, tmp, x, y",
+        "code": "function process(a, b, c) { var tmp = a * b; return tmp + c; }",
+        "why_bad": "Reader must infer what a, b, c, tmp mean. Easy to misunderstand.",
+        "cost": "Bug happens when developer misunderstands cryptic names"
+      },
+      "good_example": {
+        "situation": "Variables named clearly: customer, unitPrice, quantity, totalAmount",
+        "code": "function calculateTotal(customer, unitPrice, quantity) { return unitPrice * quantity + customer.tax; }",
+        "why_works": "Names encode meaning. Reader understands immediately.",
+        "benefit": "No misunderstanding. Code is self-documenting."
+      },
+      "trade_offs": "Long names take more typing. But most development time is reading, not writing. Good names pay off.",
+      "decision_criteria": {
+        "rename": "Current name is unclear or misleading",
+        "leave_alone": "Name is already clear"
+      },
+      "common_misconceptions": [
+        "Short names are better (false—clarity is better)",
+        "You should abbreviate to save typing (false—typing is fast; reading is slow)",
+        "Unclear names are OK if code is obvious (false—names should match code's meaning)"
+      ],
+      "how_to_measure": "Can a new developer understand what a function/variable does from its name alone? (If yes, name is good. If no, rename.)",
+      "related_principles": ["principle_4", "principle_14"],
+      "tags": ["#naming", "#clarity", "#design", "#communication"],
+      "real_world_story": "A developer inherited code with a function called calculateX(). Took them 30 minutes to understand it was calculating volume discount. They renamed it to calculateVolumeDiscount(). Later, when adding a seasonal discount, they spotted it immediately and could reuse the discounting logic. A 5-minute rename saved hours of time and confusion."
+    },
+    {
+      "id": "principle_11",
+      "principle": "Long-Term Refactoring Happens Gradually (Branch By Abstraction)",
+      "scope": "system",
+      "severity": "MEDIUM",
+      "statement": "Major refactoring efforts (weeks or months) should be done incrementally, not as dedicated sprints. Use Branch By Abstraction: introduce new abstraction, gradually move callers to it, eventually remove the old approach.",
+      "reasoning": "Attempting a massive refactoring all at once creates merge conflicts, breaks the system for days, and is risky. Gradual refactoring keeps the system working while allowing steady progress.",
+      "when_to_use": [
+        "Replacing a major component (database, API, rendering engine)",
+        "Migrating from one architecture to another",
+        "Large-scale refactoring (weeks or months)"
+      ],
+      "when_not_to_use": "Small refactorings (< 1 day) can be done directly",
+      "key_rules": [
+        "Introduce new abstraction alongside old one",
+        "Gradually move callers to new abstraction",
+        "Keep system working at all times",
+        "Eventually remove old abstraction when all callers have moved"
+      ],
+      "bad_example": {
+        "situation": "Team decides to replace old payment system with new one. Everyone stops feature work for 3 weeks.",
+        "code": "Stop integrating for 3 weeks. Massive refactoring. Then integrate all at once.",
+        "why_bad": "System is broken for 3 weeks. Huge merge conflicts. High risk.",
+        "cost": "3 weeks of no feature delivery. Bugs introduced. High stress."
+      },
+      "good_example": {
+        "situation": "Team uses Branch By Abstraction to migrate payments gradually",
+        "code": "Week 1: Add adapter layer between app and payment system. Week 2: Migrate 30% of callers to new adapter. Week 3: Migrate rest. Week 4: Remove old adapter.",
+        "why_works": "System always works. Continuous integration. Gradual progress.",
+        "benefit": "No 3-week outage. Features ship during migration. Lower risk."
+      },
+      "trade_offs": "Slightly more code (abstraction layer). But safety and continuity are worth it.",
+      "decision_criteria": {
+        "branch_by_abstraction": "Refactoring takes > 1 day; multiple teams need to integrate concurrently",
+        "direct_refactor": "Refactoring takes < 1 day; one person can complete it"
+      },
+      "common_misconceptions": [
+        "Gradual refactoring is slow (false—it's faster because you avoid merge hell)",
+        "The abstraction layer adds overhead (false—overhead is negligible)",
+        "Direct refactoring is cleaner (false—it's more dangerous and stressful)"
+      ],
+      "how_to_measure": "Is the system working during refactoring? (If yes, gradual refactoring is working. If system is down for days, you're doing it wrong.)",
+      "related_principles": ["principle_1", "principle_11"],
+      "tags": ["#long-term", "#incremental", "#integration", "#architecture", "#migration"],
+      "real_world_story": "A team needs to replace their database from MySQL to PostgreSQL. Estimated 1 month. Using Branch By Abstraction: Month 1 add abstraction layer, migrate 25%. Month 2 migrate 50%, Month 3 migrate 75%, Month 4 migrate 100%, remove old DB. Throughout: system works, features ship, no emergency maintenance. Gradual > catastrophic."
+    },
+    {
+      "id": "principle_12",
+      "principle": "Continuous Integration + Refactoring Are Synergistic",
+      "scope": "system",
+      "severity": "MEDIUM",
+      "statement": "Refactoring works best with continuous integration (short-lived branches < 1 day). Long feature branches make refactoring painful and are often abandoned.",
+      "reasoning": "Refactoring makes many small changes across the codebase. Long branches + refactoring = semantic merge conflicts (version control can merge the text, but the code is broken). CI keeps branches short, making merges trivial.",
+      "when_to_use": [
+        "Deciding on branching strategy (use CI, not long feature branches)",
+        "Justifying CI investment (enables refactoring, which enables speed)"
+      ],
+      "when_not_to_use": "N/A—CI and refactoring should always work together",
+      "key_rules": [
+        "Branch < 1 day before integrating",
+        "Refactor continuously (small changes)",
+        "Test frequently (before integrating)",
+        "Multiple people can refactor simultaneously (short branches don't conflict)"
+      ],
+      "bad_example": {
+        "situation": "Team uses long feature branches (weeks). Developers refactor within their branch. Integration day is merge hell.",
+        "code": "Person A renamed functions. Person B moved classes. Person C extracted methods. All on separate branches. Merging breaks code.",
+        "why_bad": "Semantic merge conflicts. Code doesn't work after merge even though version control merged successfully.",
+        "cost": "Merge day is chaos. Developers stop refactoring to avoid merge hell."
+      },
+      "good_example": {
+        "situation": "Team uses CI (branches < 1 day). Developers refactor in their branch, integrate frequently.",
+        "code": "Person A renames functions → integrates → Person B can see the new names → builds on them → integrates",
+        "why_works": "Short branches = trivial merges. No merge hell. Refactoring is safe.",
+        "benefit": "Team refactors continuously. Code quality improves. Features ship faster."
+      },
+      "trade_offs": "CI requires discipline (frequent commits, automated tests). But payoff is huge.",
+      "decision_criteria": {
+        "continuous_integration": "Team size > 1, project > 1 month, want to refactor",
+        "solo_development": "Team size = 1, branching doesn't matter"
+      },
+      "common_misconceptions": [
+        "Long branches are safer (false—they're riskier due to merge conflicts)",
+        "CI slows down development (false—it enables faster development)",
+        "Refactoring is incompatible with feature branches (false—with CI it works great)"
+      ],
+      "how_to_measure": "How often are semantic merge conflicts? (Should be rare with CI. If frequent, use CI better.)",
+      "related_principles": ["principle_1", "principle_5"],
+      "tags": ["#continuous-integration", "#version-control", "#team-practice", "#automation"],
+      "real_world_story": "Team A uses long feature branches. They stopped refactoring because merge conflicts are too painful. Every feature takes 2x longer. Team B uses CI (branches < 1 day). They refactor constantly. After 3 months, Team B's code is much better and features are 50% faster to implement."
+    },
+    {
+      "id": "principle_13",
+      "principle": "Code Ownership Structure Affects What Refactorings Are Possible",
+      "scope": "system",
+      "severity": "MEDIUM",
+      "statement": "If code is owned by multiple teams, some refactorings become difficult or impossible. Recommend team ownership: multiple team members can modify team code, even if written by one person.",
+      "reasoning": "Individual code ownership creates coupling. Can't rename a function if another team owns it (must maintain backward compatibility forever). Team ownership enables refactoring.",
+      "when_to_use": [
+        "Structuring teams and code ownership",
+        "Deciding on API boundaries (published APIs = harder to refactor than internal code)"
+      ],
+      "when_not_to_use": "N/A—ownership structure is decided upfront",
+      "key_rules": [
+        "Favor team ownership over individual ownership",
+        "Allow team members to modify each other's code",
+        "Published APIs are harder to refactor (must maintain backward compatibility)"
+      ],
+      "bad_example": {
+        "situation": "Each developer owns one module. Only they can change it.",
+        "code": "Alice wants to rename a function in Bob's module. Must ask Bob. Bob is busy. Function never gets renamed. Code stays confusing.",
+        "why_bad": "Ownership creates bottlenecks and discourages refactoring.",
+        "cost": "Code doesn't improve. Coupling between teams increases."
+      },
+      "good_example": {
+        "situation": "Team owns a module. Any team member can change it.",
+        "code": "Alice renames a function in 'Account Management' module. No need to ask permission (team owns it).",
+        "why_works": "No bottleneck. Refactoring is immediate.",
+        "benefit": "Code improves. Team is faster."
+      },
+      "trade_offs": "Team ownership requires more communication and code review. But it enables refactoring.",
+      "decision_criteria": {
+        "team_ownership": "Team > 1 person, want to refactor, want internal APIs to be flexible",
+        "individual_ownership": "Rare case where one person is truly the expert"
+      },
+      "common_misconceptions": [
+        "Individual ownership prevents bugs (false—team code review is better than individual ownership)",
+        "Everyone can't modify code (false—team members can, with review)",
+        "Published APIs can be refactored freely (false—must maintain backward compatibility)"
+      ],
+      "how_to_measure": "Can developers refactor internal APIs? (If no, ownership structure is blocking them.)",
+      "related_principles": ["principle_1", "principle_5"],
+      "tags": ["#ownership", "#coupling", "#modularity", "#team-structure"],
+      "real_world_story": "Team A has individual code ownership. Feature takes 2x longer because it touches three modules, each owned by different people. Refactoring is blocked (can't change other people's code). Team B has team ownership. Same feature takes normal time (team can refactor across modules). Code improves."
+    },
+    {
+      "id": "principle_14",
+      "principle": "Legacy Code Needs a Different Strategy",
+      "scope": "system",
+      "severity": "MEDIUM",
+      "statement": "If code lacks tests, you can't safely refactor it. Instead of giving up, use seams: find points where you can inject tests without modifying production code, gradually build test coverage, then refactor.",
+      "reasoning": "Catch-22: can't refactor without tests, can't test without understanding, can't understand without refactoring. Solution: find seams and gradually add tests.",
+      "when_to_use": [
+        "Inheriting legacy code without tests",
+        "Deciding between refactoring and rewriting (if seams exist, refactoring might be faster)"
+      ],
+      "when_not_to_use": "Code has tests and you can refactor freely",
+      "key_rules": [
+        "Find seams (dependency injection, mocking boundaries)",
+        "Add tests gradually (test one piece at a time)",
+        "Refactor to create more seams",
+        "Eventually, refactor freely once tests exist"
+      ],
+      "bad_example": {
+        "situation": "Inheritance of legacy code, no tests. Developer wants to refactor. Realizes it's too risky.",
+        "code": "Just leave it. Code never improves. Eventually it's so bad, rewrite is needed.",
+        "why_bad": "Technical debt compounds. Code becomes unmaintainable.",
+        "cost": "Huge rewrite cost. Years of poor velocity."
+      },
+      "good_example": {
+        "situation": "Inheritance of legacy code. Developer adds seams, tests, then refactors gradually",
+        "code": "Identify seams → Add tests using seams → Refactor to make structure testable → Continue",
+        "why_works": "Gradually increase test coverage. Gradually improve code.",
+        "benefit": "Code steadily improves. No huge rewrite needed."
+      },
+      "trade_offs": "Upfront effort to find seams and add tests. But it's faster than rewriting.",
+      "decision_criteria": {
+        "seam_strategy": "Legacy code, seams exist, want to preserve working features",
+        "rewrite": "Legacy code, no seams, refactoring effort > rewrite effort"
+      },
+      "common_misconceptions": [
+        "Legacy code is hopeless (false—seam strategy works)",
+        "You need 100% test coverage to refactor (false—test the code you're changing)",
+        "Adding tests to legacy code is hard (false—seams make it possible)"
+      ],
+      "how_to_measure": "Does test coverage increase over time? (Should be yes. If no, seam strategy isn't working.)",
+      "related_principles": ["principle_3", "principle_7"],
+      "tags": ["#legacy-code", "#testing", "#risk-management", "#seams"],
+      "real_world_story": "Team inherits 15-year-old codebase with no tests. Functionality is complex and critical. Instead of rewriting, they use seam strategy: 1. Identify dependencies (database, config, external API). 2. Introduce seams (dependency injection). 3. Add tests for core logic. 4. Refactor to separate concerns. Over 6 months, test coverage grew from 0% to 70%. Code improved. No catastrophic rewrite needed."
+    },
+    {
+      "id": "principle_15",
+      "principle": "Refactoring ≠ Rewriting",
+      "scope": "system",
+      "severity": "MEDIUM",
+      "statement": "Refactoring preserves behavior while improving structure. Rewriting throws away the old code and starts fresh. Different strategies apply.",
+      "reasoning": "The decision to refactor vs. rewrite is crucial and requires judgment. No simple rule.",
+      "when_to_use": [
+        "Deciding whether to refactor or rewrite (estimate both approaches)"
+      ],
+      "when_not_to_use": "N/A—decision applies to all significant changes",
+      "key_rules": [
+        "Refactor if: tests exist, refactoring effort < rewrite effort, code is working",
+        "Rewrite if: tests don't exist, refactoring effort > rewrite effort, code is broken"
+      ],
+      "bad_example": {
+        "situation": "Code is messy. Developer starts refactoring but realizes it's slower than rewriting. Too late to switch strategies.",
+        "code": "Already halfway through refactoring. Invested time in seam strategy.",
+        "why_bad": "Sunk cost fallacy. Better to admit rewrite is faster and restart.",
+        "cost": "Wasted refactoring time"
+      },
+      "good_example": {
+        "situation": "Code is messy. Developer estimates both refactoring and rewriting upfront. Chooses faster approach.",
+        "code": "Refactoring looks 3 weeks, rewriting looks 2 weeks. Choose rewrite.",
+        "why_works": "Informed decision based on estimates.",
+        "benefit": "Faster path chosen"
+      },
+      "trade_offs": "Rewrite is riskier (might lose working features). Refactoring is safer but slower sometimes.",
+      "decision_criteria": {
+        "refactor": "Refactoring effort < rewrite effort; code is mostly working; tests exist or can be added",
+        "rewrite": "Refactoring effort > rewrite effort; code is broken; requirements have changed"
+      },
+      "common_misconceptions": [
+        "Rewrite is always faster (false—often slower due to bugs and lost features)",
+        "Refactoring is always safer (false—if effort is high, rewrite might be better)",
+        "You can estimate accurately upfront (false—estimates have error margin)"
+      ],
+      "how_to_measure": "Did you choose the right strategy? (Refactoring took 3 weeks, rewriting would have taken 2 weeks = wrong choice.)",
+      "related_principles": ["principle_1", "principle_14"],
+      "tags": ["#refactoring-vs-rewriting", "#pragmatism", "#cost-benefit", "#decision-making"],
+      "real_world_story": "Team inherited code from failed startup. Original developers are gone. Documentation is nonexistent. Team estimated: refactoring (test + understand + improve) = 8 weeks. Rewriting from scratch = 6 weeks. They chose rewrite. Code is now modern and testable. The refactoring strategy would have been cheaper if documentation existed and developers could have been contacted, but in this case, rewrite was correct."
+    },
+    {
+      "id": "principle_16",
+      "principle": "Refactoring in Code Review Enables Concrete Feedback",
+      "scope": "module",
+      "severity": "MEDIUM",
+      "statement": "Rather than suggesting refactorings and imagining the result, actually refactor during code review. See concrete improvements.",
+      "reasoning": "Suggested refactorings in comments are often ignored or misunderstood. Concrete refactoring shows the author exactly what you mean.",
+      "when_to_use": [
+        "Code review process (refactor together rather than suggest)",
+        "Pair programming (continuous code review + refactoring)"
+      ],
+      "when_not_to_use": "Asynchronous reviews where pairing is impossible (but consider scheduling pairing time)",
+      "key_rules": [
+        "Refactor together during review (don't just suggest)",
+        "Discuss: 'Does this make it better?'",
+        "Keep or undo based on discussion",
+        "Result: concrete improvements, not suggestions"
+      ],
+      "bad_example": {
+        "situation": "Reviewer leaves comments: 'Could extract this. Could rename that. Could use polymorphism here.'",
+        "code": "Author reads comments, imagines refactorings, ignores them or misunderstands",
+        "why_bad": "Suggestions are often ignored or misinterpreted",
+        "cost": "Code doesn't improve"
+      },
+      "good_example": {
+        "situation": "Reviewer and author pair, refactor together. See concrete result.",
+        "code": "Extract Function → Rename Variable → Discuss: 'Is this better?' → Keep or undo",
+        "why_works": "Concrete result, not imagined. Both understand the change.",
+        "benefit": "Code is actually improved. Both learn."
+      },
+      "trade_offs": "Synchronous time together (pairing). But quality of review is much higher.",
+      "decision_criteria": {
+        "refactor_in_review": "Can pair for 30 min - 1 hour",
+        "suggest_in_comments": "Asynchronous review only; pairing is impossible"
+      },
+      "common_misconceptions": [
+        "Comments are enough feedback (false—concrete is better than suggested)",
+        "Pairing during review is inefficient (false—higher quality, less iteration)",
+        "Pair programming is expensive (false—catches bugs early, reduces total cost)"
+      ],
+      "how_to_measure": "After review, is code actually improved? (If yes, refactoring in review is working. If suggested changes are ignored, try refactoring together.)",
+      "related_principles": ["principle_1", "principle_5"],
+      "tags": ["#code-review", "#collaboration", "#pair-programming"],
+      "real_world_story": "Team tried asynchronous code review. Reviewers left comments about refactoring. Authors usually ignored them or misunderstood the suggestions. They switched to pairing during review: 30 min together. Refactored concretely, discussed trade-offs. Code improved dramatically. Team culture shifted from 'review is mandatory' to 'review is learning opportunity.'"
+    },
+    {
+      "id": "principle_17",
+      "principle": "Refactoring Involves Trade-offs—Make Them Explicit",
+      "scope": "module",
+      "severity": "LOW",
+      "statement": "Refactoring involves trade-offs. Sometimes you add abstraction (clearer design, more indirection). Decide if it's worth it.",
+      "reasoning": "There's no refactoring that's pure win. Every refactoring has a cost (abstraction level, indirection, complexity). Explicitly evaluate if the benefit outweighs the cost.",
+      "when_to_use": [
+        "Evaluating a refactoring (what's the cost, what's the benefit?)",
+        "Deciding whether to refactor or leave code alone"
+      ],
+      "when_not_to_use": "N/A—all refactorings have trade-offs",
+      "key_rules": [
+        "Extract Function → adds clarity but adds indirection",
+        "Extract Class → separates concerns but increases number of objects",
+        "Introduce Parameter Object → reduces parameter list but adds a class"
+      ],
+      "bad_example": {
+        "situation": "Developer extracts aggressively, adding many levels of abstraction",
+        "code": "Code is now 'clean' but has 10 levels of function calls to do something simple",
+        "why_bad": "Indirection makes code harder to follow, not easier",
+        "cost": "Readers are confused tracing through abstraction layers"
+      },
+      "good_example": {
+        "situation": "Developer extracts only when benefit > cost",
+        "code": "Extract if: clarity improves, duplication decreases, coupling decreases. Otherwise leave it.",
+        "why_works": "Abstraction adds value, not just complexity",
+        "benefit": "Code is simpler and clearer"
+      },
+      "trade_offs": "Requires judgment about when abstraction is worth it",
+      "decision_criteria": {
+        "refactor": "Benefit of refactoring > cost of refactoring",
+        "leave_alone": "Cost >= benefit"
+      },
+      "common_misconceptions": [
+        "All refactoring is good (false—some refactoring adds complexity)",
+        "Maximum abstraction is the goal (false—appropriate abstraction is the goal)",
+        "All code should be refactored (false—some code should be left alone)"
+      ],
+      "how_to_measure": "After refactoring, is code easier to understand and modify? (If yes, refactoring was worth it. If no, consider inlining.)",
+      "related_principles": ["principle_4", "principle_9"],
+      "tags": ["#tradeoffs", "#pragmatism", "#design-judgment", "#cost-benefit"],
+      "real_world_story": "Developer over-abstracts early. Creates interfaces for everything, parameter objects for all data, factory methods for all creation. Code is 'architecture perfect' but incomprehensible. New developers can't find anything. Years later, developer realizes: they added complexity without adding value. Extracts too aggressively."
+    },
+    {
+      "id": "principle_18",
+      "principle": "Refactoring Is Ongoing Discipline, Not One-Time Activity",
+      "scope": "system",
+      "severity": "HIGH",
+      "statement": "Refactoring is not something you do once, then move on. It's continuous—part of how you program. Excellent code needs refactoring because tradeoffs change over time.",
+      "reasoning": "As requirements change, the design that fit yesterday's features may not fit today's. Refactoring lets you adjust the design incrementally.",
+      "when_to_use": [
+        "Every time you touch code (leave it slightly better)",
+        "Every feature you add (structure might need adjustment)",
+        "Every bug you fix (understand and clarify the code)"
+      ],
+      "when_not_to_use": "N/A—continuous refactoring should always happen",
+      "key_rules": [
+        "Refactor every time you touch code",
+        "Leave code slightly better than you found it",
+        "Don't aim for perfection, aim for progress",
+        "Small improvements accumulate"
+      ],
+      "bad_example": {
+        "situation": "Team decides 'we'll refactor after launch' or 'we'll refactor next quarter'",
+        "code": "Code stays messy. Refactoring never happens.",
+        "why_bad": "Deferred refactoring doesn't happen. Code debt compounds.",
+        "cost": "Code gets worse over time"
+      },
+      "good_example": {
+        "situation": "Team refactors continuously as part of daily work",
+        "code": "Every feature addition: refactor structure if needed. Every bug fix: refactor to clarify. Every review: refactor together.",
+        "why_works": "Code steadily improves",
+        "benefit": "Over months, code is dramatically better"
+      },
+      "trade_offs": "Requires discipline and culture (refactoring isn't always visible to management)",
+      "decision_criteria": {
+        "refactor": "Always (every time you touch code)",
+        "leave_alone": "Never (if you touched it, improve it)"
+      },
+      "common_misconceptions": [
+        "Refactoring is a phase (false—it's ongoing)",
+        "Refactoring is separate from feature work (false—it's integrated)",
+        "Some code doesn't need refactoring (false—all code needs it eventually)"
+      ],
+      "how_to_measure": "Over time, is code getting better or worse? (Should be better with continuous refactoring.)",
+      "related_principles": ["principle_2", "principle_5"],
+      "tags": ["#continuous-improvement", "#evolution", "#long-term-thinking", "#discipline"],
+      "real_world_story": "Two teams, same age codebase. Team A practices continuous refactoring (small, opportunistic). Team B deferred refactoring ('we'll do it later'). After 2 years: Team A's code is cleaner and they ship features faster. Team B's code is worse and they're considering a rewrite. The difference: Team A spent 5-10% of time on refactoring continuously. Team B is now spending 50% of time fighting the mess."
+    },
+    {
+      "id": "principle_19",
+      "principle": "The Two Hats: Refactoring vs. Adding Features",
+      "scope": "module",
+      "severity": "MEDIUM",
+      "statement": "When programming, wear two hats: refactoring hat (structure code for clarity, no behavior change) and feature hat (add new capability). Switch hats deliberately to avoid confusion.",
+      "reasoning": "Mixing hats leads to confusion and mistakes. When adding a feature, if structure doesn't fit, put on refactoring hat, fix structure, then switch to feature hat.",
+      "when_to_use": [
+        "When your instinct is to mix refactoring and feature development",
+        "When structure doesn't fit the new feature"
+      ],
+      "when_not_to_use": "N/A—discipline of switching hats is always valuable",
+      "key_rules": [
+        "Wear one hat at a time",
+        "Refactoring hat: change structure, no behavior change, run tests",
+        "Feature hat: add behavior, test for correctness",
+        "Switch deliberately, not accidentally"
+      ],
+      "bad_example": {
+        "situation": "Developer mixes refactoring and feature work",
+        "code": "Extract class, add feature, rename method, move function, add another feature",
+        "why_bad": "When tests fail, unclear if it's refactoring mistake or feature bug",
+        "cost": "Debugging takes longer, mistakes hide"
+      },
+      "good_example": {
+        "situation": "Developer switches hats deliberately",
+        "code": "Refactor hat: Extract class, test. Feature hat: Add feature, test. Done.",
+        "why_works": "When test fails, you know which hat you're wearing",
+        "benefit": "Debugging is faster, mistakes surface immediately"
+      },
+      "trade_offs": "Slight overhead of context-switching hats. But clarity is worth it.",
+      "decision_criteria": {
+        "refactor_hat": "Structure doesn't fit current task",
+        "feature_hat": "Structure fits current task"
+      },
+      "common_misconceptions": [
+        "You can mix refactoring and feature work (false—mixing causes confusion)",
+        "The distinction is minor (false—it helps debugging and understanding)"
+      ],
+      "how_to_measure": "When tests fail, can you immediately identify if it's refactoring or feature bug? (If yes, you're switching hats well. If no, you're mixing.)",
+      "related_principles": ["principle_1", "principle_5"],
+      "tags": ["#discipline", "#context-switching", "#clarity", "#debugging"],
+      "real_world_story": "Developer adds feature but tests fail. Is it the feature or the 3 refactorings they did first? Takes 2 hours to debug. Lesson learned: wear one hat at a time. Do refactorings first, test them (all passing). Then switch to feature hat. Now when tests fail, cause is obvious."
+    },
+    {
+      "id": "principle_20",
+      "principle": "The Catalog: 66+ Named Refactorings",
+      "scope": "module",
+      "severity": "MEDIUM",
+      "statement": "Fowler catalogs 66+ named refactorings with mechanics for each. Major ones: Extract Function, Inline Function, Rename Variable, Extract Class, Move Function, Replace Conditional with Polymorphism, Split Phase, Branch By Abstraction.",
+      "reasoning": "Named refactorings provide a shared vocabulary. Instead of 'restructure this,' you say 'Extract Class.' This is more precise and teachable.",
+      "when_to_use": [
+        "Learning refactoring (study the catalog)",
+        "Discussing refactorings with teammates (use names)",
+        "Choosing which refactoring to apply (consult the catalog)"
+      ],
+      "when_not_to_use": "N/A—knowing the catalog is always useful",
+      "key_rules": [
+        "Learn the top 10 refactorings deeply (Extract Function, Inline, Rename, Extract Class, Move, Replace Conditional, Split Phase)",
+        "Use the catalog when you need a specific refactoring",
+        "Don't memorize all 66—internalize the top 10"
+      ],
+      "bad_example": {
+        "situation": "Developer improvises refactoring without knowing the catalog",
+        "code": "Attempts complex restructuring without proven pattern",
+        "why_bad": "Likely to make mistakes, inefficient refactoring",
+        "cost": "Slower refactoring, more bugs"
+      },
+      "good_example": {
+        "situation": "Developer consults the catalog and follows proven pattern",
+        "code": "Extract Function, following the specific steps Fowler outlines",
+        "why_works": "Proven pattern, less likely to make mistakes",
+        "benefit": "Faster refactoring, fewer bugs"
+      },
+      "trade_offs": "Time to learn the catalog. But pays off immediately.",
+      "decision_criteria": {
+        "use_catalog": "Always (proven patterns are better than improvisation)"
+      },
+      "common_misconceptions": [
+        "The catalog is too big to learn (false—learn top 10, rest are variations)",
+        "Improvised refactoring is fine (false—proven patterns are safer)",
+        "Every refactoring is unique (false—most fit into 66 patterns)"
+      ],
+      "how_to_measure": "Are you using named refactorings when discussing code? (If yes, catalog is useful. If still improvising, learn the catalog.)",
+      "related_principles": ["principle_1"],
+      "tags": ["#refactoring-catalog", "#vocabulary", "#pattern", "#toolkit"],
+      "real_world_story": "Two developers attempt the same refactoring. Developer A knows the Extract Class pattern and follows it step-by-step (30 min). Developer B improvises (2 hours, several false starts). Developer A's result is cleaner. Lesson: the catalog exists for a reason."
+    }
+  ],
+  "decision_guide": {
+    "when_uncertain_ask": [
+      "Is this refactoring preserving behavior? (If no, it's not refactoring.)",
+      "Will this refactoring make the next change faster? (If no, maybe skip it.)",
+      "Do I have tests to verify behavior is preserved? (If no, add tests first.)",
+      "Is the benefit of this refactoring > its cost? (If no, leave it alone.)",
+      "Can I do this refactoring in small steps? (If no, break it into smaller pieces.)",
+      "Does this code smell suggest a design problem? (Not all smells require refactoring.)"
+    ]
+  },
+  "faq": [
+    {
+      "question": "Should I refactor before or after adding features?",
+      "answer": "Preparatory refactoring (before): If code structure doesn't fit the new feature. Litter-pickup refactoring (after): Always leave code slightly better. The best approach is: before adding a feature, refactor structure to fit the feature. Then add the feature. Then refactor if needed."
+    },
+    {
+      "question": "Can I refactor without tests?",
+      "answer": "Not safely. Tests are prerequisite. If code lacks tests, use seam strategy to add tests gradually, then refactor."
+    },
+    {
+      "question": "How long should a refactoring take?",
+      "answer": "Small refactorings: < 1 hour. Large refactorings: multiple days or weeks, done gradually using Branch By Abstraction. If a refactoring takes > 1 day and causes system downtime, use Branch By Abstraction to keep system working."
+    },
+    {
+      "question": "Should I tell management I'm refactoring?",
+      "answer": "Not if you're doing opportunistic refactoring (part of feature work or bug fixes). It's part of your job. If refactoring is separate effort, justify economically: 'This refactoring will make the next feature 3x faster.'"
+    },
+    {
+      "question": "When should I rewrite instead of refactor?",
+      "answer": "If refactoring effort > rewrite effort, rewrite. If code has no tests and adding tests is very hard, rewrite. Otherwise, refactoring is usually safer."
+    },
+    {
+      "question": "What's the most common refactoring?",
+      "answer": "Extract Function. It's the foundation of code clarity. Small, well-named functions are easier to understand than large ones."
+    },
+    {
+      "question": "How do I know when to stop refactoring?",
+      "answer": "Stop when benefit < cost. Stop when code is 'good enough' for its context. Stop when you can stop and have working code."
+    }
+  ],
+  "tags": [
+    "#refactoring",
+    "#code-quality",
+    "#design",
+    "#behavior-preservation",
+    "#testing",
+    "#architecture",
+    "#incremental-improvement",
+    "#team-practice",
+    "#long-term-thinking",
+    "#pragmatism",
+    "#continuous-integration",
+    "#legacy-code"
+  ],
+  "cross_book_references": {
+    "clean-architecture": "Both Fowler and Martin emphasize design for changeability. CA provides architecture framework; Refactoring provides mechanical techniques to improve design.",
+    "ideal-work": "Professional practices: TDD enables refactoring; refactoring enables professional code quality. Both emphasize discipline.",
+    "pragmatic-programmer": "Both emphasize pragmatic tradeoffs and sustainable pace. Refactoring enables sustainable pace by preventing code decay.",
+    "code-fits-in-head": "Both optimize for readability and cognitive load. Small, well-named functions (refactoring goal) fit in head (CTFIH goal)."
+  }
+}
